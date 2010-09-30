@@ -1,0 +1,15 @@
+TODO File
+---------
+- Convert RAGenFeatures to Tab
+- Convert RAGenPDE to Tab
+- Incorporate About dialog box
+- Incorporate Settings dialog box
+- Improve Settings dialog box
+- Create Colors Page
+- Create Settings Page (default settings for InternalMemory generation)
+- Process command line arguments (create them and have them be used)
+
+Completed / Release Information
+-------------------------------
+v1.00 - Beta 1
+--------------

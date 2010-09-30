@@ -1,0 +1,11 @@
+# ignore file for Visual Studio C++ projects
+bin/
+obj/
+Release/
+Debug/
+*.user
+*.o
+*.ncb
+*.aps
+*.suo
+*.pde
