@@ -67,6 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="version.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -148,6 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="version.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -189,6 +191,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\cb_FileVersion.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\RAColorsPage.cpp"
 				>
@@ -240,6 +246,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\cb_FileVersion.h"
+				>
+			</File>
+			<File
 				RelativePath=".\RAColorsPage.h"
 				>
 			</File>
@@ -278,6 +288,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\res\curtbinderlogo.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\RAGen.ico"
 				>
 			</File>
@@ -287,6 +301,10 @@
 			</File>
 			<File
 				RelativePath=".\res\RAGen.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ReefAngelLogo.bmp"
 				>
 			</File>
 		</Filter>

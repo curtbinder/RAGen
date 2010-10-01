@@ -40,6 +40,9 @@ CRAGenPropSheet::~CRAGenPropSheet()
 
 
 BEGIN_MESSAGE_MAP(CRAGenPropSheet, CPropertySheet)
+	ON_COMMAND(ID_FILE_EXIT, &CRAGenPropSheet::OnFileExit)
+	ON_COMMAND(ID_HELP_ABOUT, &CRAGenPropSheet::OnHelpAbout)
+	ON_COMMAND(ID_EDIT_SETTINGS, &CRAGenPropSheet::OnEditSettings)
 END_MESSAGE_MAP()
 
 
@@ -66,7 +69,22 @@ BOOL CRAGenPropSheet::OnInitDialog()
 	MoveWindow(r);
 	
 	GetDlgItem(IDOK)->ShowWindow(SW_HIDE);
-	GetDlgItem(IDCANCEL)->SetWindowText(_T("Close"));
+	GetDlgItem(IDCANCEL)->SetWindowText(_T("&Close"));
 
 	return bResult;
+}
+
+void CRAGenPropSheet::OnFileExit()
+{
+	PostMessage(WM_CLOSE);
+}
+
+void CRAGenPropSheet::OnHelpAbout()
+{
+	// TODO: Add your command handler code here
+}
+
+void CRAGenPropSheet::OnEditSettings()
+{
+	// TODO: Add your command handler code here
 }

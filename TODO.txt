@@ -1,6 +1,7 @@
 TODO File
 ---------
 - Convert RAGenFeatures to Tab
+	- Migrate functions
 - Convert RAGenPDE to Tab
 - Incorporate About dialog box
 - Incorporate Settings dialog box
@@ -8,6 +9,11 @@ TODO File
 - Create Colors Page
 - Create Settings Page (default settings for InternalMemory generation)
 - Process command line arguments (create them and have them be used)
+- Defines
+	- 200-300 Features (2000-3000 controls)
+	- 300-400 PDE (3000-4000 controls)
+	- 400-500 Settings (4000-5000 controls)
+	- 500-600 Colors (5000-6000 controls)
 
 Completed / Release Information
 -------------------------------
