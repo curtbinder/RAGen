@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "RAGen.h"
 #include "RAGenPropSheet.h"
+#include "AboutDlg.h"
 
 
 // CRAGenPropSheet
@@ -81,7 +82,8 @@ void CRAGenPropSheet::OnFileExit()
 
 void CRAGenPropSheet::OnHelpAbout()
 {
-	// TODO: Add your command handler code here
+	AboutDlg dlg;
+	dlg.DoModal();
 }
 
 void CRAGenPropSheet::OnEditSettings()

@@ -1,9 +1,9 @@
 TODO File
 ---------
 - Convert RAGenFeatures to Tab
-	- Migrate functions
+	- Migrate Generate Button
+	- Load Defaults
 - Convert RAGenPDE to Tab
-- Incorporate About dialog box
 - Incorporate Settings dialog box
 - Improve Settings dialog box
 - Create Colors Page
@@ -19,3 +19,4 @@ Completed / Release Information
 -------------------------------
 v1.00 - Beta 1
 --------------
+- Incorporate About dialog box
