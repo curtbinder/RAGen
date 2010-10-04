@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "RAGen.h"
-#include "RAGenPropSheet.h"
+#include "RAGenDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -56,7 +56,7 @@ BOOL CRAGenApp::InitInstance()
 
 	// TODO process any command line arguments here and update settings appropriately
 
-	CRAGenPropSheet dlg(_T("ReefAngel Generator"));
+	RAGenDlg dlg;
 	m_pMainWnd = &dlg;
 	dlg.DoModal();
 
