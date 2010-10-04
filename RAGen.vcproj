@@ -196,7 +196,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cb_BrowseFolder.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\cb_FileVersion.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\cb_IsFolderWritable.cpp"
 				>
 			</File>
 			<File
@@ -213,10 +221,6 @@
 			</File>
 			<File
 				RelativePath=".\RAGenDlg.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RAGenPropSheet.cpp"
 				>
 			</File>
 			<File
@@ -262,7 +266,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cb_BrowseFolder.h"
+				>
+			</File>
+			<File
 				RelativePath=".\cb_FileVersion.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cb_IsFolderWritable.h"
 				>
 			</File>
 			<File
@@ -279,10 +291,6 @@
 			</File>
 			<File
 				RelativePath=".\RAGenDlg.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RAGenPropSheet.h"
 				>
 			</File>
 			<File

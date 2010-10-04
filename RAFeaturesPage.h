@@ -3,12 +3,12 @@
 
 // RAFeaturesPage dialog
 
-class RAFeaturesPage : public CPropertyPage
+class RAFeaturesPage : public CDialog
 {
 	DECLARE_DYNAMIC(RAFeaturesPage)
 
 public:
-	RAFeaturesPage();
+	RAFeaturesPage(CWnd* pParent = NULL);
 	virtual ~RAFeaturesPage();
 
 // Dialog Data

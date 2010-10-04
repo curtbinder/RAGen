@@ -27,6 +27,15 @@ void RAGenDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TAB, m_Tabs);
 }
 
+void RAGenDlg::SetStatus(LPCTSTR s)
+{
+	SetDlgItemText(IDC_TEXT_STATUS, s);
+}
+
+void RAGenDlg::ClearStatus()
+{
+	SetStatus(_T(""));
+}
 
 BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_WM_PAINT()
@@ -34,6 +43,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_EDIT_SETTINGS, &RAGenDlg::OnEditSettings)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
+	ON_BN_CLICKED(IDC_BTN_GENERATE, &RAGenDlg::OnBnClickedBtnGenerate)
 END_MESSAGE_MAP()
 
 
@@ -48,8 +58,7 @@ BOOL RAGenDlg::OnInitDialog()
 
 	m_Tabs.Init();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// EXCEPTION: OCX Property Pages should return FALSE
+	return TRUE;
 }
 
 void RAGenDlg::OnPaint()
@@ -84,7 +93,8 @@ HCURSOR RAGenDlg::OnQueryDragIcon()
 
 void RAGenDlg::OnEditSettings()
 {
-
+	// Load settings
+	//SetStatus(_T("This is the status"));
 }
 
 void RAGenDlg::OnFileExit()
@@ -96,4 +106,16 @@ void RAGenDlg::OnHelpAbout()
 {
 	AboutDlg dlg;
 	dlg.DoModal();
+}
+
+void RAGenDlg::OnBnClickedBtnGenerate()
+{
+	// Process the Generate Button Press
+}
+
+BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	// TODO: Add your specialized code here and/or call the base class
+
+	return CDialog::OnCommand(wParam, lParam);
 }

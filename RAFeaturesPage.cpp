@@ -9,12 +9,11 @@
 
 // RAFeaturesPage dialog
 
-IMPLEMENT_DYNAMIC(RAFeaturesPage, CPropertyPage)
+IMPLEMENT_DYNAMIC(RAFeaturesPage, CDialog)
 
-RAFeaturesPage::RAFeaturesPage()
-	: CPropertyPage(RAFeaturesPage::IDD)
+RAFeaturesPage::RAFeaturesPage(CWnd* pParent /*=NULL*/)
+	: CDialog(RAFeaturesPage::IDD, pParent)
 {
-	m_psp.dwFlags &= ~PSP_HASHELP;
 	LoadFeatures();
 }
 
@@ -24,7 +23,7 @@ RAFeaturesPage::~RAFeaturesPage()
 
 void RAFeaturesPage::DoDataExchange(CDataExchange* pDX)
 {
-	CPropertyPage::DoDataExchange(pDX);
+	CDialog::DoDataExchange(pDX);
 	DDX_Check(pDX, IDC_FEATURES_CK_DISPLAY_IMAGES, m_bDisplayImages);
 	DDX_Check(pDX, IDC_FEATURES_CK_SETUP_EXTRAS, m_bSetupExtras);
 	DDX_Check(pDX, IDC_FEATURES_CK_DOSINGPUMP_SETUP, m_bDosingPumpSetup);
@@ -45,7 +44,7 @@ void RAFeaturesPage::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(RAFeaturesPage, CPropertyPage)
+BEGIN_MESSAGE_MAP(RAFeaturesPage, CDialog)
 	//}}AFX_MSG_MAP
 	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DISPLAY_IMAGES, &RAFeaturesPage::OnBnHotItemChangeCkDisplayImages)
 	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_SETUP_EXTRAS, &RAFeaturesPage::OnBnHotItemChangeCkSetupExtras)
@@ -71,7 +70,7 @@ END_MESSAGE_MAP()
 
 BOOL RAFeaturesPage::OnInitDialog()
 {
-	CPropertyPage::OnInitDialog();
+	CDialog::OnInitDialog();
 
 	ClearDescription();
 	// Set current directory

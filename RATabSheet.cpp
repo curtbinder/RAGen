@@ -5,7 +5,7 @@
 #include "RAGen.h"
 #include "RATabSheet.h"
 #include "RAFeaturesPage.h"
-//#include "RAPDEPage.h"
+#include "RAPDEPage.h"
 //#include "RAColorsPage.h"
 //#include "RASettingsPage.h"
 
@@ -17,7 +17,8 @@ IMPLEMENT_DYNAMIC(RATabSheet, CTabCtrl)
 RATabSheet::RATabSheet()
 {
 	m_pTabs[0] = new RAFeaturesPage;
-	m_iNumTabs = 1;
+	m_pTabs[1] = new RAPDEPage;
+	m_iNumTabs = 2;
 }
 
 RATabSheet::~RATabSheet()
@@ -34,10 +35,11 @@ void RATabSheet::Init()
 	InsertItem(0, _T("Features"));
 	//InsertItem(1, _T("Colors"));
 	//InsertItem(2, _T("Values"));
-	//InsertItem(3, _T("PDE"));
+	InsertItem(1, _T("PDE"));
 
 	m_iCurrentTab = 0;
-	m_pTabs[0]->Create(IDD_RAFEATURESPAGE, this);	
+	m_pTabs[0]->Create(IDD_RAFEATURESPAGE, this);
+	m_pTabs[1]->Create(IDD_RAPDEPAGE, this);
 
 	m_pTabs[0]->ShowWindow(SW_SHOW);
 	for ( int i = 1; i < m_iNumTabs; i++ )

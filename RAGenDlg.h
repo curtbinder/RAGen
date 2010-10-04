@@ -17,6 +17,8 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	void SetStatus(LPCTSTR s);
+	void ClearStatus();
 
 	DECLARE_MESSAGE_MAP()
 
@@ -30,4 +32,7 @@ public:
 	afx_msg void OnEditSettings();
 	afx_msg void OnFileExit();
 	afx_msg void OnHelpAbout();
+	afx_msg void OnBnClickedBtnGenerate();
+protected:
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 };
