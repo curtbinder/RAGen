@@ -15,6 +15,14 @@
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
 #define IDR_MENU_MAIN                   129
+#define IDR_MENU_RESET					130
+#define IDR_MENU_PDE_RESET				131
+#define IDS_FEATURES_TAB				132
+#define IDS_PDE_TAB						133
+#define IDS_COLORS_TAB					134
+#define IDS_VALUES_TAB					135
+#define IDS_SUCCESS_FEATURES			136
+#define IDS_SUCCESS_PDE					137
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_DOSINGPUMPSETUP    204
@@ -117,13 +125,24 @@
 #define ID_FILE_EXIT                    32771
 #define ID_HELP_ABOUT                   32772
 #define ID_EDIT_SETTINGS                32773
+#define ID_CHANGE_MENU					32774
+#define ID_RESET_ALL                    32775
+#define ID_RESET_SAVED					32776
+#define ID_RESET_PORTS                  32777
+#define ID_RESET_TEMPERATURE            32778
+#define ID_RESET_FEEDINGMODE            32779
+#define ID_RESET_WATERCHANGEMODE        32780
+#define ID_RESET_OVERHEAT               32781
+#define ID_RESET_LIGHTSON               32782
+#define ID_RESET_LOGGING                32783
+#define ID_UPDATE_STATUS				32784
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        600
-#define _APS_NEXT_COMMAND_VALUE         32774
+#define _APS_NEXT_COMMAND_VALUE         32785
 #define _APS_NEXT_CONTROL_VALUE         1006
 #define _APS_NEXT_SYMED_VALUE           109
 #endif

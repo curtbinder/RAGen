@@ -62,6 +62,10 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RAPDEPAGE };
 
+	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory for generated PDE files
+	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	CString sFilename;  //!< Filename of the PDE file generated
+
 protected:
 	//! DDX/DDV Data Exchange between controls and variables
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -69,12 +73,8 @@ protected:
 
 // Implementation
 protected:
-	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory for generated PDE files
-	CMenu m_mnuReset;  //!< Reset menu
-	CString sFilename;  //!< Filename of the PDE file generated
 	int Ports[MAX_PORTS]; //!< Array of Ports
 	device Devices[MAX_DEVICES];  //!< Array of Devices, 12 main devices and 1 device labeled Not Used
-	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 
 	//! Enum of the different byte arrays
 	enum Modes {
@@ -257,15 +257,15 @@ protected:
 	void LookupDeviceFunction(int Device, CString &sFunction);
 	void SaveSettings();
 	void LoadSettings();
-	BOOL GetSketchFolder();
-	void GetOutputFolder();
+	//BOOL GetSketchFolder();
+	//void GetOutputFolder();
 	void SelectPort1();
 
 public:
 	/*! Generate Button Press
 	 * \sa WritePDE()
 	 */
-	afx_msg void OnBnClickedBtnGenerate();
+	void OnBnClickedBtnGenerate();
 	/*! Edit Menu, Settings selection
 	 * 
 	 * Launches Settings Dialog box
@@ -279,47 +279,48 @@ public:
 	 * - All Modes (FeedingMode, WaterChangeMode, Overheat, LightsOn)
 	 * \sa LoadDefaults()
 	 */
-	afx_msg void OnResetAll();
+	void OnResetAll();
+	void OnResetSaved();
 	/*! Edit Menu, Reset Ports selection
 	 *
 	 * Resets all the Ports to their default 
 	 * \sa InitPorts(), LoadDefaultPortDevices()
 	 */
-	afx_msg void OnResetPorts();
+	void OnResetPorts();
 	/*! Edit Menu, Reset Temperature selection
 	 *
 	 * Resets the temperature selection to default
 	 */
-	afx_msg void OnResetTemperature();
+	void OnResetTemperature();
 	/*! Edit Menu, Reset Logging selection
 	 *
 	 * Resets the logging selection to default
 	 */
-	afx_msg void OnResetLogging();
+	void OnResetLogging();
 	/*! Edit Menu, Reset Feeding Mode selection
 	 *
 	 * Resets the FeedingModePorts to default
 	 * \sa SetPortMode()
 	 */
-	afx_msg void OnResetFeedingMode();
+	void OnResetFeedingMode();
 	/*! Edit Menu, Reset Water Change Mode selection
 	 *
 	 * Resets the WaterChangeModePorts to default
 	 * \sa SetPortMode()
 	 */
-	afx_msg void OnResetWaterChangeMode();
+	void OnResetWaterChangeMode();
 	/*! Edit Menu, Reset Overheat selection
 	 *
 	 * Resets the OverheatPorts to default
 	 * \sa SetPortMode()
 	 */
-	afx_msg void OnResetOverheat();
+	void OnResetOverheat();
 	/*! Edit Menu, Reset Lights On selection
 	 *
 	 * Resets the LightsOnPorts to default
 	 * \sa SetPortMode()
 	 */
-	afx_msg void OnResetLightsOn();
+	void OnResetLightsOn();
 	/*! Port1 Button Press
 	 * \sa UpdateDisplayDevice()
 	 */
@@ -404,5 +405,4 @@ public:
 	 * \sa SetPortDevice()
 	 */
 	afx_msg void OnBnClickedCkNotused();
-	afx_msg void OnEditLoadfromregistry();
 };

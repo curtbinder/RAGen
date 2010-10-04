@@ -17,11 +17,18 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	void SetStatus(LPCTSTR s);
 	void ClearStatus();
+	void ChangeMenu(UINT menuID);
+	BOOL GetSketchFolder();
+	void GetOutputFolder();
+	void UpdateSettings();
 
 	DECLARE_MESSAGE_MAP()
 
+	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory
+	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	HICON m_hIcon;
 	RATabSheet m_Tabs;
 
@@ -33,6 +40,13 @@ public:
 	afx_msg void OnFileExit();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();
-protected:
-	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+	afx_msg void OnResetAll();
+	afx_msg void OnResetSaved();
+	afx_msg void OnResetPorts();
+	afx_msg void OnResetTemp();
+	afx_msg void OnResetLogging();
+	afx_msg void OnResetFeedingMode();
+	afx_msg void OnResetWaterChangeMode();
+	afx_msg void OnResetOverheat();
+	afx_msg void OnResetLightsOn();
 };

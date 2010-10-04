@@ -5,7 +5,6 @@
 #include "RAGen.h"
 #include "RAPDEPage.h"
 #include "cb_FileVersion.h"
-#include "shlwapi.h"
 
 
 // RAPDEPage dialog
@@ -17,7 +16,6 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 {
 	fTemp = FALSE;
 	fLogging = FALSE;
-	iSaveReg = AfxGetApp()->GetProfileIntA(_T(""), _T("RegistrySavePrompt"), 1);
 	LoadDeviceFunctions();
 }
 
@@ -34,15 +32,6 @@ void RAPDEPage::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(RAPDEPage, CDialog)
 	//}}AFX_MSG_MAP
-	//ON_BN_CLICKED(IDC_BTN_GENERATE, &RAPDEPage::OnBnClickedBtnGenerate)
-	//ON_COMMAND(ID_RESET_ALL, &RAPDEPage::OnResetAll)
-	//ON_COMMAND(ID_RESET_PORTS, &RAPDEPage::OnResetPorts)
-	//ON_COMMAND(ID_RESET_TEMPERATURE, &RAPDEPage::OnResetTemperature)
-	//ON_COMMAND(ID_RESET_LOGGING, &RAPDEPage::OnResetLogging)
-	//ON_COMMAND(ID_RESET_FEEDINGMODE, &RAPDEPage::OnResetFeedingMode)
-	//ON_COMMAND(ID_RESET_WATERCHANGEMODE, &RAPDEPage::OnResetWaterChangeMode)
-	//ON_COMMAND(ID_RESET_OVERHEAT, &RAPDEPage::OnResetOverheat)
-	//ON_COMMAND(ID_RESET_LIGHTSON, &RAPDEPage::OnResetLightsOn)
 	ON_BN_CLICKED(IDC_PDE_PORT_1, &RAPDEPage::OnBnClickedPort1)
 	ON_BN_CLICKED(IDC_PDE_PORT_2, &RAPDEPage::OnBnClickedPort2)
 	ON_BN_CLICKED(IDC_PDE_PORT_3, &RAPDEPage::OnBnClickedPort3)
@@ -64,7 +53,6 @@ BEGIN_MESSAGE_MAP(RAPDEPage, CDialog)
 	ON_BN_CLICKED(IDC_PDE_CK_HEATER, &RAPDEPage::OnBnClickedCkHeater)
 	ON_BN_CLICKED(IDC_PDE_CK_CHILLER, &RAPDEPage::OnBnClickedCkChiller)
 	ON_BN_CLICKED(IDC_PDE_CK_NOTUSED, &RAPDEPage::OnBnClickedCkNotused)
-	//ON_COMMAND(ID_EDIT_LOADFROMREGISTRY, &RAPDEPage::OnEditLoadfromregistry)
 END_MESSAGE_MAP()
 
 
@@ -74,14 +62,7 @@ BOOL RAPDEPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// Load the Reset menu
-	//m_mnuReset.LoadMenuA(IDR_MENU_RESET);
-	//ASSERT(m_mnuReset);
-	//CMenu *pMenu = GetMenu()->GetSubMenu(1);
-	//pMenu->AppendMenuA(MF_POPUP, (UINT_PTR)m_mnuReset.GetSubMenu(0)->m_hMenu, _T("&Reset"));
-
 	LoadDefaults();
-	GetOutputFolder();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -520,129 +501,44 @@ void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 void RAPDEPage::SaveSettings()
 {
 	// saves the settings to the registry
-	AfxGetApp()->WriteProfileInt(_T(""), _T("FeedingModePorts"), FeedingModePorts);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("WaterChangeModePorts"), WaterChangeModePorts);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("OverheatPorts"), OverheatPorts);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("LightsOnPorts"), LightsOnPorts);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Temp"), fTemp);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Logging"), fLogging);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port1"), Ports[0]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port2"), Ports[1]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port3"), Ports[2]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port4"), Ports[3]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port5"), Ports[4]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port6"), Ports[5]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port7"), Ports[6]);
-	AfxGetApp()->WriteProfileInt(_T(""), _T("Port8"), Ports[7]);
+	CString s;
+	s.LoadStringA(IDS_PDE_TAB);
+	AfxGetApp()->WriteProfileInt(s, _T("FeedingModePorts"), FeedingModePorts);
+	AfxGetApp()->WriteProfileInt(s, _T("WaterChangeModePorts"), WaterChangeModePorts);
+	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), OverheatPorts);
+	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), LightsOnPorts);
+	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
+	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
+	AfxGetApp()->WriteProfileInt(s, _T("Port1"), Ports[0]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port2"), Ports[1]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port3"), Ports[2]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port4"), Ports[3]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port5"), Ports[4]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port6"), Ports[5]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port7"), Ports[6]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port8"), Ports[7]);
 }
 
 void RAPDEPage::LoadSettings()
 {
 	// loads the settings from the registry
-	SetPortMode(Feeding, (BYTE)AfxGetApp()->GetProfileInt(_T(""), _T("FeedingModePorts"), DEFAULT_FEEDINGMODE));
-	SetPortMode(WaterChange, (BYTE)AfxGetApp()->GetProfileInt(_T(""), _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
-	SetPortMode(Overheat, (BYTE)AfxGetApp()->GetProfileInt(_T(""), _T("OverheatPorts"), DEFAULT_OVERHEAT));
-	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(_T(""), _T("LightsOnPorts"), DEFAULT_LIGHTSON));
-	fTemp = AfxGetApp()->GetProfileInt(_T(""), _T("Temp"), FALSE);
-	fLogging = AfxGetApp()->GetProfileInt(_T(""), _T("Logging"), FALSE);
-	SetPortDevice(1, AfxGetApp()->GetProfileInt(_T(""), _T("Port1"), DEFAULT_PORT1_DEVICE));
-	SetPortDevice(2, AfxGetApp()->GetProfileInt(_T(""), _T("Port2"), DEFAULT_PORT2_DEVICE));
-	SetPortDevice(3, AfxGetApp()->GetProfileInt(_T(""), _T("Port3"), DEFAULT_PORT3_DEVICE));
-	SetPortDevice(4, AfxGetApp()->GetProfileInt(_T(""), _T("Port4"), DEFAULT_PORT4_DEVICE));
-	SetPortDevice(5, AfxGetApp()->GetProfileInt(_T(""), _T("Port5"), DEFAULT_PORT5_DEVICE));
-	SetPortDevice(6, AfxGetApp()->GetProfileInt(_T(""), _T("Port6"), DEFAULT_PORT6_DEVICE));
-	SetPortDevice(7, AfxGetApp()->GetProfileInt(_T(""), _T("Port7"), DEFAULT_PORT7_DEVICE));
-	SetPortDevice(8, AfxGetApp()->GetProfileInt(_T(""), _T("Port8"), DEFAULT_PORT8_DEVICE));
+	CString s;
+	s.LoadStringA(IDS_PDE_TAB);
+	SetPortMode(Feeding, (BYTE)AfxGetApp()->GetProfileInt(s, _T("FeedingModePorts"), DEFAULT_FEEDINGMODE));
+	SetPortMode(WaterChange, (BYTE)AfxGetApp()->GetProfileInt(s, _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
+	SetPortMode(Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));
+	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
+	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
+	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
+	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE));
+	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE));
+	SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE));
+	SetPortDevice(4, AfxGetApp()->GetProfileInt(s, _T("Port4"), DEFAULT_PORT4_DEVICE));
+	SetPortDevice(5, AfxGetApp()->GetProfileInt(s, _T("Port5"), DEFAULT_PORT5_DEVICE));
+	SetPortDevice(6, AfxGetApp()->GetProfileInt(s, _T("Port6"), DEFAULT_PORT6_DEVICE));
+	SetPortDevice(7, AfxGetApp()->GetProfileInt(s, _T("Port7"), DEFAULT_PORT7_DEVICE));
+	SetPortDevice(8, AfxGetApp()->GetProfileInt(s, _T("Port8"), DEFAULT_PORT8_DEVICE));
 	UpdateData(FALSE);
-}
-
-BOOL RAPDEPage::GetSketchFolder()
-{
-	BOOL bRet = FALSE;
-	TCHAR szPath[MAX_PATH];
-	_tcscpy_s(szPath, MAX_PATH, m_sOutputDirectory);
-	PathAppend(szPath, _T("Arduino\\preferences.txt"));
-	// try to open file
-	// search for 'sketchbook.path='
-	TRY
-	{
-		CFile f;
-		CFileException fe;
-		if ( ! f.Open(szPath, CFile::modeRead, &fe) )
-		{
-			AfxThrowFileException(fe.m_cause, fe.m_lOsError, fe.m_strFileName);
-		}
-		// file open, so let's read in and look for sketchbook.path=
-		TCHAR buf[MAX_PATH];
-		DWORD dwRead;
-		TCHAR *p;
-		do
-		{
-			dwRead = f.Read(buf, MAX_PATH);
-			p = _tcsstr(buf, _T("sketchbook.path="));
-			if ( p != NULL && dwRead > 0)
-			{
-				int x = (int)strlen(_T("sketchbook.path="));
-				TCHAR szD[MAX_PATH];
-				TCHAR *q;
-				q = _tcsstr(p, "\r\n");
-				int s = (int)(q-(p+x));
-				_tcsncpy_s(szD, MAX_PATH, p+x, s);
-				TRACE("PATH=%s\n", szD);
-				_tcscpy_s(m_sOutputDirectory, MAX_PATH, szD);
-				bRet = TRUE;
-			}
-		} while ( dwRead > 0 );
-
-		f.Close();
-	}
-	CATCH_ALL(e)
-	{
-		bRet = FALSE;
-	}
-	END_CATCH_ALL
-
-	return bRet;
-}
-
-void RAPDEPage::GetOutputFolder()
-{
-	BOOL bUseCurrentDirectory = FALSE;
-	BOOL bUseRegistryFolder = TRUE;
-	CString s = AfxGetApp()->GetProfileString(_T(""), _T("OutputDirectory"), _T(""));
-	if ( s.IsEmpty() )
-	{
-		bUseRegistryFolder = FALSE;
-	}
-	else
-	{
-		_stprintf_s(m_sOutputDirectory, MAX_PATH, _T("%s"), s);
-	}
-
-	if ( ! bUseRegistryFolder )
-	{
-		// No folder is in the registry, so let's look it up
-		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, m_sOutputDirectory)) )
-		{
-			// Got local directory, now let's look for arduino
-			if ( ! GetSketchFolder() )
-			{
-				// failed to get sketch folder, so use current directory
-				bUseCurrentDirectory = TRUE;
-			} // else directory is set in GetSketchFolder
-		}
-		else
-		{
-			bUseCurrentDirectory = TRUE;
-		}
-
-		if ( bUseCurrentDirectory )
-		{
-			// Failed to locate and retrieve Sketchbook Folder, so use current directory
-			DWORD dwD = sizeof(m_sOutputDirectory)/sizeof(TCHAR);
-			GetCurrentDirectory(dwD, m_sOutputDirectory);
-		}
-	}
 }
 
 void RAPDEPage::SelectPort1()
@@ -917,10 +813,7 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 	RefreshModePorts();
 	if ( WritePDE() )
 	{
-		CString s;
-		s.Format(_T("Successfully Generated PDE file\n\n%s.pde"), sFilename);
-		AfxMessageBox(s, MB_ICONINFORMATION | MB_OK);
-
+		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_PDE));
 		switch ( iSaveReg )
 		{
 		case 0:  // always save, no prompt
@@ -944,31 +837,16 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 	}
 }
 
-//void RAPDEPage::OnEditSettings()
-//{
-//	CSettingsDlg dlgSettings;
-//	dlgSettings.m_iSaveRegistry = iSaveReg;
-//	dlgSettings.m_sSketchFolder = m_sOutputDirectory;
-//	INT_PTR iRet = dlgSettings.DoModal();
-//	if ( iRet == IDOK )
-//	{
-//		// if OK is pressed, we need to update the settings
-//		iSaveReg = dlgSettings.m_iSaveRegistry;
-//		_stprintf_s(m_sOutputDirectory, MAX_PATH, _T("%s"), dlgSettings.m_sSketchFolder);
-//		// Save these values to the registry only if:
-//		//    Always save or Prompt to save are selected, otherwise leave alone
-//		if ( iSaveReg < 2 )
-//		{
-//			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
-//			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
-//		}
-//		UpdateData(FALSE);
-//	}
-//}
-
 void RAPDEPage::OnResetAll()
 {
 	LoadDefaults();
+}
+
+void RAPDEPage::OnResetSaved()
+{
+	LoadSettings();
+	SelectPort1();
+	UpdateData(FALSE);
 }
 
 void RAPDEPage::OnResetPorts()
@@ -1149,11 +1027,4 @@ void RAPDEPage::OnBnClickedCkNotused()
 {
 	UpdateData();
 	SetPortDevice(bCurrentPort, IDC_PDE_CK_NOTUSED);
-}
-
-void RAPDEPage::OnEditLoadfromregistry()
-{
-	LoadSettings();
-	SelectPort1();
-	UpdateData(FALSE);
 }

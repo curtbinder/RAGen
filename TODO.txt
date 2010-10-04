@@ -1,11 +1,11 @@
 TODO File
 ---------
 - Convert RAGenFeatures to Tab
-	- Migrate Generate Button
-	- Load Defaults
+	- Update output directory to be in libraries folder
 - Convert RAGenPDE to Tab
 - Incorporate Settings dialog box
 - Improve Settings dialog box
+	- Add arduino folder to settings box
 - Create Colors Page
 - Create Settings Page (default settings for InternalMemory generation)
 - Process command line arguments (create them and have them be used)

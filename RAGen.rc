@@ -138,7 +138,7 @@ BEGIN
 
     IDD_RAFEATURESPAGE, DIALOG
     BEGIN
-        LEFTMARGIN, 6
+        LEFTMARGIN, 7
         RIGHTMARGIN, 360
         VERTGUIDE, 12
         VERTGUIDE, 100
@@ -231,6 +231,32 @@ BEGIN
     END
 END
 
+IDR_MENU_RESET MENU
+BEGIN
+	POPUP ""
+	BEGIN
+		MENUITEM "All / Defaults",				ID_RESET_ALL
+		MENUITEM "Saved Values",				ID_RESET_SAVED
+	END
+END
+
+IDR_MENU_PDE_RESET MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "All / Defaults",              ID_RESET_ALL
+		MENUITEM "Saved Values",				ID_RESET_SAVED
+        MENUITEM SEPARATOR
+        MENUITEM "Ports",                       ID_RESET_PORTS
+        MENUITEM "Temperature",                 ID_RESET_TEMPERATURE
+        MENUITEM "Logging",                     ID_RESET_LOGGING
+        MENUITEM SEPARATOR
+        MENUITEM "Feeding Mode",                ID_RESET_FEEDINGMODE
+        MENUITEM "Water Change Mode",           ID_RESET_WATERCHANGEMODE
+        MENUITEM "Overheat",                    ID_RESET_OVERHEAT
+        MENUITEM "Lights On",                   ID_RESET_LIGHTSON
+    END
+END
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -258,7 +284,7 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Select Features",IDC_STATIC,6,7,354,89
+    GROUPBOX        "Select Features",IDC_STATIC,7,7,353,89
     CONTROL         "Display Images",IDC_FEATURES_CK_DISPLAY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,19,64,10
     CONTROL         "Setup Extras",IDC_FEATURES_CK_SETUP_EXTRAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,35,57,10
     CONTROL         "Dosing Pump Setup",IDC_FEATURES_CK_DOSINGPUMP_SETUP,
@@ -283,7 +309,7 @@ BEGIN
     CONTROL         "Single ATO",IDC_FEATURES_CK_SINGLE_ATO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,51,10
     CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,61,10
     CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,67,28,10
-    GROUPBOX        "Description of Feature",IDC_STATIC,6,103,354,84
+    GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
     LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
 END
 
@@ -450,6 +476,15 @@ BEGIN
     IDS_FEATURES_SINGLEATO  "This feature will allow you to use the ATO switches independently from each other.  You can specify separate ports to control, separate timeouts and separate hourly intervals.\r\n\r\nIf you have this enabled, you cannot use both switches together like originally intended. The setup screens will show configurations for both switches."
 END
 
+STRINGTABLE
+BEGIN
+	IDS_FEATURES_TAB		"Features"
+	IDS_PDE_TAB				"PDE"
+	IDS_COLORS_TAB			"Colors"
+	IDS_VALUES_TAB			"Values"
+	IDS_SUCCESS_FEATURES	"Success, Generated ReefAngel_Features.h"
+	IDS_SUCCESS_PDE			"Success, Generated %s.pde"
+END
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
