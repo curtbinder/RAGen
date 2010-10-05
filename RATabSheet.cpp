@@ -250,8 +250,14 @@ void RATabSheet::UpdateSettingsForTabs()
 
 	pf->iSaveReg = iSaveReg;
 	pp->iSaveReg = iSaveReg;
-	_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
-	_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
+	//_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
+	//_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
+	_tcscpy_s(pf->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
+	//_tcscpy_s(pp->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
+	//_tcscpy_s(pf->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
+	//_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 }
 
 void RATabSheet::GetFilename(CString &s)

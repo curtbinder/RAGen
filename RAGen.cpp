@@ -47,12 +47,12 @@ BOOL CRAGenApp::InitInstance()
 
 	CWinApp::InitInstance();
 
-	// Standard initialization
-	// If you are not using these features and wish to reduce the size
-	// of your final executable, you should remove from the following
-	// the specific initialization routines you do not need
 	// Change the registry key under which our settings are stored
+#ifdef REEFANGEL_REG
+	SetRegistryKey(_T("Reef Angel"));
+#else
 	SetRegistryKey(_T("Curt Binder"));
+#endif  // REEFANGEL_REG
 
 	// TODO process any command line arguments here and update settings appropriately
 

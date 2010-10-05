@@ -5,6 +5,7 @@
 #include "RAGen.h"
 #include "RAGenDlg.h"
 #include "AboutDlg.h"
+#include "SettingsDlg.h"
 #include "shlwapi.h"
 
 // RAGenDlg dialog
@@ -37,7 +38,7 @@ void RAGenDlg::ClearStatus()
 	SetStatus(_T(""));
 }
 
-void RAGenDlg::ChangeMenuA(UINT menuID)
+void RAGenDlg::ChangeMenu(UINT menuID)
 {
 	// Checks if the Reset Menu is in the list, if so, delete it and add on our reset menu
 	CMenu Reset;
@@ -75,7 +76,7 @@ BOOL RAGenDlg::GetSketchFolder()
 {
 	BOOL bRet = FALSE;
 	TCHAR szPath[MAX_PATH];
-	_tcscpy_s(szPath, MAX_PATH, m_sOutputDirectory);
+	_tcscpy_s(szPath, MAX_PATH, m_sSketchDirectory);
 	PathAppend(szPath, _T("Arduino\\preferences.txt"));
 	// try to open file
 	// search for 'sketchbook.path='
@@ -104,7 +105,7 @@ BOOL RAGenDlg::GetSketchFolder()
 				int s = (int)(q-(p+x));
 				_tcsncpy_s(szD, MAX_PATH, p+x, s);
 				TRACE("PATH=%s\n", szD);
-				_tcscpy_s(m_sOutputDirectory, MAX_PATH, szD);
+				_tcscpy_s(m_sSketchDirectory, MAX_PATH, szD);
 				bRet = TRUE;
 			}
 		} while ( dwRead > 0 );
@@ -120,43 +121,105 @@ BOOL RAGenDlg::GetSketchFolder()
 	return bRet;
 }
 
-void RAGenDlg::GetOutputFolder()
+BOOL RAGenDlg::GetArduinoFolder(LPCTSTR sDir)
 {
-	BOOL bUseCurrentDirectory = FALSE;
-	BOOL bUseRegistryFolder = TRUE;
-	CString s = AfxGetApp()->GetProfileString(_T(""), _T("OutputDirectory"), _T(""));
+	BOOL bRet;
+	TCHAR szPath[MAX_PATH];
+	_tcscpy_s(szPath, MAX_PATH, m_sSketchDirectory);
+	PathAppend(szPath, sDir);
+
+	// TODO test for arduino.exe
+	if ( SetCurrentDirectory(szPath) )
+	{
+		// now let's return to our previous directory
+		SetCurrentDirectory(m_sCurrentDirectory);
+		PathAppend(m_sSketchDirectory, sDir);
+		bRet = TRUE;
+	}
+	else
+	{
+		// failed to change directory, not the right directory
+		bRet = FALSE;
+	}
+
+	return bRet;
+}
+
+void RAGenDlg::GetFolders()
+{
+	BOOL bUseCurrentDirectory = TRUE;
+	CString s;
+	DWORD dwD = sizeof(m_sCurrentDirectory)/sizeof(TCHAR);
+	GetCurrentDirectory(dwD, m_sCurrentDirectory);
+
+	s = AfxGetApp()->GetProfileString(_T(""), _T("OutputDirectory"), _T(""));
 	if ( s.IsEmpty() )
 	{
-		bUseRegistryFolder = FALSE;
+		_tcscpy_s(m_sOutputDirectory, MAX_PATH, m_sCurrentDirectory);
 	}
 	else
 	{
 		_stprintf_s(m_sOutputDirectory, MAX_PATH, _T("%s"), s);
 	}
 
-	if ( ! bUseRegistryFolder )
+	s = AfxGetApp()->GetProfileString(_T(""), _T("SketchDirectory"), _T(""));
+	if ( s.IsEmpty() )
 	{
 		// No folder is in the registry, so let's look it up
-		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, m_sOutputDirectory)) )
+		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, m_sSketchDirectory)) )
 		{
-			// Got local directory, now let's look for arduino
-			if ( ! GetSketchFolder() )
+			// Got directory, search for sketch folder location
+			if ( GetSketchFolder() )
 			{
-				// failed to get sketch folder, so use current directory
-				bUseCurrentDirectory = TRUE;
-			} // else directory is set in GetSketchFolder
+				// Found sketch folder
+				bUseCurrentDirectory = FALSE;
+			}
 		}
-		else
+	}
+	else
+	{
+		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), s);
+		bUseCurrentDirectory = FALSE;
+	}
+	if ( bUseCurrentDirectory )
+	{
+		_tcscpy_s(m_sSketchDirectory, MAX_PATH, m_sCurrentDirectory);
+	}
+
+	bUseCurrentDirectory = TRUE;
+	s = AfxGetApp()->GetProfileString(_T(""), _T("ArduinoDirectory"), _T(""));
+	if ( s.IsEmpty() )
+	{
+		// no directory, so locate arduino directory
+		// First check PROGRAM_FILES/Reef Angel Controller
+		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
 		{
-			bUseCurrentDirectory = TRUE;
+			if ( GetArduinoFolder(_T("Reef Angel Controller")) )
+			{
+				bUseCurrentDirectory = FALSE;
+			}
 		}
 
 		if ( bUseCurrentDirectory )
 		{
-			// Failed to locate and retrieve Sketchbook Folder, so use current directory
-			DWORD dwD = sizeof(m_sOutputDirectory)/sizeof(TCHAR);
-			GetCurrentDirectory(dwD, m_sOutputDirectory);
+			// Check My Documents/Arduino folder
+			if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_MYDOCUMENTS, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
+			{
+				if ( GetArduinoFolder(_T("Arduino")) )
+				{
+					bUseCurrentDirectory = FALSE;
+				}
+			}
 		}
+	}
+	else
+	{
+		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), s);
+		bUseCurrentDirectory = FALSE;
+	}
+	if ( bUseCurrentDirectory )
+	{
+		_tcscpy_s(m_sArduinoDirectory, MAX_PATH, m_sCurrentDirectory);
 	}
 }
 
@@ -165,6 +228,9 @@ void RAGenDlg::UpdateSettings()
 	// copy the values over
 	m_Tabs.iSaveReg = iSaveReg;
 	_tcscpy_s(m_Tabs.m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
+	_tcscpy_s(m_Tabs.m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
+	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(m_Tabs.m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 	m_Tabs.UpdateSettingsForTabs();
 }
 
@@ -196,8 +262,7 @@ BOOL RAGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	GetOutputFolder();
-	// locate arduino folder
+	GetFolders();
 	// get the registry prompt setting
 	iSaveReg = AfxGetApp()->GetProfileIntA(_T(""), _T("RegistrySavePrompt"), 1);
 
@@ -241,25 +306,29 @@ HCURSOR RAGenDlg::OnQueryDragIcon()
 
 void RAGenDlg::OnEditSettings()
 {
-//	CSettingsDlg dlgSettings;
-//	dlgSettings.m_iSaveRegistry = iSaveReg;
-//	dlgSettings.m_sSketchFolder = m_sOutputDirectory;
-//	INT_PTR iRet = dlgSettings.DoModal();
-//	if ( iRet == IDOK )
-//	{
-//		// if OK is pressed, we need to update the settings
-//		iSaveReg = dlgSettings.m_iSaveRegistry;
-//		_stprintf_s(m_sOutputDirectory, MAX_PATH, _T("%s"), dlgSettings.m_sSketchFolder);
-//		// Save these values to the registry only if:
-//		//    Always save or Prompt to save are selected, otherwise leave alone
-//		if ( iSaveReg < 2 )
-//		{
-//			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
-//			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
-//		}
-//		UpdateSettings();
-//		UpdateData(FALSE);
-//	}
+	SettingsDlg dlg;
+	dlg.m_iSaveRegistry = iSaveReg;
+	dlg.m_sSketchFolder = m_sSketchDirectory;
+	dlg.m_sArduinoFolder = m_sArduinoDirectory;
+	INT_PTR iRet = dlg.DoModal();
+	if ( iRet == IDOK )
+	{
+		// if OK is pressed, we need to update the settings
+		iSaveReg = dlg.m_iSaveRegistry;
+		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
+		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
+		// Save these values to the registry only if:
+		//    Always save or Prompt to save are selected, otherwise leave alone
+		if ( iSaveReg < 2 )
+		{
+			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
+			AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
+			AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
+			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
+		}
+		UpdateSettings();
+		UpdateData(FALSE);
+	}
 }
 
 void RAGenDlg::OnFileExit()

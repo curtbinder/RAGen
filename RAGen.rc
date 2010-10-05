@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,1
- PRODUCTVERSION 1,0,1,1
+ FILEVERSION 1,0,1,20
+ PRODUCTVERSION 1,0,1,20
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 1"
+            VALUE "FileVersion", "1, 0, 1, 20"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 1"
+            VALUE "ProductVersion", "1, 0, 1, 20"
         END
     END
     BLOCK "VarFileInfo"
@@ -134,6 +134,29 @@ BEGIN
         HORZGUIDE, 45
         HORZGUIDE, 75
         HORZGUIDE, 89
+    END
+
+    IDD_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 308
+        VERTGUIDE, 60
+        VERTGUIDE, 66
+        VERTGUIDE, 72
+        VERTGUIDE, 96
+        VERTGUIDE, 102
+        VERTGUIDE, 252
+        VERTGUIDE, 258
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 101
+        HORZGUIDE, 21
+        HORZGUIDE, 28
+        HORZGUIDE, 42
+        HORZGUIDE, 49
+        HORZGUIDE, 61
+        HORZGUIDE, 67
+        HORZGUIDE, 81
+        HORZGUIDE, 87
     END
 
     IDD_RAFEATURESPAGE, DIALOG
@@ -231,13 +254,13 @@ BEGIN
     END
 END
 
-IDR_MENU_RESET MENU
+IDR_MENU_RESET MENU 
 BEGIN
-	POPUP ""
-	BEGIN
-		MENUITEM "All / Defaults",				ID_RESET_ALL
-		MENUITEM "Saved Values",				ID_RESET_SAVED
-	END
+    POPUP ""
+    BEGIN
+        MENUITEM "All / Defaults",              ID_RESET_ALL
+        MENUITEM "Saved Values",                ID_RESET_SAVED
+    END
 END
 
 IDR_MENU_PDE_RESET MENU 
@@ -245,7 +268,7 @@ BEGIN
     POPUP ""
     BEGIN
         MENUITEM "All / Defaults",              ID_RESET_ALL
-		MENUITEM "Saved Values",				ID_RESET_SAVED
+        MENUITEM "Saved Values",                ID_RESET_SAVED
         MENUITEM SEPARATOR
         MENUITEM "Ports",                       ID_RESET_PORTS
         MENUITEM "Temperature",                 ID_RESET_TEMPERATURE
@@ -257,6 +280,7 @@ BEGIN
         MENUITEM "Lights On",                   ID_RESET_LIGHTSON
     END
 END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -277,6 +301,26 @@ BEGIN
     CONTROL         "",IDC_ABOUT_CURTBINDER_LOGO,"Static",SS_BITMAP,7,89,221,30
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,45,221,30
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,89,221,30
+END
+
+IDD_SETTINGS DIALOGEX 0, 0, 315, 108
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Sketch Folder:",IDC_STATIC,7,9,47,8
+    EDITTEXT        IDC_SETTINGS_SKETCH_FOLDER,60,7,192,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_SETTINGS_SKETCH_BTN_BROWSE,258,7,50,14
+    LTEXT           "Arduino Folder:",IDC_STATIC,7,30,53,8
+    EDITTEXT        IDC_SETTINGS_ARDUINO_FOLDER,60,28,192,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_SETTINGS_ARDUINO_BTN_BROWSE,258,28,50,14
+    LTEXT           "Save Settings to Registry:",IDC_STATIC,7,49,89,8
+    COMBOBOX        IDC_SETTINGS_CB_REGISTRY,102,49,150,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Registry Location:",IDC_STATIC,7,69,59,8
+    LTEXT           "<Location>",IDC_SETTINGS_TEXT_REGISTRY,72,69,180,8
+    PUSHBUTTON      "Clear Settings",IDC_SETTINGS_BTN_CLEAR,258,67,50,14
+    DEFPUSHBUTTON   "OK",IDOK,202,87,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,258,87,50,14
 END
 
 IDD_RAFEATURESPAGE DIALOGEX 0, 0, 367, 194
@@ -434,6 +478,25 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Dialog Info
+//
+
+IDD_SETTINGS DLGINIT
+BEGIN
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 26, 0
+0x6c41, 0x6177, 0x7379, 0x6120, 0x7466, 0x7265, 0x6720, 0x6e65, 0x7265, 
+0x7461, 0x2065, 0x4450, 0x0045, 
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 26, 0
+0x7250, 0x6d6f, 0x7470, 0x6120, 0x7466, 0x7265, 0x6720, 0x6e65, 0x7265, 
+0x7461, 0x2065, 0x4450, 0x0045, 
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 6, 0
+0x654e, 0x6576, 0x0072, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -476,15 +539,18 @@ BEGIN
     IDS_FEATURES_SINGLEATO  "This feature will allow you to use the ATO switches independently from each other.  You can specify separate ports to control, separate timeouts and separate hourly intervals.\r\n\r\nIf you have this enabled, you cannot use both switches together like originally intended. The setup screens will show configurations for both switches."
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
-	IDS_FEATURES_TAB		"Features"
-	IDS_PDE_TAB				"PDE"
-	IDS_COLORS_TAB			"Colors"
-	IDS_VALUES_TAB			"Values"
-	IDS_SUCCESS_FEATURES	"Success, Generated ReefAngel_Features.h"
-	IDS_SUCCESS_PDE			"Success, Generated %s.pde"
+    IDS_FEATURES_TAB        "Features"
+    IDS_PDE_TAB             "PDE"
+    IDS_COLORS_TAB          "Colors"
+    IDS_VALUES_TAB          "Values"
+    IDS_SUCCESS_FEATURES    "Success, Generated ReefAngel_Features.h"
+    IDS_SUCCESS_PDE         "Success, Generated %s.pde"
+    IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
+    IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
 END
+
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
