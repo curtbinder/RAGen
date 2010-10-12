@@ -127,8 +127,27 @@ BOOL RAGenDlg::GetArduinoFolder(LPCTSTR sDir)
 	TCHAR szPath[MAX_PATH];
 	_tcscpy_s(szPath, MAX_PATH, m_sSketchDirectory);
 	PathAppend(szPath, sDir);
+	/*
+	PathAppend(szPath, _T("arduino.exe"));
 
-	// TODO test for arduino.exe
+	HANDLE hFile;  
+	hFile = CreateFile(szPath,
+					   GENERIC_READ,
+					   FILE_SHARE_READ,
+					   NULL,
+					   OPEN_EXISTING,
+					   FILE_ATTRIBUTE_NORMAL,
+					   NULL);
+	 
+	if (hFile == INVALID_HANDLE_VALUE) 
+	{
+		bRet = FALSE;
+	}
+	else
+	{
+		bRet = TRUE;
+	}
+	*/
 	if ( SetCurrentDirectory(szPath) )
 	{
 		// now let's return to our previous directory
