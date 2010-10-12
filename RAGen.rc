@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,1
- PRODUCTVERSION 1,0,1,1
+ FILEVERSION 1,0,1,20
+ PRODUCTVERSION 1,0,1,20
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 1"
+            VALUE "FileVersion", "1, 0, 1, 20"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 1"
+            VALUE "ProductVersion", "1, 0, 1, 20"
         END
     END
     BLOCK "VarFileInfo"
@@ -136,9 +136,32 @@ BEGIN
         HORZGUIDE, 89
     END
 
+    IDD_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 308
+        VERTGUIDE, 60
+        VERTGUIDE, 66
+        VERTGUIDE, 72
+        VERTGUIDE, 96
+        VERTGUIDE, 102
+        VERTGUIDE, 252
+        VERTGUIDE, 258
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 101
+        HORZGUIDE, 21
+        HORZGUIDE, 28
+        HORZGUIDE, 42
+        HORZGUIDE, 49
+        HORZGUIDE, 61
+        HORZGUIDE, 67
+        HORZGUIDE, 81
+        HORZGUIDE, 87
+    END
+
     IDD_RAFEATURESPAGE, DIALOG
     BEGIN
-        LEFTMARGIN, 6
+        LEFTMARGIN, 7
         RIGHTMARGIN, 360
         VERTGUIDE, 12
         VERTGUIDE, 100
@@ -146,7 +169,7 @@ BEGIN
         VERTGUIDE, 276
         VERTGUIDE, 354
         TOPMARGIN, 7
-        BOTTOMMARGIN, 209
+        BOTTOMMARGIN, 187
         HORZGUIDE, 19
         HORZGUIDE, 35
         HORZGUIDE, 51
@@ -156,15 +179,25 @@ BEGIN
         HORZGUIDE, 115
         HORZGUIDE, 182
         HORZGUIDE, 187
-        HORZGUIDE, 193
     END
 
     IDD_RAPDEPAGE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 179
+        RIGHTMARGIN, 360
+        VERTGUIDE, 13
+        VERTGUIDE, 81
+        VERTGUIDE, 175
+        VERTGUIDE, 198
+        VERTGUIDE, 251
         TOPMARGIN, 7
-        BOTTOMMARGIN, 88
+        HORZGUIDE, 19
+        HORZGUIDE, 87
+        HORZGUIDE, 93
+        HORZGUIDE, 121
+        HORZGUIDE, 128
+        HORZGUIDE, 187
+        HORZGUIDE, 193
     END
 
     IDD_RACOLORSPAGE, DIALOG
@@ -186,9 +219,15 @@ BEGIN
     IDD_RAGEN, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 179
+        RIGHTMARGIN, 378
+        VERTGUIDE, 57
+        VERTGUIDE, 63
+        VERTGUIDE, 322
+        VERTGUIDE, 328
         TOPMARGIN, 7
-        BOTTOMMARGIN, 86
+        BOTTOMMARGIN, 236
+        HORZGUIDE, 216
+        HORZGUIDE, 222
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -215,6 +254,33 @@ BEGIN
     END
 END
 
+IDR_MENU_RESET MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "All / Defaults",              ID_RESET_ALL
+        MENUITEM "Saved Values",                ID_RESET_SAVED
+    END
+END
+
+IDR_MENU_PDE_RESET MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "All / Defaults",              ID_RESET_ALL
+        MENUITEM "Saved Values",                ID_RESET_SAVED
+        MENUITEM SEPARATOR
+        MENUITEM "Ports",                       ID_RESET_PORTS
+        MENUITEM "Temperature",                 ID_RESET_TEMPERATURE
+        MENUITEM "Logging",                     ID_RESET_LOGGING
+        MENUITEM SEPARATOR
+        MENUITEM "Feeding Mode",                ID_RESET_FEEDINGMODE
+        MENUITEM "Water Change Mode",           ID_RESET_WATERCHANGEMODE
+        MENUITEM "Overheat",                    ID_RESET_OVERHEAT
+        MENUITEM "Lights On",                   ID_RESET_LIGHTSON
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -237,13 +303,32 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,89,221,30
 END
 
-IDD_RAFEATURESPAGE DIALOGEX 0, 0, 367, 216
-STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SETTINGS DIALOGEX 0, 0, 315, 108
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Sketch Folder:",IDC_STATIC,7,9,47,8
+    EDITTEXT        IDC_SETTINGS_SKETCH_FOLDER,60,7,192,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_SETTINGS_SKETCH_BTN_BROWSE,258,7,50,14
+    LTEXT           "Arduino Folder:",IDC_STATIC,7,30,53,8
+    EDITTEXT        IDC_SETTINGS_ARDUINO_FOLDER,60,28,192,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_SETTINGS_ARDUINO_BTN_BROWSE,258,28,50,14
+    LTEXT           "Save Settings to Registry:",IDC_STATIC,7,49,89,8
+    COMBOBOX        IDC_SETTINGS_CB_REGISTRY,102,49,150,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Registry Location:",IDC_STATIC,7,69,59,8
+    LTEXT           "<Location>",IDC_SETTINGS_TEXT_REGISTRY,72,69,180,8
+    PUSHBUTTON      "Clear Settings",IDC_SETTINGS_BTN_CLEAR,258,67,50,14
+    DEFPUSHBUTTON   "OK",IDOK,202,87,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,258,87,50,14
+END
+
+IDD_RAFEATURESPAGE DIALOGEX 0, 0, 367, 194
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "Features"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Select Features",IDC_STATIC,6,7,354,89
+    GROUPBOX        "Select Features",IDC_STATIC,7,7,353,89
     CONTROL         "Display Images",IDC_FEATURES_CK_DISPLAY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,19,64,10
     CONTROL         "Setup Extras",IDC_FEATURES_CK_SETUP_EXTRAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,35,57,10
     CONTROL         "Dosing Pump Setup",IDC_FEATURES_CK_DOSINGPUMP_SETUP,
@@ -268,17 +353,96 @@ BEGIN
     CONTROL         "Single ATO",IDC_FEATURES_CK_SINGLE_ATO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,51,10
     CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,61,10
     CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,67,28,10
-    GROUPBOX        "Description of Feature",IDC_STATIC,6,103,354,84
+    GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
     LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
 END
 
-IDD_RAPDEPAGE DIALOG  0, 0, 186, 95
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
-FONT 8, "MS Sans Serif"
+IDD_RAPDEPAGE DIALOGEX 0, 0, 367, 194
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_APPWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,129,7,50,16
-    PUSHBUTTON      "Cancel",IDCANCEL,129,26,50,16
+    GROUPBOX        "Ports",IDC_STATIC,7,7,168,80
+    CONTROL         "Port 1",IDC_PDE_PORT_1,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | WS_GROUP,13,19,78,15
+    CONTROL         "Port 2",IDC_PDE_PORT_2,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,19,78,15
+    CONTROL         "Port 3",IDC_PDE_PORT_3,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,34,78,15
+    CONTROL         "Port 4",IDC_PDE_PORT_4,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,34,78,15
+    CONTROL         "Port 5",IDC_PDE_PORT_5,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,49,78,15
+    CONTROL         "Port 6",IDC_PDE_PORT_6,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,49,78,15
+    CONTROL         "Port 7",IDC_PDE_PORT_7,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,64,78,15
+    CONTROL         "Port 8",IDC_PDE_PORT_8,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,64,78,15
+    GROUPBOX        "Devices",IDC_STATIC,191,7,169,114
+    CONTROL         "Always ON",IDC_PDE_CK_ALWAYS_ON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,19,51,10
+    CONTROL         "Metal Halides",IDC_PDE_CK_METALHALIDES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,33,58,10
+    CONTROL         "Standard Lights",IDC_PDE_CK_STDLIGHTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,47,66,10
+    CONTROL         "Heater",IDC_PDE_CK_HEATER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,61,38,10
+    CONTROL         "Fan / Chiller",IDC_PDE_CK_CHILLER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,75,54,10
+    CONTROL         "Not Used",IDC_PDE_CK_NOTUSED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,103,45,10
+    CONTROL         "Wavemaker 1",IDC_PDE_CK_WM1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,19,60,10
+    CONTROL         "Wavemaker 2",IDC_PDE_CK_WM2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,33,60,10
+    CONTROL         "Dosing Pump 1",IDC_PDE_CK_DP1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,47,63,10
+    CONTROL         "Dosing Pump 2",IDC_PDE_CK_DP2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,61,63,10
+    CONTROL         "Dual ATO",IDC_PDE_CK_DUALATO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,75,46,10
+    CONTROL         "Single ATO Low",IDC_PDE_CK_SINGLEATOLOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,89,65,10
+    CONTROL         "Single ATO High",IDC_PDE_CK_SINGLEATOHIGH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,103,67,10
+    GROUPBOX        "Temperature",IDC_STATIC,7,93,64,28
+    CONTROL         "° F",IDC_PDE_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,104,25,10
+    CONTROL         "° C",IDC_PDE_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
+    GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
+    CONTROL         "Dump Parameters",IDC_PDE_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,77,10
+    GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
+    LTEXT           "8",IDC_STATIC,83,141,8,8
+    LTEXT           "7",IDC_STATIC,95,141,8,8
+    LTEXT           "6",IDC_STATIC,107,141,8,8
+    LTEXT           "5",IDC_STATIC,119,141,8,8
+    LTEXT           "4",IDC_STATIC,131,141,8,8
+    LTEXT           "3",IDC_STATIC,143,141,8,8
+    LTEXT           "2",IDC_STATIC,155,141,8,8
+    LTEXT           "1",IDC_STATIC,167,141,8,8
+    LTEXT           "8",IDC_STATIC,253,141,8,8
+    LTEXT           "7",IDC_STATIC,265,141,8,8
+    LTEXT           "6",IDC_STATIC,277,141,8,8
+    LTEXT           "5",IDC_STATIC,289,141,8,8
+    LTEXT           "4",IDC_STATIC,301,141,8,8
+    LTEXT           "3",IDC_STATIC,313,141,8,8
+    LTEXT           "2",IDC_STATIC,325,141,8,8
+    LTEXT           "1",IDC_STATIC,337,141,8,8
+    LTEXT           "Feeding Mode",IDC_STATIC,13,153,61,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,81,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,105,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,117,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,141,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,153,10,10
+    CONTROL         "",IDC_PDE_CK_FEEDING_1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,153,10,10
+    LTEXT           "Water Change",IDC_STATIC,13,169,61,10
+    CONTROL         "",IDC_PDE_CK_WATER_8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,81,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,93,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,105,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,117,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,129,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,141,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,169,10,10
+    CONTROL         "",IDC_PDE_CK_WATER_1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,169,10,10
+    LTEXT           "Overheat",IDC_STATIC,198,153,45,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,251,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,263,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,287,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,299,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,311,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,323,153,10,10
+    CONTROL         "",IDC_PDE_CK_OVERHEAT_1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,335,153,10,10
+    LTEXT           "Lights On",IDC_STATIC,198,169,45,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,251,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,263,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,275,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,287,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,299,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,311,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,323,169,10,10
+    CONTROL         "",IDC_PDE_CK_LIGHTS_1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,335,169,10,10
 END
 
 IDD_RACOLORSPAGE DIALOG  0, 0, 186, 95
@@ -299,13 +463,35 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,129,26,50,16
 END
 
-IDD_RAGEN DIALOGEX 0, 0, 186, 93
+IDD_RAGEN DIALOGEX 0, 0, 385, 243
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
+CAPTION "ReefAngel Generator"
+MENU IDR_MENU_MAIN
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+    PUSHBUTTON      "&Close",IDCANCEL,328,222,50,14
+    CONTROL         "",IDC_TAB,"SysTabControl32",0x0,7,7,371,209
+    PUSHBUTTON      "&Generate",IDC_BTN_GENERATE,7,222,50,14
+    LTEXT           "",IDC_TEXT_STATUS,63,225,259,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SETTINGS DLGINIT
+BEGIN
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 26, 0
+0x6c41, 0x6177, 0x7379, 0x6120, 0x7466, 0x7265, 0x6720, 0x6e65, 0x7265, 
+0x7461, 0x2065, 0x4450, 0x0045, 
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 26, 0
+0x7250, 0x6d6f, 0x7470, 0x6120, 0x7466, 0x7265, 0x6720, 0x6e65, 0x7265, 
+0x7461, 0x2065, 0x4450, 0x0045, 
+    IDC_SETTINGS_CB_REGISTRY, 0x403, 6, 0
+0x654e, 0x6576, 0x0072, 
+    0
 END
 
 
@@ -351,6 +537,18 @@ BEGIN
     IDS_FEATURES_SAVERELAYSTATE 
                             "Do we save the relay state before we enter Feeding Mode or Water Change Mode?\r\n\r\nEnable this feature if you want the controller to remember what ports were off when the mode was entered and restores the ports when the mode is exited.\r\n\r\nThe original way is to have this feature disabled and the controller will always turn off and back on the specified ports."
     IDS_FEATURES_SINGLEATO  "This feature will allow you to use the ATO switches independently from each other.  You can specify separate ports to control, separate timeouts and separate hourly intervals.\r\n\r\nIf you have this enabled, you cannot use both switches together like originally intended. The setup screens will show configurations for both switches."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FEATURES_TAB        "Features"
+    IDS_PDE_TAB             "PDE"
+    IDS_COLORS_TAB          "Colors"
+    IDS_VALUES_TAB          "Values"
+    IDS_SUCCESS_FEATURES    "Success, Generated ReefAngel_Features.h"
+    IDS_SUCCESS_PDE         "Success, Generated %s.pde"
+    IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
+    IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
 END
 
 #endif    // English (U.S.) resources

@@ -15,6 +15,16 @@
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
 #define IDR_MENU_MAIN                   129
+#define IDR_MENU_RESET					130
+#define IDR_MENU_PDE_RESET				131
+#define IDS_FEATURES_TAB				132
+#define IDS_PDE_TAB						133
+#define IDS_COLORS_TAB					134
+#define IDS_VALUES_TAB					135
+#define IDS_SUCCESS_FEATURES			136
+#define IDS_SUCCESS_PDE					137
+#define IDS_REGISTRY_CB					138
+#define IDS_REGISTRY_RA					139
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_DOSINGPUMPSETUP    204
@@ -32,9 +42,77 @@
 #define IDS_FEATURES_STANDARDLIGHTSETUP 216
 #define IDS_FEATURES_SAVERELAYSTATE     217
 #define IDS_FEATURES_SINGLEATO          218
+
+#define IDC_PDE_CK_FEEDING_1                300
+#define IDC_PDE_CK_FEEDING_2                301
+#define IDC_PDE_CK_FEEDING_3                302
+#define IDC_PDE_CK_FEEDING_4                303
+#define IDC_PDE_CK_FEEDING_5                304
+#define IDC_PDE_CK_FEEDING_6                305
+#define IDC_PDE_CK_FEEDING_7                306
+#define IDC_PDE_CK_FEEDING_8                307
+#define IDC_PDE_TEMP_0                      308
+#define IDC_PDE_TEMP_1                      309
+#define IDC_PDE_CK_WATER_1                  310
+#define IDC_PDE_CK_WATER_2                  311
+#define IDC_PDE_CK_WATER_3                  312
+#define IDC_PDE_CK_WATER_4                  313
+#define IDC_PDE_CK_WATER_5                  314
+#define IDC_PDE_CK_WATER_6                  315
+#define IDC_PDE_CK_WATER_7                  316
+#define IDC_PDE_CK_WATER_8                  317
+#define IDC_PDE_CK_OVERHEAT_1               318
+#define IDC_PDE_CK_OVERHEAT_2               319
+#define IDC_PDE_CK_OVERHEAT_3               320
+#define IDC_PDE_CK_OVERHEAT_4               321
+#define IDC_PDE_CK_OVERHEAT_5               322
+#define IDC_PDE_CK_OVERHEAT_6               323
+#define IDC_PDE_CK_OVERHEAT_7               324
+#define IDC_PDE_CK_OVERHEAT_8               325
+#define IDC_PDE_CK_LIGHTS_1                 326
+#define IDC_PDE_CK_LIGHTS_2                 327
+#define IDC_PDE_CK_LIGHTS_3                 328
+#define IDC_PDE_CK_LIGHTS_4                 329
+#define IDC_PDE_CK_LIGHTS_5                 330
+#define IDC_PDE_CK_LIGHTS_6                 331
+#define IDC_PDE_CK_LIGHTS_7                 332
+#define IDC_PDE_CK_LIGHTS_8                 333
+#define IDC_PDE_CK_ALWAYS_ON                334
+#define IDC_PDE_CK_METALHALIDES             335
+#define IDC_PDE_CK_STDLIGHTS                336
+#define IDC_PDE_CK_HEATER                   337
+#define IDC_PDE_CK_CHILLER                  338
+#define IDC_PDE_CK_WM1                      339
+#define IDC_PDE_CK_WM2                      340
+#define IDC_PDE_CK_DP1                      341
+#define IDC_PDE_CK_DP2                      342
+#define IDC_PDE_CK_DUALATO                  343
+#define IDC_PDE_CK_SINGLEATOLOW             344
+#define IDC_PDE_CK_SINGLEATOHIGH            345
+#define IDC_PDE_CK_NOTUSED                  346
+#define IDC_PDE_PORT_1                      347
+#define IDC_PDE_PORT_2                      348
+#define IDC_PDE_PORT_3                      349
+#define IDC_PDE_PORT_4                      350
+#define IDC_PDE_PORT_5                      351
+#define IDC_PDE_PORT_6                      352
+#define IDC_PDE_PORT_7                      353
+#define IDC_PDE_PORT_8                      354
+#define IDC_PDE_CK_LOGGING                  355
+
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
+#define IDC_TAB                         1003
+#define IDC_BTN_GENERATE                1004
+#define IDC_TEXT_STATUS                 1005
+#define IDC_SETTINGS_SKETCH_FOLDER		1006
+#define IDC_SETTINGS_SKETCH_BTN_BROWSE  1007
+#define IDC_SETTINGS_ARDUINO_FOLDER     1008
+#define IDC_SETTINGS_ARDUINO_BTN_BROWSE 1009
+#define IDC_SETTINGS_CB_REGISTRY		1010
+#define IDC_SETTINGS_TEXT_REGISTRY		1011
+#define IDC_SETTINGS_BTN_CLEAR			1012
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_CK_DISPLAY_IMAGES  2002
 #define IDC_FEATURES_CK_SETUP_EXTRAS    2003
@@ -56,14 +134,25 @@
 #define ID_FILE_EXIT                    32771
 #define ID_HELP_ABOUT                   32772
 #define ID_EDIT_SETTINGS                32773
+#define ID_CHANGE_MENU					32774
+#define ID_RESET_ALL                    32775
+#define ID_RESET_SAVED					32776
+#define ID_RESET_PORTS                  32777
+#define ID_RESET_TEMPERATURE            32778
+#define ID_RESET_FEEDINGMODE            32779
+#define ID_RESET_WATERCHANGEMODE        32780
+#define ID_RESET_OVERHEAT               32781
+#define ID_RESET_LIGHTSON               32782
+#define ID_RESET_LOGGING                32783
+#define ID_UPDATE_STATUS				32784
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        600
-#define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1003
+#define _APS_NEXT_COMMAND_VALUE         32785
+#define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           109
 #endif
 #endif

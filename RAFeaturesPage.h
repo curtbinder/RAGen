@@ -3,23 +3,27 @@
 
 // RAFeaturesPage dialog
 
-class RAFeaturesPage : public CPropertyPage
+class RAFeaturesPage : public CDialog
 {
 	DECLARE_DYNAMIC(RAFeaturesPage)
 
 public:
-	RAFeaturesPage();
+	RAFeaturesPage(CWnd* pParent = NULL);
 	virtual ~RAFeaturesPage();
 
 // Dialog Data
 	enum { IDD = IDD_RAFEATURESPAGE };
 
+	//TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory
+	//TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
+	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
+	TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
+	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
-
-	TCHAR m_sOutputDirectory[MAX_PATH];
 
 	// features
 	BOOL m_bDisplayImages;
@@ -44,6 +48,7 @@ protected:
 	void SetDescription(UINT id);
 	BOOL WriteFeatures();
 	void LoadFeatures();
+	void SaveFeatures();
 	void LoadDefaults();
 
 public:
@@ -64,5 +69,8 @@ public:
 	afx_msg void OnBnHotItemChangeCkStandardLightsSetup(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSingleAto(NMHDR *pNMHDR, LRESULT *pResult);
+	void OnBnClickedBtnGenerate();
+	void OnResetAll();
+	void OnResetSaved();
 	virtual BOOL OnInitDialog();
 };

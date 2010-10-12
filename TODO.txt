@@ -1,14 +1,10 @@
 TODO File
 ---------
-- Convert RAGenFeatures to Tab
-	- Migrate Generate Button
-	- Load Defaults
-- Convert RAGenPDE to Tab
-- Incorporate Settings dialog box
-- Improve Settings dialog box
 - Create Colors Page
 - Create Settings Page (default settings for InternalMemory generation)
 - Process command line arguments (create them and have them be used)
+- Add hyperlinks to about page
+- Add launch arduino command after generate PDE
 - Defines
 	- 200-300 Features (2000-3000 controls)
 	- 300-400 PDE (3000-4000 controls)
@@ -20,3 +16,12 @@ Completed / Release Information
 v1.00 - Beta 1
 --------------
 - Incorporate About dialog box
+- Convert RAGenPDE to Tab
+- Change output directory to be sketchfolder
+- Add in current directory
+- Update GetOutputFolder to be GetFolders
+- Convert RAGenFeatures to Tab
+	- Update output directory to be in libraries folder
+- Incorporate Settings dialog box
+- Improve Settings dialog box
+	- Add arduino folder to settings box
