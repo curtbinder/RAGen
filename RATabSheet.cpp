@@ -6,8 +6,8 @@
 #include "RATabSheet.h"
 #include "RAFeaturesPage.h"
 #include "RAPDEPage.h"
+#include "RAInternalMemoryPage.h"
 //#include "RAColorsPage.h"
-//#include "RASettingsPage.h"
 
 
 // RATabSheet
@@ -18,7 +18,8 @@ RATabSheet::RATabSheet()
 {
 	m_pTabs[0] = new RAFeaturesPage;
 	m_pTabs[1] = new RAPDEPage;
-	m_iNumTabs = 2;
+	m_pTabs[2] = new RAInternalMemoryPage;
+	m_iNumTabs = 3;
 }
 
 RATabSheet::~RATabSheet()
@@ -35,13 +36,15 @@ void RATabSheet::Init()
 	s.LoadStringA(IDS_FEATURES_TAB);
 	InsertItem(Features, s);
 	//InsertItem(1, _T("Colors"));
-	//InsertItem(2, _T("Values"));
 	s.LoadStringA(IDS_PDE_TAB);
 	InsertItem(PDE, s);
+	s.LoadStringA(IDS_MEMORY_TAB);
+	InsertItem(Memory, s);
 
 	m_iCurrentTab = 0;
 	m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
 	m_pTabs[PDE]->Create(IDD_RAPDEPAGE, this);
+	m_pTabs[Memory]->Create(IDD_RAMEMORYPAGE, this);
 
 	m_pTabs[0]->ShowWindow(SW_SHOW);
 	for ( int i = 1; i < m_iNumTabs; i++ )
@@ -90,6 +93,12 @@ void RATabSheet::Generate()
 			p->OnBnClickedBtnGenerate();
 			}
 			break;
+		case Memory:
+			{
+			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
+			p->OnBnClickedBtnGenerate();
+			}
+			break;
 		default:
 			break;
 	}
@@ -111,6 +120,12 @@ void RATabSheet::ResetAll()
 			p->OnResetAll();
 			}
 			break;
+		case Memory:
+			{
+			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
+			p->OnResetAll();
+			}
+			break;
 		default:
 			break;
 	}
@@ -129,6 +144,12 @@ void RATabSheet::ResetSaved()
 		case PDE:
 			{
 			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			p->OnResetSaved();
+			}
+			break;
+		case Memory:
+			{
+			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetSaved();
 			}
 			break;
@@ -247,14 +268,16 @@ void RATabSheet::UpdateSettingsForTabs()
 	// set the settings for the tabs
 	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 	RAPDEPage* pp = (RAPDEPage*)m_pTabs[PDE];
+	RAInternalMemoryPage* pm = (RAInternalMemoryPage*)m_pTabs[Memory];
 
 	pf->iSaveReg = iSaveReg;
 	pp->iSaveReg = iSaveReg;
+	pm->iSaveReg = iSaveReg;
 	//_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	//_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	_tcscpy_s(pf->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	//_tcscpy_s(pp->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
-	//_tcscpy_s(pf->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(pm->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 	//_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
@@ -267,9 +290,29 @@ void RATabSheet::GetFilename(CString &s)
 		RAPDEPage* p = (RAPDEPage*)m_pTabs[PDE];
 		s = p->sFilename;
 	}
+	else if ( m_iCurrentTab == Memory )
+	{
+		RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[Memory];
+		s = p->sFilename;
+	}
 	else
 	{
 		s = _T("");
+	}
+}
+
+void RATabSheet::EnableAdvanced()
+{
+	switch ( m_iCurrentTab )
+	{
+		case Memory:
+			{
+			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
+			p->OnEditTimeoutsPH();
+			}
+			break;
+		default:
+			break;
 	}
 }
 
@@ -281,7 +324,7 @@ END_MESSAGE_MAP()
 
 // RATabSheet message handlers
 
-void RATabSheet::OnTcnSelchange(NMHDR *pNMHDR, LRESULT *pResult)
+void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 {
 	*pResult = 0;
 	// change the tabs
@@ -301,6 +344,11 @@ void RATabSheet::OnTcnSelchange(NMHDR *pNMHDR, LRESULT *pResult)
 		case PDE:
 			menuID = IDR_MENU_PDE_RESET;
 			break;
+		case Memory:
+			{
+			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
+			p->OnEditTimeoutsPH();
+			}
 		default:
 			menuID = IDR_MENU_RESET;
 			break;

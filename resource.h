@@ -8,7 +8,7 @@
 #define IDD_RAFEATURESPAGE              103
 #define IDD_RAPDEPAGE                   104
 #define IDD_RACOLORSPAGE                105
-#define IDD_RASETTINGSPAGE              106
+#define IDD_RAMEMORYPAGE                106
 #define IDD_ABOUT                       107
 #define IDD_SETTINGS                    108
 #define IDB_CURTBINDER_LOGO             120
@@ -20,11 +20,16 @@
 #define IDS_FEATURES_TAB				132
 #define IDS_PDE_TAB						133
 #define IDS_COLORS_TAB					134
-#define IDS_VALUES_TAB					135
+#define IDS_MEMORY_TAB					135
 #define IDS_SUCCESS_FEATURES			136
 #define IDS_SUCCESS_PDE					137
-#define IDS_REGISTRY_CB					138
-#define IDS_REGISTRY_RA					139
+#define IDS_SUCCESS_MEMORY				138
+#define IDS_SUCCESS_COLORS				139
+#define IDS_REGISTRY_CB					140
+#define IDS_REGISTRY_RA					141
+#define IDS_ENABLE_ADVANCED				142
+#define IDS_DISABLE_ADVANCED			143
+#define IDS_RESET_MENU					144
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_DOSINGPUMPSETUP    204
@@ -100,6 +105,63 @@
 #define IDC_PDE_PORT_8                      354
 #define IDC_PDE_CK_LOGGING                  355
 
+#define IDC_MEMORY_GROUP_LIGHTS                400
+#define IDC_MEMORY_GROUP_WAVEMAKERS            401
+#define IDC_MEMORY_GROUP_DOSING_PUMPS          402
+#define IDC_MEMORY_GROUP_ATO                   403
+#define IDC_MEMORY_GROUP_TIMEOUTS              404
+#define IDC_MEMORY_GROUP_TEMPS                 405
+#define IDC_MEMORY_GROUP_PH                    406
+#define IDC_MEMORY_EDIT_MH_DELAY               407
+#define IDC_MEMORY_EDIT_DP1_RUNTIME            408
+#define IDC_MEMORY_EDIT_DP2_RUNTIME            409
+#define IDC_MEMORY_EDIT_ATO_LOW_TIMEOUT        410
+#define IDC_MEMORY_EDIT_ATO_HIGH_TIMEOUT       411
+#define IDC_MEMORY_SPIN_MH_DELAY               412
+#define IDC_MEMORY_TIME_MH_ON                  413
+#define IDC_MEMORY_TIME_MH_OFF                 414
+#define IDC_MEMORY_TIME_STD_ON                 415
+#define IDC_MEMORY_TIME_STD_OFF                416
+#define IDC_MEMORY_EDIT_WM1_INTERVAL           417
+#define IDC_MEMORY_EDIT_WM2_INTERVAL           418
+#define IDC_MEMORY_CK_WM1_ALWAYS_ON            419
+#define IDC_MEMORY_SPIN_WM1_INTERVAL           420
+#define IDC_MEMORY_CK_WM2_ALWAYS_ON            421
+#define IDC_MEMORY_SPIN_WM2_INTERVAL           422
+#define IDC_MEMORY_EDIT_ACTINIC                423
+#define IDC_MEMORY_EDIT_DAYLIGHT               424
+#define IDC_MEMORY_TIME_DP1_ON                 425
+#define IDC_MEMORY_SPIN_ACTINIC                426
+#define IDC_MEMORY_SPIN_DAYLIGHT               427
+#define IDC_MEMORY_TIME_DP2_ON                 428
+#define IDC_MEMORY_SPIN_DP1_RUNTIME            429
+#define IDC_MEMORY_SPIN_DP2_RUNTIME            430
+#define IDC_MEMORY_EDIT_FEEDING                431
+#define IDC_MEMORY_SPIN_FEEDING                432
+#define IDC_MEMORY_EDIT_LCD                    433
+#define IDC_MEMORY_SPIN_LCD                    434
+#define IDC_MEMORY_EDIT_PH7                    435
+#define IDC_MEMORY_EDIT_PH10                   436
+#define IDC_MEMORY_SPIN_PH7                    437
+#define IDC_MEMORY_SPIN_PH10                   438
+#define IDC_MEMORY_CB_HEATER_ON                439
+#define IDC_MEMORY_CB_HEATER_OFF               440
+#define IDC_MEMORY_CB_CHILLER_ON               441
+#define IDC_MEMORY_CB_CHILLER_OFF              442
+#define IDC_MEMORY_CB_OVERHEAT                 443
+#define IDC_MEMORY_SPIN_ATO_LOW_TIMEOUT        444
+#define IDC_MEMORY_SPIN_ATO_HIGH_TIMEOUT       445
+#define IDC_MEMORY_EDIT_ATO_LOW_INTERVAL       446
+#define IDC_MEMORY_EDIT_ATO_HIGH_INTERVAL      447
+#define IDC_MEMORY_SPIN_ATO_LOW_INTERVAL       448
+#define IDC_MEMORY_SPIN_ATO_HIGH_INTERVAL      449
+#define IDC_MEMORY_CK_ATO_LOW_INTERVAL         450
+#define IDC_MEMORY_CK_ATO_HIGH_INTERVAL        451
+#define IDC_MEMORY_STATIC_FEEDING              452
+#define IDC_MEMORY_STATIC_LCD                  453
+#define IDC_MEMORY_STATIC_PH7                  454
+#define IDC_MEMORY_STATIC_PH10                 455
+
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -145,13 +207,14 @@
 #define ID_RESET_LIGHTSON               32782
 #define ID_RESET_LOGGING                32783
 #define ID_UPDATE_STATUS				32784
+#define ID_EDIT_ENABLE_ADVANCED			32785
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        600
-#define _APS_NEXT_COMMAND_VALUE         32785
+#define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1013
 #define _APS_NEXT_SYMED_VALUE           109
 #endif

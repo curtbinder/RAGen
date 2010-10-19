@@ -40,11 +40,56 @@ void RAGenDlg::ClearStatus()
 
 void RAGenDlg::ChangeMenu(UINT menuID)
 {
-	// Checks if the Reset Menu is in the list, if so, delete it and add on our reset menu
+	// Changes the Reset menu around appropriately on tab changes
 	CMenu Reset;
 	Reset.LoadMenuA(menuID);
-	int pos = -1;
+	CString sReset;
+	sReset.LoadStringA(IDS_RESET_MENU);
 	CMenu *pMenu = GetMenu()->GetSubMenu(1);
+	int pos = FindMenuItem(pMenu, sReset);
+
+	if ( pos >= 0 )
+	{
+		pMenu->DeleteMenu(pos, MF_BYPOSITION);
+		pMenu->InsertMenuA(pos, MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, sReset);
+	}
+	else
+	{
+		pMenu->AppendMenuA(MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, sReset);
+	}
+
+	CString sEnable;
+	sEnable.LoadStringA(IDS_ENABLE_ADVANCED);
+	if ( m_Tabs.IsMemoryTab() )
+	{
+		// insert Enable Menu right above the Reset Menu
+		if ( pos == -1 )
+		{
+			pos = pMenu->GetMenuItemCount() - 1;
+		}
+		pMenu->InsertMenu(pos, MF_BYPOSITION|MF_STRING, ID_EDIT_ENABLE_ADVANCED, sEnable);
+	}
+	else
+	{
+		// delete Enable or Disable Menu
+		CString sDisable;
+		sDisable.LoadStringA(IDS_DISABLE_ADVANCED);
+		pos = FindMenuItem(pMenu, sEnable);
+		if ( pos >= 0 )
+		{
+			pMenu->DeleteMenu(pos, MF_BYPOSITION);
+		}
+		pos = FindMenuItem(pMenu, sDisable);
+		if ( pos >= 0 )
+		{
+			pMenu->DeleteMenu(pos, MF_BYPOSITION);
+		}
+	}
+}
+
+int RAGenDlg::FindMenuItem(CMenu* pMenu, LPCTSTR sMenu)
+{
+	int pos = -1;
 	int count = pMenu->GetMenuItemCount();
 	if ( count != -1 )
 	{
@@ -52,24 +97,15 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 		for ( int i = 0; i < count; i++ )
 		{
 			pMenu->GetMenuString(i, s, MF_BYPOSITION);
-			if ( s.CompareNoCase(_T("&Reset")) == 0 )
+			if ( s.CompareNoCase(sMenu) == 0 )
 			{
-				// found it, so delete it
-				pMenu->DeleteMenu(i, MF_BYPOSITION);
+				// found it
 				pos = i;
 				break;
 			}
 		}
 	}
-
-	if ( pos >= 0 )
-	{
-		pMenu->InsertMenuA(pos+1, MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, _T("&Reset"));
-	}
-	else
-	{
-		pMenu->AppendMenuA(MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, _T("&Reset"));
-	}
+	return pos;
 }
 
 BOOL RAGenDlg::GetSketchFolder()
@@ -257,6 +293,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_COMMAND(ID_EDIT_SETTINGS, &RAGenDlg::OnEditSettings)
+	ON_COMMAND(ID_EDIT_ENABLE_ADVANCED, &RAGenDlg::OnEditEnableAdvanced)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
@@ -348,6 +385,11 @@ void RAGenDlg::OnEditSettings()
 		UpdateSettings();
 		UpdateData(FALSE);
 	}
+}
+
+void RAGenDlg::OnEditEnableAdvanced()
+{
+	m_Tabs.EnableAdvanced();
 }
 
 void RAGenDlg::OnFileExit()

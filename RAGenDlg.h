@@ -21,6 +21,7 @@ protected:
 	void SetStatus(LPCTSTR s);
 	void ClearStatus();
 	void ChangeMenu(UINT menuID);
+	int FindMenuItem(CMenu* pMenu, LPCTSTR sMenu);
 	BOOL GetSketchFolder();
 	BOOL GetArduinoFolder(LPCTSTR sDir);
 	void GetFolders();
@@ -41,6 +42,7 @@ public:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnEditSettings();
+	afx_msg void OnEditEnableAdvanced();
 	afx_msg void OnFileExit();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();

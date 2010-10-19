@@ -24,6 +24,8 @@ public:
 	void ResetLightsOn();
 	void UpdateSettingsForTabs();
 	void GetFilename(CString &s);
+	void EnableAdvanced();
+	inline BOOL IsMemoryTab() { return (m_iCurrentTab == Memory); }
 	
 	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
@@ -40,6 +42,7 @@ protected:
 	enum Tabs {
 		Features,
 		PDE,
+		Memory,
 	};
 
 public:
