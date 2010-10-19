@@ -1,7 +1,6 @@
 TODO File
 ---------
 - Create Colors Page
-- Create Settings Page (default settings for InternalMemory generation)
 - Process command line arguments (create them and have them be used)
 - Add hyperlinks to about page
 - Add launch arduino command after generate PDE
@@ -25,3 +24,4 @@ v1.00 - Beta 1
 - Incorporate Settings dialog box
 - Improve Settings dialog box
 	- Add arduino folder to settings box
+- Create Internal Memory page to generate the default settings PDE file
