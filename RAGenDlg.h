@@ -34,10 +34,13 @@ protected:
 	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
 	TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	int iAppMode;  //!< Application mode, 0 - normal, 1 - development libraries
 	HICON m_hIcon;
 	RATabSheet m_Tabs;
 
 public:
+	void SetSaveRegistry(int iSave) { iSaveReg = iSave; }
+	void SetAppMode(int iMode) { iAppMode = iMode; }
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();

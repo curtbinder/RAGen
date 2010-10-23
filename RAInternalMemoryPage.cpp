@@ -6,6 +6,7 @@
 #include "RAInternalMemoryPage.h"
 #include "InternalMemoryDefaults.h"
 #include "cb_FileVersion.h"
+#include "GlobalVars.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

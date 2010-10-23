@@ -5,6 +5,7 @@
 #include "RAGen.h"
 #include "RAPDEPage.h"
 #include "cb_FileVersion.h"
+#include "GlobalVars.h"
 
 
 // RAPDEPage dialog
@@ -810,10 +811,10 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_PDE));
 		switch ( iSaveReg )
 		{
-		case 0:  // always save, no prompt
+		case ALWAYS_SAVE:
 			SaveSettings();
 			break;
-		case 1:  // prompt to save
+		case PROMPT_SAVE:
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);
@@ -825,7 +826,7 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 			}
 			break;
 		default:
-		//case 2:  // Never save
+		//case NeverSave:
 			break;
 		}
 	}

@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "RAGen.h"
 #include "RAGenDlg.h"
+#include "GlobalVars.h"
+#include "CmdLineParams.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -21,8 +23,6 @@ END_MESSAGE_MAP()
 
 CRAGenApp::CRAGenApp()
 {
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
 }
 
 
@@ -55,9 +55,43 @@ BOOL CRAGenApp::InitInstance()
 #endif  // REEFANGEL_REG
 
 	// TODO process any command line arguments here and update settings appropriately
+	CmdLineParams info;
+	ParseCommandLine(info);
+	int iSave = NOT_SET;
+	int iAppMode = NOT_SET;
+	if ( info.TotalParams() > 0 )
+	{
+		iSave = info.GetSaveRegMode();
+		iAppMode = info.GetAppMode();
+	}
+
+	if ( iSave == NOT_SET )
+	{
+		// get the registry prompt setting only if it's not been set from commandline
+		iSave = GetProfileInt(_T(""), _T("RegistrySavePrompt"), PROMPT_SAVE);
+	}
+	// sanity checks for ranges
+	if ( (iSave > NEVER_SAVE) || (iSave < ALWAYS_SAVE) )
+	{
+		iSave = PROMPT_SAVE;
+	}
+
+	if ( iAppMode == NOT_SET )
+	{
+		iAppMode = GetProfileInt(_T(""), _T("DevelopmentLibraries"), NORMAL_MODE);
+	}
+	// sanity checks for ranges
+	if ( (iAppMode < NORMAL_MODE) || (iAppMode > DEV_MODE) )
+	{
+		iAppMode = NORMAL_MODE;
+	}
 
 	RAGenDlg dlg;
 	m_pMainWnd = &dlg;
+
+	// Set the modes and other stuff here before we show the window
+	dlg.SetSaveRegistry(iSave);
+	dlg.SetAppMode(iAppMode);
 	dlg.DoModal();
 
 	// Since the dialog has been closed, return FALSE so that we exit the

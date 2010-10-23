@@ -11,6 +11,7 @@
 #define IDD_RAMEMORYPAGE                106
 #define IDD_ABOUT                       107
 #define IDD_SETTINGS                    108
+#define IDD_RASTDPAGE					109
 #define IDB_CURTBINDER_LOGO             120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -111,7 +112,6 @@
 #define IDC_MEMORY_GROUP_ATO                   403
 #define IDC_MEMORY_GROUP_TIMEOUTS              404
 #define IDC_MEMORY_GROUP_TEMPS                 405
-#define IDC_MEMORY_GROUP_PH                    406
 #define IDC_MEMORY_EDIT_MH_DELAY               407
 #define IDC_MEMORY_EDIT_DP1_RUNTIME            408
 #define IDC_MEMORY_EDIT_DP2_RUNTIME            409
@@ -161,6 +161,37 @@
 #define IDC_MEMORY_STATIC_LCD                  453
 #define IDC_MEMORY_STATIC_PH7                  454
 #define IDC_MEMORY_STATIC_PH10                 455
+
+#define IDC_STD_GROUP_LIGHTS                600
+#define IDC_STD_GROUP_WAVEMAKERS            601
+#define IDC_STD_GROUP_ATO                   603
+#define IDC_STD_GROUP_TIMEOUTS              604
+#define IDC_STD_GROUP_TEMPS                 605
+#define IDC_STD_EDIT_MH_DELAY               607
+#define IDC_STD_EDIT_ATO_LOW_TIMEOUT        610
+#define IDC_STD_SPIN_MH_DELAY               612
+#define IDC_STD_TIME_MH_ON                  613
+#define IDC_STD_TIME_MH_OFF                 614
+#define IDC_STD_TIME_STD_ON                 615
+#define IDC_STD_TIME_STD_OFF                616
+#define IDC_STD_EDIT_WM1_INTERVAL           617
+#define IDC_STD_EDIT_WM2_INTERVAL           618
+#define IDC_STD_CK_WM1_ALWAYS_ON            619
+#define IDC_STD_SPIN_WM1_INTERVAL           620
+#define IDC_STD_CK_WM2_ALWAYS_ON            621
+#define IDC_STD_SPIN_WM2_INTERVAL           622
+#define IDC_STD_EDIT_FEEDING                631
+#define IDC_STD_SPIN_FEEDING                632
+#define IDC_STD_EDIT_LCD                    633
+#define IDC_STD_SPIN_LCD                    634
+#define IDC_STD_CB_HEATER_ON                639
+#define IDC_STD_CB_HEATER_OFF               640
+#define IDC_STD_CB_CHILLER_ON               641
+#define IDC_STD_CB_CHILLER_OFF              642
+#define IDC_STD_CB_OVERHEAT                 643
+#define IDC_STD_SPIN_ATO_LOW_TIMEOUT        644
+#define IDC_STD_STATIC_FEEDING              652
+#define IDC_STD_STATIC_LCD                  653
 
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
@@ -216,6 +247,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        600
 #define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1013
-#define _APS_NEXT_SYMED_VALUE           109
+#define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

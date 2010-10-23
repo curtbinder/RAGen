@@ -8,7 +8,7 @@
 #include "RAPDEPage.h"
 #include "RAInternalMemoryPage.h"
 //#include "RAColorsPage.h"
-
+#include "RAStdPage.h"  // Standard screen, not part of tabs
 
 // RATabSheet
 

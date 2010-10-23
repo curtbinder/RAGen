@@ -5,6 +5,7 @@
 #include "RAGen.h"
 #include "RAFeaturesPage.h"
 #include "cb_FileVersion.h"
+#include "GlobalVars.h"
 
 
 // RAFeaturesPage dialog
@@ -324,10 +325,10 @@ void RAFeaturesPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_FEATURES));
 		switch ( iSaveReg )
 		{
-		case 0:  // always save, no prompt
+		case ALWAYS_SAVE:
 			SaveFeatures();
 			break;
-		case 1:  // prompt to save
+		case PROMPT_SAVE:
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);
@@ -339,7 +340,7 @@ void RAFeaturesPage::OnBnClickedBtnGenerate()
 			}
 			break;
 		default:
-		//case 2:  // Never save
+		//case NeverSave:
 			break;
 		}
 	}

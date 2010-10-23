@@ -208,6 +208,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CmdLineParams.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAFeaturesPage.cpp"
 				>
 			</File>
@@ -275,6 +279,14 @@
 			</File>
 			<File
 				RelativePath=".\cb_IsFolderWritable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CmdLineParams.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GlobalVars.h"
 				>
 			</File>
 			<File

@@ -7,6 +7,7 @@
 #include "AboutDlg.h"
 #include "SettingsDlg.h"
 #include "shlwapi.h"
+#include "GlobalVars.h"
 
 // RAGenDlg dialog
 
@@ -319,8 +320,6 @@ BOOL RAGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	GetFolders();
-	// get the registry prompt setting
-	iSaveReg = AfxGetApp()->GetProfileIntA(_T(""), _T("RegistrySavePrompt"), 1);
 
 	// copy the values over
 	UpdateSettings();
@@ -375,7 +374,7 @@ void RAGenDlg::OnEditSettings()
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
 		// Save these values to the registry only if:
 		//    Always save or Prompt to save are selected, otherwise leave alone
-		if ( iSaveReg < 2 )
+		if ( (iSaveReg == ALWAYS_SAVE) || (iSaveReg == PROMPT_SAVE) )
 		{
 			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
 			AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
