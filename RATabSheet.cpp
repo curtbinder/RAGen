@@ -108,6 +108,12 @@ void RATabSheet::Generate()
 			p->OnBnClickedBtnGenerate();
 			}
 			break;
+		case Standard:
+			{
+			RAStdPage* p = (RAStdPage*)m_pTabs[m_iCurrentTab];
+			p->OnBnClickedBtnGenerate();
+			}
+			break;
 		default:
 			break;
 	}
@@ -135,6 +141,12 @@ void RATabSheet::ResetAll()
 			p->OnResetAll();
 			}
 			break;
+		case Standard:
+			{
+			RAStdPage* p = (RAStdPage*)m_pTabs[m_iCurrentTab];
+			p->OnResetAll();
+			}
+			break;
 		default:
 			break;
 	}
@@ -159,6 +171,12 @@ void RATabSheet::ResetSaved()
 		case Memory:
 			{
 			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
+			p->OnResetSaved();
+			}
+			break;
+		case Standard:
+			{
+			RAStdPage* p = (RAStdPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetSaved();
 			}
 			break;
@@ -278,16 +296,19 @@ void RATabSheet::UpdateSettingsForTabs()
 	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 	RAPDEPage* pp = (RAPDEPage*)m_pTabs[PDE];
 	RAInternalMemoryPage* pm = (RAInternalMemoryPage*)m_pTabs[Memory];
+	RAStdPage* ps = (RAStdPage*)m_pTabs[Standard];
 
 	pf->iSaveReg = iSaveReg;
 	pp->iSaveReg = iSaveReg;
 	pm->iSaveReg = iSaveReg;
+	ps->iSaveReg = iSaveReg;
 	//_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	//_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	_tcscpy_s(pf->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	//_tcscpy_s(pp->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	_tcscpy_s(pm->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 	//_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 }
