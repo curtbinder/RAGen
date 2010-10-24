@@ -321,10 +321,11 @@ BOOL RAGenDlg::OnInitDialog()
 
 	GetFolders();
 
+	// initialize the tabs first
+	m_Tabs.Init();
+
 	// copy the values over
 	UpdateSettings();
-
-	m_Tabs.Init();
 
 	return TRUE;
 }

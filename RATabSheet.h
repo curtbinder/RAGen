@@ -26,6 +26,7 @@ public:
 	void GetFilename(CString &s);
 	void EnableAdvanced();
 	inline BOOL IsMemoryTab() { return (m_iCurrentTab == Memory); }
+	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
 	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
@@ -38,11 +39,14 @@ protected:
 	int m_iNumTabs;
 	int m_iCurrentTab;
 	CDialog* m_pTabs[4];
+	BOOL m_fDevMode;
 
 	enum Tabs {
 		Features,
 		PDE,
 		Memory,
+		//Colors,
+		Standard,
 	};
 
 public:

@@ -232,6 +232,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RAStdPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RATabSheet.cpp"
 				>
 			</File>
@@ -311,6 +315,10 @@
 			</File>
 			<File
 				RelativePath=".\RAPDEPage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RAStdPage.h"
 				>
 			</File>
 			<File
