@@ -17,7 +17,6 @@ RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 {
 	iSaveReg = PROMPT_SAVE;
 	fUse12Hour = TRUE;
-	fDegF = TRUE;
 	m_iWM1IntervalTemp = 0;
 	m_iWM2IntervalTemp = 0;
 	fTemp = FALSE;
@@ -36,7 +35,6 @@ BOOL RAStdPage::OnInitDialog()
 	InitTimeBoxes();
 	InitTempBoxes();
 	LoadDefaults();
-	//UpdateCheckBoxes();
 	UpdateData(FALSE);
 
 	return TRUE;
@@ -73,6 +71,8 @@ BEGIN_MESSAGE_MAP(RAStdPage, CDialog)
 	ON_BN_CLICKED(IDC_STD_CK_WM1, &RAStdPage::OnBnClickedStdCkWm1)
 	ON_BN_CLICKED(IDC_STD_CK_CHILLER, &RAStdPage::OnBnClickedStdCkChiller)
 	ON_BN_CLICKED(IDC_STD_CK_HEATER, &RAStdPage::OnBnClickedStdCkHeater)
+	ON_BN_CLICKED(IDC_STD_TEMP_0, &RAStdPage::OnBnClickedStdTemp0)
+	ON_BN_CLICKED(IDC_STD_TEMP_1, &RAStdPage::OnBnClickedStdTemp1)
 END_MESSAGE_MAP()
 
 
@@ -129,7 +129,7 @@ void RAStdPage::InitTempBoxes()
 	CString s;
 	char unit;
 	double i, lowTemp, highTemp, lowOver, highOver;
-	if ( fDegF )
+	if ( ! fTemp )
 	{
 		unit = 'F';
 		lowTemp = DEG_F_LOW_TEMP;
@@ -149,6 +149,11 @@ void RAStdPage::InitTempBoxes()
 	CComboBox* pHOff = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_OFF);
 	CComboBox* pCOn = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_ON);
 	CComboBox* pCOff = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_OFF);
+	// make sure the boxes are empty
+	pHOn->ResetContent();
+	pHOff->ResetContent();
+	pCOn->ResetContent();
+	pCOff->ResetContent();
 	for ( i = lowTemp; i <= highTemp; i += 0.1)
 	{
 		s.Format(_T("%0.1f%c%c"), i, DEG_SYMBOL, unit);
@@ -159,6 +164,8 @@ void RAStdPage::InitTempBoxes()
 	}
 
 	CComboBox* pOverheat = (CComboBox*)GetDlgItem(IDC_STD_CB_OVERHEAT);
+	// make sure the box is empty
+	pOverheat->ResetContent();
 	for ( i = lowOver; i <= highOver; i += 0.1 )
 	{
 		s.Format(_T("%0.1f%c%c"), i, DEG_SYMBOL, unit);
@@ -169,6 +176,7 @@ void RAStdPage::InitTempBoxes()
 void RAStdPage::LoadDefaults()
 {
 	// set default values
+	BOOL fOldTemp = fTemp;
 	fTemp = FALSE;  // set to Farenheit
 	fLogging = FALSE;  // set to Not Log
 
@@ -193,9 +201,15 @@ void RAStdPage::LoadDefaults()
 	pTime = (CDateTimeCtrl*) GetDlgItem(IDC_STD_TIME_STD_OFF);
 	pTime->SetTime(&t);
 
+	// if the temp selection has changed, reset the temp boxes before we select anything
+	if ( fOldTemp != fTemp )
+	{
+		InitTempBoxes();
+	}
+
 	// Set the drop down menu values
 	int hOn, hOff, cOn, cOff, o;
-	if ( fDegF )
+	if ( ! fTemp )
 	{
 		hOn = DEFAULT_HEATER_ON_TEMP_F;
 		hOff = DEFAULT_HEATER_OFF_TEMP_F;
@@ -280,6 +294,7 @@ void RAStdPage::LoadSettings()
 	CTime t;
 	CDateTimeCtrl* p;
 	int h, m;
+	BOOL fOldTemp = fTemp;
 	s.LoadString(IDS_STD_TAB);
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
@@ -315,8 +330,13 @@ void RAStdPage::LoadSettings()
 	t = CTime(2010, 1, 1, h, m, 0);
 	p->SetTime(&t);
 	
+	// if the temp selection has changed, reset the temp boxes before we select anything
+	if ( fOldTemp != fTemp )
+	{
+		InitTempBoxes();
+	}
 	int hOn, hOff, cOn, cOff, o;
-	if ( fDegF )
+	if ( ! fTemp )
 	{
 		hOn = DEFAULT_HEATER_ON_TEMP_F;
 		hOff = DEFAULT_HEATER_OFF_TEMP_F;
@@ -342,6 +362,54 @@ void RAStdPage::LoadSettings()
 	pC->SetCurSel(AfxGetApp()->GetProfileInt(s, _T("ChillerOffTemp"), cOff));
 	pC = (CComboBox*)GetDlgItem(IDC_STD_CB_OVERHEAT);
 	pC->SetCurSel(AfxGetApp()->GetProfileInt(s, _T("OverheatTemp"), o));
+}
+
+void RAStdPage::UpdateTemperatureSelections(int hOn, int hOff, int cOn, int cOff, int o)
+{
+	CComboBox* pHOn = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_ON);
+	CComboBox* pHOff = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_OFF);
+	CComboBox* pCOn = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_ON);
+	CComboBox* pCOff = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_OFF);
+	CComboBox* pOverheat = (CComboBox*)GetDlgItem(IDC_STD_CB_OVERHEAT);
+	// convert the temps
+	hOn = ConvertTemp(hOn, !fTemp);
+	hOff = ConvertTemp(hOff, !fTemp);
+	cOn = ConvertTemp(cOn, !fTemp);
+	cOff = ConvertTemp(cOff, !fTemp);
+	o = ConvertTemp(o, !fTemp);
+	// update the displays
+	pHOn->SetCurSel(hOn);
+	pHOff->SetCurSel(hOff);
+	pCOn->SetCurSel(cOn);
+	pCOff->SetCurSel(cOff);
+	pOverheat->SetCurSel(o);
+}
+
+int RAStdPage::ConvertTemp(int nTempOffset, BOOL fToF /*= TRUE*/)
+{
+	int iRet;
+	float i, t;
+	if ( fToF )
+	{
+		// display farenheit, convert from celcius
+		// F = (C * 9 / 5) + 32
+		i = (float)nTempOffset + DEG_C_OFFSET;
+		i = i / 10;
+		t = (i * 9 / 5) + 32;
+		t = t * 10;
+		iRet = (int)t - DEG_F_OFFSET;
+	}
+	else
+	{
+		// display celcuis, convert from farenheit
+		// C = (F - 32) * 5 / 9
+		i = (float)nTempOffset + DEG_F_OFFSET;
+		i = i / 10;
+		t = (i - 32) * 5 / 9;
+		t = t * 10;
+		iRet = (int)t - DEG_C_OFFSET;
+	}
+	return iRet;
 }
 
 void RAStdPage::OnBnClickedBtnGenerate()
@@ -533,4 +601,44 @@ void RAStdPage::OnBnClickedStdCkHeater()
 	}
 	GetDlgItem(IDC_STD_CB_HEATER_ON)->EnableWindow(bEnable);
 	GetDlgItem(IDC_STD_CB_HEATER_OFF)->EnableWindow(bEnable);
+}
+
+void RAStdPage::OnBnClickedStdTemp0()
+{
+	// user clicked Farenheit
+	int hOn, hOff, cOn, cOff, o;
+	CComboBox* pHOn = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_ON);
+	CComboBox* pHOff = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_OFF);
+	CComboBox* pCOn = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_ON);
+	CComboBox* pCOff = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_OFF);
+	CComboBox* pOverheat = (CComboBox*)GetDlgItem(IDC_STD_CB_OVERHEAT);
+	hOn = pHOn->GetCurSel();
+	hOff = pHOff->GetCurSel();
+	cOn = pCOn->GetCurSel();
+	cOff = pCOff->GetCurSel();
+	o = pOverheat->GetCurSel();
+	UpdateData();
+	// grab current temperatures & convert to farenheit
+	InitTempBoxes();
+	UpdateTemperatureSelections(hOn, hOff, cOn, cOff, o);
+}
+
+void RAStdPage::OnBnClickedStdTemp1()
+{
+	// user clicked Celcius
+	int hOn, hOff, cOn, cOff, o;
+	CComboBox* pHOn = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_ON);
+	CComboBox* pHOff = (CComboBox*)GetDlgItem(IDC_STD_CB_HEATER_OFF);
+	CComboBox* pCOn = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_ON);
+	CComboBox* pCOff = (CComboBox*)GetDlgItem(IDC_STD_CB_CHILLER_OFF);
+	CComboBox* pOverheat = (CComboBox*)GetDlgItem(IDC_STD_CB_OVERHEAT);
+	hOn = pHOn->GetCurSel();
+	hOff = pHOff->GetCurSel();
+	cOn = pCOn->GetCurSel();
+	cOff = pCOff->GetCurSel();
+	o = pOverheat->GetCurSel();
+	UpdateData();
+	// grab current temperatures & convert to celcius
+	InitTempBoxes();
+	UpdateTemperatureSelections(hOn, hOff, cOn, cOff, o);
 }

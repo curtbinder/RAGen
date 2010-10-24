@@ -18,11 +18,9 @@ public:
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 
 	inline void Use12Hour(BOOL f = TRUE) { fUse12Hour = f; }
-	inline void UseDegreeF(BOOL f = TRUE) { fDegF = f; }
 
 protected:
 	BOOL fUse12Hour;
-	BOOL fDegF;
 	BOOL fTemp;  //!< Temperature flag, 0 - Farenheit, 1 - Celcuis
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
 
@@ -47,6 +45,8 @@ protected:
 	BOOL WritePDE();
 	void SaveSettings();
 	void LoadSettings();
+	void UpdateTemperatureSelections(int hOn, int hOff, int cOn, int cOff, int o);
+	int ConvertTemp(int nTempOffset, BOOL fToF = TRUE);
 
 public:
 	void OnBnClickedBtnGenerate();
@@ -61,4 +61,6 @@ public:
 	afx_msg void OnBnClickedStdCkWm1();
 	afx_msg void OnBnClickedStdCkChiller();
 	afx_msg void OnBnClickedStdCkHeater();
+	afx_msg void OnBnClickedStdTemp0();
+	afx_msg void OnBnClickedStdTemp1();
 };
