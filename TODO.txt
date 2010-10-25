@@ -1,7 +1,6 @@
 TODO File
 ---------
 - Create Colors Page
-- Process command line arguments (create them and have them be used)
 - Add hyperlinks to about page
 - Add launch arduino command after generate PDE
 - Defines
@@ -9,6 +8,10 @@ TODO File
 	- 300-400 PDE (3000-4000 controls)
 	- 400-500 Settings (4000-5000 controls)
 	- 500-600 Colors (5000-6000 controls)
+	- 600-700 Standard Libraries (6000-7000 controls)
+- Standard Libraries
+	- Generate PDE file
+- Add in ability to set Development Mode/Libraries from Settings Page
 
 Completed / Release Information
 -------------------------------
@@ -25,3 +28,9 @@ v1.00 - Beta 1
 - Improve Settings dialog box
 	- Add arduino folder to settings box
 - Create Internal Memory page to generate the default settings PDE file
+- Process command line arguments (create them and have them be used)
+	- these switches will override the registry settings (and currently replace 10-24-10)
+	- /dev, /normal - application mode
+	- /always, /never, /force - prompt to save settings
+- Standard Libraries page added
+	- Be only tab shown when in normal mode

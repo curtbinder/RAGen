@@ -16,10 +16,7 @@ IMPLEMENT_DYNAMIC(RATabSheet, CTabCtrl)
 
 RATabSheet::RATabSheet()
 {
-	//m_pTabs[0] = new RAFeaturesPage;
-	//m_pTabs[1] = new RAPDEPage;
-	//m_pTabs[2] = new RAInternalMemoryPage;
-	//m_iNumTabs = 3;
+	m_fDevMode = FALSE;
 }
 
 RATabSheet::~RATabSheet()
@@ -39,26 +36,37 @@ void RATabSheet::Init()
 	m_iNumTabs = 4;
 
 	CString s;
-	s.LoadStringA(IDS_FEATURES_TAB);
-	InsertItem(Features, s);
-	//InsertItem(1, _T("Colors"));
-	s.LoadStringA(IDS_PDE_TAB);
-	InsertItem(PDE, s);
-	s.LoadStringA(IDS_MEMORY_TAB);
-	InsertItem(Memory, s);
-	s.LoadStringA(IDS_STD_TAB);
-	InsertItem(Standard, s);
-
-	m_iCurrentTab = 0;
-	m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
-	m_pTabs[PDE]->Create(IDD_RAPDEPAGE, this);
-	m_pTabs[Memory]->Create(IDD_RAMEMORYPAGE, this);
-	m_pTabs[Standard]->Create(IDD_RASTDPAGE, this);
-
-	m_pTabs[0]->ShowWindow(SW_SHOW);
-	for ( int i = 1; i < m_iNumTabs; i++ )
+	if ( m_fDevMode )
 	{
-		m_pTabs[i]->ShowWindow(SW_HIDE);
+		s.LoadStringA(IDS_FEATURES_TAB);
+		InsertItem(Features, s);
+		s.LoadStringA(IDS_PDE_TAB);
+		InsertItem(PDE, s);
+		s.LoadStringA(IDS_MEMORY_TAB);
+		InsertItem(Memory, s);
+		//s.LoadStringA(IDS_COLORS_TAB);
+		//InsertItem(Colors, _T("Colors"));
+
+		m_iCurrentTab = 0;
+		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
+		m_pTabs[PDE]->Create(IDD_RAPDEPAGE, this);
+		m_pTabs[Memory]->Create(IDD_RAMEMORYPAGE, this);
+		//m_pTabs[Colors]->Create(IDD_RACOLORSPAGE, this);
+
+		m_pTabs[0]->ShowWindow(SW_SHOW);
+		for ( int i = 1; i < m_iNumTabs-1; i++ )
+		{
+			m_pTabs[i]->ShowWindow(SW_HIDE);
+		}
+	}
+	else
+	{
+		s.LoadStringA(IDS_STD_TAB);
+		InsertItem(Standard, s);
+		
+		m_iCurrentTab = Standard;
+		m_pTabs[Standard]->Create(IDD_RASTDPAGE, this);
+		m_pTabs[Standard]->ShowWindow(SW_SHOW);
 	}
 
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(IDR_MENU_RESET));
@@ -79,10 +87,17 @@ void RATabSheet::SetRectangle()
 	nXc = tabRect.right - nX - 3;
 	nYc = tabRect.bottom - nY - 3;
 
-	m_pTabs[0]->SetWindowPos(&wndTop, nX, nY, nXc, nYc, SWP_SHOWWINDOW);
-	for(int i = 1; i < m_iNumTabs; i++)
+	if ( m_fDevMode )
 	{
-		m_pTabs[i]->SetWindowPos(&wndTop, nX, nY, nXc, nYc, SWP_HIDEWINDOW);
+		m_pTabs[0]->SetWindowPos(&wndTop, nX, nY, nXc, nYc, SWP_SHOWWINDOW);
+		for(int i = 1; i < m_iNumTabs-1; i++)
+		{
+			m_pTabs[i]->SetWindowPos(&wndTop, nX, nY, nXc, nYc, SWP_HIDEWINDOW);
+		}
+	}
+	else
+	{
+		m_pTabs[Standard]->SetWindowPos(&wndTop, nX, nY, nXc, nYc, SWP_SHOWWINDOW);
 	}
 }
 

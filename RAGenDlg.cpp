@@ -17,6 +17,7 @@ RAGenDlg::RAGenDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(RAGenDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
+	iAppMode = NOT_SET;
 }
 
 RAGenDlg::~RAGenDlg()
@@ -321,7 +322,13 @@ BOOL RAGenDlg::OnInitDialog()
 
 	GetFolders();
 
-	// initialize the tabs first
+	// set Development Libraries mode 
+	if ( iAppMode == DEV_MODE )
+	{
+		m_Tabs.SetDeveloperMode();
+	}
+
+	// initialize the tabs
 	m_Tabs.Init();
 
 	// copy the values over
