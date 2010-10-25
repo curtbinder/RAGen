@@ -11,6 +11,8 @@ TODO File
 	- 600-700 Standard Libraries (6000-7000 controls)
 - Standard Libraries
 	- Generate PDE file
+	- Save state of ports (enabled/disabled, reset all) *
+	- Restore state of ports from saved (reset saved)
 - Add in ability to set Development Mode/Libraries from Settings Page
 
 Completed / Release Information

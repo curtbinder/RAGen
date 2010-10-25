@@ -179,6 +179,14 @@ void RAStdPage::LoadDefaults()
 	BOOL fOldTemp = fTemp;
 	fTemp = FALSE;  // set to Farenheit
 	fLogging = FALSE;  // set to Not Log
+	fDisableATO = FALSE;
+	fDisableStdLights = FALSE;
+	fDisableMHLights = FALSE;
+	fDisableWM2 = FALSE;
+	fDisableWM1 = FALSE;
+	fDisableChiller = FALSE;
+	fDisableHeater = FALSE;
+	fDisableSump = FALSE;
 
 	m_iMHDelay = DEFAULT_MH_DELAY;
 	m_iWM1Interval = DEFAULT_WM1_INTERVAL;
@@ -252,6 +260,14 @@ void RAStdPage::SaveSettings()
 	s.LoadString(IDS_STD_TAB);
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
 	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableATO"), fDisableATO);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableStdLights"), fDisableStdLights);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableMHLights"), fDisableMHLights);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableWM1"), fDisableWM1);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableWM2"), fDisableWM2);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableChiller"), fDisableChiller);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableHeater"), fDisableHeater);
+	AfxGetApp()->WriteProfileInt(s, _T("DisableSump"), fDisableSump);
 
 	AfxGetApp()->WriteProfileInt(s, _T("MHDelay"), m_iMHDelay);
 	AfxGetApp()->WriteProfileInt(s, _T("WM1Interval"), m_iWM1Interval);
@@ -298,6 +314,14 @@ void RAStdPage::LoadSettings()
 	s.LoadString(IDS_STD_TAB);
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
+	fDisableATO = AfxGetApp()->GetProfileInt(s, _T("DisableATO"), FALSE);
+	fDisableStdLights = AfxGetApp()->GetProfileInt(s, _T("DisableStdLights"), FALSE);
+	fDisableMHLights = AfxGetApp()->GetProfileInt(s, _T("DisableMHLights"), FALSE);
+	fDisableWM1 = AfxGetApp()->GetProfileInt(s, _T("DisableWM1"), FALSE);
+	fDisableWM2 = AfxGetApp()->GetProfileInt(s, _T("DisableWM2"), FALSE);
+	fDisableChiller = AfxGetApp()->GetProfileInt(s, _T("DisableChiller"), FALSE);
+	fDisableHeater = AfxGetApp()->GetProfileInt(s, _T("DisableHeater"), FALSE);
+	fDisableSump = AfxGetApp()->GetProfileInt(s, _T("DisableSump"), FALSE);
 
 	m_iMHDelay = AfxGetApp()->GetProfileInt(s, _T("MHDelay"), DEFAULT_MH_DELAY);
 	m_iWM1Interval = AfxGetApp()->GetProfileInt(s, _T("WM1Interval"), DEFAULT_WM1_INTERVAL);
@@ -412,6 +436,109 @@ int RAStdPage::ConvertTemp(int nTempOffset, BOOL fToF /*= TRUE*/)
 	return iRet;
 }
 
+void RAStdPage::RestorePorts()
+{
+	// Restores ports based on the flags, so the flags must be set appropriately before calling this function
+	// Restore Ports and enable/disable appropriate windows
+	CButton* pButton = (CButton*)GetDlgItem(IDC_STD_CK_ATO);
+	if ( fDisableATO )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_EDIT_ATO_TIMEOUT)->EnableWindow(!fDisableATO);
+	GetDlgItem(IDC_STD_SPIN_ATO_TIMEOUT)->EnableWindow(!fDisableATO);
+
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_STD_LIGHTS);
+	if ( fDisableStdLights )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_TIME_STD_ON)->EnableWindow(!fDisableStdLights);
+	GetDlgItem(IDC_STD_TIME_STD_OFF)->EnableWindow(!fDisableStdLights);
+	
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_MH_LIGHTS);
+	if ( fDisableMHLights )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_TIME_MH_ON)->EnableWindow(!fDisableMHLights);
+	GetDlgItem(IDC_STD_TIME_MH_OFF)->EnableWindow(!fDisableMHLights);
+	GetDlgItem(IDC_STD_EDIT_MH_DELAY)->EnableWindow(!fDisableMHLights);
+	GetDlgItem(IDC_STD_SPIN_MH_DELAY)->EnableWindow(!fDisableMHLights);
+	
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM2);
+	if ( fDisableWM2 )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_EDIT_WM2_INTERVAL)->EnableWindow(!fDisableWM2);
+	GetDlgItem(IDC_STD_SPIN_WM2_INTERVAL)->EnableWindow(!fDisableWM2);
+	GetDlgItem(IDC_STD_CK_WM2_ALWAYS_ON)->EnableWindow(!fDisableWM2);
+	
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM1);
+	if ( fDisableWM1 )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_EDIT_WM1_INTERVAL)->EnableWindow(!fDisableWM1);
+	GetDlgItem(IDC_STD_SPIN_WM1_INTERVAL)->EnableWindow(!fDisableWM1);
+	GetDlgItem(IDC_STD_CK_WM1_ALWAYS_ON)->EnableWindow(!fDisableWM1);
+	
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_CHILLER);
+	if ( fDisableChiller )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_CB_CHILLER_ON)->EnableWindow(!fDisableChiller);
+	GetDlgItem(IDC_STD_CB_CHILLER_OFF)->EnableWindow(!fDisableChiller);
+	
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_HEATER);
+	if ( fDisableHeater )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(IDC_STD_CB_HEATER_ON)->EnableWindow(!fDisableHeater);
+	GetDlgItem(IDC_STD_CB_HEATER_OFF)->EnableWindow(!fDisableHeater);
+
+	pButton = (CButton*)GetDlgItem(IDC_STD_CK_SUMP);
+	if ( fDisableSump )
+	{
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+}
+
 void RAStdPage::OnBnClickedBtnGenerate()
 {
 	// Generate to local directory initially
@@ -445,12 +572,14 @@ void RAStdPage::OnResetAll()
 {
 	// Re-Enable all windows & Clear all check boxes
 	LoadDefaults();
+	RestorePorts();
 	UpdateData(FALSE);
 }
 
 void RAStdPage::OnResetSaved()
 {
 	LoadSettings();
+	RestorePorts();
 	UpdateData(FALSE);
 }
 

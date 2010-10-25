@@ -23,6 +23,15 @@ protected:
 	BOOL fUse12Hour;
 	BOOL fTemp;  //!< Temperature flag, 0 - Farenheit, 1 - Celcuis
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
+	
+	BOOL fDisableATO;
+	BOOL fDisableStdLights;
+	BOOL fDisableMHLights;
+	BOOL fDisableWM1;
+	BOOL fDisableWM2;
+	BOOL fDisableChiller;
+	BOOL fDisableHeater;
+	BOOL fDisableSump;
 
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
@@ -47,6 +56,7 @@ protected:
 	void LoadSettings();
 	void UpdateTemperatureSelections(int hOn, int hOff, int cOn, int cOff, int o);
 	int ConvertTemp(int nTempOffset, BOOL fToF = TRUE);
+	void RestorePorts();
 
 public:
 	void OnBnClickedBtnGenerate();
