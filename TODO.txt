@@ -9,10 +9,6 @@ TODO File
 	- 400-500 Settings (4000-5000 controls)
 	- 500-600 Colors (5000-6000 controls)
 	- 600-700 Standard Libraries (6000-7000 controls)
-- Standard Libraries
-	- Generate PDE file
-	- Save state of ports (enabled/disabled, reset all) *
-	- Restore state of ports from saved (reset saved)
 - Add in ability to set Development Mode/Libraries from Settings Page
 
 Completed / Release Information
@@ -36,3 +32,6 @@ v1.00 - Beta 1
 	- /always, /never, /force - prompt to save settings
 - Standard Libraries page added
 	- Be only tab shown when in normal mode
+	- Save state of ports (enabled/disabled, reset all)
+	- Restore state of ports from saved (reset saved)
+	- Generate PDE file

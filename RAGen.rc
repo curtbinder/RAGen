@@ -713,7 +713,7 @@ BEGIN
     IDS_SUCCESS_PDE         "Success, Generated %s.pde"
     IDS_SUCCESS_MEMORY      "Success, Generated %s.pde"
     IDS_SUCCESS_COLORS      "Success, Generated ReefAngel_Colors.h"
-    IDS_SUCCESS_STD         "Success, Generated PDE"
+    IDS_SUCCESS_STD         "Success, Generated %s.pde"
     IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
 END

@@ -16,12 +16,13 @@ public:
 
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	CString sFilename;  //!< Filename of the PDE file generated
 
 	inline void Use12Hour(BOOL f = TRUE) { fUse12Hour = f; }
 
 protected:
 	BOOL fUse12Hour;
-	BOOL fTemp;  //!< Temperature flag, 0 - Farenheit, 1 - Celcuis
+	BOOL fTemp;  //!< Temperature flag, 0 - Fahrenheit, 1 - Celcuis
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
 	
 	BOOL fDisableATO;
@@ -57,6 +58,7 @@ protected:
 	void UpdateTemperatureSelections(int hOn, int hOff, int cOn, int cOff, int o);
 	int ConvertTemp(int nTempOffset, BOOL fToF = TRUE);
 	void RestorePorts();
+	void UpdateDisablePortsVariables();
 
 public:
 	void OnBnClickedBtnGenerate();

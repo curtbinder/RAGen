@@ -340,6 +340,11 @@ void RATabSheet::GetFilename(CString &s)
 		RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[Memory];
 		s = p->sFilename;
 	}
+	else if ( m_iCurrentTab == Standard )
+	{
+		RAStdPage* p = (RAStdPage*)m_pTabs[Standard];
+		s = p->sFilename;
+	}
 	else
 	{
 		s = _T("");

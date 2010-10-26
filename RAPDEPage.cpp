@@ -143,7 +143,7 @@ void RAPDEPage::LoadDefaults()
 	// Load the default values
 	InitPorts();
 	LoadDefaultPortDevices();
-	fTemp = FALSE;  // set to Farenheit
+	fTemp = FALSE;  // set to Fahrenheit
 	fLogging = FALSE;  // set to Not Log
 	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
 	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
