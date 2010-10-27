@@ -3,6 +3,11 @@ TODO File
 - Create Colors Page
 - Add hyperlinks to about page
 - Add launch arduino command after generate PDE
+- Add in check for arduino.exe in arduino folder
+- Settings Page
+	- Add in Always Launch, Prompt to Launch, Never Launch arduino after generate
+	- Have colored text to say if arduino.exe was found in arduino folder
+	- Recheck on folder change
 - Defines
 	- 200-300 Features (2000-3000 controls)
 	- 300-400 PDE (3000-4000 controls)
