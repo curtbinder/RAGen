@@ -200,6 +200,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cb_DoesFileExist.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\cb_FileVersion.cpp"
 				>
 			</File>
@@ -275,6 +279,10 @@
 			</File>
 			<File
 				RelativePath=".\cb_BrowseFolder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cb_DoesFileExist.h"
 				>
 			</File>
 			<File

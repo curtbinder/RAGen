@@ -429,10 +429,10 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_MEMORY));
 		switch ( iSaveReg )
 		{
-		case ALWAYS_SAVE:  // always save, no prompt
+		case ALWAYS:  // always save, no prompt
 			SaveValues();
 			break;
-		case PROMPT_SAVE:  // prompt to save
+		case PROMPT:  // prompt to save
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);
@@ -444,7 +444,7 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 			}
 			break;
 		default:
-		//case NEVER_SAVE:  // Never save
+		//case NEVER:  // Never save
 			break;
 		}
 	}

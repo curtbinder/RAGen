@@ -5,6 +5,7 @@
 #include "SettingsDlg.h"
 #include "cb_BrowseFolder.h"
 #include "cb_IsFolderWritable.h"
+#include "cb_DoesFileExist.h"
 #include "shlwapi.h"
 
 
@@ -15,10 +16,12 @@ IMPLEMENT_DYNAMIC(SettingsDlg, CDialog)
 SettingsDlg::SettingsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(SettingsDlg::IDD, pParent)
 	, m_iSaveRegistry(0)
+	, m_iLaunchArduino(0)
 	, m_sSketchFolder(_T(""))
 	, m_sArduinoFolder(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
+	m_fHasArduinoExe = FALSE;
 }
 
 SettingsDlg::~SettingsDlg()

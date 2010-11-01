@@ -16,7 +16,8 @@ IMPLEMENT_DYNAMIC(RAStdPage, CDialog)
 RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAStdPage::IDD, pParent)
 {
-	iSaveReg = PROMPT_SAVE;
+	iSaveReg = PROMPT;
+	fHasArduinoExe = FALSE;
 	fUse12Hour = TRUE;
 	m_iWM1IntervalTemp = 0;
 	m_iWM2IntervalTemp = 0;
@@ -690,17 +691,17 @@ void loop()\r\n\
 		// Add in the last bit of logging features
 		if ( fLogging )
 		{
-			s = _T("\r\n\
+			s.Format(_T("\r\n\
     // Dump Params\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
         Serial.flush();\r\n\
 	    Serial.print(\"<RA><T1>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1,%d));\r\n\
         Serial.print(\"</T1><T2>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2,%d));\r\n\
         Serial.print(\"</T2><T3>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3));\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3,%d));\r\n\
         Serial.print(\"</T3><PH>\");\r\n\
         Serial.print(ReefAngel.Params.PH);\r\n\
         Serial.print(\"</PH><R>\");\r\n\
@@ -712,7 +713,7 @@ void loop()\r\n\
         Serial.print(\"</ROFF></RA>\");\r\n\
         ParamTimer.Start();\r\n\
     }\r\n\
-");
+"), fTemp, fTemp, fTemp);
 			f.Write(s, s.GetLength());
 		}
 		s = _T("}\r\n\r\n");
@@ -1055,10 +1056,10 @@ void RAStdPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_STD));
 		switch ( iSaveReg )
 		{
-		case ALWAYS_SAVE:
+		case ALWAYS:
 			SaveSettings();
 			break;
-		case PROMPT_SAVE:
+		case PROMPT:
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);
@@ -1072,6 +1073,7 @@ void RAStdPage::OnBnClickedBtnGenerate()
 		default:
 			break;
 		}
+		// TODO launch arduino.exe here
 	}
 }
 

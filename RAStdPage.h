@@ -14,8 +14,11 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RASTDPAGE };
 
+	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	int iLaunch;
+	BOOL fHasArduinoExe;
 	CString sFilename;  //!< Filename of the PDE file generated
 
 	inline void Use12Hour(BOOL f = TRUE) { fUse12Hour = f; }

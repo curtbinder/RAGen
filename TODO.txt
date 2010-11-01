@@ -2,19 +2,23 @@ TODO File
 ---------
 - Create Colors Page
 - Add hyperlinks to about page
-- Add launch arduino command after generate PDE
+- Add launch arduino command after generate PDE & Std page
+	- Have LaunchArduino function that gets called from OnBtnGenerate fn
 - Add in check for arduino.exe in arduino folder
+	- Have flag (fHasArduinoExe) to know if we can launch arduino.exe after generate
+		- PDE & Standard Libraries tabs
 - Settings Page
 	- Add in Always Launch, Prompt to Launch, Never Launch arduino after generate
+		- PDE & Standard Libraries tabs
 	- Have colored text to say if arduino.exe was found in arduino folder
-	- Recheck on folder change
+	- Recheck for arduino.exe on folder change
+	- Add in ability to set Development Mode/Libraries from Settings Page
 - Defines
 	- 200-300 Features (2000-3000 controls)
 	- 300-400 PDE (3000-4000 controls)
 	- 400-500 Settings (4000-5000 controls)
 	- 500-600 Colors (5000-6000 controls)
 	- 600-700 Standard Libraries (6000-7000 controls)
-- Add in ability to set Development Mode/Libraries from Settings Page
 
 Completed / Release Information
 -------------------------------

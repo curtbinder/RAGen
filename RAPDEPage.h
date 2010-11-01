@@ -64,9 +64,11 @@ public:
 
 	//TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory for generated PDE files
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
-	//TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
+	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
 	//TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	int iLaunch;
+	BOOL fHasArduinoExe;
 	CString sFilename;  //!< Filename of the PDE file generated
 
 protected:

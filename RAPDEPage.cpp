@@ -17,6 +17,7 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 {
 	fTemp = FALSE;
 	fLogging = FALSE;
+	fHasArduinoExe = FALSE;
 	LoadDeviceFunctions();
 }
 
@@ -811,10 +812,10 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_PDE));
 		switch ( iSaveReg )
 		{
-		case ALWAYS_SAVE:
+		case ALWAYS:
 			SaveSettings();
 			break;
-		case PROMPT_SAVE:
+		case PROMPT:
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);
@@ -829,6 +830,7 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 		//case NeverSave:
 			break;
 		}
+		// TODO launch arduino.exe here
 	}
 }
 

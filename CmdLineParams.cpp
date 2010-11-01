@@ -31,15 +31,15 @@ void CmdLineParams::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL /*bLast*/
 		}
 		if ( strcmp(pszParam, _T("prompt")) == 0 )
 		{
-			m_iSaveReg = PROMPT_SAVE;
+			m_iSaveReg = PROMPT;
 		}
 		if ( strcmp(pszParam, _T("never")) == 0 )
 		{
-			m_iSaveReg = NEVER_SAVE;
+			m_iSaveReg = NEVER;
 		}
 		if ( strcmp(pszParam, _T("always")) == 0 )
 		{
-			m_iSaveReg = ALWAYS_SAVE;
+			m_iSaveReg = ALWAYS;
 		}
 	}
 }

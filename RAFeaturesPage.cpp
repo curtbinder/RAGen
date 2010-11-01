@@ -325,10 +325,10 @@ void RAFeaturesPage::OnBnClickedBtnGenerate()
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_FEATURES));
 		switch ( iSaveReg )
 		{
-		case ALWAYS_SAVE:
+		case ALWAYS:
 			SaveFeatures();
 			break;
-		case PROMPT_SAVE:
+		case PROMPT:
 			{
 				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
 					MB_ICONINFORMATION | MB_YESNO);

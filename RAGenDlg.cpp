@@ -8,6 +8,7 @@
 #include "SettingsDlg.h"
 #include "shlwapi.h"
 #include "GlobalVars.h"
+#include "cb_DoesFileExist.h"
 
 // RAGenDlg dialog
 
@@ -283,7 +284,9 @@ void RAGenDlg::GetFolders()
 void RAGenDlg::UpdateSettings()
 {
 	// copy the values over
+	m_Tabs.fHasArduinoExe = fHasArduinoExe;
 	m_Tabs.iSaveReg = iSaveReg;
+	m_Tabs.iLaunch = iLaunch;
 	_tcscpy_s(m_Tabs.m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	_tcscpy_s(m_Tabs.m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
@@ -321,6 +324,14 @@ BOOL RAGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	GetFolders();
+	if ( cb_DoesFileExist(m_sArduinoDirectory, _T("arduino.exe")) )
+	{
+		fHasArduinoExe = TRUE;
+	}
+	else
+	{
+		fHasArduinoExe = FALSE;
+	}
 
 	// set Development Libraries mode 
 	if ( iAppMode == DEV_MODE )
@@ -371,6 +382,8 @@ void RAGenDlg::OnEditSettings()
 {
 	SettingsDlg dlg;
 	dlg.m_iSaveRegistry = iSaveReg;
+	dlg.m_iLaunchArduino = iLaunch;
+	dlg.m_fHasArduinoExe = fHasArduinoExe;
 	dlg.m_sSketchFolder = m_sSketchDirectory;
 	dlg.m_sArduinoFolder = m_sArduinoDirectory;
 	INT_PTR iRet = dlg.DoModal();
@@ -378,16 +391,19 @@ void RAGenDlg::OnEditSettings()
 	{
 		// if OK is pressed, we need to update the settings
 		iSaveReg = dlg.m_iSaveRegistry;
+		iLaunch = dlg.m_iLaunchArduino;
+		fHasArduinoExe = dlg.m_fHasArduinoExe;
 		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
 		// Save these values to the registry only if:
 		//    Always save or Prompt to save are selected, otherwise leave alone
-		if ( (iSaveReg == ALWAYS_SAVE) || (iSaveReg == PROMPT_SAVE) )
+		if ( (iSaveReg == ALWAYS) || (iSaveReg == PROMPT) )
 		{
 			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
 			AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
 			AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
 			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
+			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
 		}
 		UpdateSettings();
 		UpdateData(FALSE);

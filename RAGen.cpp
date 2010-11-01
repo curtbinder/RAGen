@@ -57,6 +57,7 @@ BOOL CRAGenApp::InitInstance()
 	// TODO process any command line arguments here and update settings appropriately
 	CmdLineParams info;
 	ParseCommandLine(info);
+	int iLaunch = NOT_SET;
 	int iSave = NOT_SET;
 	int iAppMode = NOT_SET;
 	if ( info.TotalParams() > 0 )
@@ -68,12 +69,21 @@ BOOL CRAGenApp::InitInstance()
 	if ( iSave == NOT_SET )
 	{
 		// get the registry prompt setting only if it's not been set from commandline
-		iSave = GetProfileInt(_T(""), _T("RegistrySavePrompt"), PROMPT_SAVE);
+		iSave = GetProfileInt(_T(""), _T("RegistrySavePrompt"), PROMPT);
 	}
 	// sanity checks for ranges
-	if ( (iSave > NEVER_SAVE) || (iSave < ALWAYS_SAVE) )
+	if ( (iSave > NEVER) || (iSave < ALWAYS) )
 	{
-		iSave = PROMPT_SAVE;
+		iSave = PROMPT;
+	}
+
+	if ( iLaunch == NOT_SET )
+	{
+		iLaunch = GetProfileInt(_T(""), _T("LaunchArduino"), PROMPT);
+	}
+	if ( (iLaunch > NEVER) || (iLaunch < ALWAYS) )
+	{
+		iLaunch = PROMPT;
 	}
 
 	if ( iAppMode == NOT_SET )
@@ -90,6 +100,7 @@ BOOL CRAGenApp::InitInstance()
 	m_pMainWnd = &dlg;
 
 	// Set the modes and other stuff here before we show the window
+	dlg.SetLaunchArduino(iLaunch);
 	dlg.SetSaveRegistry(iSave);
 	dlg.SetAppMode(iAppMode);
 	dlg.DoModal();

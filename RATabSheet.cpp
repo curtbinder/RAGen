@@ -17,6 +17,7 @@ IMPLEMENT_DYNAMIC(RATabSheet, CTabCtrl)
 RATabSheet::RATabSheet()
 {
 	m_fDevMode = FALSE;
+	fHasArduinoExe = FALSE;
 }
 
 RATabSheet::~RATabSheet()
@@ -317,6 +318,10 @@ void RATabSheet::UpdateSettingsForTabs()
 	pp->iSaveReg = iSaveReg;
 	pm->iSaveReg = iSaveReg;
 	ps->iSaveReg = iSaveReg;
+	pp->iLaunch = iLaunch;
+	ps->iLaunch = iLaunch;
+	pp->fHasArduinoExe = fHasArduinoExe;
+	ps->fHasArduinoExe = fHasArduinoExe;
 	//_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	//_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
 	_tcscpy_s(pf->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
@@ -325,7 +330,8 @@ void RATabSheet::UpdateSettingsForTabs()
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
-	//_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
+	_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
+	_tcscpy_s(ps->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 }
 
 void RATabSheet::GetFilename(CString &s)

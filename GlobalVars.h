@@ -4,11 +4,11 @@
 
 #pragma once
 
-enum _SaveReg {
+enum _Prompt {
 	NOT_SET = -1,
-	ALWAYS_SAVE,
-	PROMPT_SAVE,
-	NEVER_SAVE,
+	ALWAYS,
+	PROMPT,
+	NEVER,
 };
 
 enum _AppMode {
