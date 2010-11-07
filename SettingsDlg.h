@@ -17,6 +17,7 @@ public:
 
 protected:
 	HICON m_hIcon;
+	void UpdateArduinoStatus();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
@@ -27,6 +28,8 @@ public:
 	int m_iSaveRegistry;
 	// 0 - Always Launch; 1 - Prompt to Launch; 2 - Never Launch
 	int m_iLaunchArduino;
+	// 0 - normal, 1 - development libraries
+	int m_iAppMode;
 	// Is the arduino.exe file in the arduino directory?
 	BOOL m_fHasArduinoExe;
 	// Folder to save the sketch files

@@ -17,7 +17,6 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 {
 	fTemp = FALSE;
 	fLogging = FALSE;
-	fHasArduinoExe = FALSE;
 	LoadDeviceFunctions();
 }
 
@@ -568,7 +567,6 @@ BOOL RAPDEPage::WritePDE()
 
 	TRY
 	{
-		//CString sFilename;
 		CString sFile;
 		CString s;
 		CString s1;
@@ -830,7 +828,6 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 		//case NeverSave:
 			break;
 		}
-		// TODO launch arduino.exe here
 	}
 }
 

@@ -13,7 +13,6 @@ public:
 	enum { IDD = IDD_RAMEMORYPAGE };
 
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
-	//TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	CString sFilename;  //!< Filename of the PDE file generated
 

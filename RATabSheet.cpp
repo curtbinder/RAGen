@@ -9,6 +9,7 @@
 #include "RAInternalMemoryPage.h"
 //#include "RAColorsPage.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
+#include "GlobalVars.h"
 
 // RATabSheet
 
@@ -133,6 +134,76 @@ void RATabSheet::Generate()
 		default:
 			break;
 	}
+}
+
+void RATabSheet::CheckLaunch(BOOL fSkipPrompt /*= FALSE*/)
+{
+	CString sFilename = _T("");
+	GetFilename(sFilename);
+	if ( sFilename.IsEmpty() )
+	{
+		return;
+	}
+	if ( ! fHasArduinoExe )
+	{
+		return;
+	}
+	
+	if ( fSkipPrompt )
+	{
+		// only for when the Launch button is pressed
+		LaunchArduino();
+		return;
+	}
+
+	switch ( iLaunch )
+	{
+	case ALWAYS:
+		LaunchArduino();
+		break;
+	case PROMPT:
+		{
+			int iRet = AfxMessageBox(_T("Do you want to launch arduino?"),
+				MB_ICONINFORMATION | MB_YESNO);
+			if ( iRet == IDYES )
+			{
+				LaunchArduino();
+			}
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void RATabSheet::LaunchArduino()
+{
+	// use CreateProcess function to launch arduino
+	// use m_sArduinoFolder + arduino.exe for application
+	// use m_sSketchFolder + sketchfilename for PDE file to open
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+	TCHAR sPDE[32768];
+	CString sFilename;
+
+	GetFilename(sFilename);
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s.pde\""), 
+			m_sArduinoDirectory, m_sSketchDirectory, sFilename, sFilename);
+
+	if ( ! CreateProcess(NULL, sPDE, NULL, NULL, FALSE,
+						0, NULL, m_sArduinoDirectory,
+						&si, &pi) )
+	{
+		TRACE("Failed to launch arduino.exe\n");
+		AfxMessageBox(_T("Failed to launch arduino.exe"), MB_ICONINFORMATION|MB_OK);
+	}
+
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
 }
 
 void RATabSheet::ResetAll()
@@ -318,20 +389,10 @@ void RATabSheet::UpdateSettingsForTabs()
 	pp->iSaveReg = iSaveReg;
 	pm->iSaveReg = iSaveReg;
 	ps->iSaveReg = iSaveReg;
-	pp->iLaunch = iLaunch;
-	ps->iLaunch = iLaunch;
-	pp->fHasArduinoExe = fHasArduinoExe;
-	ps->fHasArduinoExe = fHasArduinoExe;
-	//_tcscpy_s(pf->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
-	//_tcscpy_s(pp->m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
-	_tcscpy_s(pf->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
-	//_tcscpy_s(pp->m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	_tcscpy_s(pm->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
-	_tcscpy_s(pp->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
-	_tcscpy_s(ps->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 }
 
 void RATabSheet::GetFilename(CString &s)

@@ -26,10 +26,10 @@ protected:
 	BOOL GetArduinoFolder(LPCTSTR sDir);
 	void GetFolders();
 	void UpdateSettings();
+	void UpdateLaunchButtonVisibility(int nCmdShow);
 
 	DECLARE_MESSAGE_MAP()
 
-	TCHAR m_sOutputDirectory[MAX_PATH];  //!< Output directory
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
 	TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
@@ -52,6 +52,7 @@ public:
 	afx_msg void OnFileExit();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();
+	afx_msg void OnBnClickedBtnLaunch();
 	afx_msg void OnResetAll();
 	afx_msg void OnResetSaved();
 	afx_msg void OnResetPorts();

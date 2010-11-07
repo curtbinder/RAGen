@@ -4,10 +4,8 @@
 #include "stdafx.h"
 #include "SettingsDlg.h"
 #include "cb_BrowseFolder.h"
-#include "cb_IsFolderWritable.h"
-#include "cb_DoesFileExist.h"
+#include "cb_FileOperations.h"
 #include "shlwapi.h"
-
 
 // SettingsDlg dialog
 
@@ -17,6 +15,7 @@ SettingsDlg::SettingsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(SettingsDlg::IDD, pParent)
 	, m_iSaveRegistry(0)
 	, m_iLaunchArduino(0)
+	, m_iAppMode(0)
 	, m_sSketchFolder(_T(""))
 	, m_sArduinoFolder(_T(""))
 {
@@ -28,10 +27,26 @@ SettingsDlg::~SettingsDlg()
 {
 }
 
+void SettingsDlg::UpdateArduinoStatus()
+{
+	if ( cb_DoesArduinoExist(m_sArduinoFolder) )
+	{
+		SetDlgItemText(IDC_SETTINGS_TEXT_ARDUINO, _T("Found"));
+		m_fHasArduinoExe = TRUE;
+	}
+	else
+	{
+		SetDlgItemText(IDC_SETTINGS_TEXT_ARDUINO, _T("MISSING"));
+		m_fHasArduinoExe = FALSE;
+	}
+}
+
 void SettingsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_CBIndex(pDX, IDC_SETTINGS_CB_REGISTRY, m_iSaveRegistry);
+	DDX_CBIndex(pDX, IDC_SETTINGS_CB_LAUNCH, m_iLaunchArduino);
+	DDX_CBIndex(pDX, IDC_SETTINGS_CB_APP_MODE, m_iAppMode);
 }
 
 
@@ -57,6 +72,7 @@ BOOL SettingsDlg::OnInitDialog()
 	SetDlgItemText(IDC_SETTINGS_TEXT_REGISTRY, s);
 	SetDlgItemText(IDC_SETTINGS_SKETCH_FOLDER, m_sSketchFolder);
 	SetDlgItemText(IDC_SETTINGS_ARDUINO_FOLDER, m_sArduinoFolder);
+	UpdateArduinoStatus();
 	return TRUE;
 }
 
@@ -82,8 +98,8 @@ void SettingsDlg::OnOK()
 		AfxMessageBox(_T("You must specify an arduino directory."), MB_ICONINFORMATION|MB_OK);
 		return;
 	}
-	// validate folder and make sure it's a writable folder, if not don't exit
-	if ( ! cb_IsFolderWritable(m_sArduinoFolder) )
+	// validate folder and make sure it exists, if not don't exit
+	if ( ! cb_IsDirectory(m_sArduinoFolder) )
 	{
 		CString s;
 		s.Format(_T("Invalid folder:\n\n%s\n\nPlease select another arduino folder."), m_sArduinoFolder);
@@ -119,6 +135,7 @@ void SettingsDlg::OnBnClickedArduinoBtnBrowse()
 	}
 	m_sArduinoFolder.Format(_T("%s"), szPath);
 	SetDlgItemText(IDC_SETTINGS_ARDUINO_FOLDER, m_sArduinoFolder);
+	UpdateArduinoStatus();
 }
 
 void SettingsDlg::OnBnClickedBtnClear()
@@ -131,7 +148,13 @@ void SettingsDlg::OnBnClickedBtnClear()
 		// Clear registry settings
 		DWORD dwRet;
 		CString sMsg;
-		dwRet = SHDeleteKey(HKEY_CURRENT_USER, _T("Software\\Curt Binder\\RAGenPDE"));
+		CString s;
+#ifdef REEFANGEL_REG
+		s.LoadString(IDS_REGISTRY_RA_PATH);
+#else
+		s.LoadString(IDS_REGISTRY_CB_PATH);
+#endif  // REEFANGEL_REG
+		dwRet = SHDeleteKey(HKEY_CURRENT_USER, s);
 		if ( dwRet == ERROR_SUCCESS )
 		{
 			// cleared

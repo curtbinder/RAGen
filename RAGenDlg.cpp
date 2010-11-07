@@ -8,7 +8,7 @@
 #include "SettingsDlg.h"
 #include "shlwapi.h"
 #include "GlobalVars.h"
-#include "cb_DoesFileExist.h"
+#include "cb_FileOperations.h"
 
 // RAGenDlg dialog
 
@@ -162,42 +162,15 @@ BOOL RAGenDlg::GetSketchFolder()
 
 BOOL RAGenDlg::GetArduinoFolder(LPCTSTR sDir)
 {
-	BOOL bRet;
+	BOOL bRet = FALSE;
 	TCHAR szPath[MAX_PATH];
-	_tcscpy_s(szPath, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(szPath, MAX_PATH, m_sArduinoDirectory);
 	PathAppend(szPath, sDir);
-	/*
-	PathAppend(szPath, _T("arduino.exe"));
 
-	HANDLE hFile;  
-	hFile = CreateFile(szPath,
-					   GENERIC_READ,
-					   FILE_SHARE_READ,
-					   NULL,
-					   OPEN_EXISTING,
-					   FILE_ATTRIBUTE_NORMAL,
-					   NULL);
-	 
-	if (hFile == INVALID_HANDLE_VALUE) 
+	if ( cb_IsDirectory(szPath) )
 	{
-		bRet = FALSE;
-	}
-	else
-	{
+		PathAppend(m_sArduinoDirectory, sDir);
 		bRet = TRUE;
-	}
-	*/
-	if ( SetCurrentDirectory(szPath) )
-	{
-		// now let's return to our previous directory
-		SetCurrentDirectory(m_sCurrentDirectory);
-		PathAppend(m_sSketchDirectory, sDir);
-		bRet = TRUE;
-	}
-	else
-	{
-		// failed to change directory, not the right directory
-		bRet = FALSE;
 	}
 
 	return bRet;
@@ -209,16 +182,6 @@ void RAGenDlg::GetFolders()
 	CString s;
 	DWORD dwD = sizeof(m_sCurrentDirectory)/sizeof(TCHAR);
 	GetCurrentDirectory(dwD, m_sCurrentDirectory);
-
-	s = AfxGetApp()->GetProfileString(_T(""), _T("OutputDirectory"), _T(""));
-	if ( s.IsEmpty() )
-	{
-		_tcscpy_s(m_sOutputDirectory, MAX_PATH, m_sCurrentDirectory);
-	}
-	else
-	{
-		_stprintf_s(m_sOutputDirectory, MAX_PATH, _T("%s"), s);
-	}
 
 	s = AfxGetApp()->GetProfileString(_T(""), _T("SketchDirectory"), _T(""));
 	if ( s.IsEmpty() )
@@ -287,11 +250,19 @@ void RAGenDlg::UpdateSettings()
 	m_Tabs.fHasArduinoExe = fHasArduinoExe;
 	m_Tabs.iSaveReg = iSaveReg;
 	m_Tabs.iLaunch = iLaunch;
-	_tcscpy_s(m_Tabs.m_sOutputDirectory, MAX_PATH, m_sOutputDirectory);
-	_tcscpy_s(m_Tabs.m_sCurrentDirectory, MAX_PATH, m_sCurrentDirectory);
 	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(m_Tabs.m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 	m_Tabs.UpdateSettingsForTabs();
+}
+
+void RAGenDlg::UpdateLaunchButtonVisibility(int nCmdShow)
+{
+	if ( ! fHasArduinoExe )
+	{
+		GetDlgItem(IDC_BTN_LAUNCH)->ShowWindow(SW_HIDE);
+		return;
+	}
+	GetDlgItem(IDC_BTN_LAUNCH)->ShowWindow(nCmdShow);
 }
 
 BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
@@ -311,6 +282,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_RESET_OVERHEAT, &RAGenDlg::OnResetOverheat)
 	ON_COMMAND(ID_RESET_LIGHTSON, &RAGenDlg::OnResetLightsOn)
 	ON_BN_CLICKED(IDC_BTN_GENERATE, &RAGenDlg::OnBnClickedBtnGenerate)
+	ON_BN_CLICKED(IDC_BTN_LAUNCH, &RAGenDlg::OnBnClickedBtnLaunch)
 END_MESSAGE_MAP()
 
 
@@ -324,7 +296,7 @@ BOOL RAGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	GetFolders();
-	if ( cb_DoesFileExist(m_sArduinoDirectory, _T("arduino.exe")) )
+	if ( cb_DoesArduinoExist(m_sArduinoDirectory) )
 	{
 		fHasArduinoExe = TRUE;
 	}
@@ -332,6 +304,7 @@ BOOL RAGenDlg::OnInitDialog()
 	{
 		fHasArduinoExe = FALSE;
 	}
+	UpdateLaunchButtonVisibility(SW_HIDE);
 
 	// set Development Libraries mode 
 	if ( iAppMode == DEV_MODE )
@@ -383,6 +356,7 @@ void RAGenDlg::OnEditSettings()
 	SettingsDlg dlg;
 	dlg.m_iSaveRegistry = iSaveReg;
 	dlg.m_iLaunchArduino = iLaunch;
+	dlg.m_iAppMode = iAppMode;
 	dlg.m_fHasArduinoExe = fHasArduinoExe;
 	dlg.m_sSketchFolder = m_sSketchDirectory;
 	dlg.m_sArduinoFolder = m_sArduinoDirectory;
@@ -390,21 +364,36 @@ void RAGenDlg::OnEditSettings()
 	if ( iRet == IDOK )
 	{
 		// if OK is pressed, we need to update the settings
-		iSaveReg = dlg.m_iSaveRegistry;
-		iLaunch = dlg.m_iLaunchArduino;
+		// update settings if needed
+		if ( iSaveReg != dlg.m_iSaveRegistry )
+		{
+			iSaveReg = dlg.m_iSaveRegistry;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
+		}
+		if ( iLaunch != dlg.m_iLaunchArduino )
+		{
+			iLaunch = dlg.m_iLaunchArduino;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
+		}
+		if ( iAppMode != dlg.m_iAppMode )
+		{
+			// update application mode if it's changed
+			iAppMode = dlg.m_iAppMode;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
+			// change status text to have - Restart Required
+			CString s;
+			AfxGetApp()->m_pMainWnd->GetWindowText(s);
+			s += _T(" - Restart Required to Switch Modes");
+			AfxGetApp()->m_pMainWnd->SetWindowText(s);
+		}
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
 		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
-		// Save these values to the registry only if:
-		//    Always save or Prompt to save are selected, otherwise leave alone
-		if ( (iSaveReg == ALWAYS) || (iSaveReg == PROMPT) )
-		{
-			AfxGetApp()->WriteProfileString(_T(""), _T("OutputDirectory"), m_sOutputDirectory);
-			AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
-			AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
-			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
-			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
-		}
+
+		// always save these settings
+		AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
+		AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
+
 		UpdateSettings();
 		UpdateData(FALSE);
 	}
@@ -430,6 +419,13 @@ void RAGenDlg::OnBnClickedBtnGenerate()
 {
 	// Process the Generate Button Press
 	m_Tabs.Generate();
+	m_Tabs.CheckLaunch();
+}
+
+void RAGenDlg::OnBnClickedBtnLaunch()
+{
+	// Process the Launch Button Press
+	m_Tabs.CheckLaunch(TRUE);
 }
 
 void RAGenDlg::OnResetAll()
@@ -489,6 +485,8 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 	{
 		if ( lParam == 0 )
 		{
+			// hide Launch Button
+			UpdateLaunchButtonVisibility(SW_HIDE);
 			ClearStatus();
 			return TRUE;
 		}
@@ -498,6 +496,8 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 		m_Tabs.GetFilename(s1);
 		if ( s1.IsEmpty() )
 		{
+			// hide Launch Button
+			UpdateLaunchButtonVisibility(SW_HIDE);
 			SetStatus(s);
 		}
 		else
@@ -505,6 +505,8 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 			CString s2;
 			s2.Format(s, s1);
 			SetStatus(s2);
+			// show Launch Button
+			UpdateLaunchButtonVisibility(SW_SHOW);
 		}
 		return TRUE;
 	}

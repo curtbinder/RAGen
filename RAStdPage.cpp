@@ -17,7 +17,6 @@ RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAStdPage::IDD, pParent)
 {
 	iSaveReg = PROMPT;
-	fHasArduinoExe = FALSE;
 	fUse12Hour = TRUE;
 	m_iWM1IntervalTemp = 0;
 	m_iWM2IntervalTemp = 0;
@@ -353,7 +352,7 @@ ReefAngel_TimerClass ParamTimer;\r\n\
 void setup()\r\n\
 {\r\n\
     ReefAngel.Init();  //Initialize controller\r\n\
-	ReefAngel.LoadMenu(pgm_read_word(&(menuitems[0])),SIZE(menu_items)); // Load menu items\r\n\
+    ReefAngel.LoadMenu(pgm_read_word(&(menuitems[0])),SIZE(menu_items)); // Load menu items\r\n\
 ");
 		f.Write(s, s.GetLength());
 		// Determine which ports get started: Sump, WM1 and WM2
@@ -530,134 +529,134 @@ void loop()\r\n\
 		// Add in menu item checks
 		// Update checks appropriately based on ports enabled/disabled and temps passed in
 		s = _T("\r\n\r\n\
-	if (ReefAngel.SelectedMenu==255)  // Default Mode - Main Screen\r\n\
+    if (ReefAngel.SelectedMenu==255)  // Default Mode - Main Screen\r\n\
 	{\r\n");
 		f.Write(s, s.GetLength());
 		if ( ! fDisableWM1 )
 		{
 			s = _T("\
-		if (ReefAngel.Timer[1].IsTriggered())  // If timer 1 expires\r\n\
-		{\r\n\
-			ReefAngel.Timer[1].Start();  // start timer\r\n\
-			ReefAngel.Relay.Toggle(WM1);  // toggle relay\r\n\
-		}\r\n");
+        if (ReefAngel.Timer[1].IsTriggered())  // If timer 1 expires\r\n\
+        {\r\n\
+            ReefAngel.Timer[1].Start();  // start timer\r\n\
+            ReefAngel.Relay.Toggle(WM1);  // toggle relay\r\n\
+        }\r\n");
 			f.Write(s, s.GetLength());
 		}
 		if ( ! fDisableWM2 )
 		{
 			s = _T("\
-		if (ReefAngel.Timer[2].IsTriggered())  // If timer 2 expires\r\n\
-		{\r\n\
-			ReefAngel.Timer[2].Start();  // start timer\r\n\
-			ReefAngel.Relay.Toggle(WM2);  // toggle relay\r\n\
-		}\r\n");
+        if (ReefAngel.Timer[2].IsTriggered())  // If timer 2 expires\r\n\
+        {\r\n\
+            ReefAngel.Timer[2].Start();  // start timer\r\n\
+            ReefAngel.Relay.Toggle(WM2);  // toggle relay\r\n\
+        }\r\n");
 			f.Write(s, s.GetLength());
 		}
 		s = _T("\
-	}\r\n");
+    }\r\n");
 		f.Write(s, s.GetLength());
 
 		// Feeding Mode
 		s = _T("\r\n\
-	if (ReefAngel.SelectedMenu==0)  // Feeding Mode Selected\r\n\
-	{\r\n");
+    if (ReefAngel.SelectedMenu==0)  // Feeding Mode Selected\r\n\
+    {\r\n");
 		f.Write(s, s.GetLength());
 		if ( ! fDisableSump )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(Sump);  //Turn Sump off\r\n");
+        ReefAngel.Relay.Off(Sump);  //Turn Sump off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		if ( ! fDisableWM1 )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(WM1);  //Turn WM1 off\r\n");
+        ReefAngel.Relay.Off(WM1);  //Turn WM1 off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		if ( ! fDisableWM2 )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(WM2);  //Turn WM2 off\r\n");
+        ReefAngel.Relay.Off(WM2);  //Turn WM2 off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		s = _T("\
-		ReefAngel.FeedingModeGUI();  // Draw FeedingModeGUI\r\n\
-	}\r\n");
+        ReefAngel.FeedingModeGUI();  // Draw FeedingModeGUI\r\n\
+    }\r\n");
 		f.Write(s, s.GetLength());
 
 		// Water Change Mode
 		s = _T("\r\n\
-	if (ReefAngel.SelectedMenu==1)  // Water Change Mode Selected\r\n\
-	{\r\n");
+    if (ReefAngel.SelectedMenu==1)  // Water Change Mode Selected\r\n\
+    {\r\n");
 		f.Write(s, s.GetLength());
 		if ( ! fDisableSump )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(Sump);  //Turn Sump off\r\n");
+        ReefAngel.Relay.Off(Sump);  //Turn Sump off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		if ( ! fDisableWM1 )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(WM1);  //Turn WM1 off\r\n");
+        ReefAngel.Relay.Off(WM1);  //Turn WM1 off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		if ( ! fDisableWM2 )
 		{
 			s = _T("\
-		ReefAngel.Relay.Off(WM2);  //Turn WM2 off\r\n");
+        ReefAngel.Relay.Off(WM2);  //Turn WM2 off\r\n");
 			f.Write(s, s.GetLength());
 		}
 		s = _T("\
-		ReefAngel.WaterChangeModeGUI();  // Draw WaterChangeModeGUI\r\n\
-	}\r\n");
+        ReefAngel.WaterChangeModeGUI();  // Draw WaterChangeModeGUI\r\n\
+    }\r\n");
 		f.Write(s, s.GetLength());
 
 		s = _T("\r\n\
-	if (ReefAngel.SelectedMenu==2)  //Override Lights On Selected\r\n\
-	{\r\n\
-		ReefAngel.Relay.RelayMaskOn = B00000110;  //Override Lights On\r\n\
-		ReefAngel.PWM.SetActinic(50);  // Set PWM value\r\n\
-		ReefAngel.PWM.SetDaylight(50);  // Set PWM value\r\n\
-		ReefAngel.LCD.DrawText(19, 255, 10, 10, \"Override Lights On\");\r\n\
-	}\r\n\
+    if (ReefAngel.SelectedMenu==2)  //Override Lights On Selected\r\n\
+    {\r\n\
+        ReefAngel.Relay.RelayMaskOn = B00000110;  //Override Lights On\r\n\
+        ReefAngel.PWM.SetActinic(50);  // Set PWM value\r\n\
+        ReefAngel.PWM.SetDaylight(50);  // Set PWM value\r\n\
+        ReefAngel.LCD.DrawText(19, 255, 10, 10, \"Override Lights On\");\r\n\
+    }\r\n\
 \r\n\
-	if (ReefAngel.SelectedMenu==3)  //Override Lights Off Selected\r\n\
-	{\r\n\
-		ReefAngel.Relay.RelayMaskOn = B00000000;  //Override Lights Off\r\n\
-		ReefAngel.PWM.SetActinic(0);  // Set PWM value\r\n\
-		ReefAngel.PWM.SetDaylight(0);  // Set PWM value\r\n\
-		ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
-	}\r\n\
+    if (ReefAngel.SelectedMenu==3)  //Override Lights Off Selected\r\n\
+    {\r\n\
+        ReefAngel.Relay.RelayMaskOn = B00000000;  //Override Lights Off\r\n\
+        ReefAngel.PWM.SetActinic(0);  // Set PWM value\r\n\
+        ReefAngel.PWM.SetDaylight(0);  // Set PWM value\r\n\
+        ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
+    }\r\n\
 \r\n\
-	if (ReefAngel.SelectedMenu==4)  //Clear ATO Timeout Selected\r\n\
-	{\r\n\
-		ReefAngel.LED.Off();\r\n\
-		ReefAngel.ATO.topping = false;\r\n\
-		ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
-	}\r\n\
+    if (ReefAngel.SelectedMenu==4)  //Clear ATO Timeout Selected\r\n\
+    {\r\n\
+        ReefAngel.LED.Off();\r\n\
+        ReefAngel.ATO.topping = false;\r\n\
+        ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
+    }\r\n\
 \r\n\
-	if (ReefAngel.SelectedMenu==5)  //Clear Overheat Selected\r\n\
-	{\r\n\
-		ReefAngel.LED.Off();\r\n\
-		ReefAngel.Relay.RelayMaskOn = B11111111;  //Override MHlight Auto\r\n\
-		ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
-	}\r\n");
+    if (ReefAngel.SelectedMenu==5)  //Clear Overheat Selected\r\n\
+    {\r\n\
+        ReefAngel.LED.Off();\r\n\
+        ReefAngel.Relay.RelayMaskOn = B11111111;  //Override MHlight Auto\r\n\
+        ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n\
+    }\r\n");
 		f.Write(s, s.GetLength());
 
 		s = _T("\r\n\
-	if (ReefAngel.Timer[0].IsTriggered())  // If feeding timer runs out\r\n\
-	{\r\n\
-		ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n");
+    if (ReefAngel.Timer[0].IsTriggered())  // If feeding timer runs out\r\n\
+    {\r\n\
+        ReefAngel.ReturnMenuFunction();  // Return from menu function\r\n");
 		f.Write(s, s.GetLength());
 		if ( ! fDisableSump )
 		{
 			s = _T("\
-		ReefAngel.Relay.On(Sump);  //Turn Sump on\r\n");
+        ReefAngel.Relay.On(Sump);  //Turn Sump on\r\n");
 			f.Write(s, s.GetLength());
 		}
 		s = _T("\
-	}\r\n");
+    }\r\n");
 		f.Write(s, s.GetLength());
 
 		// overheat temp
@@ -696,7 +695,7 @@ void loop()\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
         Serial.flush();\r\n\
-	    Serial.print(\"<RA><T1>\");\r\n\
+        Serial.print(\"<RA><T1>\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1,%d));\r\n\
         Serial.print(\"</T1><T2>\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2,%d));\r\n\
@@ -1073,7 +1072,6 @@ void RAStdPage::OnBnClickedBtnGenerate()
 		default:
 			break;
 		}
-		// TODO launch arduino.exe here
 	}
 }
 

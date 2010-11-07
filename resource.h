@@ -33,6 +33,8 @@
 #define IDS_ENABLE_ADVANCED             144
 #define IDS_DISABLE_ADVANCED            145
 #define IDS_RESET_MENU                  146
+#define IDS_REGISTRY_CB_PATH			147
+#define IDS_REGISTRY_RA_PATH			148
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_DOSINGPUMPSETUP    204
@@ -203,8 +205,8 @@
 #define IDC_STD_TEMP_0                  639
 #define IDC_STD_TEMP_1                  640
 #define IDC_STD_CK_LOGGING              641
-#define IDC_STD_GROUP_TEMP				642
-#define IDC_STD_GROUP_LOGGING			643
+#define IDC_STD_GROUP_TEMP              642
+#define IDC_STD_GROUP_LOGGING           643
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -218,6 +220,10 @@
 #define IDC_SETTINGS_CB_REGISTRY        1010
 #define IDC_SETTINGS_TEXT_REGISTRY      1011
 #define IDC_SETTINGS_BTN_CLEAR          1012
+#define IDC_SETTINGS_CB_LAUNCH          1013
+#define IDC_SETTINGS_CB_APP_MODE        1014
+#define IDC_SETTINGS_TEXT_ARDUINO       1015
+#define IDC_BTN_LAUNCH                  1016
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_CK_DISPLAY_IMAGES  2002
 #define IDC_FEATURES_CK_SETUP_EXTRAS    2003
@@ -258,7 +264,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        600
 #define _APS_NEXT_COMMAND_VALUE         32786
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1017
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

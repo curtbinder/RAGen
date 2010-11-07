@@ -475,16 +475,8 @@ BOOL RAFeaturesPage::WriteFeatures()
 ");
 		CString sFooter = _T("\r\n\r\n#endif  // __REEFANGEL_FEATURES_H__\r\n");
 		CString sFile;
-		//if ( _tcscmp(m_sArduinoDirectory, _T("")) == 0 )
-		//{
-			// we have an arduino directory, so we will utilize it
-			sFile.Format(_T("%s\\libraries\\ReefAngel_Features\\"), m_sArduinoDirectory);
-		//}
-		//else
-		//{
-		//	// no arduino directory, so use the current directory
-		//	sFile.Format(_T("%s\\ReefAngel_Features\\"), m_sCurrentDirectory);
-		//}
+		// we have an arduino directory, so we will utilize it
+		sFile.Format(_T("%s\\libraries\\ReefAngel_Features\\"), m_sArduinoDirectory);
 		SECURITY_ATTRIBUTES sa;
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.lpSecurityDescriptor = NULL;
