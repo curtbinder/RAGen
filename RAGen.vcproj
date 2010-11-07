@@ -361,6 +361,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\README.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\TODO.txt"
 			>
 		</File>
