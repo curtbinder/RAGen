@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,40
- PRODUCTVERSION 1,0,1,40
+ FILEVERSION 1,0,0,45
+ PRODUCTVERSION 1,0,0,45
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 40"
+            VALUE "FileVersion", "1, 0, 0, 45"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 40"
+            VALUE "ProductVersion", "1, 0, 0, 45"
         END
     END
     BLOCK "VarFileInfo"
@@ -742,8 +742,6 @@ BEGIN
     IDS_SUCCESS_STD         "Success, Generated %s.pde"
     IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
-	IDS_REGISTRY_CB_PATH	"Software\\Curt Binder\\RAGen\\"
-	IDS_REGISTRY_RA_PATH	"Software\\Reef Angel\\RAGen\\"
 END
 
 STRINGTABLE 
@@ -751,6 +749,8 @@ BEGIN
     IDS_ENABLE_ADVANCED     "Enable &Timeouts && PH"
     IDS_DISABLE_ADVANCED    "Disable &Timeouts && PH"
     IDS_RESET_MENU          "&Reset"
+    IDS_REGISTRY_CB_PATH    "Software\\Curt Binder\\RAGen\\"
+    IDS_REGISTRY_RA_PATH    "Software\\Reef Angel\\RAGen\\"
 END
 
 #endif    // English (U.S.) resources
