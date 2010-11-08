@@ -19,6 +19,7 @@ RAGenDlg::RAGenDlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
 	iAppMode = NOT_SET;
+	fRestartRequired = FALSE;
 }
 
 RAGenDlg::~RAGenDlg()
@@ -283,6 +284,8 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_RESET_LIGHTSON, &RAGenDlg::OnResetLightsOn)
 	ON_BN_CLICKED(IDC_BTN_GENERATE, &RAGenDlg::OnBnClickedBtnGenerate)
 	ON_BN_CLICKED(IDC_BTN_LAUNCH, &RAGenDlg::OnBnClickedBtnLaunch)
+	ON_WM_CLOSE()
+	ON_BN_CLICKED(IDC_BTN_CLOSE, &RAGenDlg::OnBnClickedClose)
 END_MESSAGE_MAP()
 
 
@@ -375,17 +378,6 @@ void RAGenDlg::OnEditSettings()
 			iLaunch = dlg.m_iLaunchArduino;
 			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
 		}
-		if ( iAppMode != dlg.m_iAppMode )
-		{
-			// update application mode if it's changed
-			iAppMode = dlg.m_iAppMode;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
-			// change status text to have - Restart Required
-			CString s;
-			AfxGetApp()->m_pMainWnd->GetWindowText(s);
-			s += _T(" - Restart Required to Switch Modes");
-			AfxGetApp()->m_pMainWnd->SetWindowText(s);
-		}
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
 		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
@@ -396,6 +388,39 @@ void RAGenDlg::OnEditSettings()
 
 		UpdateSettings();
 		UpdateData(FALSE);
+
+		// TODO prompt to restart application
+		if ( iAppMode != dlg.m_iAppMode )
+		{
+			// update application mode if it's changed
+			iAppMode = dlg.m_iAppMode;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
+			fRestartRequired = TRUE;
+			/*
+			Prompt to restart the application
+			if user cancels the restart, then update the window text
+			*/
+			// change status text to have - Restart Required
+			CString s;
+			int iRet;
+			s = _T("A program restart is required to switch library mode.\n\nDo you want to restart now?");
+			iRet = AfxMessageBox(s, MB_YESNO);
+			if ( iRet == IDYES )
+			{
+				TRACE("Program restart initiated\n");
+				PostMessage(WM_CLOSE);
+			}
+			else
+			{
+				TRACE("User declined to restart\n");
+				AfxMessageBox(_T("The library mode will be switched the next time you run this program."));
+				AfxGetApp()->m_pMainWnd->GetWindowText(s);
+				s += _T(" - Restart Required to Switch Modes");
+				AfxGetApp()->m_pMainWnd->SetWindowText(s);
+				// to prevent program from starting back up after they close it
+				fRestartRequired = FALSE;
+			}
+		}
 	}
 }
 
@@ -512,4 +537,39 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 	}
 
 	return CDialog::OnCommand(wParam, lParam);
+}
+
+void RAGenDlg::OnClose()
+{
+	if ( fRestartRequired )
+	{
+		STARTUPINFO si;
+		PROCESS_INFORMATION pi;
+		TCHAR sApp[32768];
+
+		ZeroMemory(&si, sizeof(si));
+		si.cb = sizeof(si);
+		ZeroMemory(&pi, sizeof(pi));
+
+		_stprintf_s(sApp, 32768, _T("%s.exe"), theApp.m_pszExeName);
+
+		if ( ! CreateProcess(NULL, sApp, NULL, NULL, FALSE,
+							0, NULL, NULL,
+							&si, &pi) )
+		{
+			TRACE("Failed to restart\n");
+
+			AfxMessageBox(_T("Failed to restart"), MB_ICONINFORMATION|MB_OK);
+		}
+
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
+	}
+
+	CDialog::OnClose();
+}
+
+void RAGenDlg::OnBnClickedClose()
+{
+	PostMessage(WM_CLOSE);
 }

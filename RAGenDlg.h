@@ -38,6 +38,7 @@ protected:
 	int iAppMode;  //!< Application mode, 0 - normal, 1 - development libraries
 	BOOL fHasArduinoExe;
 	HICON m_hIcon;
+	BOOL fRestartRequired;
 	RATabSheet m_Tabs;
 
 public:
@@ -62,4 +63,6 @@ public:
 	afx_msg void OnResetWaterChangeMode();
 	afx_msg void OnResetOverheat();
 	afx_msg void OnResetLightsOn();
+	afx_msg void OnClose();
+	afx_msg void OnBnClickedClose();
 };
