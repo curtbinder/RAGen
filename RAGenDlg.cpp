@@ -272,6 +272,28 @@ void RAGenDlg::UpdateLaunchButtonVisibility(int nCmdShow)
 	GetDlgItem(IDC_BTN_LAUNCH)->ShowWindow(nCmdShow);
 }
 
+void RAGenDlg::CreateStatusBar()
+{
+	// Create status bar at the bottom of the dialog window
+	if (m_StatusBar.Create(this))
+	{
+		m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
+		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
+		m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
+	}
+	// We need to resize the dialog to make room for control bars.
+	CRect rcClientStart;
+	CRect rcClientNow;
+	GetClientRect(rcClientStart);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0, reposQuery, rcClientNow);
+	CRect rcWindow;
+	GetWindowRect(rcWindow);
+	rcWindow.right += rcClientStart.Width() - rcClientNow.Width();
+	rcWindow.bottom += rcClientStart.Height() - rcClientNow.Height();
+	MoveWindow(rcWindow, FALSE);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
+}
+
 BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
@@ -305,25 +327,7 @@ BOOL RAGenDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
-	// Create status bar at the bottom of the dialog window
-	if (m_StatusBar.Create(this))
-	{
-		m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
-		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
-		m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
-	}
-	// We need to resize the dialog to make room for control bars.
-	CRect rcClientStart;
-	CRect rcClientNow;
-	GetClientRect(rcClientStart);
-	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0, reposQuery, rcClientNow);
-	CRect rcWindow;
-	GetWindowRect(rcWindow);
-	rcWindow.right += rcClientStart.Width() - rcClientNow.Width();
-	rcWindow.bottom += rcClientStart.Height() - rcClientNow.Height();
-	MoveWindow(rcWindow, FALSE);
-	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
-
+	CreateStatusBar();
 	GetFolders();
 	if ( cb_DoesArduinoExist(m_sArduinoDirectory) )
 	{

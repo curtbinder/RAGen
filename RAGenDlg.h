@@ -28,6 +28,7 @@ protected:
 	void GetFolders();
 	void UpdateSettings();
 	void UpdateLaunchButtonVisibility(int nCmdShow);
+	void CreateStatusBar();
 
 	DECLARE_MESSAGE_MAP()
 
