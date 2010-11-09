@@ -272,6 +272,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_EDIT_SETTINGS, &RAGenDlg::OnEditSettings)
 	ON_COMMAND(ID_EDIT_ENABLE_ADVANCED, &RAGenDlg::OnEditEnableAdvanced)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
+	ON_COMMAND(ID_FILE_RESTART, &RAGenDlg::OnFileRestart)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
 	ON_COMMAND(ID_RESET_SAVED, &RAGenDlg::OnResetSaved)
@@ -378,6 +379,13 @@ void RAGenDlg::OnEditSettings()
 			iLaunch = dlg.m_iLaunchArduino;
 			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
 		}
+		if ( iAppMode != dlg.m_iAppMode )
+		{
+			// update application mode if it's changed
+			iAppMode = dlg.m_iAppMode;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
+			fRestartRequired = TRUE;
+		}
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
 		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
@@ -389,18 +397,12 @@ void RAGenDlg::OnEditSettings()
 		UpdateSettings();
 		UpdateData(FALSE);
 
-		// TODO prompt to restart application
-		if ( iAppMode != dlg.m_iAppMode )
+		if ( fRestartRequired )
 		{
-			// update application mode if it's changed
-			iAppMode = dlg.m_iAppMode;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
-			fRestartRequired = TRUE;
 			/*
 			Prompt to restart the application
 			if user cancels the restart, then update the window text
 			*/
-			// change status text to have - Restart Required
 			CString s;
 			int iRet;
 			s = _T("A program restart is required to switch library mode.\n\nDo you want to restart now?");
@@ -412,6 +414,7 @@ void RAGenDlg::OnEditSettings()
 			}
 			else
 			{
+				// change status text to have - Restart Required
 				TRACE("User declined to restart\n");
 				AfxMessageBox(_T("The library mode will be switched the next time you run this program."));
 				AfxGetApp()->m_pMainWnd->GetWindowText(s);
@@ -419,6 +422,10 @@ void RAGenDlg::OnEditSettings()
 				AfxGetApp()->m_pMainWnd->SetWindowText(s);
 				// to prevent program from starting back up after they close it
 				fRestartRequired = FALSE;
+				// insert restart menu item for ability to restart program if desired
+				CMenu* pMenu = GetMenu()->GetSubMenu(0);
+				pMenu->InsertMenuA(0, MF_BYPOSITION|MF_SEPARATOR);
+				pMenu->InsertMenuA(0, MF_BYPOSITION|MF_STRING, ID_FILE_RESTART, _T("Res&tart"));
 			}
 		}
 	}
@@ -431,6 +438,12 @@ void RAGenDlg::OnEditEnableAdvanced()
 
 void RAGenDlg::OnFileExit()
 {
+	PostMessage(WM_CLOSE);
+}
+
+void RAGenDlg::OnFileRestart()
+{
+	fRestartRequired = TRUE;
 	PostMessage(WM_CLOSE);
 }
 

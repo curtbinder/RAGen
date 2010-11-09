@@ -51,6 +51,7 @@ public:
 	afx_msg void OnEditSettings();
 	afx_msg void OnEditEnableAdvanced();
 	afx_msg void OnFileExit();
+	afx_msg void OnFileRestart();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();
 	afx_msg void OnBnClickedBtnLaunch();
