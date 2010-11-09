@@ -10,6 +10,11 @@
 #include "GlobalVars.h"
 #include "cb_FileOperations.h"
 
+static UINT auIDStatusBar[] = {
+	ID_SEPARATOR,
+	ID_COMPORT
+};
+
 // RAGenDlg dialog
 
 IMPLEMENT_DYNAMIC(RAGenDlg, CDialog)
@@ -20,6 +25,7 @@ RAGenDlg::RAGenDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
 	iAppMode = NOT_SET;
 	fRestartRequired = FALSE;
+	m_iStatusBarSize = sizeof(auIDStatusBar)/sizeof(UINT);
 }
 
 RAGenDlg::~RAGenDlg()
@@ -298,6 +304,25 @@ BOOL RAGenDlg::OnInitDialog()
 
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
+	
+	// Create status bar at the bottom of the dialog window
+	if (m_StatusBar.Create(this))
+	{
+		m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
+		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
+		m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
+	}
+	// We need to resize the dialog to make room for control bars.
+	CRect rcClientStart;
+	CRect rcClientNow;
+	GetClientRect(rcClientStart);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0, reposQuery, rcClientNow);
+	CRect rcWindow;
+	GetWindowRect(rcWindow);
+	rcWindow.right += rcClientStart.Width() - rcClientNow.Width();
+	rcWindow.bottom += rcClientStart.Height() - rcClientNow.Height();
+	MoveWindow(rcWindow, FALSE);
+	RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, 0);
 
 	GetFolders();
 	if ( cb_DoesArduinoExist(m_sArduinoDirectory) )
@@ -314,6 +339,7 @@ BOOL RAGenDlg::OnInitDialog()
 	if ( iAppMode == DEV_MODE )
 	{
 		m_Tabs.SetDeveloperMode();
+		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Development Libraries"));
 	}
 
 	// initialize the tabs

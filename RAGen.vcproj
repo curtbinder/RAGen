@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DlgStatusBar.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAFeaturesPage.cpp"
 				>
 			</File>
@@ -287,6 +291,10 @@
 			</File>
 			<File
 				RelativePath=".\CmdLineParams.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DlgStatusBar.h"
 				>
 			</File>
 			<File

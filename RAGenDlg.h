@@ -1,6 +1,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "RATabSheet.h"
+#include "DlgStatusBar.h"
 
 // RAGenDlg dialog
 
@@ -40,6 +41,8 @@ protected:
 	HICON m_hIcon;
 	BOOL fRestartRequired;
 	RATabSheet m_Tabs;
+	DlgStatusBar m_StatusBar;
+	int m_iStatusBarSize;
 
 public:
 	void SetLaunchArduino(int iLaunchArduino) { iLaunch = iLaunchArduino; }

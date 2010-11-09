@@ -4,6 +4,7 @@
 //
 #define IDOK                            1
 #define IDCANCEL                        2
+#define ID_COMPORT						3
 #define IDD_RAGEN                       102
 #define IDD_RAFEATURESPAGE              103
 #define IDD_RAPDEPAGE                   104
