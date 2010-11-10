@@ -12,7 +12,7 @@
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
-	ID_COMPORT
+	IDS_COMPORT
 };
 
 // RAGenDlg dialog
@@ -275,12 +275,16 @@ void RAGenDlg::UpdateLaunchButtonVisibility(int nCmdShow)
 void RAGenDlg::CreateStatusBar()
 {
 	// Create status bar at the bottom of the dialog window
-	if (m_StatusBar.Create(this))
+	if ( ! m_StatusBar.Create(this) )
 	{
-		m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
-		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
-		m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
+		return;
 	}
+	
+	m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
+	m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
+	m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
+	m_StatusBar.SetPaneText(1, _T(""));  // clear out the COM port pane
+
 	// We need to resize the dialog to make room for control bars.
 	CRect rcClientStart;
 	CRect rcClientNow;

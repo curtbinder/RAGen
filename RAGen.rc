@@ -752,6 +752,7 @@ BEGIN
     IDS_RESET_MENU          "&Reset"
     IDS_REGISTRY_CB_PATH    "Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA_PATH    "Software\\Reef Angel\\RAGen\\"
+	IDS_COMPORT				"COMXX"
 END
 
 #endif    // English (U.S.) resources
