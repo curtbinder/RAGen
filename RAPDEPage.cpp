@@ -761,7 +761,7 @@ void loop()\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
         Serial.flush();\r\n\
-	    Serial.print(\"<RA><T1>\");\r\n\
+        Serial.print(\"<RA><T1>\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
         Serial.print(\"</T1><T2>\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
