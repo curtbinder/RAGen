@@ -11,9 +11,10 @@ TODO File
 	- 500-600 Colors (5000-6000 controls)
 	- 600-700 Standard Libraries (6000-7000 controls)
 
+
 Completed / Release Information
 -------------------------------
-v1.00 - Beta 1
+v1.00
 --------------
 - Incorporate About dialog box
 - Convert RAGenPDE to Tab
@@ -43,3 +44,8 @@ v1.00 - Beta 1
 	- Add in ability to set Development Mode/Libraries from Settings Page
 - Have Launch button to launch arduino (PDE, Internal Memory, Standard pages)
 	- only visible after a generate
+	
+1.0.1
+-----
+- Added true status bar
+- Updated version string to be full version instead of shortened version

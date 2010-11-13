@@ -42,23 +42,17 @@ HRESULT cb_GetFileVersion(LPCTSTR szFilename, VS_FIXEDFILEINFO *pFileInfo)
 CString cb_GetFileVersionString(HINSTANCE hInstance)
 {
 	CString sFileName;
-	CString sVersionString = _T("0.0 Beta");
 	DWORD dwRet;
 	dwRet = GetModuleFileName(hInstance, sFileName.GetBuffer(_MAX_PATH), _MAX_PATH);
 	VS_FIXEDFILEINFO FileInfo;
 	if ( SUCCEEDED(cb_GetFileVersion(sFileName, &FileInfo)) )
 	{
 		DWORD dwMajor, dwMinor, dwBeta, dwBuild;
-		CString sBeta = _T("");
 		dwMajor = HIWORD(FileInfo.dwFileVersionMS);
 		dwMinor = LOWORD(FileInfo.dwFileVersionMS);
 		dwBeta = HIWORD(FileInfo.dwFileVersionLS);
 		dwBuild = LOWORD(FileInfo.dwFileVersionLS);
-		if ( dwBeta > 0 )
-		{
-			sBeta.Format(_T(" - Beta %d (Build %d)"), dwBeta, dwBuild);
-		}
-		sFileName.Format(_T("%d.%02d%s"), dwMajor, dwMinor, sBeta);
+		sFileName.Format(_T("%d.%d.%d.%d"), dwMajor, dwMinor, dwBeta, dwBuild);
 	}
 	return sFileName;
 }

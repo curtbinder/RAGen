@@ -40,7 +40,8 @@ void RAGenDlg::DoDataExchange(CDataExchange* pDX)
 
 void RAGenDlg::SetStatus(LPCTSTR s)
 {
-	SetDlgItemText(IDC_TEXT_STATUS, s);
+	//SetDlgItemText(IDC_TEXT_STATUS, s);
+	m_StatusBar.SetWindowText(s);
 }
 
 void RAGenDlg::ClearStatus()
@@ -281,7 +282,7 @@ void RAGenDlg::CreateStatusBar()
 	}
 	
 	m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
-	m_StatusBar.SetWindowText(_T("ReefAngel Generator - Standard Libraries"));
+	ClearStatus();
 	m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
 	m_StatusBar.SetPaneText(1, _T(""));  // clear out the COM port pane
 
@@ -347,7 +348,6 @@ BOOL RAGenDlg::OnInitDialog()
 	if ( iAppMode == DEV_MODE )
 	{
 		m_Tabs.SetDeveloperMode();
-		m_StatusBar.SetWindowText(_T("ReefAngel Generator - Development Libraries"));
 	}
 
 	// initialize the tabs

@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,1,47
- PRODUCTVERSION 1,1,1,47
+ FILEVERSION 1,0,1,49
+ PRODUCTVERSION 1,0,1,49
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 1, 1, 47"
+            VALUE "FileVersion", "1, 0, 1, 49"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 1, 1, 47"
+            VALUE "ProductVersion", "1, 0, 1, 49"
         END
     END
     BLOCK "VarFileInfo"
@@ -577,8 +577,8 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_TAB,"SysTabControl32",0x0,7,7,371,209
     PUSHBUTTON      "&Generate",IDC_BTN_GENERATE,7,222,50,14
-    LTEXT           "",IDC_TEXT_STATUS,63,224,203,10
-    PUSHBUTTON      "&Launch",IDC_BTN_LAUNCH,272,222,50,14
+    LTEXT           "",IDC_TEXT_STATUS,162,222,65,10
+    PUSHBUTTON      "&Launch",IDC_BTN_LAUNCH,63,222,50,14
     PUSHBUTTON      "&Close",IDC_BTN_CLOSE,328,222,50,14
 END
 
@@ -752,7 +752,7 @@ BEGIN
     IDS_RESET_MENU          "&Reset"
     IDS_REGISTRY_CB_PATH    "Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA_PATH    "Software\\Reef Angel\\RAGen\\"
-	IDS_COMPORT				"COMXX"
+    IDS_COMPORT             "COMXX"
 END
 
 #endif    // English (U.S.) resources
