@@ -60,6 +60,8 @@ void RATabSheet::Init()
 		{
 			m_pTabs[i]->ShowWindow(SW_HIDE);
 		}
+		// hide generate button
+		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
 	}
 	else
 	{
@@ -455,7 +457,8 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	m_iCurrentTab = cur;
 
 	// change the menu
-	UINT menuID;
+	int nShow = SW_SHOW;
+	UINT menuID = IDR_MENU_RESET;
 	switch ( m_iCurrentTab )
 	{
 		case PDE:
@@ -466,10 +469,16 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			RAInternalMemoryPage* p = (RAInternalMemoryPage*)m_pTabs[m_iCurrentTab];
 			p->OnEditTimeoutsPH();
 			}
-		default:
-			menuID = IDR_MENU_RESET;
 			break;
+		case Features:
+			nShow = SW_HIDE;
+			break;
+		//default:
+		//	break;
 	}
+	// show/hide generate button appropriately
+	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
+
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 
 	// clear the status

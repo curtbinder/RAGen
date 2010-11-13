@@ -2,14 +2,16 @@ TODO File
 ---------
 - Create Colors Page
 - Add hyperlinks to about page
+- Add search path for arduino libraries to Sketchbook/Libraries
+- Generate PDE generates features based on options selected on PDE page
+	- no WM chosen, don't include
+	- no DP chosen, don't include
+	- if dual ato chosen, enable dual ato
+- Remove features from features pagethat are not controlled by PDE page
 - Have colored text to say if arduino.exe was found in arduino folder on Settings Dialog
 - Switch most of the _T("") (hard coded strings) to be LoadString for single location changing
 - Defines
-	- 200-300 Features (2000-3000 controls)
-	- 300-400 PDE (3000-4000 controls)
-	- 400-500 Settings (4000-5000 controls)
 	- 500-600 Colors (5000-6000 controls)
-	- 600-700 Standard Libraries (6000-7000 controls)
 
 
 Completed / Release Information
@@ -45,7 +47,8 @@ v1.00
 - Have Launch button to launch arduino (PDE, Internal Memory, Standard pages)
 	- only visible after a generate
 	
-1.0.1
------
+v1.0.1
+------
 - Added true status bar
 - Updated version string to be full version instead of shortened version
+- Removed generate button from Features page
