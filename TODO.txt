@@ -51,4 +51,5 @@ v1.0.1
 ------
 - Added true status bar
 - Updated version string to be full version instead of shortened version
-- Removed generate button from Features page
+- Removed generate button from Features page (with define statement currently, 11/13/10)
+- fixed a tab in PDE file, switched to spaces
