@@ -250,6 +250,41 @@ void RAGenDlg::GetFolders()
 	{
 		_tcscpy_s(m_sArduinoDirectory, MAX_PATH, m_sCurrentDirectory);
 	}
+
+	// set the libraries folder
+	s = AfxGetApp()->GetProfileString(_T(""), _T("LibrariesDirectory"), _T(""));
+	if ( s.IsEmpty() )
+	{
+		BOOL bFound = FALSE;
+		// Check My Documents/Arduino/libraries folder
+		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_MYDOCUMENTS, NULL, SHGFP_TYPE_CURRENT, m_sLibraryDirectory)) )
+		{
+			s.Format(_T("%s\\Arduino\\libraries"), m_sLibraryDirectory);
+			if ( cb_IsDirectory(s) )
+			{
+				_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
+				bFound = TRUE;
+			}
+		}
+		// not found, set to arduino folder / libraries
+		if ( ! bFound )
+		{
+			s.Format(_T("%s\\libraries"), m_sArduinoDirectory);
+			if ( cb_IsDirectory(s) )
+			{
+				_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
+			}
+			else
+			{
+				// no libraries folder, so use the current directory
+				_tcscpy_s(m_sLibraryDirectory, MAX_PATH, m_sCurrentDirectory);
+			}
+		}
+	}
+	else
+	{
+		_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
+	}
 }
 
 void RAGenDlg::UpdateSettings()
@@ -260,6 +295,7 @@ void RAGenDlg::UpdateSettings()
 	m_Tabs.iLaunch = iLaunch;
 	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(m_Tabs.m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
+	_tcscpy_s(m_Tabs.m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 	m_Tabs.UpdateSettingsForTabs();
 }
 
@@ -398,6 +434,7 @@ void RAGenDlg::OnEditSettings()
 	dlg.m_fHasArduinoExe = fHasArduinoExe;
 	dlg.m_sSketchFolder = m_sSketchDirectory;
 	dlg.m_sArduinoFolder = m_sArduinoDirectory;
+	dlg.m_sLibraryFolder = m_sLibraryDirectory;
 	INT_PTR iRet = dlg.DoModal();
 	if ( iRet == IDOK )
 	{
@@ -423,10 +460,12 @@ void RAGenDlg::OnEditSettings()
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
 		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
 		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
+		_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), dlg.m_sLibraryFolder);
 
 		// always save these settings
 		AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
 		AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
+		AfxGetApp()->WriteProfileString(_T(""), _T("LibrariesDirectory"), m_sLibraryDirectory);
 
 		UpdateSettings();
 		UpdateData(FALSE);

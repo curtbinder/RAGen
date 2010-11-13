@@ -14,7 +14,7 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RAFEATURESPAGE };
 
-	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
+	TCHAR m_sLibraryDirectory[MAX_PATH];  //!< Libraries directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 
 protected:

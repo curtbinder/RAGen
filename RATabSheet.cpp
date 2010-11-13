@@ -60,8 +60,10 @@ void RATabSheet::Init()
 		{
 			m_pTabs[i]->ShowWindow(SW_HIDE);
 		}
+#ifdef HIDE_FEATURE_GENERATE
 		// hide generate button
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
+#endif  // HIDE_FEATURE_GENERATE
 	}
 	else
 	{
@@ -394,7 +396,7 @@ void RATabSheet::UpdateSettingsForTabs()
 	_tcscpy_s(pm->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(pf->m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
+	_tcscpy_s(pf->m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 }
 
 void RATabSheet::GetFilename(CString &s)
@@ -476,8 +478,10 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 		//default:
 		//	break;
 	}
+#ifdef HIDE_FEATURE_GENERATE
 	// show/hide generate button appropriately
 	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
+#endif  // HIDE_FEATURE_GENERATE
 
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 

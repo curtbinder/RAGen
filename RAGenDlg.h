@@ -34,6 +34,7 @@ protected:
 
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	TCHAR m_sArduinoDirectory[MAX_PATH];  //!< Arduino directory
+	TCHAR m_sLibraryDirectory[MAX_PATH];  //!< Libraries directory
 	TCHAR m_sCurrentDirectory[MAX_PATH];  //!< Current directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	int iLaunch;

@@ -36,7 +36,10 @@ public:
 	CString m_sSketchFolder;
 	// Folder for Arduino
 	CString m_sArduinoFolder;
+	// Folder for libraries folder
+	CString m_sLibraryFolder;
 	afx_msg void OnBnClickedSketchBtnBrowse();
 	afx_msg void OnBnClickedArduinoBtnBrowse();
+	afx_msg void OnBnClickedLibraryBtnBrowse();
 	afx_msg void OnBnClickedBtnClear();
 };
