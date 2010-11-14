@@ -426,7 +426,7 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 	UpdateData();
 	if ( WriteValues() )
 	{
-		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_MEMORY));
+		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
 		switch ( iSaveReg )
 		{
 		case ALWAYS:  // always save, no prompt

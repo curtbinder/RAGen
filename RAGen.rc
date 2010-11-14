@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,51
- PRODUCTVERSION 1,0,1,51
+ FILEVERSION 1,0,1,53
+ PRODUCTVERSION 1,0,1,53
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 51"
+            VALUE "FileVersion", "1, 0, 1, 53"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 51"
+            VALUE "ProductVersion", "1, 0, 1, 53"
         END
     END
     BLOCK "VarFileInfo"
@@ -362,28 +362,19 @@ BEGIN
     GROUPBOX        "Select Features",IDC_STATIC,7,7,353,89
     CONTROL         "Display Images",IDC_FEATURES_CK_DISPLAY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,19,64,10
     CONTROL         "Setup Extras",IDC_FEATURES_CK_SETUP_EXTRAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,35,57,10
-    CONTROL         "Dosing Pump Setup",IDC_FEATURES_CK_DOSINGPUMP_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,51,77,10
-    CONTROL         "Wavemaker Setup",IDC_FEATURES_CK_WAVEMAKER_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,67,75,10
     CONTROL         "Save Relay State",IDC_FEATURES_CK_SAVE_RELAY_STATE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,83,71,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,51,71,10
     CONTROL         "Overheat Setup",IDC_FEATURES_CK_OVERHEAT_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,19,67,10
     CONTROL         "Date / Time Setup",IDC_FEATURES_CK_DATE_TIME_SETUP,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,35,73,10
     CONTROL         "Version Menu",IDC_FEATURES_CK_VERSION_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,51,59,10
-    CONTROL         "Direct Temp Sensor",IDC_FEATURES_CK_DIRECT_TEMP_SENSOR,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,67,78,10
-    CONTROL         "Metal Halide Setup",IDC_FEATURES_CK_METAL_HALIDE_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,19,75,10
-    CONTROL         "Standard Lights Setup",IDC_FEATURES_CK_STANDARD_LIGHTS_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,35,87,10
-    CONTROL         "Display LED PWM",IDC_FEATURES_CK_DISPLAY_LED_PWM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,51,71,10
+    CONTROL         "Display LED PWM",IDC_FEATURES_CK_DISPLAY_LED_PWM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,19,71,10
     CONTROL         "Remove All Lights",IDC_FEATURES_CK_REMOVE_ALL_LIGHTS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,67,72,10
-    CONTROL         "ATO Setup",IDC_FEATURES_CK_ATO_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,19,51,10
-    CONTROL         "Single ATO",IDC_FEATURES_CK_SINGLE_ATO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,51,10
-    CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,61,10
-    CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,67,28,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,35,72,10
+    CONTROL         "Direct Temp Sensor",IDC_FEATURES_CK_DIRECT_TEMP_SENSOR,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,51,78,10
+    CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,19,28,10
+    CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,61,10
     GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
     LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
 END
@@ -699,10 +690,6 @@ BEGIN
                             "If your sketch/compile size is getting too big or if you are running out of RAM and having bizarre events happen with the controller, you may want to not display the graphics on screen which can save some memory.  Selecting this feature will display the graphics.  Not selecting this feature will prevent any graphics from being displayed, you will have text only screens during water changes and feeding modes.\n\nApproximately 346 bytes to have this feature."
     IDS_FEATURES_SETUPEXTRAS 
                             "This line is for displaying the setup screens to configure the values for the Feeding Mode timer and the LCD shutoff timer.  The defaults are fine, BUT if you would like to have the ability to change them from the setup screen, select this feature.  This will increase the file size.  If you do not plan to change these values often (or at all), do not select this feature.\n\nApproximately 362 bytes to have this feature."
-    IDS_FEATURES_DOSINGPUMPSETUP 
-                            "Selecting this feature will give you the option of enabling the Dosing Pumps setup screens.  If not selected, the setup screens will not exist.  you can still use the Dosing Pumps, you just will not have the setup screens available to configure the values.  You will have to manually set the intervals inside the Sketch (hardcode or have it read from memory if the memory contains the correct values).\n\nApproximately 2000 bytes to have DosingPumpSetup."
-    IDS_FEATURES_WAVEMAKERSETUP 
-                            "Selecting this feature will give you the ability to configure the Wavemakers via setup screens.  If you do not select this feature, you can still use the Wavemakers, you just will not have the setup screens available to configure the values.  You will have to manually set the intervals inside the Sketch (hardcode or have it read from memory if the memory contains the correct values).\n\nApproximately 378 bytes to have WavemakerSetup."
     IDS_FEATURES_OVERHEATSETUP 
                             "Overheat Temperature is fairly constant.  This value will most likely not get changed very often (if ever).  The default value is set to 150.0F.  Once this value is reached, all the lights will get shutoff.  Select this feature if you would like the ability to change this value from the menus.  Otherwise you will have to hardcode the value in the ShowInterface Function.\n\nApproximately 156 bytes to have this feature."
     IDS_FEATURES_DATETIMESETUP 
@@ -713,9 +700,6 @@ STRINGTABLE
 BEGIN
     IDS_FEATURES_VERSIONMENU 
                             "Selecting this feature will display a Version menu entry to see what version of the software is on the controller.\n\nApproximately 144 bytes to have this feature."
-    IDS_FEATURES_ATOSETUP   "If you do not use any of the ATO features in your setup, you can disable this feature to remove the ATO set and clear menu items.\nApproximately 900 bytes to have this feature (and without SetupExtras).\n\nWhen this or SetupExtras are enabled, the Timeouts menu is included.  Timeouts menu requires approximately 710 bytes.  This feature requires approximately 190 bytes if SetupExtras is defined."
-    IDS_FEATURES_METALHALIDESETUP 
-                            "Selecting this feature will show the setup screens on the controller for the Metal Halide Setup and Metal Halide Delay.  If you do not use metal halides and do not wish to have any of the setup screens on your controller, you can leave this feature disabled.\n\nApproximately 258 bytes to have this feature."
     IDS_FEATURES_DIRECTTEMPSENSOR 
                             "If you want to use the old way of reading the temp sensor which is always reading the value in and not performing any sanity check, then you will not want to select this feature.  Otherwise if you select this feature, you will use the new way to handle the temperatures.  The value is read in and then compared to the existing value.  If the difference between the 2 values is less than MAX_TEMP_SWING or the temperature is 0 then the temperature is allowed to be updated, otherwise it is not updated. MAX_TEMP_SWING (inside ReefAngel_Globals.h) is currently set to 50, which is 5.0 F.  This prevents any temporary large fluctations in temperatures.  Also, there should not be more than a 5.0 F degree fluctation in 1 second."
     IDS_FEATURES_WIFI       "If you have purchased the wifi module for your controller, selecting this feature will setup the built-in webserver for the controller.  This feature will increase the overall file size and will require some other features to be disabled for it to compile in with the library in it's current state."
@@ -725,11 +709,8 @@ BEGIN
                             "Enabling this feature will use an alternate font instead of the default one that comes with ReefAngel."
     IDS_FEATURES_REMOVEALLLIGHTS 
                             "This feature will remove all lighting functionality from the controller.  It is the equivalent to disabling MetalHalideSetup, StandardLightSetup, and DisplayLEDPWM.  This will OVERRIDE any of these features.\r\n\r\nSo use caution when enabling this feature."
-    IDS_FEATURES_STANDARDLIGHTSETUP 
-                            "If you do not use standard lights and do not wish to have the setup screens on your controller, you can disable this feature to remove the Standard Lights Setup."
     IDS_FEATURES_SAVERELAYSTATE 
                             "Do we save the relay state before we enter Feeding Mode or Water Change Mode?\r\n\r\nEnable this feature if you want the controller to remember what ports were off when the mode was entered and restores the ports when the mode is exited.\r\n\r\nThe original way is to have this feature disabled and the controller will always turn off and back on the specified ports."
-    IDS_FEATURES_SINGLEATO  "This feature will allow you to use the ATO switches independently from each other.  You can specify separate ports to control, separate timeouts and separate hourly intervals.\r\n\r\nIf you have this enabled, you cannot use both switches together like originally intended. The setup screens will show configurations for both switches."
 END
 
 STRINGTABLE 
@@ -739,11 +720,8 @@ BEGIN
     IDS_COLORS_TAB          "Colors"
     IDS_MEMORY_TAB          "Internal Memory"
     IDS_STD_TAB             "Standard Libraries"
-    IDS_SUCCESS_FEATURES    "Success, Generated ReefAngel_Features.h"
-    IDS_SUCCESS_PDE         "Success, Generated %s.pde"
-    IDS_SUCCESS_MEMORY      "Success, Generated %s.pde"
+    IDS_SUCCESS_GENERATE    "Success, Generated %s.pde"
     IDS_SUCCESS_COLORS      "Success, Generated ReefAngel_Colors.h"
-    IDS_SUCCESS_STD         "Success, Generated %s.pde"
     IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
 END

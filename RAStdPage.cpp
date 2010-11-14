@@ -1052,7 +1052,7 @@ void RAStdPage::OnBnClickedBtnGenerate()
 	UpdateDisablePortsVariables();
 	if ( WritePDE() )
 	{
-		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_STD));
+		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
 		switch ( iSaveReg )
 		{
 		case ALWAYS:

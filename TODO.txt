@@ -2,12 +2,6 @@ TODO File
 ---------
 - Create Colors Page
 - Add hyperlinks to about page
-- Add search path for arduino libraries to Sketchbook/Libraries
-- Generate PDE generates features based on options selected on PDE page
-	- no WM chosen, don't include
-	- no DP chosen, don't include
-	- if dual ato chosen, enable dual ato
-- Remove features from features page that are not controlled by PDE page
 - Have colored text to say if arduino.exe was found in arduino folder on Settings Dialog
 - Switch most of the _T("") (hard coded strings) to be LoadString for single location changing
 - Defines
@@ -52,4 +46,12 @@ v1.0.1
 - Added true status bar
 - Updated version string to be full version instead of shortened version
 - Removed generate button from Features page
-- fixed a tab in PDE file, switched to spaces
+	- ReefAngel_Features.h is now generated when the PDE file is generated
+- fixed a tab in generated PDE file, switched to spaces
+- Added ability to customize libraries folder, searches default locations first
+	- My Documents/Arduino/libraries
+	- ARDUINO_PATH/libraries
+	- lastly set to current directory
+- Generate PDE generates features based on options selected on PDE page
+- Remove features from features page that are not controlled by PDE page
+- Hide Alternate Font check box, re-enable when alternate font is working

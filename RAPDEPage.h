@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GlobalVars.h"
 
 /*! Reef Angel device structure
  *
@@ -260,6 +261,7 @@ protected:
 	void SelectPort1();
 
 public:
+	void UpdatePDEFeatures(Features& fs);
 	/*! Generate Button Press
 	 * \sa WritePDE()
 	 */

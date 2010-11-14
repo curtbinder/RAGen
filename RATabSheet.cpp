@@ -117,10 +117,15 @@ void RATabSheet::Generate()
 	{
 		case PDE:
 			{
-			// generate the features file first
+			/*
+			Update PDE Features list
+			Write ReefAngel_Features.h file
+			Generate PDE file
+			*/
+			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			p->UpdatePDEFeatures(m_Features);
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
 			p->OnBnClickedBtnGenerate();
 			}
 			break;

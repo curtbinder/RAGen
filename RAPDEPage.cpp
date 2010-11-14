@@ -801,13 +801,51 @@ void loop()\r\n\
 	return bRet;
 }
 
+void RAPDEPage::UpdatePDEFeatures(Features& fs)
+{
+	for ( int i = 0; i < MAX_PORTS; i++ )
+	{
+		if ( (Ports[i] == IDC_PDE_CK_ALWAYS_ON) ||
+			 (Ports[i] == IDC_PDE_CK_NOTUSED) )
+		{
+			// skip the ports that are always on because they were handled above
+			// also skip the ports that are not in use
+			continue;
+		}
+		// we have a good port to work with, so check it against the features to enable
+		switch ( Ports[i] )
+		{
+			case IDC_PDE_CK_METALHALIDES:
+				fs.fMetalHalideSetup = TRUE;
+				break;
+			case IDC_PDE_CK_STDLIGHTS:
+				fs.fStandardLightSetup = TRUE;
+				break;
+			case IDC_PDE_CK_WM1:
+			case IDC_PDE_CK_WM2:
+				fs.fWavemakerSetup = TRUE;
+				break;
+			case IDC_PDE_CK_DP1:
+			case IDC_PDE_CK_DP2:
+				fs.fDosingPumpSetup = TRUE;
+				break;
+			case IDC_PDE_CK_SINGLEATOLOW:
+			case IDC_PDE_CK_SINGLEATOHIGH:
+				fs.fSingleATO = TRUE;
+			case IDC_PDE_CK_DUALATO:
+				fs.fATOSetup = TRUE;
+				break;
+		}
+	}
+}
+
 void RAPDEPage::OnBnClickedBtnGenerate()
 {
 	UpdateData();
 	RefreshModePorts();
 	if ( WritePDE() )
 	{
-		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_PDE));
+		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
 		switch ( iSaveReg )
 		{
 		case ALWAYS:
