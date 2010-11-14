@@ -467,7 +467,7 @@ void loop()\r\n\
 			p->GetTime(t);
 			hOff = t.GetHour();
 			mOff = t.GetMinute();
-			s.Format(_T("    ReefAngel.MHLights(MHLight, %d, %d, %d, %d, %d);  // Turn lights on at %02d:%02d with a %ds delay and off at %02d:%02d\r\n"),
+			s.Format(_T("    ReefAngel.MHLights(MHLight, %d, %d, %d, %d, %d);  // Turn lights on at %02d:%02d with a %dm delay and off at %02d:%02d\r\n"),
 				hOn, mOn, hOff, mOff, m_iMHDelay, hOn, mOn, m_iMHDelay, hOff, mOff);
 			f.Write(s, s.GetLength());
 		}
