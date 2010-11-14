@@ -171,7 +171,7 @@ void SettingsDlg::OnBnClickedLibraryBtnBrowse()
 void SettingsDlg::OnBnClickedBtnClear()
 {
 	// Clear settings from Registry
-	int iRet = AfxMessageBox(_T("This will erase ALL saved settings in Registry.\n\nAre you sure?"),
+	int iRet = AfxMessageBox(_T("This will erase ALL saved settings in the Registry.\n\nAre you sure?"),
 				MB_ICONINFORMATION|MB_YESNO);
 	if ( iRet == IDYES )
 	{
