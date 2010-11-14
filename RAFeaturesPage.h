@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GlobalVars.h"
 
 // RAFeaturesPage dialog
 
@@ -14,15 +15,12 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RAFEATURESPAGE };
 
-	TCHAR m_sLibraryDirectory[MAX_PATH];  //!< Libraries directory
-	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
-
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
 
-	// features
+	// features - if you change any features, make sure you update the _Features structure in GlobalVars.h
 	BOOL m_bDisplayImages;
 	BOOL m_bSetupExtras;
 	BOOL m_bDosingPumpSetup;
@@ -43,12 +41,13 @@ protected:
 
 	void ClearDescription();
 	void SetDescription(UINT id);
-	BOOL WriteFeatures();
 	void LoadFeatures();
-	void SaveFeatures();
 	void LoadDefaults();
 
 public:
+	void UpdateFeaturesStruct(Features& fs);
+	BOOL WriteFeatures(Features fs, LPCTSTR sLibraryFolder);
+	void SaveFeatures(Features fs);
 	afx_msg void OnBnHotItemChangeCkDisplayImages(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSetupExtras(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkDosingpumpSetup(NMHDR *pNMHDR, LRESULT *pResult);
@@ -66,7 +65,6 @@ public:
 	afx_msg void OnBnHotItemChangeCkStandardLightsSetup(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSingleAto(NMHDR *pNMHDR, LRESULT *pResult);
-	void OnBnClickedBtnGenerate();
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

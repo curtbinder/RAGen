@@ -316,36 +316,6 @@ void RAFeaturesPage::OnBnHotItemChangeCkSingleAto(NMHDR *pNMHDR, LRESULT *pResul
 	*pResult = 0;
 }
 
-void RAFeaturesPage::OnBnClickedBtnGenerate()
-{
-	// Generate to local directory initially
-	UpdateData();
-	if ( WriteFeatures() )
-	{
-		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_FEATURES));
-		switch ( iSaveReg )
-		{
-		case ALWAYS:
-			SaveFeatures();
-			break;
-		case PROMPT:
-			{
-				int iRet = AfxMessageBox(_T("Do you want to save these settings?"),
-					MB_ICONINFORMATION | MB_YESNO);
-				if ( iRet == IDYES )
-				{
-					// Save settings
-					SaveFeatures();
-				}
-			}
-			break;
-		default:
-		//case NeverSave:
-			break;
-		}
-	}
-}
-
 void RAFeaturesPage::OnResetAll()
 {
 	LoadDefaults();
@@ -393,28 +363,28 @@ void RAFeaturesPage::LoadFeatures()
 	UpdateData(FALSE);
 }
 
-void RAFeaturesPage::SaveFeatures()
+void RAFeaturesPage::SaveFeatures(Features fs)
 {
 	// Save values to registry after last generation
 	CString s;
 	s.LoadString(IDS_FEATURES_TAB);
-	AfxGetApp()->WriteProfileInt(s, _T("DisplayImages"), m_bDisplayImages);
-	AfxGetApp()->WriteProfileInt(s, _T("SetupExtras"), m_bSetupExtras);
-	AfxGetApp()->WriteProfileInt(s, _T("DosingPumpSetup"), m_bDosingPumpSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("WavemakerSetup"), m_bWavemakerSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("OverheatSetup"), m_bOverheatSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("DateTimeSetup"), m_bDateTimeSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("VersionMenu"), m_bVersionMenu);
-	AfxGetApp()->WriteProfileInt(s, _T("ATOSetup"), m_bATOSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("MetalHalideSetup"), m_bMetalHalideSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("DirectTempSensor"), m_bDirectTempSensor);
-	AfxGetApp()->WriteProfileInt(s, _T("DisplayLEDPWM"), m_bDisplayLEDPWM);
-	AfxGetApp()->WriteProfileInt(s, _T("Wifi"), m_bWifi);
-	AfxGetApp()->WriteProfileInt(s, _T("AlternateFont"), m_bAlternateFont);
-	AfxGetApp()->WriteProfileInt(s, _T("SingleATO"), m_bSingleATO);
-	AfxGetApp()->WriteProfileInt(s, _T("StandardLightSetup"), m_bStandardLightSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("RemoveAllLights"), m_bRemoveAllLights);
-	AfxGetApp()->WriteProfileInt(s, _T("SaveRelayState"), m_bSaveRelayState);
+	AfxGetApp()->WriteProfileInt(s, _T("DisplayImages"), fs.fDisplayImages);
+	AfxGetApp()->WriteProfileInt(s, _T("SetupExtras"), fs.fSetupExtras);
+	AfxGetApp()->WriteProfileInt(s, _T("DosingPumpSetup"), fs.fDosingPumpSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("WavemakerSetup"), fs.fWavemakerSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("OverheatSetup"), fs.fOverheatSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("DateTimeSetup"), fs.fDateTimeSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("VersionMenu"), fs.fVersionMenu);
+	AfxGetApp()->WriteProfileInt(s, _T("ATOSetup"), fs.fATOSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("MetalHalideSetup"), fs.fMetalHalideSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("DirectTempSensor"), fs.fDirectTempSensor);
+	AfxGetApp()->WriteProfileInt(s, _T("DisplayLEDPWM"), fs.fDisplayLEDPWM);
+	AfxGetApp()->WriteProfileInt(s, _T("Wifi"), fs.fWifi);
+	AfxGetApp()->WriteProfileInt(s, _T("AlternateFont"), fs.fAlternateFont);
+	AfxGetApp()->WriteProfileInt(s, _T("SingleATO"), fs.fSingleATO);
+	AfxGetApp()->WriteProfileInt(s, _T("StandardLightSetup"), fs.fStandardLightSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("RemoveAllLights"), fs.fRemoveAllLights);
+	AfxGetApp()->WriteProfileInt(s, _T("SaveRelayState"), fs.fSaveRelayState);
 }
 
 void RAFeaturesPage::LoadDefaults()
@@ -440,7 +410,30 @@ void RAFeaturesPage::LoadDefaults()
 	UpdateData(FALSE);
 }
 
-BOOL RAFeaturesPage::WriteFeatures()
+void RAFeaturesPage::UpdateFeaturesStruct(Features& fs)
+{
+	UpdateData();  // Is this line needed?
+	// remove the unneeded features from this page
+	fs.fDisplayImages = m_bDisplayImages;
+	fs.fSetupExtras = m_bSetupExtras;
+	fs.fDosingPumpSetup = m_bDosingPumpSetup;
+	fs.fWavemakerSetup = m_bWavemakerSetup;
+	fs.fOverheatSetup = m_bOverheatSetup;
+	fs.fDateTimeSetup = m_bDateTimeSetup;
+	fs.fVersionMenu = m_bVersionMenu;
+	fs.fATOSetup = m_bATOSetup;
+	fs.fMetalHalideSetup = m_bMetalHalideSetup;
+	fs.fDirectTempSensor = m_bDirectTempSensor;
+	fs.fDisplayLEDPWM = m_bDisplayLEDPWM;
+	fs.fWifi = m_bWifi;
+	fs.fAlternateFont = m_bAlternateFont;
+	fs.fSingleATO = m_bSingleATO;
+	fs.fStandardLightSetup = m_bStandardLightSetup;
+	fs.fRemoveAllLights = m_bRemoveAllLights;
+	fs.fSaveRelayState = m_bSaveRelayState;
+}
+
+BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 {
 	BOOL bRet = FALSE;
 
@@ -475,7 +468,7 @@ BOOL RAFeaturesPage::WriteFeatures()
 ");
 		CString sFooter = _T("\r\n\r\n#endif  // __REEFANGEL_FEATURES_H__\r\n");
 		CString sFile;
-		sFile.Format(_T("%s\\ReefAngel_Features\\"), m_sLibraryDirectory);
+		sFile.Format(_T("%s\\ReefAngel_Features\\"), sLibraryFolder);
 		SECURITY_ATTRIBUTES sa;
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.lpSecurityDescriptor = NULL;
@@ -495,87 +488,87 @@ BOOL RAFeaturesPage::WriteFeatures()
 		f.Open(sFile, CFile::modeCreate | CFile::modeWrite);
 		f.Write(sAutoGenHeader, sAutoGenHeader.GetLength());
 		f.Write(sHeader, sHeader.GetLength());
-		if ( m_bDisplayImages )
+		if ( fs.fDisplayImages )
 		{
 			s = _T("#define DisplayImages\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bSetupExtras )
+		if ( fs.fSetupExtras )
 		{
 			s = _T("#define SetupExtras\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bDosingPumpSetup )
+		if ( fs.fDosingPumpSetup )
 		{
 			s = _T("#define DosingPumpSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bWavemakerSetup )
+		if ( fs.fWavemakerSetup )
 		{
 			s = _T("#define WavemakerSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bOverheatSetup )
+		if ( fs.fOverheatSetup )
 		{
 			s = _T("#define OverheatSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bDateTimeSetup )
+		if ( fs.fDateTimeSetup )
 		{
 			s = _T("#define DateTimeSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bVersionMenu )
+		if ( fs.fVersionMenu )
 		{
 			s = _T("#define VersionMenu\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bATOSetup )
+		if ( fs.fATOSetup )
 		{
 			s = _T("#define ATOSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bMetalHalideSetup )
+		if ( fs.fMetalHalideSetup )
 		{
 			s = _T("#define MetalHalideSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bDirectTempSensor )
+		if ( fs.fDirectTempSensor )
 		{
 			s = _T("#define DirectTempSensor\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bDisplayLEDPWM )
+		if ( fs.fDisplayLEDPWM )
 		{
 			s = _T("#define DisplayLEDPWM\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bWifi )
+		if ( fs.fWifi )
 		{
 			s = _T("#define wifi\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bAlternateFont )
+		if ( fs.fAlternateFont )
 		{
 			s = _T("#define AlternateFont\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bSingleATO )
+		if ( fs.fSingleATO )
 		{
 			s = _T("#define SingleATOSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bStandardLightSetup )
+		if ( fs.fStandardLightSetup )
 		{
 			s = _T("#define StandardLightSetup\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bRemoveAllLights )
+		if ( fs.fRemoveAllLights )
 		{
 			s = _T("#define RemoveAllLights\r\n");
 			f.Write(s, s.GetLength());
 		}
-		if ( m_bSaveRelayState )
+		if ( fs.fSaveRelayState )
 		{
 			s = _T("#define SaveRelayState\r\n");
 			f.Write(s, s.GetLength());

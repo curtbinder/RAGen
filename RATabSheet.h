@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GlobalVars.h"
 
 // RATabSheet
 
@@ -12,6 +13,7 @@ public:
 	virtual ~RATabSheet();
 	void Init();
 	void SetRectangle();
+	void SaveFeatures();
 	void Generate();
 	void CheckLaunch(BOOL fSkipPrompt = FALSE);
 	void ResetAll();
@@ -35,6 +37,7 @@ public:
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	int iLaunch;
 	BOOL fHasArduinoExe;
+	Features m_Features;
 
 protected:
 	void LaunchArduino();

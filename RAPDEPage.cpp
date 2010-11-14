@@ -811,6 +811,8 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 		switch ( iSaveReg )
 		{
 		case ALWAYS:
+			// save the features first
+			AfxGetApp()->GetMainWnd()->SendMessage(WM_COMMAND, MAKEWPARAM(ID_SAVE_FEATURES, 0), 0);
 			SaveSettings();
 			break;
 		case PROMPT:
@@ -819,6 +821,8 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 					MB_ICONINFORMATION | MB_YESNO);
 				if ( iRet == IDYES )
 				{
+					// save the features first
+					AfxGetApp()->GetMainWnd()->SendMessage(WM_COMMAND, MAKEWPARAM(ID_SAVE_FEATURES, 0), 0);
 					// Save settings
 					SaveSettings();
 				}

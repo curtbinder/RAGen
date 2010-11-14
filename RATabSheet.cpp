@@ -9,7 +9,7 @@
 #include "RAInternalMemoryPage.h"
 //#include "RAColorsPage.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
-#include "GlobalVars.h"
+
 
 // RATabSheet
 
@@ -60,10 +60,8 @@ void RATabSheet::Init()
 		{
 			m_pTabs[i]->ShowWindow(SW_HIDE);
 		}
-#ifdef HIDE_FEATURE_GENERATE
 		// hide generate button
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
-#endif  // HIDE_FEATURE_GENERATE
 	}
 	else
 	{
@@ -107,18 +105,21 @@ void RATabSheet::SetRectangle()
 	}
 }
 
+void RATabSheet::SaveFeatures()
+{
+	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[m_iCurrentTab];
+	pf->SaveFeatures(m_Features);
+}
+
 void RATabSheet::Generate()
 {
 	switch ( m_iCurrentTab )
 	{
-		case Features:
-			{
-			RAFeaturesPage* p = (RAFeaturesPage*)m_pTabs[m_iCurrentTab];
-			p->OnBnClickedBtnGenerate();
-			}
-			break;
 		case PDE:
 			{
+			// generate the features file first
+			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
 			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
 			p->OnBnClickedBtnGenerate();
 			}
@@ -384,19 +385,16 @@ void RATabSheet::ResetLightsOn()
 void RATabSheet::UpdateSettingsForTabs()
 {
 	// set the settings for the tabs
-	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 	RAPDEPage* pp = (RAPDEPage*)m_pTabs[PDE];
 	RAInternalMemoryPage* pm = (RAInternalMemoryPage*)m_pTabs[Memory];
 	RAStdPage* ps = (RAStdPage*)m_pTabs[Standard];
 
-	pf->iSaveReg = iSaveReg;
 	pp->iSaveReg = iSaveReg;
 	pm->iSaveReg = iSaveReg;
 	ps->iSaveReg = iSaveReg;
 	_tcscpy_s(pm->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(pf->m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 }
 
 void RATabSheet::GetFilename(CString &s)
@@ -454,6 +452,12 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	{
 		return;
 	}
+	if ( m_iCurrentTab == Features )
+	{
+		// update the features structure before we proceed
+		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+		pf->UpdateFeaturesStruct(m_Features);
+	}
 	m_pTabs[m_iCurrentTab]->ShowWindow(SW_HIDE);
 	m_pTabs[cur]->ShowWindow(SW_SHOW);
 	m_iCurrentTab = cur;
@@ -478,10 +482,8 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 		//default:
 		//	break;
 	}
-#ifdef HIDE_FEATURE_GENERATE
 	// show/hide generate button appropriately
 	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
-#endif  // HIDE_FEATURE_GENERATE
 
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 

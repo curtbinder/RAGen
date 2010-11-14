@@ -338,6 +338,7 @@ void RAGenDlg::CreateStatusBar()
 BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_SETTINGS, &RAGenDlg::OnEditSettings)
 	ON_COMMAND(ID_EDIT_ENABLE_ADVANCED, &RAGenDlg::OnEditEnableAdvanced)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
@@ -354,7 +355,6 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_RESET_LIGHTSON, &RAGenDlg::OnResetLightsOn)
 	ON_BN_CLICKED(IDC_BTN_GENERATE, &RAGenDlg::OnBnClickedBtnGenerate)
 	ON_BN_CLICKED(IDC_BTN_LAUNCH, &RAGenDlg::OnBnClickedBtnLaunch)
-	ON_WM_CLOSE()
 	ON_BN_CLICKED(IDC_BTN_CLOSE, &RAGenDlg::OnBnClickedClose)
 END_MESSAGE_MAP()
 
@@ -590,6 +590,11 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 	if ( id == ID_CHANGE_MENU )
 	{
 		ChangeMenu((UINT)lParam);
+		return TRUE;
+	}
+	if ( id == ID_SAVE_FEATURES )
+	{
+		m_Tabs.SaveFeatures();
 		return TRUE;
 	}
 	if ( id == ID_UPDATE_STATUS )

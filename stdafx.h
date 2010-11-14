@@ -51,9 +51,6 @@
 #include <afxdlgs.h>
 
 
-// do we hide the generate button on the features page??
-//#define HIDE_FEATURE_GENERATE
-
 
 
 
