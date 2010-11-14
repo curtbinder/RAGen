@@ -271,6 +271,10 @@ BEGIN
     BEGIN
         MENUITEM "&Settings...",                ID_EDIT_SETTINGS
     END
+    POPUP "&Controller"
+    BEGIN
+        MENUITEM "F&ind Controller...",         ID_CONTROLLER_FIND
+    END
     POPUP "&Help"
     BEGIN
         MENUITEM "&About...",                   ID_HELP_ABOUT

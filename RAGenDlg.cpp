@@ -343,6 +343,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_EDIT_ENABLE_ADVANCED, &RAGenDlg::OnEditEnableAdvanced)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
 	ON_COMMAND(ID_FILE_RESTART, &RAGenDlg::OnFileRestart)
+	ON_COMMAND(ID_CONTROLLER_FIND, &RAGenDlg::OnControllerFind)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
 	ON_COMMAND(ID_RESET_SAVED, &RAGenDlg::OnResetSaved)
@@ -518,6 +519,18 @@ void RAGenDlg::OnFileRestart()
 {
 	fRestartRequired = TRUE;
 	PostMessage(WM_CLOSE);
+}
+
+void RAGenDlg::OnControllerFind()
+{
+	/*
+	Searches for the controllers
+	displays window while searching
+	use custom struct for array (int, bool)
+	display dialog box with list of available ports with whether or not controller was found
+	defaults to first ra controller as primary/main controller
+	sets the com port to the status bar
+	*/
 }
 
 void RAGenDlg::OnHelpAbout()
