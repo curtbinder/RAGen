@@ -216,6 +216,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComPortListDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DlgStatusBar.cpp"
 				>
 			</File>
@@ -272,7 +276,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\TestComPorts.cpp"
+				RelativePath=".\TestComPortsDlg.cpp"
 				>
 			</File>
 		</Filter>
@@ -303,6 +307,10 @@
 			</File>
 			<File
 				RelativePath=".\ComPortFunctions.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ComPortListDlg.h"
 				>
 			</File>
 			<File
@@ -358,7 +366,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\TestComPorts.h"
+				RelativePath=".\TestComPortsDlg.h"
 				>
 			</File>
 		</Filter>

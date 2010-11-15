@@ -2,15 +2,15 @@
 
 #include "ComPortFunctions.h"
 
-// TestComPorts dialog
+// TestComPortsDlg dialog
 
-class TestComPorts : public CDialog
+class TestComPortsDlg : public CDialog
 {
-	DECLARE_DYNAMIC(TestComPorts)
+	DECLARE_DYNAMIC(TestComPortsDlg)
 
 public:
-	TestComPorts(CWnd* pParent = NULL);   // standard constructor
-	virtual ~TestComPorts();
+	TestComPortsDlg(CWnd* pParent = NULL);   // standard constructor
+	virtual ~TestComPortsDlg();
 
 // Dialog Data
 	enum { IDD = IDD_TESTING };

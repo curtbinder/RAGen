@@ -4,12 +4,8 @@ TODO File
 - Add hyperlinks to about page
 - Have colored text to say if arduino.exe was found in arduino folder on Settings Dialog
 - Switch most of the _T("") (hard coded strings) to be LoadString for single location changing
-- Add in Controller detection code
-	- Window displayed to wait while searching for controller
-	- Use code in RAComTest
-- Add in window to list all COM Ports on system and if RA Controller is connected
+- COM Port list, test sorting list 
 - Allow for selection of what port to use for RA Controller
-- Add in Menu item for detection of controller
 - Defines
 	- 500-600 Colors (5000-6000 controls)
 
@@ -61,3 +57,6 @@ v1.0.1
 - Generate PDE generates features based on options selected on PDE page
 - Remove features from features page that are not controlled by PDE page
 - Hide Alternate Font check box, re-enable when alternate font is working
+- Add in Controller detection code
+- Add in Menu item for detection of controller
+- Add in window to list all COM Ports on system and if RA Controller is connected

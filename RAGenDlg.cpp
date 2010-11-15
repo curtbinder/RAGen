@@ -10,7 +10,8 @@
 #include "GlobalVars.h"
 #include "cb_FileOperations.h"
 #include "ComPortFunctions.h"
-#include "TestComPorts.h"
+#include "TestComPortsDlg.h"
+#include "ComPortListDlg.h"
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
@@ -561,7 +562,7 @@ void RAGenDlg::OnControllerFind()
 			AfxMessageBox(_T("Error getting list of COM ports"));
 			AfxThrowUserException();
 		}
-		TestComPorts td;
+		TestComPortsDlg td;
 		td.m_Ports = ports;
 		td.m_iCount = count;
 		if ( td.DoModal() == IDCANCEL )
@@ -579,11 +580,15 @@ void RAGenDlg::OnControllerFind()
 				iFirstRA = ports[i].iPort;
 			}
 		}
-
 		if ( iFirstRA > 0 )
 		{
 			SetStatusComPort(iFirstRA);
 		}
+
+		ComPortListDlg cp;
+		cp.m_Ports = ports;
+		cp.m_iCount = count;
+		cp.DoModal();
 	}
 	CATCH_ALL(e)
 	{

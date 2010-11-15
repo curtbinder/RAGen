@@ -1,15 +1,15 @@
-// TestComPorts.cpp : implementation file
+// TestComPortsDlg.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "RAGen.h"
-#include "TestComPorts.h"
+#include "TestComPortsDlg.h"
 #include "ComPortFunctions.h"
 
 
 DWORD WINAPI UpdateThread(LPVOID lpParam)
 {
-	TestComPorts* pWnd = (TestComPorts*)lpParam;
+	TestComPortsDlg* pWnd = (TestComPortsDlg*)lpParam;
 	DWORD dwRet = 0;
 	if ( ! pWnd->UpdateStatus() )
 	{
@@ -24,18 +24,18 @@ DWORD WINAPI UpdateThread(LPVOID lpParam)
 }
 
 
-// TestComPorts dialog
+// TestComPortsDlg dialog
 
-IMPLEMENT_DYNAMIC(TestComPorts, CDialog)
+IMPLEMENT_DYNAMIC(TestComPortsDlg, CDialog)
 
-TestComPorts::TestComPorts(CWnd* pParent /*=NULL*/)
-	: CDialog(TestComPorts::IDD, pParent)
+TestComPortsDlg::TestComPortsDlg(CWnd* pParent /*=NULL*/)
+	: CDialog(TestComPortsDlg::IDD, pParent)
 {
 	m_Ports = NULL;
 	m_iCount = 0;
 }
 
-TestComPorts::~TestComPorts()
+TestComPortsDlg::~TestComPortsDlg()
 {
 	if ( m_Thread )
 	{
@@ -43,19 +43,19 @@ TestComPorts::~TestComPorts()
 	}
 }
 
-void TestComPorts::DoDataExchange(CDataExchange* pDX)
+void TestComPortsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 }
 
 
-BEGIN_MESSAGE_MAP(TestComPorts, CDialog)
+BEGIN_MESSAGE_MAP(TestComPortsDlg, CDialog)
 	ON_BN_CLICKED(IDCANCEL, OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
-// TestComPorts message handlers
-BOOL TestComPorts::OnInitDialog()
+// TestComPortsDlg message handlers
+BOOL TestComPortsDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -73,7 +73,7 @@ BOOL TestComPorts::OnInitDialog()
 	return TRUE;
 }
 
-BOOL TestComPorts::UpdateStatus()
+BOOL TestComPortsDlg::UpdateStatus()
 {
 	CString text = _T("");
 	m_bCancel = FALSE;
@@ -109,7 +109,7 @@ BOOL TestComPorts::UpdateStatus()
 	return bRet;
 }
 
-void TestComPorts::OnBnClickedCancel()
+void TestComPortsDlg::OnBnClickedCancel()
 {
 	GetDlgItem(IDCANCEL)->EnableWindow(FALSE);
 	m_bCancel = TRUE;

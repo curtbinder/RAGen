@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,54
- PRODUCTVERSION 1,0,1,54
+ FILEVERSION 1,0,1,55
+ PRODUCTVERSION 1,0,1,55
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 54"
+            VALUE "FileVersion", "1, 0, 1, 55"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 54"
+            VALUE "ProductVersion", "1, 0, 1, 55"
         END
     END
     BLOCK "VarFileInfo"
@@ -259,6 +259,18 @@ BEGIN
         RIGHTMARGIN, 159
         TOPMARGIN, 7
         BOTTOMMARGIN, 53
+    END
+
+    IDD_COM_LIST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 167
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 100
+        HORZGUIDE, 15
+        HORZGUIDE, 21
+        HORZGUIDE, 80
+        HORZGUIDE, 87
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -664,6 +676,17 @@ FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "Cancel",IDCANCEL,58,39,50,14
     LTEXT           "s",IDC_TESTING_STATUS,7,23,152,8
+END
+
+IDD_COM_LIST DIALOGEX 0, 0, 174, 107
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "COM Port List"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "List of the available COM ports:",IDC_STATIC,7,7,160,8
+    LISTBOX         IDC_COM_LIST_PORTS,7,21,160,60,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,7,87,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,117,87,50,14
 END
 
 
