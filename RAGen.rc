@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,53
- PRODUCTVERSION 1,0,1,53
+ FILEVERSION 1,0,1,54
+ PRODUCTVERSION 1,0,1,54
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 53"
+            VALUE "FileVersion", "1, 0, 1, 54"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 53"
+            VALUE "ProductVersion", "1, 0, 1, 54"
         END
     END
     BLOCK "VarFileInfo"
@@ -251,6 +251,14 @@ BEGIN
         RIGHTMARGIN, 360
         TOPMARGIN, 7
         BOTTOMMARGIN, 187
+    END
+
+    IDD_TESTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 159
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 53
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -649,6 +657,15 @@ BEGIN
     CONTROL         "",IDC_STD_CK_WM2_ALWAYS_ON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,329,165,8,10
 END
 
+IDD_TESTING DIALOGEX 0, 0, 166, 60
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Testing COM Ports..."
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Cancel",IDCANCEL,58,39,50,14
+    LTEXT           "s",IDC_TESTING_STATUS,7,23,152,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -737,7 +754,7 @@ BEGIN
     IDS_RESET_MENU          "&Reset"
     IDS_REGISTRY_CB_PATH    "Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA_PATH    "Software\\Reef Angel\\RAGen\\"
-    IDS_COMPORT             "COMXX"
+    IDS_COMPORT             "COM%d"
 END
 
 #endif    // English (U.S.) resources

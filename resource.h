@@ -13,6 +13,7 @@
 #define IDD_ABOUT                       107
 #define IDD_SETTINGS                    108
 #define IDD_RASTDPAGE                   109
+#define IDD_TESTING                     110
 #define IDB_CURTBINDER_LOGO             120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -200,6 +201,7 @@
 #define IDC_STD_CK_LOGGING              641
 #define IDC_STD_GROUP_TEMP              642
 #define IDC_STD_GROUP_LOGGING           643
+#define	IDC_TESTING_STATUS				700
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -255,13 +257,13 @@
 #define ID_EDIT_ENABLE_ADVANCED         32785
 #define ID_FILE_RESTART                 32786
 #define ID_SAVE_FEATURES                32787
-#define ID_CONTROLLER_FIND			    32788
+#define ID_CONTROLLER_FIND              32788
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        600
+#define _APS_NEXT_RESOURCE_VALUE        701
 #define _APS_NEXT_COMMAND_VALUE         32789
 #define _APS_NEXT_CONTROL_VALUE         1020
 #define _APS_NEXT_SYMED_VALUE           110

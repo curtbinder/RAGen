@@ -21,6 +21,8 @@ protected:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 	void SetStatus(LPCTSTR s);
 	void ClearStatus();
+	void SetStatusComPort(int port);
+	void ClearStatusComPort();
 	void ChangeMenu(UINT menuID);
 	int FindMenuItem(CMenu* pMenu, LPCTSTR sMenu);
 	BOOL GetSketchFolder();

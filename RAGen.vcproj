@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ComPortFunctions.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DlgStatusBar.cpp"
 				>
 			</File>
@@ -267,6 +271,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\TestComPorts.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -291,6 +299,10 @@
 			</File>
 			<File
 				RelativePath=".\CmdLineParams.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ComPortFunctions.h"
 				>
 			</File>
 			<File
@@ -343,6 +355,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TestComPorts.h"
 				>
 			</File>
 		</Filter>

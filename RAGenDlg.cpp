@@ -9,6 +9,8 @@
 #include "shlwapi.h"
 #include "GlobalVars.h"
 #include "cb_FileOperations.h"
+#include "ComPortFunctions.h"
+#include "TestComPorts.h"
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
@@ -47,6 +49,18 @@ void RAGenDlg::SetStatus(LPCTSTR s)
 void RAGenDlg::ClearStatus()
 {
 	SetStatus(_T(""));
+}
+
+void RAGenDlg::SetStatusComPort(int port)
+{
+	CString s;
+	s.Format(IDS_COMPORT, port);
+	m_StatusBar.SetPaneText(1, s);
+}
+
+void RAGenDlg::ClearStatusComPort()
+{
+	m_StatusBar.SetPaneText(1, _T(""));
 }
 
 void RAGenDlg::ChangeMenu(UINT menuID)
@@ -320,7 +334,7 @@ void RAGenDlg::CreateStatusBar()
 	m_StatusBar.SetIndicators(auIDStatusBar, m_iStatusBarSize);
 	ClearStatus();
 	m_StatusBar.SetPaneInfo(0, m_StatusBar.GetItemID(0), SBPS_STRETCH, NULL);
-	m_StatusBar.SetPaneText(1, _T(""));  // clear out the COM port pane
+	ClearStatusComPort();
 
 	// We need to resize the dialog to make room for control bars.
 	CRect rcClientStart;
@@ -531,6 +545,57 @@ void RAGenDlg::OnControllerFind()
 	defaults to first ra controller as primary/main controller
 	sets the com port to the status bar
 	*/
+	Port* ports = NULL;
+    int count = CountPorts();
+	if ( count <= 0 )
+	{
+		AfxMessageBox(_T("No COM ports on this computer"));
+		ClearStatusComPort();
+		return;
+	}
+    ports = new Port[count];
+	TRY
+	{
+		if ( ! FillPortsArray(ports) )
+		{
+			AfxMessageBox(_T("Error getting list of COM ports"));
+			AfxThrowUserException();
+		}
+		TestComPorts td;
+		td.m_Ports = ports;
+		td.m_iCount = count;
+		if ( td.DoModal() == IDCANCEL )
+		{
+			// user cancelled so let's break out and return
+			AfxThrowUserException();
+		}
+		// now we have a list of the ports
+		int iFirstRA = 0;
+		for ( int i = 0; i < count; i++ )
+		{
+			TRACE("%d - COM%d - %s\n", i, ports[i].iPort, (ports[i].fHasRA)?"ReefAngel":"None");
+			if ( ports[i].fHasRA && (iFirstRA == 0) )
+			{
+				iFirstRA = ports[i].iPort;
+			}
+		}
+
+		if ( iFirstRA > 0 )
+		{
+			SetStatusComPort(iFirstRA);
+		}
+	}
+	CATCH_ALL(e)
+	{
+	}
+	END_CATCH_ALL
+
+	if ( ports )
+	{
+		delete [] ports;
+	}
+	ports = NULL;
+	return;
 }
 
 void RAGenDlg::OnHelpAbout()
