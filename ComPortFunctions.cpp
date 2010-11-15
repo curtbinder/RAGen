@@ -252,7 +252,7 @@ BOOL GetPorts(Port p[], int &count, BOOL fGetCountOnly)
             ptr = temp_ptr+1;
         }  // while
         fRet = TRUE;
-		if ( ! fGetCountOnly )
+		if ( fGetCountOnly )
 		{
 			count = x;
 		}

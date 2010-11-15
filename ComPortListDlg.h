@@ -20,7 +20,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
-	CListCtrl m_ListBox;
+	CListBox m_ListBox;
 
 public:
 	Port* m_Ports;

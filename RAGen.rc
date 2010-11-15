@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,55
- PRODUCTVERSION 1,0,1,55
+ FILEVERSION 1,0,1,56
+ PRODUCTVERSION 1,0,1,56
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 55"
+            VALUE "FileVersion", "1, 0, 1, 56"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 55"
+            VALUE "ProductVersion", "1, 0, 1, 56"
         END
     END
     BLOCK "VarFileInfo"
@@ -675,7 +675,7 @@ CAPTION "Testing COM Ports..."
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "Cancel",IDCANCEL,58,39,50,14
-    LTEXT           "s",IDC_TESTING_STATUS,7,23,152,8
+    LTEXT           "s",IDC_TESTING_STATUS,7,18,152,8
 END
 
 IDD_COM_LIST DIALOGEX 0, 0, 174, 107

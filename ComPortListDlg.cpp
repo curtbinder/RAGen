@@ -37,8 +37,7 @@ END_MESSAGE_MAP()
 BOOL ComPortListDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-
-	m_ListBox.InsertColumn(0, _T("COM Ports"));
+	
 	CString s;
 	if ( m_iCount > 0 )
 	{
@@ -46,13 +45,14 @@ BOOL ComPortListDlg::OnInitDialog()
 		for ( int i = 0; i < m_iCount; i++ )
 		{
 			s.Format(_T("COM%d - %s"), m_Ports[i].iPort, (m_Ports[i].fHasRA)?_T("ReefAngel Controller"):_T("None"));
-			m_ListBox.InsertItem(i, s);
+			m_ListBox.AddString(s);
 		}  // for i
 	}
 	else
 	{
-		m_ListBox.InsertItem(0, _T("No COM Ports"));
+		m_ListBox.AddString(_T("No COM Ports"));
 	}
+	UpdateData(FALSE);
 
 	return TRUE;
 }
