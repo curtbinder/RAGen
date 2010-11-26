@@ -10,8 +10,10 @@ TODO File
 	- 500-600 Colors (5000-6000 controls)
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
-- Condense WIFI server defines to Javascript line
 - Update send parameters code to add in the relay data
+	- Have 2 send paramters options:  Desktop & Web
+	- Desktop already completed
+	- Web would need to be adapted for a web URL
 
 
 Completed / Release Information
