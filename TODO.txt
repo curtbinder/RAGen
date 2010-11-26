@@ -8,6 +8,10 @@ TODO File
 - Allow for selection of what port to use for RA Controller
 - Defines
 	- 500-600 Colors (5000-6000 controls)
+- Restore saved settings at startup
+	- Ability to toggle this setting/option
+- Condense WIFI server defines to Javascript line
+- Update send parameters code to add in the relay data
 
 
 Completed / Release Information
