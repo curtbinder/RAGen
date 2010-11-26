@@ -19,8 +19,10 @@ public:
 	CString sFilename;  //!< Filename of the PDE file generated
 
 	inline void Use12Hour(BOOL f = TRUE) { fUse12Hour = f; }
+	inline void LoadSavedSettings(BOOL f = FALSE) { fLoadSaved = f; }
 
 protected:
+	BOOL fLoadSaved;
 	BOOL fUse12Hour;
 	BOOL fTemp;  //!< Temperature flag, 0 - Fahrenheit, 1 - Celcuis
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
@@ -59,6 +61,7 @@ protected:
 	int ConvertTemp(int nTempOffset, BOOL fToF = TRUE);
 	void RestorePorts();
 	void UpdateDisablePortsVariables();
+	void UpdateWMControls(int nWM);
 
 public:
 	void OnBnClickedBtnGenerate();

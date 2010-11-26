@@ -66,3 +66,7 @@ v1.0.1
 - Add in Controller detection code
 - Add in Menu item for detection of controller
 - Add in window to list all COM Ports on system and if RA Controller is connected
+
+v1.0.2
+------
+- Fixed: if WM is set to always on and you disable and re-enable the wm, the spin box is re-enabled with the checkbox set

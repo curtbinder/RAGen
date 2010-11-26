@@ -30,6 +30,7 @@ RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 	fDisableChiller = FALSE;
 	fDisableHeater = FALSE;
 	fDisableSump = FALSE;
+	fLoadSaved = FALSE;
 }
 
 RAStdPage::~RAStdPage()
@@ -43,8 +44,16 @@ BOOL RAStdPage::OnInitDialog()
 	InitSpinners();
 	InitTimeBoxes();
 	InitTempBoxes();
-	LoadDefaults();
-	UpdateData(FALSE);
+	if ( fLoadSaved )
+	{
+		OnResetSaved();
+		// UpdateData(FALSE) is inside OnResetSaved()
+	}
+	else
+	{
+		LoadDefaults();
+		UpdateData(FALSE);
+	}
 
 	return TRUE;
 }
@@ -809,11 +818,11 @@ void RAStdPage::LoadSettings()
 	fDisableSump = AfxGetApp()->GetProfileInt(s, _T("DisableSump"), FALSE);
 
 	m_iMHDelay = AfxGetApp()->GetProfileInt(s, _T("MHDelay"), DEFAULT_MH_DELAY);
-	m_iWM1Interval = AfxGetApp()->GetProfileInt(s, _T("WM1Interval"), DEFAULT_WM1_INTERVAL);
-	m_iWM2Interval = AfxGetApp()->GetProfileInt(s, _T("WM2Interval"), DEFAULT_WM2_INTERVAL);
 	m_iFeeding = AfxGetApp()->GetProfileInt(s, _T("Feeding"), DEFAULT_FEEDING_TIMER);
 	m_iLCD = AfxGetApp()->GetProfileInt(s, _T("LCD"), DEFAULT_LCD_TIMER);
 	m_iATOTimeout = AfxGetApp()->GetProfileInt(s, _T("ATOTimeout"), DEFAULT_ATO_LOW_TIMEOUT);
+	m_iWM1Interval = AfxGetApp()->GetProfileInt(s, _T("WM1Interval"), DEFAULT_WM1_INTERVAL);
+	m_iWM2Interval = AfxGetApp()->GetProfileInt(s, _T("WM2Interval"), DEFAULT_WM2_INTERVAL);
 	
 	p = (CDateTimeCtrl*)GetDlgItem(IDC_STD_TIME_MH_ON);
 	h = AfxGetApp()->GetProfileInt(s, _T("MHOnHour"), DEFAULT_MH_ON_HOUR);
@@ -962,7 +971,7 @@ void RAStdPage::RestorePorts()
 	GetDlgItem(IDC_STD_TIME_MH_OFF)->EnableWindow(!fDisableMHLights);
 	GetDlgItem(IDC_STD_EDIT_MH_DELAY)->EnableWindow(!fDisableMHLights);
 	GetDlgItem(IDC_STD_SPIN_MH_DELAY)->EnableWindow(!fDisableMHLights);
-	
+
 	pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM2);
 	if ( fDisableWM2 )
 	{
@@ -972,9 +981,7 @@ void RAStdPage::RestorePorts()
 	{
 		pButton->SetCheck(BST_UNCHECKED);
 	}
-	GetDlgItem(IDC_STD_EDIT_WM2_INTERVAL)->EnableWindow(!fDisableWM2);
-	GetDlgItem(IDC_STD_SPIN_WM2_INTERVAL)->EnableWindow(!fDisableWM2);
-	GetDlgItem(IDC_STD_CK_WM2_ALWAYS_ON)->EnableWindow(!fDisableWM2);
+	UpdateWMControls(2);
 	
 	pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM1);
 	if ( fDisableWM1 )
@@ -985,10 +992,8 @@ void RAStdPage::RestorePorts()
 	{
 		pButton->SetCheck(BST_UNCHECKED);
 	}
-	GetDlgItem(IDC_STD_EDIT_WM1_INTERVAL)->EnableWindow(!fDisableWM1);
-	GetDlgItem(IDC_STD_SPIN_WM1_INTERVAL)->EnableWindow(!fDisableWM1);
-	GetDlgItem(IDC_STD_CK_WM1_ALWAYS_ON)->EnableWindow(!fDisableWM1);
-	
+	UpdateWMControls(1);
+
 	pButton = (CButton*)GetDlgItem(IDC_STD_CK_CHILLER);
 	if ( fDisableChiller )
 	{
@@ -1042,6 +1047,60 @@ void RAStdPage::UpdateDisablePortsVariables()
 	fDisableHeater = pButton->GetCheck();
 	pButton = (CButton*)GetDlgItem(IDC_STD_CK_SUMP);
 	fDisableSump = pButton->GetCheck();
+}
+
+void RAStdPage::UpdateWMControls(int nWM)
+{
+	int nSpinCtrl;
+	int nEditCtrl;
+	int nCkCtrl;
+	int nInterval;
+	BOOL fDisabled;
+	switch ( nWM )
+	{
+		case 1:  // wavemaker 1
+			nSpinCtrl = IDC_STD_SPIN_WM1_INTERVAL;
+			nEditCtrl = IDC_STD_EDIT_WM1_INTERVAL;
+			nCkCtrl = IDC_STD_CK_WM1_ALWAYS_ON;
+			nInterval = m_iWM1Interval;
+			fDisabled = fDisableWM1;
+			break;
+		case 2:  // wavemaker 2
+			nSpinCtrl = IDC_STD_SPIN_WM2_INTERVAL;
+			nEditCtrl = IDC_STD_EDIT_WM2_INTERVAL;
+			nCkCtrl = IDC_STD_CK_WM2_ALWAYS_ON;
+			nInterval = m_iWM2Interval;
+			fDisabled = fDisableWM2;
+			break;
+		default:
+			return;
+	}
+	BOOL fEnableValue = FALSE;
+	BOOL fEnableCk = FALSE;
+	CButton* pButton = (CButton*)GetDlgItem(nCkCtrl);
+	if ( nInterval == 0 )
+	{
+		// Edit & Spin control disabled, Check enabled
+		if ( ! fDisabled )
+		{
+			fEnableCk = TRUE;
+		}
+		pButton->SetCheck(BST_CHECKED);
+	}
+	else
+	{
+		// Edit, Spin and Always ON checkbox should be enabled
+		// Unless the entire port is disabled
+		if ( ! fDisabled )
+		{
+			fEnableValue = TRUE;
+			fEnableCk = TRUE;
+		}
+		pButton->SetCheck(BST_UNCHECKED);
+	}
+	GetDlgItem(nEditCtrl)->EnableWindow(fEnableValue);
+	GetDlgItem(nSpinCtrl)->EnableWindow(fEnableValue);
+	GetDlgItem(nCkCtrl)->EnableWindow(fEnableCk);
 }
 
 void RAStdPage::OnBnClickedBtnGenerate()
@@ -1099,11 +1158,13 @@ void RAStdPage::OnBnClickedCkWm1AlwaysOn()
 	{
 		m_iWM1IntervalTemp = m_iWM1Interval;
 		GetDlgItem(IDC_STD_EDIT_WM1_INTERVAL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_STD_SPIN_WM1_INTERVAL)->EnableWindow(FALSE);
 		m_iWM1Interval = WM_MIN;
 	}
 	else
 	{
 		GetDlgItem(IDC_STD_EDIT_WM1_INTERVAL)->EnableWindow();
+		GetDlgItem(IDC_STD_SPIN_WM1_INTERVAL)->EnableWindow();
 		if ( m_iWM1IntervalTemp > WM_MIN )
 		{
 			m_iWM1Interval = m_iWM1IntervalTemp;
@@ -1126,11 +1187,13 @@ void RAStdPage::OnBnClickedCkWm2AlwaysOn()
 	{
 		m_iWM2IntervalTemp = m_iWM2Interval;
 		GetDlgItem(IDC_STD_EDIT_WM2_INTERVAL)->EnableWindow(FALSE);
+		GetDlgItem(IDC_STD_SPIN_WM2_INTERVAL)->EnableWindow(FALSE);
 		m_iWM2Interval = WM_MIN;
 	}
 	else
 	{
 		GetDlgItem(IDC_STD_EDIT_WM2_INTERVAL)->EnableWindow();
+		GetDlgItem(IDC_STD_SPIN_WM2_INTERVAL)->EnableWindow();
 		if ( m_iWM2IntervalTemp > WM_MIN )
 		{
 			m_iWM2Interval = m_iWM2IntervalTemp;
@@ -1188,29 +1251,31 @@ void RAStdPage::OnBnClickedStdCkMhLights()
 void RAStdPage::OnBnClickedStdCkWm2()
 {
 	UpdateData();
-	BOOL bEnable = TRUE;
 	CButton* pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM2);
 	if ( pButton->GetCheck() == BST_CHECKED )
 	{
-		bEnable = FALSE;
+		fDisableWM2 = TRUE;
 	}
-	GetDlgItem(IDC_STD_EDIT_WM2_INTERVAL)->EnableWindow(bEnable);
-	GetDlgItem(IDC_STD_SPIN_WM2_INTERVAL)->EnableWindow(bEnable);
-	GetDlgItem(IDC_STD_CK_WM2_ALWAYS_ON)->EnableWindow(bEnable);
+	else
+	{
+		fDisableWM2 = FALSE;
+	}
+	UpdateWMControls(2);
 }
 
 void RAStdPage::OnBnClickedStdCkWm1()
 {
 	UpdateData();
-	BOOL bEnable = TRUE;
 	CButton* pButton = (CButton*)GetDlgItem(IDC_STD_CK_WM1);
 	if ( pButton->GetCheck() == BST_CHECKED )
 	{
-		bEnable = FALSE;
+		fDisableWM1 = TRUE;
 	}
-	GetDlgItem(IDC_STD_EDIT_WM1_INTERVAL)->EnableWindow(bEnable);
-	GetDlgItem(IDC_STD_SPIN_WM1_INTERVAL)->EnableWindow(bEnable);
-	GetDlgItem(IDC_STD_CK_WM1_ALWAYS_ON)->EnableWindow(bEnable);
+	else
+	{
+		fDisableWM1 = FALSE;
+	}
+	UpdateWMControls(1);
 }
 
 void RAStdPage::OnBnClickedStdCkChiller()
