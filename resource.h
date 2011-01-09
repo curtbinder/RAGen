@@ -14,7 +14,6 @@
 #define IDD_SETTINGS                    108
 #define IDD_RASTDPAGE                   109
 #define IDD_TESTING                     110
-#define IDD_COM_LIST                    111
 #define IDB_CURTBINDER_LOGO             120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -47,6 +46,7 @@
 #define IDS_FEATURES_ALTERNATEFONT      214
 #define IDS_FEATURES_REMOVEALLLIGHTS    215
 #define IDS_FEATURES_SAVERELAYSTATE     217
+#define IDS_FEATURES_EXPANSIONMODULE	218
 #define IDC_PDE_CK_FEEDING_1            300
 #define IDC_PDE_CK_FEEDING_2            301
 #define IDC_PDE_CK_FEEDING_3            302
@@ -203,7 +203,7 @@
 #define IDC_STD_GROUP_TEMP              642
 #define IDC_STD_GROUP_LOGGING           643
 #define IDC_TESTING_STATUS              700
-#define IDC_COM_LIST_PORTS              701
+#define IDD_COM_LIST                    701
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -224,6 +224,7 @@
 #define IDC_SETTINGS_LIBRARY_BTN_BROWSE 1017
 #define IDC_BTN_LAUNCH                  1018
 #define IDC_BTN_CLOSE                   1019
+#define IDC_COM_LIST_PORTS              1020
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_CK_DISPLAY_IMAGES  2002
 #define IDC_FEATURES_CK_SETUP_EXTRAS    2003
@@ -242,6 +243,7 @@
 #define IDC_FEATURES_CK_STANDARD_LIGHTS_SETUP 2016
 #define IDC_FEATURES_CK_REMOVE_ALL_LIGHTS 2017
 #define IDC_FEATURES_CK_SINGLE_ATO      2018
+#define IDC_FEATURES_CK_EXPANSION_MODULE 2019
 #define ID_FILE_EXIT                    32771
 #define ID_HELP_ABOUT                   32772
 #define ID_EDIT_SETTINGS                32773
@@ -267,7 +269,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        702
 #define _APS_NEXT_COMMAND_VALUE         32789
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

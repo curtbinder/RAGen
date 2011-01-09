@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,56
- PRODUCTVERSION 1,0,1,56
+ FILEVERSION 1,0,2,60
+ PRODUCTVERSION 1,0,2,60
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 1, 56"
+            VALUE "FileVersion", "1, 0, 2, 60"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 1, 56"
+            VALUE "ProductVersion", "1, 0, 2, 60"
         END
     END
     BLOCK "VarFileInfo"
@@ -398,7 +398,9 @@ BEGIN
     CONTROL         "Direct Temp Sensor",IDC_FEATURES_CK_DIRECT_TEMP_SENSOR,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,51,78,10
     CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,19,28,10
-    CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,61,10
+    CONTROL         "Expansion Module",IDC_FEATURES_CK_EXPANSION_MODULE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,73,10
+    CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,61,10
     GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
     LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
 END
@@ -755,6 +757,8 @@ BEGIN
                             "This feature will remove all lighting functionality from the controller.  It is the equivalent to disabling MetalHalideSetup, StandardLightSetup, and DisplayLEDPWM.  This will OVERRIDE any of these features.\r\n\r\nSo use caution when enabling this feature."
     IDS_FEATURES_SAVERELAYSTATE 
                             "Do we save the relay state before we enter Feeding Mode or Water Change Mode?\r\n\r\nEnable this feature if you want the controller to remember what ports were off when the mode was entered and restores the ports when the mode is exited.\r\n\r\nThe original way is to have this feature disabled and the controller will always turn off and back on the specified ports."
+    IDS_FEATURES_EXPANSIONMODULE 
+                            "This feature will enable the use of additional expansion modules.  Up to 8 expansion modules can be used for additional ports.  Currently, if you enable this, you will have to manually edit the PDE file to use the ports.\nPorts are referenced by BoxX_PortY where X is box number and Y is port number. Ex. Box1_Port1, Box1_Port5\n\nApproximately 530 bytes are needed for this feature."
 END
 
 STRINGTABLE 

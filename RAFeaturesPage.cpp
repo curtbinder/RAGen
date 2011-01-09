@@ -35,6 +35,7 @@ void RAFeaturesPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_FEATURES_CK_ALTERNATE_FONT, m_bAlternateFont);
 	DDX_Check(pDX, IDC_FEATURES_CK_REMOVE_ALL_LIGHTS, m_bRemoveAllLights);
 	DDX_Check(pDX, IDC_FEATURES_CK_SAVE_RELAY_STATE, m_bSaveRelayState);
+	DDX_Check(pDX, IDC_FEATURES_CK_EXPANSION_MODULE, m_bExpansionModule);
 }
 
 
@@ -51,6 +52,7 @@ BEGIN_MESSAGE_MAP(RAFeaturesPage, CDialog)
 	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_ALTERNATE_FONT, &RAFeaturesPage::OnBnHotItemChangeCkAlternateFont)
 	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_SAVE_RELAY_STATE, &RAFeaturesPage::OnBnHotItemChangeCkSaveRelayState)
 	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_REMOVE_ALL_LIGHTS, &RAFeaturesPage::OnBnHotItemChangeCkRemoveAllLights)
+	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_EXPANSION_MODULE, &RAFeaturesPage::OnBnHotItemChangeFeaturesCkExpansionModule)
 END_MESSAGE_MAP()
 
 
@@ -223,6 +225,20 @@ void RAFeaturesPage::OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *
 	*pResult = 0;
 }
 
+void RAFeaturesPage::OnBnHotItemChangeFeaturesCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
+	if ( pHotItem->dwFlags & HICF_ENTERING )
+	{
+		SetDescription(IDS_FEATURES_EXPANSIONMODULE);
+	}
+	else if ( pHotItem->dwFlags & HICF_LEAVING )
+	{
+		ClearDescription();
+	}
+	*pResult = 0;
+}
+
 void RAFeaturesPage::OnResetAll()
 {
 	LoadDefaults();
@@ -261,6 +277,7 @@ void RAFeaturesPage::LoadFeatures()
 	m_bAlternateFont = AfxGetApp()->GetProfileInt(s, _T("AlternateFont"), FALSE);
 	m_bRemoveAllLights = AfxGetApp()->GetProfileInt(s, _T("RemoveAllLights"), FALSE);
 	m_bSaveRelayState = AfxGetApp()->GetProfileInt(s, _T("SaveRelayState"), FALSE);
+	m_bExpansionModule = AfxGetApp()->GetProfileInt(s, _T("ExpansionModule"), FALSE);
 	UpdateData(FALSE);
 }
 
@@ -280,6 +297,7 @@ void RAFeaturesPage::SaveFeatures(Features fs)
 	AfxGetApp()->WriteProfileInt(s, _T("AlternateFont"), fs.fAlternateFont);
 	AfxGetApp()->WriteProfileInt(s, _T("RemoveAllLights"), fs.fRemoveAllLights);
 	AfxGetApp()->WriteProfileInt(s, _T("SaveRelayState"), fs.fSaveRelayState);
+	AfxGetApp()->WriteProfileInt(s, _T("ExpansionModule"), fs.fExpansionModule);
 }
 
 void RAFeaturesPage::LoadDefaults()
@@ -296,6 +314,7 @@ void RAFeaturesPage::LoadDefaults()
 	m_bAlternateFont = FALSE;
 	m_bRemoveAllLights = FALSE;
 	m_bSaveRelayState = FALSE;
+	m_bExpansionModule = FALSE;
 	UpdateData(FALSE);
 }
 
@@ -313,6 +332,7 @@ void RAFeaturesPage::UpdateFeaturesStruct(Features& fs)
 	fs.fAlternateFont = m_bAlternateFont;
 	fs.fRemoveAllLights = m_bRemoveAllLights;
 	fs.fSaveRelayState = m_bSaveRelayState;
+	fs.fExpansionModule = m_bExpansionModule;
 
 	// these features are set based on PDE page selection, so blank them out
 	fs.fDosingPumpSetup = FALSE;
@@ -438,6 +458,11 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 			s = _T("#define wifi\r\n");
 			f.Write(s, s.GetLength());
 		}
+		if ( fs.fExpansionModule )
+		{
+			s = _T("#define RelayExp\r\n");
+			f.Write(s, s.GetLength());
+		}
 		if ( fs.fAlternateFont )
 		{
 			s = _T("#define AlternateFont\r\n");
@@ -481,3 +506,5 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 
 	return bRet;
 }
+
+

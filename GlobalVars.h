@@ -35,4 +35,5 @@ typedef struct _Features {
 	BOOL fStandardLightSetup;
 	BOOL fRemoveAllLights;
 	BOOL fSaveRelayState;
+	BOOL fExpansionModule;
 } Features;

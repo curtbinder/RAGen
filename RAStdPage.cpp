@@ -718,7 +718,11 @@ void loop()\r\n\
         Serial.print(ReefAngel.Relay.RelayMaskOn,DEC);\r\n\
         Serial.print(\"</RON><ROFF>\");\r\n\
         Serial.print(ReefAngel.Relay.RelayMaskOff,DEC);\r\n\
-        Serial.print(\"</ROFF></RA>\");\r\n\
+        Serial.print(\"</ROFF><ATOLOW>\");\r\n\
+		Serial.print(ReefAngel.ATO.IsLowActive());\r\n\
+		Serial.print(\"</ATOLOW><ATOHIGH>\");\r\n\
+		Serial.print(ReefAngel.ATO.IsHighActive());\r\n\
+		Serial.print(\"</ATOHIGH></RA>\");\r\n\
         ParamTimer.Start();\r\n\
     }\r\n\
 "), fTemp, fTemp, fTemp);

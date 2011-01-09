@@ -32,6 +32,7 @@ protected:
 	BOOL m_bAlternateFont;
 	BOOL m_bRemoveAllLights;
 	BOOL m_bSaveRelayState;
+	BOOL m_bExpansionModule;
 
 	void ClearDescription();
 	void SetDescription(UINT id);
@@ -53,6 +54,7 @@ public:
 	afx_msg void OnBnHotItemChangeCkAlternateFont(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSaveRelayState(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeFeaturesCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult);
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

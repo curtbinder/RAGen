@@ -70,3 +70,6 @@ v1.0.1
 v1.0.2
 ------
 - Fixed: if WM is set to always on and you disable and re-enable the wm, the spin box is re-enabled with the checkbox set
+- Added additional XML data output for Dave's client
+- Fixed: Added ReefAngel_Wifi.h include line to the dev PDE file being generated
+- Added in RelayExp define for the expansion modules.  To use, you must manually edit the PDE file to reference the ports.
