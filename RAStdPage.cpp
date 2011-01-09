@@ -75,6 +75,7 @@ void RAStdPage::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxInt(pDX, m_iATOTimeout, BYTE_MIN, BYTE_MAX);
 	DDX_Radio(pDX, IDC_STD_TEMP_0, fTemp);
 	DDX_Check(pDX, IDC_STD_CK_LOGGING, fLogging);
+	DDX_Check(pDX, IDC_STD_CK_WEB, fBanner);
 }
 
 
@@ -197,6 +198,7 @@ void RAStdPage::LoadDefaults()
 	BOOL fOldTemp = fTemp;
 	fTemp = FALSE;  // set to Fahrenheit
 	fLogging = FALSE;  // set to Not Log
+	fBanner = FALSE;  // set to Not output web banner
 	fDisableATO = FALSE;
 	fDisableStdLights = FALSE;
 	fDisableMHLights = FALSE;
@@ -423,6 +425,16 @@ void setup()\r\n\
     // Initialize and start the Parameter timer\r\n\
     ParamTimer.SetInterval(15);  // set interval to 15 seconds\r\n\
     ParamTimer.Start();\r\n\
+");
+			f.Write(s, s.GetLength());
+		}
+		// web banner timer
+		if ( fBanner )
+		{
+			s = _T("\
+    // Initialize and start the web banner timer\r\n\
+	ReefAngel.Timer[4].SetInterval(5);  // set interval to 5 seconds\r\n\
+    ReefAngel.Timer[4].Start();\r\n\
 ");
 			f.Write(s, s.GetLength());
 		}
@@ -728,6 +740,32 @@ void loop()\r\n\
 "), fTemp, fTemp, fTemp);
 			f.Write(s, s.GetLength());
 		}
+		// Add in the web banner stuff
+		if ( fBanner )
+		{
+			s.Format(_T("\r\n\
+    // Web Banner stuff\r\n\
+	if(ReefAngel.Timer[4].IsTriggered())\r\n\
+    {\r\n\
+		ReefAngel.Timer[4].Start();\r\n\
+        Serial.print(\"GET /status/submit.asp?id=rimai&t1=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1,%d));\r\n\
+        Serial.print(\"&t2=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2,%d));\r\n\
+        Serial.print(\"&t3=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3,%d));\r\n\
+        Serial.print(\"&ph=\");\r\n\
+        Serial.print(ReefAngel.Params.PH);\r\n\
+        Serial.print(\"&relaydata=\");\r\n\
+        Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
+        Serial.print(\"&t1n=Water&t2n=Room&t3n=Not%%20Used&r1n=ATO&r2n=Moonlight&r3n=Actinic\");\r\n\
+		Serial.print(\"&r4n=Halid&r5n=Sump%%20Light&r6n=Powerhead&r7n=Heater&r8n=Return\");\r\n\
+		Serial.println(\"\\n\\n\");\r\n\
+    }\r\n\
+"), fTemp, fTemp, fTemp);
+			f.Write(s, s.GetLength());
+		}
+
 		s = _T("}\r\n\r\n");
 		f.Write(s, s.GetLength());
 		f.Close();
@@ -758,6 +796,7 @@ void RAStdPage::SaveSettings()
 	s.LoadString(IDS_STD_TAB);
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
 	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
+	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
 	AfxGetApp()->WriteProfileInt(s, _T("DisableATO"), fDisableATO);
 	AfxGetApp()->WriteProfileInt(s, _T("DisableStdLights"), fDisableStdLights);
 	AfxGetApp()->WriteProfileInt(s, _T("DisableMHLights"), fDisableMHLights);
@@ -812,6 +851,7 @@ void RAStdPage::LoadSettings()
 	s.LoadString(IDS_STD_TAB);
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
+	fBanner = AfxGetApp()->GetProfileIntA(s, _T("WebBanner"), FALSE);
 	fDisableATO = AfxGetApp()->GetProfileInt(s, _T("DisableATO"), FALSE);
 	fDisableStdLights = AfxGetApp()->GetProfileInt(s, _T("DisableStdLights"), FALSE);
 	fDisableMHLights = AfxGetApp()->GetProfileInt(s, _T("DisableMHLights"), FALSE);

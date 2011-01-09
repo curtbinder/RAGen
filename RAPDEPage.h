@@ -92,6 +92,7 @@ protected:
 
 	BOOL fTemp;  //!< Temperature flag, 0 - Fahrenheit, 1 - Celcuis
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
+	BOOL fBanner;  //!< Web banner mode flag, 0 - no banner / logging, 1 - web banner enabled
 	int bCurrentPort;  //!< Currently selected Port
 
 	// Single use devices

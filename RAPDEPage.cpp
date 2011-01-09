@@ -17,6 +17,7 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 {
 	fTemp = FALSE;
 	fLogging = FALSE;
+	fBanner = FALSE;
 	LoadDeviceFunctions();
 }
 
@@ -29,6 +30,7 @@ void RAPDEPage::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_PDE_TEMP_0, fTemp);
 	DDX_Check(pDX, IDC_PDE_CK_LOGGING, fLogging);
+	DDX_Check(pDX, IDC_PDE_CK_WEB, fBanner);
 }
 
 BEGIN_MESSAGE_MAP(RAPDEPage, CDialog)
@@ -145,6 +147,7 @@ void RAPDEPage::LoadDefaults()
 	LoadDefaultPortDevices();
 	fTemp = FALSE;  // set to Fahrenheit
 	fLogging = FALSE;  // set to Not Log
+	fBanner = FALSE;  // set to disable web banner
 	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
 	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
 	SetPortMode(Overheat, DEFAULT_OVERHEAT);
@@ -510,6 +513,7 @@ void RAPDEPage::SaveSettings()
 	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), LightsOnPorts);
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
 	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
+	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
 	AfxGetApp()->WriteProfileInt(s, _T("Port1"), Ports[0]);
 	AfxGetApp()->WriteProfileInt(s, _T("Port2"), Ports[1]);
 	AfxGetApp()->WriteProfileInt(s, _T("Port3"), Ports[2]);
@@ -531,6 +535,7 @@ void RAPDEPage::LoadSettings()
 	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
+	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
 	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE));
 	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE));
 	SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE));
@@ -664,7 +669,16 @@ void setup()\r\n\
 ");
 			f.Write(s, s.GetLength());
 		}
-
+		// web banner timer
+		if ( fBanner )
+		{
+			s = _T("\
+    // Initialize and start the web banner timer\r\n\
+	ReefAngel.Timer[4].SetInterval(5);  // set interval to 5 seconds\r\n\
+    ReefAngel.Timer[4].Start();\r\n\
+");
+			f.Write(s, s.GetLength());
+		}
 		// add in an extra line to separate first part between the modes
 		s = _T("\r\n");
 		f.Write(s, s.GetLength());
@@ -782,6 +796,31 @@ void loop()\r\n\
 		Serial.print(ReefAngel.ATO.IsHighActive());\r\n\
 		Serial.print(\"</ATOHIGH></RA>\");\r\n\
         ParamTimer.Start();\r\n\
+    }\r\n\
+");
+			f.Write(s, s.GetLength());
+		}
+		// Add in the web banner stuff
+		if ( fBanner )
+		{
+			s = _T("\r\n\
+    // Web Banner stuff\r\n\
+	if(ReefAngel.Timer[4].IsTriggered())\r\n\
+    {\r\n\
+		ReefAngel.Timer[4].Start();\r\n\
+        Serial.print(\"GET /status/submit.asp?id=rimai&t1=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
+        Serial.print(\"&t2=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
+        Serial.print(\"&t3=\");\r\n\
+        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3));\r\n\
+        Serial.print(\"&ph=\");\r\n\
+        Serial.print(ReefAngel.Params.PH);\r\n\
+        Serial.print(\"&relaydata=\");\r\n\
+        Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
+        Serial.print(\"&t1n=Water&t2n=Room&t3n=Not%20Used&r1n=ATO&r2n=Moonlight&r3n=Actinic\");\r\n\
+		Serial.print(\"&r4n=Halid&r5n=Sump%20Light&r6n=Powerhead&r7n=Heater&r8n=Return\");\r\n\
+		Serial.println(\"\\n\\n\");\r\n\
     }\r\n\
 ");
 			f.Write(s, s.GetLength());

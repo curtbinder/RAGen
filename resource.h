@@ -46,7 +46,7 @@
 #define IDS_FEATURES_ALTERNATEFONT      214
 #define IDS_FEATURES_REMOVEALLLIGHTS    215
 #define IDS_FEATURES_SAVERELAYSTATE     217
-#define IDS_FEATURES_EXPANSIONMODULE	218
+#define IDS_FEATURES_EXPANSIONMODULE    218
 #define IDC_PDE_CK_FEEDING_1            300
 #define IDC_PDE_CK_FEEDING_2            301
 #define IDC_PDE_CK_FEEDING_3            302
@@ -103,6 +103,7 @@
 #define IDC_PDE_PORT_7                  353
 #define IDC_PDE_PORT_8                  354
 #define IDC_PDE_CK_LOGGING              355
+#define IDC_PDE_CK_WEB					356
 #define IDC_MEMORY_GROUP_LIGHTS         400
 #define IDC_MEMORY_GROUP_WAVEMAKERS     401
 #define IDC_MEMORY_GROUP_DOSING_PUMPS   402
@@ -202,6 +203,7 @@
 #define IDC_STD_CK_LOGGING              641
 #define IDC_STD_GROUP_TEMP              642
 #define IDC_STD_GROUP_LOGGING           643
+#define IDC_STD_CK_WEB                  644
 #define IDC_TESTING_STATUS              700
 #define IDD_COM_LIST                    701
 #define IDC_ABOUT_TEXT_VERSION          1000

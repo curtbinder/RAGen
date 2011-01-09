@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,2,60
- PRODUCTVERSION 1,0,2,60
+ FILEVERSION 1,0,2,64
+ PRODUCTVERSION 1,0,2,64
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 2, 60"
+            VALUE "FileVersion", "1, 0, 2, 64"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 2, 60"
+            VALUE "ProductVersion", "1, 0, 2, 64"
         END
     END
     BLOCK "VarFileInfo"
@@ -437,7 +437,8 @@ BEGIN
     CONTROL         "° F",IDC_PDE_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,104,25,10
     CONTROL         "° C",IDC_PDE_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
     GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
-    CONTROL         "Send Parameters",IDC_PDE_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,77,10
+    CONTROL         "PC",IDC_PDE_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,26,10
+	CONTROL         "Web Banner",IDC_PDE_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,104,52,10
     GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
     LTEXT           "8",IDC_STATIC,83,141,8,8
     LTEXT           "7",IDC_STATIC,95,141,8,8
@@ -657,7 +658,8 @@ BEGIN
     CONTROL         "° F",IDC_STD_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,222,102,25,10
     CONTROL         "° C",IDC_STD_TEMP_1,"Button",BS_AUTORADIOBUTTON,251,102,23,10
     GROUPBOX        "Logging",IDC_STD_GROUP_LOGGING,286,91,74,28
-    CONTROL         "Send Parameters",IDC_STD_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,291,102,67,10
+    CONTROL         "PC",IDC_STD_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,291,102,21,10
+    CONTROL         "Web",IDC_STD_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,322,102,31,10
     GROUPBOX        "Wavemakers",IDC_STD_GROUP_WAVEMAKERS,215,125,145,62
     LTEXT           "WM1:",IDC_STATIC,226,144,20,8
     LTEXT           "Interval (s)",IDC_STATIC,265,133,37,8
