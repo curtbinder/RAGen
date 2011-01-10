@@ -99,7 +99,7 @@ BEGIN
             VALUE "FileDescription", "ReefAngel Generator Application"
             VALUE "FileVersion", "1, 0, 2, 69"
             VALUE "InternalName", "RAGen.exe"
-            VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
+            VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
             VALUE "ProductVersion", "1, 0, 2, 69"
