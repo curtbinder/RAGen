@@ -6,6 +6,7 @@
 #include "RAPDEPage.h"
 #include "cb_FileVersion.h"
 #include "GlobalVars.h"
+#include "WebBannerDlg.h"
 
 
 // RAPDEPage dialog
@@ -583,6 +584,11 @@ BOOL RAPDEPage::WritePDE()
 		CTime t = CTime::GetCurrentTime();
 		CFile f;
 		SECURITY_ATTRIBUTES sa;
+		WebBannerInfo wi;
+		if ( fBanner )
+		{
+			LoadWebBannerInfoDefaults(wi);
+		}
 
 		sFilename.Format(_T("RA_%s"), t.Format(_T("%m%d%y_%H%M")));
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
@@ -672,11 +678,11 @@ void setup()\r\n\
 		// web banner timer
 		if ( fBanner )
 		{
-			s = _T("\
+			s.Format(_T("\
     // Initialize and start the web banner timer\r\n\
-	ReefAngel.Timer[4].SetInterval(180);  // set interval to 180 seconds\r\n\
+	ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
     ReefAngel.Timer[4].Start();\r\n\
-");
+"), wi.nInterval, wi.nInterval);
 			f.Write(s, s.GetLength());
 		}
 		// add in an extra line to separate first part between the modes
@@ -803,12 +809,12 @@ void loop()\r\n\
 		// Add in the web banner stuff
 		if ( fBanner )
 		{
-			s = _T("\r\n\
+			s.Format(_T("\r\n\
     // Web Banner stuff\r\n\
 	if(ReefAngel.Timer[4].IsTriggered())\r\n\
     {\r\n\
 		ReefAngel.Timer[4].Start();\r\n\
-        Serial.print(\"GET /status/submit.asp?id=rimai&t1=\");\r\n\
+        Serial.print(\"GET /status/submit.asp?id=%s&t1=\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
         Serial.print(\"&t2=\");\r\n\
         Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
@@ -818,11 +824,10 @@ void loop()\r\n\
         Serial.print(ReefAngel.Params.PH);\r\n\
         Serial.print(\"&relaydata=\");\r\n\
         Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
-        Serial.print(\"&t1n=Water&t2n=Room&t3n=Not%%20Used&r1n=ATO&r2n=Actinic&r3n=Halide\");\r\n\
-		Serial.print(\"&r4n=Powerhead%%202&r5n=Powerhead%%201&r6n=Chiller&r7n=Heater&r8n=Sump\");\r\n\
+        Serial.print(\"%s\");\r\n\
 		Serial.println(\"\\n\\n\");\r\n\
     }\r\n\
-");
+"), wi.sID, GetWebBannerInfoString(wi));
 			f.Write(s, s.GetLength());
 		}
 		s = _T("}\r\n\r\n");

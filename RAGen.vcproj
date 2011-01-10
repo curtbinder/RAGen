@@ -279,6 +279,10 @@
 				RelativePath=".\TestComPortsDlg.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WebBannerDlg.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -367,6 +371,10 @@
 			</File>
 			<File
 				RelativePath=".\TestComPortsDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WebBannerDlg.h"
 				>
 			</File>
 		</Filter>

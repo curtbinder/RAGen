@@ -35,6 +35,7 @@
 #define IDS_REGISTRY_CB_PATH            147
 #define IDS_REGISTRY_RA_PATH            148
 #define IDS_COMPORT                     149
+#define IDS_WEBBANNER                   150
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_OVERHEATSETUP      206
@@ -103,7 +104,7 @@
 #define IDC_PDE_PORT_7                  353
 #define IDC_PDE_PORT_8                  354
 #define IDC_PDE_CK_LOGGING              355
-#define IDC_PDE_CK_WEB					356
+#define IDC_PDE_CK_WEB                  356
 #define IDC_MEMORY_GROUP_LIGHTS         400
 #define IDC_MEMORY_GROUP_WAVEMAKERS     401
 #define IDC_MEMORY_GROUP_DOSING_PUMPS   402
@@ -206,6 +207,22 @@
 #define IDC_STD_CK_WEB                  644
 #define IDC_TESTING_STATUS              700
 #define IDD_COM_LIST                    701
+#define IDD_WEB_BANNER                  750
+#define IDC_WEB_ID                      751
+#define IDC_WEB_T1                      752
+#define IDC_WEB_T2                      753
+#define IDC_WEB_T3                      754
+#define IDC_WEB_R1                      755
+#define IDC_WEB_R2                      756
+#define IDC_WEB_R3                      757
+#define IDC_WEB_R4                      758
+#define IDC_WEB_R5                      759
+#define IDC_WEB_R6                      760
+#define IDC_WEB_R7                      761
+#define IDC_WEB_R8                      762
+#define IDC_WEB_EDIT_INTERVAL           763
+#define IDC_WEB_SPIN_INTERVAL           764
+#define IDC_WEB_BTN_QUESTION            765
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -264,13 +281,14 @@
 #define ID_FILE_RESTART                 32786
 #define ID_SAVE_FEATURES                32787
 #define ID_CONTROLLER_FIND              32788
+#define ID_CONTROLLER_WEBBANNER         32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        702
-#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_RESOURCE_VALUE        800
+#define _APS_NEXT_COMMAND_VALUE         32790
 #define _APS_NEXT_CONTROL_VALUE         1021
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

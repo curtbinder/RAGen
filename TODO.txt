@@ -10,21 +10,6 @@ TODO File
 	- 500-600 Colors (5000-6000 controls)
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
-- Ability to customize web banner URL
-	- Update / change ID (id=IDNAME)
-	- Update interval
-	- Change labels
-		t1n = Temperature 1 name
-		t2n = Temperature 2 name
-		t3n = Temperature 3 name
-		r1n = Relay 1 name
-		r2n = Relay 2 name
-		r3n = Relay 3 name
-		r4n = Relay 4 name
-		r5n = Relay 5 name
-		r6n = Relay 6 name
-		r7n = Relay 7 name
-		r8n = Relay 8 name
 
 
 Completed / Release Information
@@ -86,3 +71,4 @@ v1.0.2
 - Added in RelayExp define for the expansion modules.  To use, you must manually edit the PDE file to reference the ports.
 - Changed Send Parameters / Logging for Dave's client to PC
 - Added Web logging for web banner creation.  Default interval of 180 seconds and Roberto's id and labels
+- Added Web Banner customization dialog box, values always saved to registry and loaded from

@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,2,64
- PRODUCTVERSION 1,0,2,64
+ FILEVERSION 1,0,2,69
+ PRODUCTVERSION 1,0,2,69
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 2, 64"
+            VALUE "FileVersion", "1, 0, 2, 69"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 2, 64"
+            VALUE "ProductVersion", "1, 0, 2, 69"
         END
     END
     BLOCK "VarFileInfo"
@@ -272,6 +272,30 @@ BEGIN
         HORZGUIDE, 80
         HORZGUIDE, 87
     END
+
+    IDD_WEB_BANNER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        VERTGUIDE, 56
+        VERTGUIDE, 62
+        VERTGUIDE, 147
+        VERTGUIDE, 154
+        VERTGUIDE, 202
+        VERTGUIDE, 208
+        VERTGUIDE, 236
+        VERTGUIDE, 243
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 163
+        HORZGUIDE, 35
+        HORZGUIDE, 54
+        HORZGUIDE, 73
+        HORZGUIDE, 92
+        HORZGUIDE, 111
+        HORZGUIDE, 130
+        HORZGUIDE, 144
+        HORZGUIDE, 150
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -294,6 +318,7 @@ BEGIN
     POPUP "&Controller"
     BEGIN
         MENUITEM "F&ind Controller...",         ID_CONTROLLER_FIND
+        MENUITEM "&Web Banner...",              ID_CONTROLLER_WEBBANNER
     END
     POPUP "&Help"
     BEGIN
@@ -438,7 +463,7 @@ BEGIN
     CONTROL         "° C",IDC_PDE_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
     GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
     CONTROL         "PC",IDC_PDE_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,26,10
-	CONTROL         "Web Banner",IDC_PDE_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,104,52,10
+    CONTROL         "Web Banner",IDC_PDE_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,104,52,10
     GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
     LTEXT           "8",IDC_STATIC,83,141,8,8
     LTEXT           "7",IDC_STATIC,95,141,8,8
@@ -693,6 +718,44 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,117,87,50,14
 END
 
+IDD_WEB_BANNER DIALOGEX 0, 0, 300, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Web Banner Information"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,186,149,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,243,149,50,14
+    LTEXT           "Customize the settings for your web banner. The labels are used for the ports and temperatures. A blank label implies ""Not Used"".",IDC_STATIC,7,7,286,17
+    EDITTEXT        IDC_WEB_ID,62,35,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_T2,62,54,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R1,62,73,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R3,62,92,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R5,62,111,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R7,62,130,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_T1,208,35,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_T3,208,54,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R2,208,73,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R4,208,92,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R6,208,111,85,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WEB_R8,208,130,85,14,ES_AUTOHSCROLL
+    LTEXT           "User ID:",IDC_STATIC,7,37,28,8
+    LTEXT           "Temp 2 Name:",IDC_STATIC,7,56,47,8
+    LTEXT           "Relay 1 Name:",IDC_STATIC,7,75,48,8
+    LTEXT           "Relay 3 Name:",IDC_STATIC,7,94,48,8
+    LTEXT           "Relay 5 Name:",IDC_STATIC,7,113,48,8
+    LTEXT           "Relay 7 Name:",IDC_STATIC,7,132,48,8
+    LTEXT           "Temp 1 Name:",IDC_STATIC,154,37,47,8
+    LTEXT           "Temp 3 Name:",IDC_STATIC,154,56,47,8
+    LTEXT           "Relay 2 Name:",IDC_STATIC,154,75,48,8
+    LTEXT           "Relay 4 Name:",IDC_STATIC,154,94,48,8
+    LTEXT           "Relay 6 Name:",IDC_STATIC,154,113,48,8
+    LTEXT           "Relay 8 Name:",IDC_STATIC,154,132,48,8
+    LTEXT           "Interval (s)",IDC_STATIC,7,152,37,8
+    EDITTEXT        IDC_WEB_EDIT_INTERVAL,62,149,35,14,ES_AUTOHSCROLL | ES_READONLY | ES_NUMBER
+    CONTROL         "",IDC_WEB_SPIN_INTERVAL,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,99,149,11,14
+    PUSHBUTTON      "?",IDC_WEB_BTN_QUESTION,129,149,18,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -784,6 +847,7 @@ BEGIN
     IDS_REGISTRY_CB_PATH    "Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA_PATH    "Software\\Reef Angel\\RAGen\\"
     IDS_COMPORT             "COM%d"
+    IDS_WEBBANNER           "WebBanner"
 END
 
 #endif    // English (U.S.) resources

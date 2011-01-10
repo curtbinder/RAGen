@@ -60,6 +60,7 @@ public:
 	afx_msg void OnFileExit();
 	afx_msg void OnFileRestart();
 	afx_msg void OnControllerFind();
+	afx_msg void OnControllerWebBanner();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();
 	afx_msg void OnBnClickedBtnLaunch();
