@@ -674,7 +674,7 @@ void setup()\r\n\
 		{
 			s = _T("\
     // Initialize and start the web banner timer\r\n\
-	ReefAngel.Timer[4].SetInterval(5);  // set interval to 5 seconds\r\n\
+	ReefAngel.Timer[4].SetInterval(180);  // set interval to 180 seconds\r\n\
     ReefAngel.Timer[4].Start();\r\n\
 ");
 			f.Write(s, s.GetLength());
@@ -818,8 +818,8 @@ void loop()\r\n\
         Serial.print(ReefAngel.Params.PH);\r\n\
         Serial.print(\"&relaydata=\");\r\n\
         Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
-        Serial.print(\"&t1n=Water&t2n=Room&t3n=Not%20Used&r1n=ATO&r2n=Moonlight&r3n=Actinic\");\r\n\
-		Serial.print(\"&r4n=Halid&r5n=Sump%20Light&r6n=Powerhead&r7n=Heater&r8n=Return\");\r\n\
+        Serial.print(\"&t1n=Water&t2n=Room&t3n=Not%%20Used&r1n=ATO&r2n=Actinic&r3n=Halide\");\r\n\
+		Serial.print(\"&r4n=Powerhead%%202&r5n=Powerhead%%201&r6n=Chiller&r7n=Heater&r8n=Sump\");\r\n\
 		Serial.println(\"\\n\\n\");\r\n\
     }\r\n\
 ");

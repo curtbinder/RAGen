@@ -85,4 +85,4 @@ v1.0.2
 - Fixed: Added ReefAngel_Wifi.h include line to the dev PDE file being generated
 - Added in RelayExp define for the expansion modules.  To use, you must manually edit the PDE file to reference the ports.
 - Changed Send Parameters / Logging for Dave's client to PC
-- Added Web logging for web banner creation.  Default interval of 5 seconds and Roberto's id and labels
+- Added Web logging for web banner creation.  Default interval of 180 seconds and Roberto's id and labels
