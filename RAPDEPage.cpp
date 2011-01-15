@@ -781,27 +781,9 @@ void loop()\r\n\
     // Dump Params\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
-        Serial.flush();\r\n\
-        Serial.print(\"<RA><T1>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
-        Serial.print(\"</T1><T2>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
-        Serial.print(\"</T2><T3>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3));\r\n\
-        Serial.print(\"</T3><PH>\");\r\n\
-        Serial.print(ReefAngel.Params.PH);\r\n\
-        Serial.print(\"</PH><R>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
-        Serial.print(\"</R><RON>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayMaskOn,DEC);\r\n\
-        Serial.print(\"</RON><ROFF>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayMaskOff,DEC);\r\n\
-		Serial.print(\"</ROFF><ATOLOW>\");\r\n\
-		Serial.print(ReefAngel.LowATO.IsActive());\r\n\
-		Serial.print(\"</ATOLOW><ATOHIGH>\");\r\n\
-		Serial.print(ReefAngel.HighATO.IsActive());\r\n\
-		Serial.print(\"</ATOHIGH></RA>\");\r\n\
         ParamTimer.Start();\r\n\
+		Serial.flush();\r\n\
+		ReefAngel.PCLogging();\r\n\
     }\r\n\
 ");
 			f.Write(s, s.GetLength());
