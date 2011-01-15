@@ -11,14 +11,6 @@ TODO File
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
 
-- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later)
-- Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
-	- function reads strings from PROGMEM instead of RAM
-	- this function will always be available
-- Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
-	- function reads strings from PROGMEM instead of RAM
-	- this function will only be available if WIFI is defined / enabled
-	- Have PDE files generate the Web Banner tag PROGMEM strings
 
 Completed / Release Information
 -------------------------------
@@ -80,3 +72,11 @@ v1.0.2
 - Changed Send Parameters / Logging for Dave's client to PC
 - Added Web logging for web banner creation.  Default interval of 180 seconds and Roberto's id and labels
 - Added Web Banner customization dialog box, values always saved to registry and loaded from
+
+v1.0.3
+------
+- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later)
+- Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
+- Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
