@@ -657,6 +657,7 @@ ReefAngel_TimerClass ParamTimer;\r\n\
 		{
 			s.Format(_T("\
 // Labels for the web banner\r\n\
+#include <avr/pgmspace.h>\r\n\
 %s\r\n\
 "), GetWebBannerInfoString(wi));
 			f.Write(s, s.GetLength());
@@ -810,27 +811,6 @@ void loop()\r\n\
 		ReefAngel.WebBanner();\r\n\
     }\r\n\
 ");
-			/*
-			s.Format(_T("\r\n\
-    // Web Banner stuff\r\n\
-	if(ReefAngel.Timer[4].IsTriggered())\r\n\
-    {\r\n\
-		ReefAngel.Timer[4].Start();\r\n\
-        Serial.print(\"GET /status/submit.asp?id=%s&t1=\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1));\r\n\
-        Serial.print(\"&t2=\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2));\r\n\
-        Serial.print(\"&t3=\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3));\r\n\
-        Serial.print(\"&ph=\");\r\n\
-        Serial.print(ReefAngel.Params.PH);\r\n\
-        Serial.print(\"&relaydata=\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
-        Serial.print(\"%s\");\r\n\
-		Serial.println(\"\\n\\n\");\r\n\
-    }\r\n\
-"), wi.sID, GetWebBannerInfoString(wi));
-			*/
 			f.Write(s, s.GetLength());
 		}
 		s = _T("}\r\n\r\n");

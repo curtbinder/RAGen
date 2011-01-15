@@ -355,6 +355,7 @@ PROGMEM const char *menu_items[] = {menu0_label, menu1_label, menu2_label, menu3
 \r\n\
 ");
 		f.Write(s, s.GetLength());
+		// if fBanner - add in web banner labels - GetWebBannerInfoString(wi)
 		if ( fLogging )
 		{
 			s = _T("\
@@ -385,6 +386,7 @@ void setup()\r\n\
 		// web banner timer
 		if ( fBanner )
 		{
+			// if fBanner - add in LoadWebBanner
 			s.Format(_T("\
     // Initialize and start the web banner timer\r\n\
 	ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
@@ -749,6 +751,7 @@ void loop()\r\n\
 		// Add in the web banner stuff
 		if ( fBanner )
 		{
+			// change to ReefAngel.WebBanner();
 			s.Format(_T("\r\n\
     // Web Banner stuff\r\n\
 	if(ReefAngel.Timer[4].IsTriggered())\r\n\

@@ -77,7 +77,6 @@ CString GetWebBannerInfoString(WebBannerInfo &wi, BOOL bProgMem /*= TRUE*/)
 	if ( bProgMem )
 	{
 		s.Format(_T("\
-#include <avr/pgmspace.h>\r\n\
 prog_char id_label[] PROGMEM = \"%s\";\r\n\
 prog_char probe1_label[] PROGMEM = \"%s\";\r\n\
 prog_char probe2_label[] PROGMEM = \"%s\";\r\n\
