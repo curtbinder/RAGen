@@ -371,6 +371,39 @@ void setup()\r\n\
     ReefAngel.LoadMenu(pgm_read_word(&(menuitems[0])),SIZE(menu_items)); // Load menu items\r\n\
 ");
 		f.Write(s, s.GetLength());
+
+		// Set logging / send parameters
+		if ( fLogging )
+		{
+			s = _T("\
+    // Initialize and start the Parameter timer\r\n\
+    ParamTimer.SetInterval(15);  // set interval to 15 seconds\r\n\
+    ParamTimer.Start();\r\n\
+");
+			f.Write(s, s.GetLength());
+		}
+		// web banner timer
+		if ( fBanner )
+		{
+			s.Format(_T("\
+    // Initialize and start the web banner timer\r\n\
+	ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
+    ReefAngel.Timer[4].Start();\r\n\
+"), wi.nInterval, wi.nInterval);
+			f.Write(s, s.GetLength());
+		}
+
+		// Set Celsius if needed
+		if ( fTemp )
+		{
+			s = sTab + _T("ReefAngel.SetTemperatureUnit(1);  // set to Celsius Temperature\r\n");
+			f.Write(s, s.GetLength());
+		}
+
+		// add in an extra line to separate first part between the modes
+		s = _T("\r\n");
+		f.Write(s, s.GetLength());
+
 		// Determine which ports get started: Sump, WM1 and WM2
 		if ( ! fDisableSump )
 		{
@@ -415,38 +448,6 @@ void setup()\r\n\
 			s = sTab + _T("ReefAngel.Timer[3].Start();\r\n");
 			f.Write(s, s.GetLength());
 		}
-
-		// Set Celsius if needed
-		if ( fTemp )
-		{
-			s = sTab + _T("ReefAngel.SetTemperatureUnit(1);  // set to Celsius Temperature\r\n");
-			f.Write(s, s.GetLength());
-		}
-
-		// Set logging / send parameters
-		if ( fLogging )
-		{
-			s = _T("\
-    // Initialize and start the Parameter timer\r\n\
-    ParamTimer.SetInterval(15);  // set interval to 15 seconds\r\n\
-    ParamTimer.Start();\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
-		// web banner timer
-		if ( fBanner )
-		{
-			s.Format(_T("\
-    // Initialize and start the web banner timer\r\n\
-	ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
-    ReefAngel.Timer[4].Start();\r\n\
-"), wi.nInterval, wi.nInterval);
-			f.Write(s, s.GetLength());
-		}
-
-		// add in an extra line to separate first part between the modes
-		s = _T("\r\n");
-		f.Write(s, s.GetLength());
 
 		s = _T("\
 }\r\n\
@@ -766,7 +767,7 @@ void loop()\r\n\
         Serial.print(\"%s\");\r\n\
 		Serial.println(\"\\n\\n\");\r\n\
     }\r\n\
-"), wi.sID, fTemp, fTemp, fTemp, GetWebBannerInfoString(wi));
+"), wi.sID, fTemp, fTemp, fTemp, GetWebBannerInfoString(wi, FALSE));
 			f.Write(s, s.GetLength());
 		}
 

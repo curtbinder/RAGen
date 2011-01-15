@@ -52,4 +52,4 @@ public:
 void LoadWebBannerInfoDefaults(WebBannerInfo& wi);
 void SaveWebBannerInfo(WebBannerInfo& wi);
 void UpdateWebBannerInfoStrings(WebBannerInfo& wi);
-CString GetWebBannerInfoString(WebBannerInfo& wi);
+CString GetWebBannerInfoString(WebBannerInfo& wi, BOOL bProgMem = TRUE);

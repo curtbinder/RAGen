@@ -70,13 +70,38 @@ void UpdateWebBannerInfoStrings(WebBannerInfo &wi)
 	wi.sR8n.Replace(_T(" "), _T("%20"));
 }
 
-CString GetWebBannerInfoString(WebBannerInfo &wi)
+CString GetWebBannerInfoString(WebBannerInfo &wi, BOOL bProgMem /*= TRUE*/)
 {
 	CString s = _T("");
 	UpdateWebBannerInfoStrings(wi);
-	s.Format(_T("&t1n=%s&t2n=%s&t3n=%s&r1n=%s&r2n=%s&r3n=%s&r4n=%s&r5n=%s&r6n=%s&r7n=%s&r8n=%s"),
-		wi.sT1n, wi.sT2n, wi.sT3n, wi.sR1n, wi.sR2n, wi.sR3n, wi.sR4n,
+	if ( bProgMem )
+	{
+		s.Format(_T("\
+#include <avr/pgmspace.h>\r\n\
+prog_char id_label[] PROGMEM = \"%s\";\r\n\
+prog_char probe1_label[] PROGMEM = \"%s\";\r\n\
+prog_char probe2_label[] PROGMEM = \"%s\";\r\n\
+prog_char probe3_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay1_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay2_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay3_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay4_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay5_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay6_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay7_label[] PROGMEM = \"%s\";\r\n\
+prog_char relay8_label[] PROGMEM = \"%s\";\r\n\
+PROGMEM const char *webbanner_items[] = {\r\n\
+    id_label, probe1_label, probe2_label, probe3_label, relay1_label, relay2_label,\r\n\
+	relay3_label, relay4_label, relay5_label, relay6_label, relay7_label, relay8_label};\r\n\
+"), wi.sID, wi.sT1n, wi.sT2n, wi.sT3n, wi.sR1n, wi.sR2n, wi.sR3n, wi.sR4n,
 		wi.sR5n, wi.sR6n, wi.sR7n, wi.sR8n);
+	}
+	else
+	{
+		s.Format(_T("&t1n=%s&t2n=%s&t3n=%s&r1n=%s&r2n=%s&r3n=%s&r4n=%s&r5n=%s&r6n=%s&r7n=%s&r8n=%s"),
+			wi.sT1n, wi.sT2n, wi.sT3n, wi.sR1n, wi.sR2n, wi.sR3n, wi.sR4n,
+			wi.sR5n, wi.sR6n, wi.sR7n, wi.sR8n);
+	}
 	return s;
 }
 
