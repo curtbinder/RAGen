@@ -11,6 +11,14 @@ TODO File
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
 
+- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later)
+- Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
+	- this function will always be available
+- Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
+	- this function will only be available if WIFI is defined / enabled
+	- Have PDE files generate the Web Banner tag PROGMEM strings
 
 Completed / Release Information
 -------------------------------
