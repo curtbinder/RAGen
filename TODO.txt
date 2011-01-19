@@ -75,7 +75,7 @@ v1.0.2
 
 v1.0.3
 ------
-- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later)
+- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later) (Removed due to changes in libraries)
 - Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
 	- function reads strings from PROGMEM instead of RAM
 - Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
