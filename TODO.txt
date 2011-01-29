@@ -10,6 +10,7 @@ TODO File
 	- 500-600 Colors (5000-6000 controls)
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
+- Add in WifiAuthentication string for wifi authentication setting in PDE file
 
 
 Completed / Release Information

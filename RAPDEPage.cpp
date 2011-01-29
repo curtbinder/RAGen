@@ -691,8 +691,8 @@ void setup()\r\n\
 		{
 			s.Format(_T("\
     // Initialize and start the web banner timer\r\n\
-	ReefAngel.LoadWebBanner(pgm_read_word(&(webbanner_items[0])), SIZE(webbanner_items));\r\n\
-	ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
+    ReefAngel.LoadWebBanner(pgm_read_word(&(webbanner_items[0])), SIZE(webbanner_items));\r\n\
+    ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
     ReefAngel.Timer[4].Start();\r\n\
 "), wi.nInterval, wi.nInterval);
 			f.Write(s, s.GetLength());
@@ -794,7 +794,7 @@ void loop()\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
         ParamTimer.Start();\r\n\
-		ReefAngel.PCLogging();\r\n\
+        ReefAngel.PCLogging();\r\n\
     }\r\n\
 ");
 			f.Write(s, s.GetLength());
@@ -804,10 +804,10 @@ void loop()\r\n\
 		{
 			s = _T("\r\n\
     // Web Banner stuff\r\n\
-	if(ReefAngel.Timer[4].IsTriggered())\r\n\
+    if(ReefAngel.Timer[4].IsTriggered())\r\n\
     {\r\n\
-		ReefAngel.Timer[4].Start();\r\n\
-		ReefAngel.WebBanner();\r\n\
+        ReefAngel.Timer[4].Start();\r\n\
+        ReefAngel.WebBanner();\r\n\
     }\r\n\
 ");
 			f.Write(s, s.GetLength());
