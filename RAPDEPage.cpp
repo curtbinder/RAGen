@@ -794,7 +794,6 @@ void loop()\r\n\
     if(ParamTimer.IsTriggered())\r\n\
     {\r\n\
         ParamTimer.Start();\r\n\
-		Serial.flush();\r\n\
 		ReefAngel.PCLogging();\r\n\
     }\r\n\
 ");
