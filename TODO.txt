@@ -78,5 +78,12 @@ v1.0.3
 - Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later) (Removed due to changes in libraries)
 - Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
 	- function reads strings from PROGMEM instead of RAM
+	- Not available in Standard libraries
 - Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
 	- function reads strings from PROGMEM instead of RAM
+- Fixed several Standard Library bugs
+	- fixed menu_items variable
+	- fixed interval setting for logging features (pc & web)
+	- fixed MHlight define reference
+	- fixed TimerClass data type for pc logging
+- Added note in comments about WebBanner requiring 0.8.3.9 standard libraries
