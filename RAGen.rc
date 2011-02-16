@@ -79,13 +79,13 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,3,79
- PRODUCTVERSION 1,0,3,79
+ FILEVERSION 1,0,3,80
+ PRODUCTVERSION 1,0,3,80
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
- FILEFLAGS 0x1L
+ FILEFLAGS 0x21L
 #else
- FILEFLAGS 0x0L
+ FILEFLAGS 0x20L
 #endif
  FILEOS 0x4L
  FILETYPE 0x1L
@@ -97,12 +97,13 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 3, 79"
+            VALUE "FileVersion", "1, 0, 3, 80"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 3, 79"
+            VALUE "ProductVersion", "1, 0, 3, 80"
+            VALUE "SpecialBuild", "Statically linked MFC libraries"
         END
     END
     BLOCK "VarFileInfo"

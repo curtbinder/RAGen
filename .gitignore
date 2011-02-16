@@ -2,7 +2,9 @@
 bin/
 obj/
 Release/
+Release Static/
 Debug/
+Debug Static/
 *.user
 *.o
 *.ncb
