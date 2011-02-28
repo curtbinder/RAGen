@@ -19,6 +19,7 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 	fTemp = FALSE;
 	fLogging = FALSE;
 	fBanner = FALSE;
+	sFeatureList = _T("");
 	LoadDeviceFunctions();
 }
 
@@ -622,6 +623,8 @@ BOOL RAPDEPage::WritePDE()
 					t.Format(_T("%m/%d/%Y %H:%M")),
 					sFilename);
 		f.Write(sAutoGenHeader, sAutoGenHeader.GetLength());
+		// Write features list
+		f.Write(sFeatureList, sFeatureList.GetLength());
 		s = _T("\r\n\r\n\
 #include <ReefAngel_Features.h>\r\n\
 #include <ReefAngel_Globals.h>\r\n\
@@ -868,6 +871,13 @@ void RAPDEPage::UpdatePDEFeatures(Features& fs)
 				break;
 		}
 	}
+
+	// Get a list of the features used for this PDE file
+	CString s;
+	sFeatureList = _T("\r\n/* The following features are enabled for this PDE File: \r\n");
+	GetEnabledFeaturesList(fs, s);
+	sFeatureList += s;
+	sFeatureList += _T("*/\r\n");
 }
 
 void RAPDEPage::OnBnClickedBtnGenerate()

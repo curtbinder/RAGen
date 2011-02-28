@@ -94,6 +94,7 @@ protected:
 	BOOL fLogging;  //!< Logging mode flag, 0 - no logging, 1 - Logging enabled
 	BOOL fBanner;  //!< Web banner mode flag, 0 - no banner / logging, 1 - web banner enabled
 	int bCurrentPort;  //!< Currently selected Port
+	CString sFeatureList;  //!< List of features enabled when PDE generated
 
 	// Single use devices
 	BOOL fWM1;  //!< Flag for determining if WM1 is selected

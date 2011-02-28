@@ -37,3 +37,5 @@ typedef struct _Features {
 	BOOL fSaveRelayState;
 	BOOL fExpansionModule;
 } Features;
+
+void GetEnabledFeaturesList(Features& fs, CString& s);
