@@ -13,6 +13,7 @@ TODO File
 - Add in WifiAuthentication string for wifi authentication setting in PDE file
 - Internal Memory: Invalid range for actinic percentage still generated file even though not proper
 	- should do type / range checking before generation of file
+- Add in DosingPumpIntervalSetup to Features page
 
 
 Completed / Release Information
@@ -90,3 +91,14 @@ v1.0.3
 	- fixed MHlight define reference
 	- fixed TimerClass data type for pc logging
 - Added note in comments about WebBanner requiring 0.8.3.9 standard libraries
+
+v1.0.3-static
+------
+- Static linking of libraries
+- Minor fixes with changing tabs to spaces in PDE generation
+
+v1.0.4
+------
+- Dosing Pump Repeat Interval internal memory values get set on Internal Memory page
+	- Cannot change values currently (defaults to 60m)
+	- Have to manually edit PDE file to use the Dosing Pump Repeat Interval

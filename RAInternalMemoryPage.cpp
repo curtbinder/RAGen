@@ -550,6 +550,10 @@ void setup()\r\n\
 		f.Write(s, s.GetLength());
 		s.Format(_T("    InternalMemory.DP2Timer_write(%d);\r\n"), m_iDP2RunTime);
 		f.Write(s, s.GetLength());
+		s.Format(_T("    InternalMemory.DP1RepeatInterval_write(60);\r\n"));
+		f.Write(s, s.GetLength());
+		s.Format(_T("    InternalMemory.DP2RepeatInterval_write(60);\r\n"));
+		f.Write(s, s.GetLength());
 		s.Format(_T("    InternalMemory.ATOTimeout_write(%d);\r\n"), m_iATOLowTimeout);
 		f.Write(s, s.GetLength());
 		s.Format(_T("    InternalMemory.ATOHighTimeout_write(%d);\r\n"), m_iATOHighTimeout);
