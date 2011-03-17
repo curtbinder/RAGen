@@ -20,6 +20,7 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 	fTemp = FALSE;
 	fBanner = FALSE;
 	sFeatureList = _T("");
+	fUseDPRepeat = FALSE;
 	LoadDeviceFunctions();
 }
 
@@ -496,7 +497,32 @@ void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 	{
 		if ( Devices[i].id == Device )
 		{
-			sFunction = Devices[i].sRAFunction;
+			if ( (Device == IDC_PDE_CK_DP1) ||
+				 (Device == IDC_PDE_CK_DP2) )
+			{
+				// For Dosing Pumps, if the user chose to use the Repeat Interval
+				// Then let's switch things around and choose the Repeat Interval instead
+				// of the standard dosing pump if they chose to use a dosing pump
+				if ( fUseDPRepeat )
+				{
+					if ( Device == IDC_PDE_CK_DP1 )
+					{
+						sFunction = _T("DosingPumpRepeat1");
+					}
+					else
+					{
+						sFunction = _T("DosingPumpRepeat2");
+					}
+				}
+				else
+				{
+					sFunction = Devices[i].sRAFunction;
+				}
+			}
+			else
+			{
+				sFunction = Devices[i].sRAFunction;
+			}
 			break;
 		}
 	}
@@ -809,6 +835,26 @@ void loop()\r\n\
 
 void RAPDEPage::UpdatePDEFeatures(Features& fs)
 {
+	// These ports are updated based on the devices enabled on the ports
+	// Since we are always looping through all the ports and updating the values, 
+	// we need to turn them off initially and then turn them on if a device is assigned to a port
+	// This is to prevent additional features from being enabled if we turn off a feature.
+	fs.fMetalHalideSetup = FALSE;
+	fs.fStandardLightSetup = FALSE;
+	fs.fWavemakerSetup = FALSE;
+	fs.fDosingPumpSetup = FALSE;
+	fs.fSingleATO = FALSE;
+	fs.fATOSetup = FALSE;
+
+	// check if we need to override the DosingPump with DosingPumpRepeat
+	if ( fs.fDosingIntervalSetup )
+	{
+		fUseDPRepeat = TRUE;
+	}
+	else
+	{
+		fUseDPRepeat = FALSE;
+	}
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
 		if ( (Ports[i] == IDC_PDE_CK_ALWAYS_ON) ||

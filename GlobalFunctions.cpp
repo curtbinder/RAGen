@@ -14,9 +14,15 @@ void GetEnabledFeaturesList(Features& fs, CString& s)
 	{
 		s += _T("#define SetupExtras\r\n");
 	}
-	if ( fs.fDosingPumpSetup )
+	if ( fs.fDosingPumpSetup && !fs.fDosingIntervalSetup )
 	{
+		// Only enable if Repeat setup is disabled
 		s += _T("#define DosingPumpSetup\r\n");
+	}
+	if ( fs.fDosingIntervalSetup && fs.fDosingPumpSetup )
+	{
+		// Only enable if user selected it AND they have chosen a Dosing Pump to be used
+		s += _T("#define DosingPumpIntervalSetup\r\n");
 	}
 	if ( fs.fWavemakerSetup )
 	{

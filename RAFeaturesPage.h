@@ -33,6 +33,7 @@ protected:
 	BOOL m_bRemoveAllLights;
 	BOOL m_bSaveRelayState;
 	BOOL m_bExpansionModule;
+	BOOL m_bDosingIntervalSetup;
 
 	void ClearDescription();
 	void SetDescription(UINT id);
@@ -54,7 +55,8 @@ public:
 	afx_msg void OnBnHotItemChangeCkAlternateFont(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSaveRelayState(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeFeaturesCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkDosingIntervalSetup(NMHDR *pNMHDR, LRESULT *pResult);
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

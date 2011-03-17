@@ -36,6 +36,7 @@ typedef struct _Features {
 	BOOL fRemoveAllLights;
 	BOOL fSaveRelayState;
 	BOOL fExpansionModule;
+	BOOL fDosingIntervalSetup;
 } Features;
 
 void GetEnabledFeaturesList(Features& fs, CString& s);

@@ -12,7 +12,6 @@ TODO File
 	- Ability to toggle this setting/option
 - Internal Memory: Invalid range for actinic percentage still generated file even though not proper
 	- should do type / range checking before generation of file
-- Add in DosingPumpIntervalSetup to Features page
 
 
 Completed / Release Information
@@ -105,3 +104,6 @@ v1.0.4
 - PC Logging removed, logging data to the Client is not pushed, now it's always pulled
 - Fixed bug with Reset->Logging not resetting the Web Banner value
 - Added WifiAuthentication dialog box and PDE addition
+- Add in DosingPumpIntervalSetup to Features page
+	- When enabling, it overrides the standard dosing pump.  So all one needs to do is to enable it and then choose Dosing Pump and you are set.
+- Fixed error with enabling / disabling PDE controlled features.  They were not being disabled after being enabled when you remove a device/feature.
