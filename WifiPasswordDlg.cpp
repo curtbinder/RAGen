@@ -77,6 +77,8 @@ END_MESSAGE_MAP()
 BOOL WifiPasswordDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+	SetIcon(m_hIcon, TRUE);			// Set big icon
+	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	CEdit* e = (CEdit*)GetDlgItem(IDC_PASSWORD_PASSWORD);
 	e->SetPasswordChar('*');
