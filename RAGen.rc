@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,4,82
- PRODUCTVERSION 1,0,4,82
+ FILEVERSION 1,0,4,83
+ PRODUCTVERSION 1,0,4,83
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 4, 82"
+            VALUE "FileVersion", "1, 0, 4, 83"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 4, 82"
+            VALUE "ProductVersion", "1, 0, 4, 83"
             VALUE "SpecialBuild", "Statically linked MFC libraries"
         END
     END
@@ -345,7 +345,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Ports",                       ID_RESET_PORTS
         MENUITEM "Temperature",                 ID_RESET_TEMPERATURE
-        MENUITEM "Logging",                     ID_RESET_LOGGING
+		MENUITEM "Logging",                     ID_RESET_LOGGING
         MENUITEM SEPARATOR
         MENUITEM "Feeding Mode",                ID_RESET_FEEDINGMODE
         MENUITEM "Water Change Mode",           ID_RESET_WATERCHANGEMODE
@@ -463,8 +463,7 @@ BEGIN
     CONTROL         "° F",IDC_PDE_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,104,25,10
     CONTROL         "° C",IDC_PDE_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
     GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
-    CONTROL         "PC",IDC_PDE_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,26,10
-    CONTROL         "Web Banner",IDC_PDE_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,116,104,52,10
+    CONTROL         "Web Banner",IDC_PDE_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,52,10
     GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
     LTEXT           "8",IDC_STATIC,83,141,8,8
     LTEXT           "7",IDC_STATIC,95,141,8,8
@@ -684,8 +683,7 @@ BEGIN
     CONTROL         "° F",IDC_STD_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,222,102,25,10
     CONTROL         "° C",IDC_STD_TEMP_1,"Button",BS_AUTORADIOBUTTON,251,102,23,10
     GROUPBOX        "Logging",IDC_STD_GROUP_LOGGING,286,91,74,28
-    CONTROL         "PC",IDC_STD_CK_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,291,102,21,10
-    CONTROL         "Web",IDC_STD_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,322,102,31,10
+    CONTROL         "Web Banner",IDC_STD_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,291,102,61,10
     GROUPBOX        "Wavemakers",IDC_STD_GROUP_WAVEMAKERS,215,125,145,62
     LTEXT           "WM1:",IDC_STATIC,226,144,20,8
     LTEXT           "Interval (s)",IDC_STATIC,265,133,37,8

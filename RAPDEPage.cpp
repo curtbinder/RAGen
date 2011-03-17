@@ -17,7 +17,6 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAPDEPage::IDD, pParent)
 {
 	fTemp = FALSE;
-	fLogging = FALSE;
 	fBanner = FALSE;
 	sFeatureList = _T("");
 	LoadDeviceFunctions();
@@ -31,7 +30,6 @@ void RAPDEPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_PDE_TEMP_0, fTemp);
-	DDX_Check(pDX, IDC_PDE_CK_LOGGING, fLogging);
 	DDX_Check(pDX, IDC_PDE_CK_WEB, fBanner);
 }
 
@@ -148,7 +146,6 @@ void RAPDEPage::LoadDefaults()
 	InitPorts();
 	LoadDefaultPortDevices();
 	fTemp = FALSE;  // set to Fahrenheit
-	fLogging = FALSE;  // set to Not Log
 	fBanner = FALSE;  // set to disable web banner
 	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
 	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
@@ -514,7 +511,6 @@ void RAPDEPage::SaveSettings()
 	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), OverheatPorts);
 	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), LightsOnPorts);
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
-	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
 	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
 	AfxGetApp()->WriteProfileInt(s, _T("Port1"), Ports[0]);
 	AfxGetApp()->WriteProfileInt(s, _T("Port2"), Ports[1]);
@@ -536,7 +532,6 @@ void RAPDEPage::LoadSettings()
 	SetPortMode(Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));
 	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
-	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
 	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
 	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE));
 	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE));
@@ -647,14 +642,6 @@ BOOL RAPDEPage::WritePDE()
 \r\n\
 ");
 		f.Write(s, s.GetLength());
-		if ( fLogging )
-		{
-			s = _T("\
-// Timer used to indicate when to dump the parameters\r\n\
-ReefAngel_TimerClass ParamTimer;\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
 
 		if ( fBanner )
 		{
@@ -680,15 +667,6 @@ void setup()\r\n\
 			f.Write(s, s.GetLength());
 		}
 
-		if ( fLogging )
-		{
-			s = _T("\
-    // Initialize and start the Parameter timer\r\n\
-    ParamTimer.SetInterval(15);  // set interval to 15 seconds\r\n\
-    ParamTimer.Start();\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
 		// web banner timer
 		if ( fBanner )
 		{
@@ -789,19 +767,6 @@ void loop()\r\n\
 			f.Write(s1, s1.GetLength());
 		}
 
-		// Add in the last bit of logging features
-		if ( fLogging )
-		{
-			s = _T("\r\n\
-    // Dump Params\r\n\
-    if(ParamTimer.IsTriggered())\r\n\
-    {\r\n\
-        ParamTimer.Start();\r\n\
-        ReefAngel.PCLogging();\r\n\
-    }\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
 		// Add in the web banner stuff
 		if ( fBanner )
 		{
@@ -944,7 +909,7 @@ void RAPDEPage::OnResetTemperature()
 void RAPDEPage::OnResetLogging()
 {
 	UpdateData();
-	fLogging = FALSE;
+	fBanner = FALSE;
 	UpdateData(FALSE);
 }
 

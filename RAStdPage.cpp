@@ -21,7 +21,6 @@ RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 	m_iWM1IntervalTemp = 0;
 	m_iWM2IntervalTemp = 0;
 	fTemp = FALSE;
-	fLogging = FALSE;
 	fDisableATO = FALSE;
 	fDisableStdLights = FALSE;
 	fDisableMHLights = FALSE;
@@ -74,7 +73,6 @@ void RAStdPage::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_STD_EDIT_ATO_TIMEOUT, m_iATOTimeout);
 	DDV_MinMaxInt(pDX, m_iATOTimeout, BYTE_MIN, BYTE_MAX);
 	DDX_Radio(pDX, IDC_STD_TEMP_0, fTemp);
-	DDX_Check(pDX, IDC_STD_CK_LOGGING, fLogging);
 	DDX_Check(pDX, IDC_STD_CK_WEB, fBanner);
 }
 
@@ -197,7 +195,6 @@ void RAStdPage::LoadDefaults()
 	// set default values
 	BOOL fOldTemp = fTemp;
 	fTemp = FALSE;  // set to Fahrenheit
-	fLogging = FALSE;  // set to Not Log
 	fBanner = FALSE;  // set to Not output web banner
 	fDisableATO = FALSE;
 	fDisableStdLights = FALSE;
@@ -366,14 +363,6 @@ PROGMEM const char *menu_items[] = {menu0_label, menu1_label, menu2_label, menu3
 			f.Write(s, s.GetLength());
 		}
 
-		if ( fLogging )
-		{
-			s = _T("\
-// Timer used to indicate when to dump the parameters\r\n\
-TimerClass ParamTimer;\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
 		s = _T("\
 \r\n\
 void setup()\r\n\
@@ -383,16 +372,6 @@ void setup()\r\n\
 ");
 		f.Write(s, s.GetLength());
 
-		// Set logging / send parameters
-		if ( fLogging )
-		{
-			s = _T("\
-    // Initialize and start the Parameter timer\r\n\
-    ParamTimer.Interval=15;  // set interval to 15 seconds\r\n\
-    ParamTimer.Start();\r\n\
-");
-			f.Write(s, s.GetLength());
-		}
 		// web banner timer
 		if ( fBanner )
 		{
@@ -726,37 +705,6 @@ void loop()\r\n\
 		s = sTab + _T("ReefAngel.Relay.Write();  // Make relay changes effective\r\n");
 		f.Write(s, s.GetLength());
 
-		// Add in the last bit of logging features
-		if ( fLogging )
-		{
-			s.Format(_T("\r\n\
-    // Dump Params\r\n\
-    if(ParamTimer.IsTriggered())\r\n\
-    {\r\n\
-        Serial.print(\"<RA><T1>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT1,%d));\r\n\
-        Serial.print(\"</T1><T2>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT2,%d));\r\n\
-        Serial.print(\"</T2><T3>\");\r\n\
-        Serial.print(ReefAngel.TempSensor.ReadTemperature(ReefAngel.TempSensor.addrT3,%d));\r\n\
-        Serial.print(\"</T3><PH>\");\r\n\
-        Serial.print(ReefAngel.Params.PH);\r\n\
-        Serial.print(\"</PH><R>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayData,DEC);\r\n\
-        Serial.print(\"</R><RON>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayMaskOn,DEC);\r\n\
-        Serial.print(\"</RON><ROFF>\");\r\n\
-        Serial.print(ReefAngel.Relay.RelayMaskOff,DEC);\r\n\
-        Serial.print(\"</ROFF><ATOLOW>\");\r\n\
-        Serial.print(ReefAngel.ATO.IsLowActive());\r\n\
-        Serial.print(\"</ATOLOW><ATOHIGH>\");\r\n\
-        Serial.print(ReefAngel.ATO.IsHighActive());\r\n\
-        Serial.print(\"</ATOHIGH></RA>\");\r\n\
-        ParamTimer.Start();\r\n\
-    }\r\n\
-"), fTemp, fTemp, fTemp);
-			f.Write(s, s.GetLength());
-		}
 		// Add in the web banner stuff
 		if ( fBanner )
 		{
@@ -800,7 +748,6 @@ void RAStdPage::SaveSettings()
 	CDateTimeCtrl* p;
 	s.LoadString(IDS_STD_TAB);
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
-	AfxGetApp()->WriteProfileInt(s, _T("Logging"), fLogging);
 	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
 	AfxGetApp()->WriteProfileInt(s, _T("DisableATO"), fDisableATO);
 	AfxGetApp()->WriteProfileInt(s, _T("DisableStdLights"), fDisableStdLights);
@@ -855,7 +802,6 @@ void RAStdPage::LoadSettings()
 	BOOL fOldTemp = fTemp;
 	s.LoadString(IDS_STD_TAB);
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
-	fLogging = AfxGetApp()->GetProfileInt(s, _T("Logging"), FALSE);
 	fBanner = AfxGetApp()->GetProfileIntA(s, _T("WebBanner"), FALSE);
 	fDisableATO = AfxGetApp()->GetProfileInt(s, _T("DisableATO"), FALSE);
 	fDisableStdLights = AfxGetApp()->GetProfileInt(s, _T("DisableStdLights"), FALSE);
