@@ -10,7 +10,6 @@ TODO File
 	- 500-600 Colors (5000-6000 controls)
 - Restore saved settings at startup
 	- Ability to toggle this setting/option
-- Add in WifiAuthentication string for wifi authentication setting in PDE file
 - Internal Memory: Invalid range for actinic percentage still generated file even though not proper
 	- should do type / range checking before generation of file
 - Add in DosingPumpIntervalSetup to Features page
@@ -105,3 +104,4 @@ v1.0.4
 - Enabled features are now added to the PDE file comments for dev libraries
 - PC Logging removed, logging data to the Client is not pushed, now it's always pulled
 - Fixed bug with Reset->Logging not resetting the Web Banner value
+- Added WifiAuthentication dialog box and PDE addition
