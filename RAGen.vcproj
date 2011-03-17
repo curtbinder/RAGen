@@ -470,6 +470,10 @@
 				RelativePath=".\WebBannerDlg.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\WifiPasswordDlg.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -562,6 +566,10 @@
 			</File>
 			<File
 				RelativePath=".\WebBannerDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\WifiPasswordDlg.h"
 				>
 			</File>
 		</Filter>

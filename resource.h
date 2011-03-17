@@ -14,6 +14,7 @@
 #define IDD_SETTINGS                    108
 #define IDD_RASTDPAGE                   109
 #define IDD_TESTING                     110
+#define IDD_WIFI_PASSWORD               111
 #define IDB_CURTBINDER_LOGO             120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -36,6 +37,7 @@
 #define IDS_REGISTRY_RA_PATH            148
 #define IDS_COMPORT                     149
 #define IDS_WEBBANNER                   150
+#define IDS_WIFI_PASSWORD				151
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_OVERHEATSETUP      206
@@ -244,6 +246,9 @@
 #define IDC_BTN_LAUNCH                  1018
 #define IDC_BTN_CLOSE                   1019
 #define IDC_COM_LIST_PORTS              1020
+#define IDC_PASSWORD_USERNAME           1021
+#define IDC_PASSWORD_PASSWORD           1022
+#define IDC_PASSWORD_SHOW               1023
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_CK_DISPLAY_IMAGES  2002
 #define IDC_FEATURES_CK_SETUP_EXTRAS    2003
@@ -282,14 +287,15 @@
 #define ID_SAVE_FEATURES                32787
 #define ID_CONTROLLER_FIND              32788
 #define ID_CONTROLLER_WEBBANNER         32789
+#define ID_CONTROLLER_WIFIPASSWORD      32790
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        800
-#define _APS_NEXT_COMMAND_VALUE         32790
-#define _APS_NEXT_CONTROL_VALUE         1021
-#define _APS_NEXT_SYMED_VALUE           110
+#define _APS_NEXT_RESOURCE_VALUE        801
+#define _APS_NEXT_COMMAND_VALUE         32791
+#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_SYMED_VALUE           112
 #endif
 #endif

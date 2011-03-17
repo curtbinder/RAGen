@@ -13,6 +13,7 @@
 #include "TestComPortsDlg.h"
 #include "ComPortListDlg.h"
 #include "WebBannerDlg.h"
+#include "WifiPasswordDlg.h"
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
@@ -361,6 +362,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_FILE_RESTART, &RAGenDlg::OnFileRestart)
 	ON_COMMAND(ID_CONTROLLER_FIND, &RAGenDlg::OnControllerFind)
 	ON_COMMAND(ID_CONTROLLER_WEBBANNER, &RAGenDlg::OnControllerWebBanner)
+	ON_COMMAND(ID_CONTROLLER_WIFIPASSWORD, &RAGenDlg::OnControllerPasswordProtectWifi)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
 	ON_COMMAND(ID_RESET_SAVED, &RAGenDlg::OnResetSaved)
@@ -608,6 +610,12 @@ void RAGenDlg::OnControllerFind()
 void RAGenDlg::OnControllerWebBanner()
 {
 	WebBannerDlg dlg;
+	dlg.DoModal();
+}
+
+void RAGenDlg::OnControllerPasswordProtectWifi()
+{
+	WifiPasswordDlg dlg;
 	dlg.DoModal();
 }
 

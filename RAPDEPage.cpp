@@ -7,6 +7,7 @@
 #include "cb_FileVersion.h"
 #include "GlobalVars.h"
 #include "WebBannerDlg.h"
+#include "WifiPasswordDlg.h"
 
 
 // RAPDEPage dialog
@@ -664,6 +665,12 @@ void setup()\r\n\
 		if ( fTemp )
 		{
 			s = sTab + _T("ReefAngel.SetTemperatureUnit(1);  // set to Celsius Temperature\r\n");
+			f.Write(s, s.GetLength());
+		}
+		// Set password protection, if added
+		if ( IsPasswordProtected() )
+		{
+			s = sTab + GetWifiAuthenticationString();
 			f.Write(s, s.GetLength());
 		}
 
