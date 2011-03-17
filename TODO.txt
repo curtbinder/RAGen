@@ -107,3 +107,6 @@ v1.0.4
 - Add in DosingPumpIntervalSetup to Features page
 	- When enabling, it overrides the standard dosing pump.  So all one needs to do is to enable it and then choose Dosing Pump and you are set.
 - Fixed error with enabling / disabling PDE controlled features.  They were not being disabled after being enabled when you remove a device/feature.
+
+v1.0.5
+------
