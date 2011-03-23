@@ -377,7 +377,7 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 				t.Format("%m/%d/%Y %H:%M"));
 		CString sHeader = _T("\
 /*\r\n\
- * Copyright 2010 / Curt Binder\r\n\
+ * Copyright 2010-11 Curt Binder\r\n\
  *\r\n\
  * Licensed under the Apache License, Version 2.0 (the \"License\")\r\n\
  * you may not use this file except in compliance with the License.\r\n\
