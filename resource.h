@@ -15,7 +15,7 @@
 #define IDD_RASTDPAGE                   109
 #define IDD_TESTING                     110
 #define IDD_WIFI_PASSWORD               111
-#define IDB_CURTBINDER_LOGO             120
+#define IDB_CB_BANNER                   120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
 #define IDR_MENU_MAIN                   129
@@ -295,7 +295,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        801
+#define _APS_NEXT_RESOURCE_VALUE        800
 #define _APS_NEXT_COMMAND_VALUE         32791
 #define _APS_NEXT_CONTROL_VALUE         1025
 #define _APS_NEXT_SYMED_VALUE           112

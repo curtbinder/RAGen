@@ -61,8 +61,8 @@ END
 // Bitmap
 //
 
-IDB_CURTBINDER_LOGO     BITMAP                  "res\\curtbinderlogo.bmp"
 IDB_REEFANGEL_LOGO      BITMAP                  "res\\ReefAngelLogo.bmp"
+IDB_CB_BANNER           BITMAP                  "res\\cb_h_banner-medium.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -79,13 +79,13 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,4,93
- PRODUCTVERSION 1,0,4,93
- FILEFLAGSMASK 0x3fL
+ FILEVERSION 1,0,5,94
+ PRODUCTVERSION 1,0,5,94
+ FILEFLAGSMASK 0x1fL
 #ifdef _DEBUG
- FILEFLAGS 0x21L
+ FILEFLAGS 0x1L
 #else
- FILEFLAGS 0x20L
+ FILEFLAGS 0x0L
 #endif
  FILEOS 0x4L
  FILETYPE 0x1L
@@ -97,13 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 4, 93"
+            VALUE "FileVersion", "1, 0, 5, 94"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 4, 93"
-            VALUE "SpecialBuild", "Statically Linked MFC Libraries"
+            VALUE "ProductVersion", "1, 0, 5, 94"
         END
     END
     BLOCK "VarFileInfo"
@@ -128,7 +127,7 @@ BEGIN
         VERTGUIDE, 40
         VERTGUIDE, 160
         TOPMARGIN, 7
-        BOTTOMMARGIN, 119
+        BOTTOMMARGIN, 130
         HORZGUIDE, 15
         HORZGUIDE, 23
         HORZGUIDE, 31
@@ -379,20 +378,20 @@ END
 // Dialog
 //
 
-IDD_ABOUT DIALOGEX 0, 0, 235, 126
+IDD_ABOUT DIALOGEX 0, 0, 235, 137
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About ReefAngel Generator"
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            IDR_ICON_MAIN,IDC_STATIC,10,10,20,20
+    ICON            IDR_ICON_MAIN,IDC_STATIC,10,10,21,20
     LTEXT           "ReefAngel Generator",IDC_STATIC,40,7,120,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2010-11",IDC_STATIC,40,23,120,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
     LTEXT           "Version %s",IDC_ABOUT_TEXT_VERSION,40,15,120,8
     CONTROL         "",IDC_ABOUT_REEFANGEL_LOGO,"Static",SS_BITMAP,7,46,221,30
-    CONTROL         "",IDC_ABOUT_CURTBINDER_LOGO,"Static",SS_BITMAP,7,89,221,30
+    CONTROL         "",IDC_ABOUT_CURTBINDER_LOGO,"Static",SS_BITMAP,7,89,15,13
     CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,45,221,30
-    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,89,221,30
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,7,89,221,41
 END
 
 IDD_SETTINGS DIALOGEX 0, 0, 315, 166

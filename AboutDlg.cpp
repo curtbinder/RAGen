@@ -31,7 +31,7 @@ BOOL AboutDlg::OnInitDialog()
 	SetDlgItemText(IDC_ABOUT_TEXT_VERSION, buffer);
 
 	m_bmpRALogo.LoadBitmapA(IDB_REEFANGEL_LOGO);
-	m_bmpCBLogo.LoadBitmapA(IDB_CURTBINDER_LOGO);
+	m_bmpCBLogo.LoadBitmapA(IDB_CB_BANNER);
 	m_RALogo.SetBitmap(m_bmpRALogo);
 	m_CBLogo.SetBitmap(m_bmpCBLogo);
 	return TRUE;
