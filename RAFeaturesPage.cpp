@@ -424,7 +424,7 @@ void RAFeaturesPage::LoadFeatures()
 	m_bVersionMenu = AfxGetApp()->GetProfileInt(s, _T("VersionMenu"), TRUE);
 	m_bDirectTempSensor = AfxGetApp()->GetProfileInt(s, _T("DirectTempSensor"), TRUE);
 	m_bDisplayLEDPWM = AfxGetApp()->GetProfileInt(s, _T("DisplayLEDPWM"), TRUE);
-	m_bWifi = AfxGetApp()->GetProfileInt(s, _T("Wifi"), FALSE);
+	m_bWifi = AfxGetApp()->GetProfileInt(s, _T("Wifi"), TRUE);
 	m_bAlternateFont = AfxGetApp()->GetProfileInt(s, _T("AlternateFont"), FALSE);
 	m_bRemoveAllLights = AfxGetApp()->GetProfileInt(s, _T("RemoveAllLights"), FALSE);
 	m_bSaveRelayState = AfxGetApp()->GetProfileInt(s, _T("SaveRelayState"), FALSE);
@@ -481,7 +481,7 @@ void RAFeaturesPage::LoadDefaults()
 	m_bVersionMenu = TRUE;
 	m_bDirectTempSensor = TRUE;
 	m_bDisplayLEDPWM = TRUE;
-	m_bWifi = FALSE;
+	m_bWifi = TRUE;
 	m_bAlternateFont = FALSE;
 	m_bRemoveAllLights = FALSE;
 	m_bSaveRelayState = FALSE;
