@@ -579,15 +579,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\res\CB_1_-_app_logo.bmp"
-				>
-			</File>
-			<File
 				RelativePath=".\res\cb_h_banner-medium.bmp"
-				>
-			</File>
-			<File
-				RelativePath=".\res\curtbinderlogo.bmp"
 				>
 			</File>
 			<File

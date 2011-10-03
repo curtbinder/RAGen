@@ -74,3 +74,6 @@
 #define PH_MAX				1024
 #define TIMEOUTS_MIN		0
 #define TIMEOUTS_MAX		3600
+#define MENU_MIN			1
+#define MENU_MAX			9
+#define MENU_DEFAULT		6

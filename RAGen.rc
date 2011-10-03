@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,5,94
- PRODUCTVERSION 1,0,5,94
+ FILEVERSION 1,0,5,95
+ PRODUCTVERSION 1,0,5,95
  FILEFLAGSMASK 0x1fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 0, 5, 94"
+            VALUE "FileVersion", "1, 0, 5, 95"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 0, 5, 94"
+            VALUE "ProductVersion", "1, 0, 5, 95"
         END
     END
     BLOCK "VarFileInfo"
@@ -168,8 +168,8 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 360
         VERTGUIDE, 12
-        VERTGUIDE, 100
-        VERTGUIDE, 188
+        VERTGUIDE, 92
+        VERTGUIDE, 181
         VERTGUIDE, 276
         VERTGUIDE, 354
         TOPMARGIN, 7
@@ -432,21 +432,31 @@ BEGIN
     CONTROL         "Setup Extras",IDC_FEATURES_CK_SETUP_EXTRAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,35,57,10
     CONTROL         "Save Relay State",IDC_FEATURES_CK_SAVE_RELAY_STATE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,51,71,10
-    CONTROL         "Overheat Setup",IDC_FEATURES_CK_OVERHEAT_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,19,67,10
+    CONTROL         "ATO Logging",IDC_FEATURES_CK_ENABLE_ATO_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,67,61,10
+    CONTROL         "Exceed Flagging",IDC_FEATURES_CK_ENABLE_EXCEED_FLAG,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,83,69,10
+    CONTROL         "Overheat Setup",IDC_FEATURES_CK_OVERHEAT_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,19,67,10
     CONTROL         "Date / Time Setup",IDC_FEATURES_CK_DATE_TIME_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,35,73,10
-    CONTROL         "Version Menu",IDC_FEATURES_CK_VERSION_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,100,51,59,10
-    CONTROL         "Display LED PWM",IDC_FEATURES_CK_DISPLAY_LED_PWM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,19,71,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,35,73,10
+    CONTROL         "Version Menu",IDC_FEATURES_CK_VERSION_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,51,59,10
+    CONTROL         "Custom Main Screen",IDC_FEATURES_CK_CUSTOM_MAIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,67,89,10
+    CONTROL         "PWM Expansion",IDC_FEATURES_CK_PWMEXPANSION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,83,67,10
+    CONTROL         "Display LED PWM",IDC_FEATURES_CK_DISPLAY_LED_PWM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,19,71,10
     CONTROL         "Remove All Lights",IDC_FEATURES_CK_REMOVE_ALL_LIGHTS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,35,72,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,35,72,10
     CONTROL         "Direct Temp Sensor",IDC_FEATURES_CK_DIRECT_TEMP_SENSOR,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,51,78,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,51,78,10
+    CONTROL         "Simple Menu",IDC_FEATURES_CK_SIMPLE_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,67,58,10
+    CONTROL         "Custom Menu",IDC_FEATURES_CK_CUSTOM_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,83,57,10
+    EDITTEXT        IDC_EDIT_ENTRIES,242,81,27,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_ENTRIES,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,251,91,11,12
     CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,19,28,10
     CONTROL         "Expansion Module",IDC_FEATURES_CK_EXPANSION_MODULE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,73,10
     CONTROL         "Dosing Repeat Setup",IDC_FEATURES_CK_DOSINGINTERVAL_SETUP,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,78,10
-    CONTROL         "Alternate Font",IDC_FEATURES_CK_ALTERNATE_FONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,67,81,10
+    CONTROL         "Watchdog Timer",IDC_FEATURES_CK_WDT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,67,69,10
+    CONTROL         "Custom Colors",IDC_FEATURES_CK_COLORS_PDE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,83,63,10
     GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
     LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
 END
@@ -860,6 +870,19 @@ BEGIN
                             "This feature will enable the use of additional expansion modules.  Up to 8 expansion modules can be used for additional ports.  Currently, if you enable this, you will have to manually edit the PDE file to use the ports.\nPorts are referenced by BoxX_PortY where X is box number and Y is port number. Ex. Box1_Port1, Box1_Port5\n\nApproximately 530 bytes are needed for this feature."
     IDS_FEATURES_DOSINGINTERVALSETUP 
                             "This feature will enable the Repeat Dosing at specified intervals setup screen.  Enabling this feature will OVERRIDE the standard dosing pump setup feature.\r\nAllows for specifying a minute interval that you would like the pump to turn on and run for.  It runs every minute interval for the entire day.  It's start time is based off of midnight of the current day.  If you specified a 60 minute interval, it will run for the specified duration every hour.\r\n\r\nApproximately 368 bytes to have this feature."
+    IDS_FEATURES_ATOLOGGING "Enabling will log the ATO events to the internal memory for later querying from another application such as Client Suite.  This will help catch the ATO events that occur between the logging intervals.  Only useful to enable if you have WIFI enabled as well.\n\nThe values must be queried by another application or you must add functionality to your homescreen to display the results."
+    IDS_FEATURES_EXCEEDFLAG "The red LED on the controller gets turned on when either the Overheat temp is reached OR if the ATO timeout is exceeded.  Enabling this feature will keep track of which event caused the LED to be turned on.  The event gets stored in the internal memory.  When you clear the event (either ATO or Overheat), the event is cleared from memory.  This should only be enabled if you are running a custom main screen because you have to code it manually to display.\n\nApproximately 68 bytes to enable the storing of the exceeded flags (not counting displaying them on the screen)"
+    IDS_FEATURES_WDT        "With the optiboot bootloader, enabling the watchdog timer is possible.  You must have version 4 of the optiboot booloader installed on the controller for this to work.  Once enabled, the watchdog timer must be reset/tickled/touched periodically or else the controller will reboot.\n\nIf enabled, there is a check on controller initialization that verifies the proper bootloader is installed before enabling the watchdog timer.\n\nApproximately 82 bytes to have Watchdog Enabled (WDT)."
+    IDS_FEATURES_CUSTOMMENU "This option allows you to handle the menu in your PDE file.  You must also define how many menu entries you want.  There is a max of 9 entries.  You have to add several items to your PDE file.  You will be creating your menu at the top of the file just like in the Standard Libraries.  You will also need to edit the menu entry functions associated with all of your menu entries.\nThe PDE generated will contain the necessary code for you.  You must edit the functions to have them perform the tasks you want."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FEATURES_SIMPLEMENU "This is for the simplified menu.  All the additional / extra menus have been stripped down.\n\nThe menu system only contains:\nFeeding Mode,Water Change Mode,ATO Clear,Overheat Clear,PH Calibration,Date / Time Setup (ability to be removed),Version Menu (ability to be removed)\n\nApproximately 4566 bytes removed when using the Simplified Menu"
+    IDS_FEATURES_CUSTOMMAIN "This will enable the ability for people to create a custom main screen with the complete menu system and without having to modify the libraries.  Once this is defined/enabled, you MUST edit the following functions inside your PDE file.  If you do not, you will have the default main screen.\n\nvoid DrawCustomMain()\nvoid DrawCustomGraph()"
+    IDS_FEATURES_COLORSPDE  "This will enable the ability to customize the colors on your controller.  You will have to edit the file ReefAngel_CustomColors.h to change the colors.  The colors available are listed in the ReefAngel_Colors.h file."
+    IDS_FEATURES_PWMEXPANSION 
+                            "This will allow the enabling of the PWM Expansion Device.  It will add a menu entry that displays 'PWM ->'.  It will give the preset defaults for the expansion device.\nThe menu entries will be:\n\nSlow Cloud, Fast Cloud, T-storm 1, T-storm 2, 0%, 50%, 100%, Custom\r\n\r\nApproximately 630 bytes to have this feature"
 END
 
 STRINGTABLE 

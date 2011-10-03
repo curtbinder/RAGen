@@ -84,4 +84,39 @@ void GetEnabledFeaturesList(Features& fs, CString& s)
 	{
 		s += _T("#define SaveRelayState\r\n");
 	}
+	if ( fs.fWDT )
+	{
+		s += _T("#define WDT\r\n");
+	}
+	if ( fs.fCustomMenu )
+	{
+		s += _T("#define CUSTOM_MENU\r\n");
+		CString buf;
+		buf.Format(_T("#define CUSTOM_MENU_ENTRIES  %d\r\n"), fs.iCustomMenuEntries);
+		s += buf;
+	}
+	if ( fs.fSimpleMenu )
+	{
+		s += _T("#define SIMPLE_MENU\r\n");
+	}
+	if ( fs.fPWMExpansion )
+	{
+		s += _T("#define PWMEXPANSION\r\n");
+	}
+	if ( fs.fCustomMain )
+	{
+		s += _T("#define CUSTOM_MAIN\r\n");
+	}
+	if ( fs.fColorsPDE )
+	{
+		s += _T("#define COLORS_PDE\r\n");
+	}
+	if ( fs.fAtoLogging )
+	{
+		s += _T("#define ENABLE_ATO_LOGGING\r\n");
+	}
+	if ( fs.fExceedFlags )
+	{
+		s += _T("#define ENABLE_EXCEED_FLAGS\r\n");
+	}
 }

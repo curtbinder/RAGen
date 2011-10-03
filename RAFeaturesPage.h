@@ -34,6 +34,15 @@ protected:
 	BOOL m_bSaveRelayState;
 	BOOL m_bExpansionModule;
 	BOOL m_bDosingIntervalSetup;
+	BOOL m_bWDT;
+	BOOL m_bCustomMenu;
+	BOOL m_bSimpleMenu;
+	BOOL m_bPWMExpansion;
+	BOOL m_bCustomMain;
+	BOOL m_bColorsPDE;
+	BOOL m_bAtoLogging;
+	BOOL m_bExceedFlags;
+	int m_iCustomMenuEntries;
 
 	void ClearDescription();
 	void SetDescription(UINT id);
@@ -57,6 +66,14 @@ public:
 	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkDosingIntervalSetup(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkAtoLogging(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkExceedFlag(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkWdt(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkCustomMenu(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkSimpleMenu(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkCustomMain(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkColorsPde(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnHotItemChangeCkPwmExpansion(NMHDR *pNMHDR, LRESULT *pResult);
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

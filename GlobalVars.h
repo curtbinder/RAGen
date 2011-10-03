@@ -37,6 +37,15 @@ typedef struct _Features {
 	BOOL fSaveRelayState;
 	BOOL fExpansionModule;
 	BOOL fDosingIntervalSetup;
+	BOOL fWDT;
+	BOOL fCustomMenu;
+	BOOL fSimpleMenu;
+	BOOL fPWMExpansion;
+	BOOL fCustomMain;
+	BOOL fColorsPDE;
+	BOOL fAtoLogging;
+	BOOL fExceedFlags;
+	int iCustomMenuEntries;
 } Features;
 
 void GetEnabledFeaturesList(Features& fs, CString& s);

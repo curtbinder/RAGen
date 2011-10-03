@@ -95,6 +95,10 @@ protected:
 	int bCurrentPort;  //!< Currently selected Port
 	CString sFeatureList;  //!< List of features enabled when PDE generated
 	BOOL fUseDPRepeat;  //!< Do we use DosingPumpRepeat instead of DosingPump
+	BOOL fCustomMenu;  //!< Is the CustomMenu enabled?
+	int iCustomMenuEntries;  //!< Number of CustomMenuEntries
+	BOOL fCustomMain;	//!< Is the CustomMain screen enabled?
+	BOOL fColorsPDE;	//!< Are we using CustomColors?
 
 	// Single use devices
 	BOOL fWM1;  //!< Flag for determining if WM1 is selected
