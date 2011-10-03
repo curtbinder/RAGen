@@ -5,6 +5,7 @@ Release/
 Release Static/
 Debug/
 Debug Static/
+ReefAngel_Features/
 *.user
 *.o
 *.ncb
