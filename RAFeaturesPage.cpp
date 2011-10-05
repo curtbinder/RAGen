@@ -594,6 +594,20 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 		f.Write(sHeader, sHeader.GetLength());
 		GetEnabledFeaturesList(fs, s);
 		f.Write(s, s.GetLength());
+		// if we have any additional features, prompt if the user wants to keep them or not
+		if ( ! m_sUnknownFeatures.IsEmpty() )
+		{
+			s.Format(_T("Additional unrecognized features found.\n\n%s\nDo you want to keep them in your Features file?\n(Yes - keeps, No - clears, cannot be undone)"),
+				m_sUnknownFeatures);
+			if ( AfxMessageBox(s, MB_ICONQUESTION|MB_YESNO) == IDNO )
+			{
+				m_sUnknownFeatures = _T("");
+			}
+			else
+			{
+				f.Write(m_sUnknownFeatures, m_sUnknownFeatures.GetLength());
+			}
+		}
 		f.Write(sFooter, sFooter.GetLength());
 		f.Close();
 		bRet = TRUE;
@@ -690,17 +704,6 @@ BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)
 			token = sCompleteFile.Tokenize(sTokenString, pos);
 		}
 
-		// if we have any additional features, prompt if the user wants to keep them or not
-		if ( ! m_sUnknownFeatures.IsEmpty() )
-		{
-			CString s;
-			s.Format(_T("Additional unrecognized features found.\n\n%s\n\nDo you want to keep them? (Yes - keeps, No - clears)"),
-				m_sUnknownFeatures);
-			if ( AfxMessageBox(s, MB_ICONQUESTION|MB_YESNO) == IDNO )
-			{
-				m_sUnknownFeatures = _T("");
-			}
-		}
 		UpdateData(FALSE);
 	}
 	CATCH_ALL(e)
