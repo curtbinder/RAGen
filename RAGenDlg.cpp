@@ -364,6 +364,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_CONTROLLER_WEBBANNER, &RAGenDlg::OnControllerWebBanner)
 	ON_COMMAND(ID_CONTROLLER_WIFIPASSWORD, &RAGenDlg::OnControllerPasswordProtectWifi)
 	ON_COMMAND(ID_CONTROLLER_IMPORTFEATURESFROMFILE, &RAGenDlg::OnControllerImportFeatures)
+	ON_COMMAND(ID_CONTROLLER_SHOWUNKNOWNFEATURES, &RAGenDlg::OnControllerShowUnknownFeatures)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
 	ON_COMMAND(ID_RESET_SAVED, &RAGenDlg::OnResetSaved)
@@ -636,6 +637,11 @@ void RAGenDlg::OnControllerImportFeatures()
 	file = dlg.GetPathName();
 	TRACE("OF:  '%s'\n", file);
 	m_Tabs.ImportFeatures(dlg.GetPathName());
+}
+
+void RAGenDlg::OnControllerShowUnknownFeatures()
+{
+	m_Tabs.ShowUnknownFeatures();
 }
 
 void RAGenDlg::OnHelpAbout()

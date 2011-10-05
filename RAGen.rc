@@ -339,6 +339,7 @@ BEGIN
         MENUITEM "&Web Banner...",              ID_CONTROLLER_WEBBANNER
         MENUITEM "&Password Protect WIFI...",   ID_CONTROLLER_WIFIPASSWORD
         MENUITEM "Import &Features from File...", ID_CONTROLLER_IMPORTFEATURESFROMFILE
+        MENUITEM "Show &Unknown Features...",   ID_CONTROLLER_SHOWUNKNOWNFEATURES
     END
     POPUP "&Help"
     BEGIN

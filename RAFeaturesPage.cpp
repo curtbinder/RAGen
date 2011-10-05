@@ -597,7 +597,7 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 		// if we have any additional features, prompt if the user wants to keep them or not
 		if ( ! m_sUnknownFeatures.IsEmpty() )
 		{
-			s.Format(_T("Additional unrecognized features found.\n\n%s\nDo you want to keep them in your Features file?\n(Yes - keeps, No - clears, cannot be undone)"),
+			s.Format(_T("Additional unrecognized features found.\n\n%s\nDo you want to keep them in your Features file?\n(Yes - keeps, No - clears & cannot be undone)"),
 				m_sUnknownFeatures);
 			if ( AfxMessageBox(s, MB_ICONQUESTION|MB_YESNO) == IDNO )
 			{
@@ -720,6 +720,20 @@ BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)
 	END_CATCH_ALL
 
 	return fRet;
+}
+
+void RAFeaturesPage::ShowUnknownFeatures()
+{
+	CString s;
+	if ( m_sUnknownFeatures.IsEmpty() )
+	{
+		s = _T("No unknown Features.");
+	}
+	else
+	{
+		s.Format(_T("Additional unrecognized features found:\n\n%s"), m_sUnknownFeatures);
+	}
+	AfxMessageBox(s, MB_ICONINFORMATION|MB_OK);
 }
 
 void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*/)

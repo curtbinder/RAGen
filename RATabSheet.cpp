@@ -464,6 +464,12 @@ void RATabSheet::ImportFeatures(CString sFile)
 	AfxMessageBox(buf, MB_OK|MB_ICONINFORMATION);
 }
 
+void RATabSheet::ShowUnknownFeatures()
+{
+	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+	pf->ShowUnknownFeatures();
+}
+
 BEGIN_MESSAGE_MAP(RATabSheet, CTabCtrl)
 	ON_NOTIFY_REFLECT(TCN_SELCHANGE, &RATabSheet::OnTcnSelchange)
 END_MESSAGE_MAP()

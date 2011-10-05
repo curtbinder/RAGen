@@ -63,6 +63,7 @@ public:
 	afx_msg void OnControllerWebBanner();
 	afx_msg void OnControllerPasswordProtectWifi();
 	afx_msg void OnControllerImportFeatures();
+	afx_msg void OnControllerShowUnknownFeatures();
 	afx_msg void OnHelpAbout();
 	afx_msg void OnBnClickedBtnGenerate();
 	afx_msg void OnBnClickedBtnLaunch();

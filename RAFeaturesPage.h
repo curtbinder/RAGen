@@ -60,6 +60,7 @@ public:
 	BOOL WriteFeatures(Features fs, LPCTSTR sLibraryFolder);
 	void SaveFeatures(Features fs);
 	BOOL ReadFeatures(CString sFeaturesFile);
+	void ShowUnknownFeatures();
 	afx_msg void OnBnHotItemChangeCkDisplayImages(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSetupExtras(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkOverheatSetup(NMHDR *pNMHDR, LRESULT *pResult);
