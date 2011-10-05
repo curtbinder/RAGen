@@ -43,16 +43,23 @@ protected:
 	BOOL m_bAtoLogging;
 	BOOL m_bExceedFlags;
 	int m_iCustomMenuEntries;
+	int m_iInstalledExpansionModules;
+
+	// unknown features from features file
+	CString m_sUnknownFeatures;
 
 	void ClearDescription();
 	void SetDescription(UINT id);
 	void LoadFeatures();
-	void LoadDefaults();
+	void ProcessFeature(CString sFeature, CString sValue = _T(""));
+	void ClearFeatures();
 
 public:
+	void LoadDefaults();
 	void UpdateFeaturesStruct(Features& fs);
 	BOOL WriteFeatures(Features fs, LPCTSTR sLibraryFolder);
 	void SaveFeatures(Features fs);
+	BOOL ReadFeatures(CString sFeaturesFile);
 	afx_msg void OnBnHotItemChangeCkDisplayImages(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkSetupExtras(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnHotItemChangeCkOverheatSetup(NMHDR *pNMHDR, LRESULT *pResult);
