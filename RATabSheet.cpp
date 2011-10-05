@@ -449,6 +449,21 @@ void RATabSheet::EnableAdvanced()
 	}
 }
 
+void RATabSheet::ImportFeatures(CString sFile)
+{
+	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+	CString buf;
+	if (  pf->ReadFeatures(sFile) )
+	{
+		buf = _T("Successfully imported features");
+	}
+	else
+	{
+		buf = _T("Failed to import features");
+	}
+	AfxMessageBox(buf, MB_OK|MB_ICONINFORMATION);
+}
+
 BEGIN_MESSAGE_MAP(RATabSheet, CTabCtrl)
 	ON_NOTIFY_REFLECT(TCN_SELCHANGE, &RATabSheet::OnTcnSelchange)
 END_MESSAGE_MAP()

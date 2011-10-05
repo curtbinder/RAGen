@@ -772,10 +772,9 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 	} else if ( sFeature == _T("DisplayLEDPWM") )
 	{
 		m_bDisplayLEDPWM = TRUE;
-	} else if ( sFeature == _T("PWMEXPANSION") )
-	{
-		m_bPWMExpansion = TRUE;
-	} else if ( sFeature == _T("PWMExpansion") )  // old style
+	} else if ( (sFeature == _T("PWMEXPANSION")) ||
+				(sFeature == _T("PWMExpansion")) ||		// old style
+				(sFeature == _T("PWMExpansionRelay")) ) // old style
 	{
 		m_bPWMExpansion = TRUE;
 	} else if ( sFeature == _T("SingleATOSetup") )
@@ -851,6 +850,6 @@ void RAFeaturesPage::ClearFeatures()
 	m_bColorsPDE = FALSE;
 	m_bAtoLogging = FALSE;
 	m_bExceedFlags = FALSE;
-	m_iCustomMenuEntries = 0;
+	m_iCustomMenuEntries = 1;
 	m_iInstalledExpansionModules = 0;
 }

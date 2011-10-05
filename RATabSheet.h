@@ -28,6 +28,7 @@ public:
 	void UpdateSettingsForTabs();
 	void GetFilename(CString &s);
 	void EnableAdvanced();
+	void ImportFeatures(CString sFile);
 	inline BOOL IsMemoryTab() { return (m_iCurrentTab == Memory); }
 	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
