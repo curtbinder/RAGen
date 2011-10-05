@@ -44,8 +44,8 @@ void RATabSheet::Init()
 		InsertItem(Features, s);
 		s.LoadStringA(IDS_PDE_TAB);
 		InsertItem(PDE, s);
-		s.LoadStringA(IDS_MEMORY_TAB);
-		InsertItem(Memory, s);
+		//s.LoadStringA(IDS_MEMORY_TAB);
+		//InsertItem(Memory, s);
 		//s.LoadStringA(IDS_COLORS_TAB);
 		//InsertItem(Colors, _T("Colors"));
 
