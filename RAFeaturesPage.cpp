@@ -838,6 +838,9 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 	} else if ( sFeature == _T("ENABLE_ATO_LOGGING") )
 	{
 		m_bAtoLogging = TRUE;
+	} else if ( sFeature == _T("WDT") )
+	{
+		m_bWDT = TRUE;
 	}
 }
 
