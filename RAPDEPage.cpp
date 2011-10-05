@@ -600,6 +600,31 @@ void RAPDEPage::SelectPort1()
 	p->SetCheck(BST_CHECKED);
 }
 
+void RAPDEPage::MenuRemoveUnusedFeatures(Features& fs)
+{
+	if ( fs.fCustomMenu )
+	{
+		// CustomMenu overrides SimpleMenu
+		fs.fSimpleMenu = FALSE;
+	}
+
+	if ( fs.fSimpleMenu || fs.fCustomMenu )
+	{
+		// The following features are not used when using the alternate menus
+		// Disable them when we go to generate the features file so we don't have
+		// any extra confusion in the file
+		fs.fStandardLightSetup = FALSE;
+		fs.fMetalHalideSetup = FALSE;
+		fs.fATOSetup = FALSE;
+		fs.fDosingPumpSetup = FALSE;
+		fs.fDosingIntervalSetup = FALSE;
+		fs.fWavemakerSetup = FALSE;
+		fs.fSingleATO = FALSE;
+		fs.fOverheatSetup = FALSE;
+		fs.fSetupExtras = FALSE;
+	}
+}
+
 BOOL RAPDEPage::WritePDE()
 {
 	BOOL bRet = FALSE;
@@ -980,6 +1005,9 @@ void RAPDEPage::UpdatePDEFeatures(Features& fs)
 	iCustomMenuEntries = fs.iCustomMenuEntries;
 	fCustomMain = fs.fCustomMain;
 	fColorsPDE = fs.fColorsPDE;
+
+	// if we have simple_menu or custom_menu defined, we need to remove the unused features
+	MenuRemoveUnusedFeatures(fs);
 
 	// Get a list of the features used for this PDE file
 	CString s;

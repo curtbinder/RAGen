@@ -265,6 +265,7 @@ protected:
 	void SaveSettings();
 	void LoadSettings();
 	void SelectPort1();
+	void MenuRemoveUnusedFeatures(Features& fs);
 
 public:
 	void UpdatePDEFeatures(Features& fs);
