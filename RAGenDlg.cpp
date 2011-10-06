@@ -86,6 +86,7 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 		pMenu->AppendMenuA(MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, sReset);
 	}
 
+	/*
 	CString sEnable;
 	sEnable.LoadStringA(IDS_ENABLE_ADVANCED);
 	if ( m_Tabs.IsMemoryTab() )
@@ -113,6 +114,7 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 			pMenu->DeleteMenu(pos, MF_BYPOSITION);
 		}
 	}
+	*/
 }
 
 int RAGenDlg::FindMenuItem(CMenu* pMenu, LPCTSTR sMenu)
