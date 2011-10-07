@@ -14,6 +14,7 @@
 #include "ComPortListDlg.h"
 #include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
+#include "RAInternalMemoryPage.h"
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
@@ -359,7 +360,6 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_CLOSE()
 	ON_COMMAND(ID_EDIT_SETTINGS, &RAGenDlg::OnEditSettings)
-	ON_COMMAND(ID_EDIT_ENABLE_ADVANCED, &RAGenDlg::OnEditEnableAdvanced)
 	ON_COMMAND(ID_FILE_EXIT, &RAGenDlg::OnFileExit)
 	ON_COMMAND(ID_FILE_RESTART, &RAGenDlg::OnFileRestart)
 	ON_COMMAND(ID_CONTROLLER_FIND, &RAGenDlg::OnControllerFind)
@@ -367,6 +367,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_CONTROLLER_WIFIPASSWORD, &RAGenDlg::OnControllerPasswordProtectWifi)
 	ON_COMMAND(ID_CONTROLLER_IMPORTFEATURESFROMFILE, &RAGenDlg::OnControllerImportFeatures)
 	ON_COMMAND(ID_CONTROLLER_SHOWUNKNOWNFEATURES, &RAGenDlg::OnControllerShowUnknownFeatures)
+	ON_COMMAND(ID_CONTROLLER_INTERNALMEMORY, &RAGenDlg::OnControllerInternalMemory)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
 	ON_COMMAND(ID_RESET_SAVED, &RAGenDlg::OnResetSaved)
@@ -528,11 +529,6 @@ void RAGenDlg::OnEditSettings()
 	}
 }
 
-void RAGenDlg::OnEditEnableAdvanced()
-{
-	m_Tabs.EnableAdvanced();
-}
-
 void RAGenDlg::OnFileExit()
 {
 	PostMessage(WM_CLOSE);
@@ -644,6 +640,14 @@ void RAGenDlg::OnControllerImportFeatures()
 void RAGenDlg::OnControllerShowUnknownFeatures()
 {
 	m_Tabs.ShowUnknownFeatures();
+}
+
+void RAGenDlg::OnControllerInternalMemory()
+{
+	RAInternalMemoryPage dlg;
+	dlg.iSaveReg = iSaveReg;
+	_tcscpy_s(dlg.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	dlg.DoModal();
 }
 
 void RAGenDlg::OnHelpAbout()

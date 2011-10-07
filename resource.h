@@ -9,12 +9,12 @@
 #define IDD_RAFEATURESPAGE              103
 #define IDD_RAPDEPAGE                   104
 #define IDD_RACOLORSPAGE                105
-#define IDD_RAMEMORYPAGE                106
 #define IDD_ABOUT                       107
 #define IDD_SETTINGS                    108
 #define IDD_RASTDPAGE                   109
 #define IDD_TESTING                     110
 #define IDD_WIFI_PASSWORD               111
+#define IDD_MEMORY                      112
 #define IDB_CB_BANNER                   120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -260,6 +260,9 @@
 #define IDC_PASSWORD_SHOW               1023
 #define IDC_EDIT_ENTRIES                1025
 #define IDC_SPIN_ENTRIES                1026
+#define IDC_MEMORY_BTN_GENERATE         1028
+#define IDC_MEMORY_BTN_ENABLE_ADVANCED  1031
+#define IDC_MEMORY_STATUS               1032
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_CK_DISPLAY_IMAGES  2002
 #define IDC_FEATURES_CK_SETUP_EXTRAS    2003
@@ -310,14 +313,15 @@
 #define ID_CONTROLLER_WIFIPASSWORD      32790
 #define ID_CONTROLLER_IMPORTFEATURESFROMFILE 32791
 #define ID_CONTROLLER_SHOWUNKNOWNFEATURES 32792
+#define ID_CONTROLLER_INTERNALMEMORY    32793
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        800
-#define _APS_NEXT_COMMAND_VALUE         32793
+#define _APS_NEXT_COMMAND_VALUE         32794
 #define _APS_NEXT_CONTROL_VALUE         1027
-#define _APS_NEXT_SYMED_VALUE           112
+#define _APS_NEXT_SYMED_VALUE           113
 #endif
 #endif

@@ -5,12 +5,14 @@
 // RAInternalMemoryPage dialog
 class RAInternalMemoryPage : public CDialog
 {
+	DECLARE_DYNAMIC(RAInternalMemoryPage)
+
 // Construction
 public:
 	RAInternalMemoryPage(CWnd* pParent = NULL);	// standard constructor
 
 // Dialog Data
-	enum { IDD = IDD_RAMEMORYPAGE };
+	enum { IDD = IDD_MEMORY };
 
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
@@ -21,6 +23,7 @@ public:
 
 	// Implementation
 protected:
+	HICON m_hIcon;
 	BOOL fUse12Hour;
 	BOOL fDegF;
 
@@ -37,6 +40,8 @@ protected:
 	void SaveValues();
 	void EnableTimeoutsPH(BOOL bEnable);
 	void UpdateCheckBoxes();
+	void SetStatus(UINT id);
+	void SetStatus(LPCSTR s);
 	
 	DECLARE_MESSAGE_MAP()
 
@@ -65,8 +70,9 @@ public:
 	afx_msg void OnBnClickedCkAtoHighInterval();
 	afx_msg void OnBnClickedCkWm1AlwaysOn();
 	afx_msg void OnBnClickedCkWm2AlwaysOn();
-	void OnEditTimeoutsPH();
-	void OnBnClickedBtnGenerate();
+	afx_msg void OnBnClickedBtnEnableAdvanced();
+	//void OnEditTimeoutsPH();
+	afx_msg void OnBnClickedBtnGenerate();
 	void OnResetAll();
 	void OnResetSaved();
 };

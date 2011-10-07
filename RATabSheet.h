@@ -27,10 +27,8 @@ public:
 	void ResetLightsOn();
 	void UpdateSettingsForTabs();
 	void GetFilename(CString &s);
-	void EnableAdvanced();
 	void ImportFeatures(CString sFile);
 	void ShowUnknownFeatures();
-//	inline BOOL IsMemoryTab() { return (m_iCurrentTab == Memory); }
 	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
@@ -52,7 +50,6 @@ protected:
 	enum Tabs {
 		Features,
 		PDE,
-		//Memory,
 		//Colors,
 		Standard,
 	};

@@ -14,10 +14,12 @@
 
 
 // RAInternalMemoryPage dialog
+IMPLEMENT_DYNAMIC(RAInternalMemoryPage, CDialog)
 
 RAInternalMemoryPage::RAInternalMemoryPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAInternalMemoryPage::IDD, pParent)
 {
+	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
 	fUse12Hour = TRUE;
 	fDegF = TRUE;
 	m_iATOLowIntervalTemp = 0;
@@ -67,6 +69,8 @@ BEGIN_MESSAGE_MAP(RAInternalMemoryPage, CDialog)
 	ON_BN_CLICKED(IDC_MEMORY_CK_ATO_HIGH_INTERVAL, &RAInternalMemoryPage::OnBnClickedCkAtoHighInterval)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM1_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm1AlwaysOn)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM2_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm2AlwaysOn)
+	ON_BN_CLICKED(IDC_MEMORY_BTN_GENERATE, &RAInternalMemoryPage::OnBnClickedBtnGenerate)
+	ON_BN_CLICKED(IDC_MEMORY_BTN_ENABLE_ADVANCED, &RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced)
 END_MESSAGE_MAP()
 
 
@@ -75,14 +79,17 @@ END_MESSAGE_MAP()
 BOOL RAInternalMemoryPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+	SetIcon(m_hIcon, TRUE);			// Set big icon
+	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	InitSpinners();
 	InitTimeBoxes();
 	InitTempBoxes();
-	LoadDefaults();
+	LoadValues();
 	UpdateCheckBoxes();
 	// Disable the Timeouts & PH stuff by default
 	EnableTimeoutsPH(FALSE);
+	SetStatus("");
 	UpdateData(FALSE);
 
 	return TRUE;
@@ -383,50 +390,13 @@ void RAInternalMemoryPage::OnBnClickedCkWm2AlwaysOn()
 	UpdateData(FALSE);
 }
 
-void RAInternalMemoryPage::OnEditTimeoutsPH()
-{
-	// if enabled, disable & vice versa
-	BOOL bEnable = FALSE;
-
-	// submenu 1 is the Edit menu
-	CMenu *pMenu = AfxGetApp()->GetMainWnd()->GetMenu()->GetSubMenu(1);
-	int count = pMenu->GetMenuItemCount();
-	if ( count != -1 )
-	{
-		CString s;
-		CString enable;
-		CString disable;
-		enable.LoadStringA(IDS_ENABLE_ADVANCED);
-		disable.LoadStringA(IDS_DISABLE_ADVANCED);
-		for ( int i = 0; i < count; i++ )
-		{
-			pMenu->GetMenuString(i, s, MF_BYPOSITION);
-			if ( s.Compare(disable) == 0 )
-			{
-				bEnable = FALSE;
-				UINT id = pMenu->GetMenuItemID(i);
-				pMenu->ModifyMenuA(id, MF_BYCOMMAND, id, enable);
-				break;
-			}
-			if ( s.Compare(enable) == 0 )
-			{
-				bEnable = TRUE;
-				UINT id = pMenu->GetMenuItemID(i);
-				pMenu->ModifyMenuA(id, MF_BYCOMMAND, id, disable);
-				break;
-			}
-		}
-	}
-	EnableTimeoutsPH(bEnable);
-}
-
 void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 {
 	// Generate to local directory initially
 	UpdateData();
 	if ( WriteValues() )
 	{
-		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
+		SetStatus(IDS_SUCCESS_GENERATE);
 		switch ( iSaveReg )
 		{
 		case ALWAYS:  // always save, no prompt
@@ -448,6 +418,12 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 			break;
 		}
 	}
+}
+
+void RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced()
+{
+	EnableTimeoutsPH(TRUE);
+	GetDlgItem(IDC_MEMORY_BTN_ENABLE_ADVANCED)->EnableWindow(FALSE);
 }
 
 BOOL RAInternalMemoryPage::WriteValues()
@@ -903,6 +879,20 @@ void RAInternalMemoryPage::UpdateCheckBoxes()
 		bEnable = TRUE;
 	}
 	GetDlgItem(IDC_MEMORY_EDIT_WM2_INTERVAL)->EnableWindow(bEnable);
+}
+
+void RAInternalMemoryPage::SetStatus(UINT id)
+{
+	CString s;
+	s.LoadString(id);
+	CString s2;
+	s2.Format(s, sFilename);
+	SetStatus(s2);
+}
+
+void RAInternalMemoryPage::SetStatus(LPCSTR s)
+{
+	SetDlgItemText(IDC_MEMORY_STATUS, s);
 }
 
 void RAInternalMemoryPage::OnResetAll()
