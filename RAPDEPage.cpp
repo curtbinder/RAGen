@@ -72,7 +72,10 @@ BOOL RAPDEPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	// have to load the defaults first which initializes the boxes
+	// and loads in the default values before we can restore the settings
 	LoadDefaults();
+	LoadSettings();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

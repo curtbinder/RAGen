@@ -91,7 +91,7 @@ BOOL RAFeaturesPage::OnInitDialog()
 	pSpin->SetBuddy(GetDlgItem(IDC_EDIT_ENTRIES));
 	pSpin->SetRange32(1, 9);
 
-	LoadDefaults();
+	LoadFeatures();
 
 	ClearDescription();
 
