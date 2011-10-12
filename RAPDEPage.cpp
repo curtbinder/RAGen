@@ -892,8 +892,6 @@ void setup()\r\n\
 \r\n\
 void loop()\r\n\
 {\r\n\
-    ReefAngel.ShowInterface();\r\n\
-\r\n\
     // Specific functions\r\n\
 ");
 		f.Write(s, s.GetLength());
@@ -926,7 +924,11 @@ void loop()\r\n\
 ");
 			f.Write(s, s.GetLength());
 		}
-		s = _T("}\r\n\r\n");
+		
+		// add showinterface to the end
+		s = _T("\r\n\
+	ReefAngel.ShowInterface();\r\n\
+}\r\n\r\n");
 		f.Write(s, s.GetLength());
 		f.Close();
 		bRet = TRUE;
