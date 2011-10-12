@@ -79,6 +79,7 @@ BOOL TestComPortsDlg::UpdateStatus()
 	m_bCancel = FALSE;
 	BOOL bRet = TRUE;
 	BOOL f;
+	BOOL fOpti;
 	/*
 	loop through the ports
 	*/
@@ -91,15 +92,28 @@ BOOL TestComPortsDlg::UpdateStatus()
 			bRet = FALSE;
 			break;
 		}
+		// Check for Optiboot controller
 		if ( TestPort(m_Ports[i].iPort) )
 		{
 			f = TRUE;
+			fOpti = TRUE;
 		}
 		else
 		{
-			f = FALSE;
+			//f = FALSE;
+			fOpti = FALSE;
+			// Check for standard controller
+			if ( TestPort(m_Ports[i].iPort, CBR_57600) )
+			{
+				f = TRUE;
+			}
+			else
+			{
+				f = FALSE;
+			}
 		}
 		m_Ports[i].fHasRA = f;
+		m_Ports[i].fOptiboot = fOpti;
 	}  // for i
 
 	if ( ! m_bCancel )

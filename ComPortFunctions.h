@@ -4,9 +4,10 @@
 typedef struct _Port {
 	int iPort;
 	BOOL fHasRA;
+	BOOL fOptiboot;
 } Port;
 
-BOOL TestPort(int nCom);
+BOOL TestPort(int nCom, int nBaudRate = CBR_115200);
 BOOL OpenPort(int nCom);
 BOOL ConfigureComPort();
 BOOL SendCommand();

@@ -39,12 +39,23 @@ BOOL ComPortListDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	CString s;
+	CString s1;
 	if ( m_iCount > 0 )
 	{
 		// fill in the list box
 		for ( int i = 0; i < m_iCount; i++ )
 		{
-			s.Format(_T("COM%d - %s"), m_Ports[i].iPort, (m_Ports[i].fHasRA)?_T("ReefAngel Controller"):_T("None"));
+			if ( !m_Ports[i].fOptiboot && m_Ports[i].fHasRA )
+			{
+				s1 = _T(" (Legacy)");
+			}
+			else
+			{
+				s1 = _T("");
+			}
+			s.Format(_T("COM%d - %s%s"), m_Ports[i].iPort, 
+				(m_Ports[i].fHasRA)?_T("ReefAngel Controller"):_T("None"), s1.GetBuffer());
+				
 			m_ListBox.AddString(s);
 		}  // for i
 	}

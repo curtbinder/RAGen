@@ -11,12 +11,27 @@ BYTE g_2S = 0x20;  // second byte to send
 BYTE g_1R = 0x14;  // first byte to receive
 BYTE g_2R = 0x10;  // second byte to receive
 int g_iComTimeout = 5;
-int g_iBaudRate = CBR_57600;
+int g_iBaudRate = CBR_115200;
 
 
-BOOL TestPort(int nCom)
+BOOL TestPort(int nCom, int nBaudRate /*= CBR_115200*/)
 {
     BOOL fRet = FALSE;
+
+	if ( nBaudRate == CBR_115200 )
+	{
+		// didn't pass in a value, so they wanted 115
+		if ( g_iBaudRate != CBR_115200 )
+		{
+			// make sure that the baudrate is equal
+			g_iBaudRate = CBR_115200;
+		}
+	}
+	else
+	{
+		// user passed in a specific baudrate, so let's use it
+		g_iBaudRate = nBaudRate;
+	}
 
     if ( g_hCom )
     {
