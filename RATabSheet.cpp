@@ -376,12 +376,15 @@ void RATabSheet::UpdateSettingsForTabs()
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 
-	CString sFile;
-	sFile.Format(_T("%s\\ReefAngel_Features\\ReefAngel_Features.h"), m_sLibraryDirectory);
-	if (  !pf->ReadFeatures(sFile) )
+	if ( m_fDevMode )
 	{
-		// we failed reading the file in, so let's restore the defaults
-		pf->LoadDefaults();
+		CString sFile;
+		sFile.Format(_T("%s\\ReefAngel_Features\\ReefAngel_Features.h"), m_sLibraryDirectory);
+		if (  !pf->ReadFeatures(sFile) )
+		{
+			// we failed reading the file in, so let's restore the defaults
+			pf->LoadDefaults();
+		}
 	}
 }
 
