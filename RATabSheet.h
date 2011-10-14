@@ -29,6 +29,7 @@ public:
 	void GetFilename(CString &s);
 	void ImportFeatures(CString sFile);
 	void ShowUnknownFeatures();
+	inline BOOL IsStandardTab() { return m_iCurrentTab == Standard; }
 	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory

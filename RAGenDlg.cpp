@@ -87,35 +87,18 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 		pMenu->AppendMenuA(MF_POPUP, (UINT_PTR)Reset.GetSubMenu(0)->m_hMenu, sReset);
 	}
 
-	/*
-	CString sEnable;
-	sEnable.LoadStringA(IDS_ENABLE_ADVANCED);
-	if ( m_Tabs.IsMemoryTab() )
+	if ( m_Tabs.IsStandardTab() )
 	{
-		// insert Enable Menu right above the Reset Menu
-		if ( pos == -1 )
+		// Standard tab, so remove the additional menu entries from Controller Menu
+		// Get Controller Menu
+		pMenu = GetMenu()->GetSubMenu(2);
+		// Delete the last 4 entries
+		UINT count = pMenu->GetMenuItemCount();
+		for ( int i = 0; i <= 4; i++ )
 		{
-			pos = pMenu->GetMenuItemCount() - 1;
-		}
-		pMenu->InsertMenu(pos, MF_BYPOSITION|MF_STRING, ID_EDIT_ENABLE_ADVANCED, sEnable);
-	}
-	else
-	{
-		// delete Enable or Disable Menu
-		CString sDisable;
-		sDisable.LoadStringA(IDS_DISABLE_ADVANCED);
-		pos = FindMenuItem(pMenu, sEnable);
-		if ( pos >= 0 )
-		{
-			pMenu->DeleteMenu(pos, MF_BYPOSITION);
-		}
-		pos = FindMenuItem(pMenu, sDisable);
-		if ( pos >= 0 )
-		{
-			pMenu->DeleteMenu(pos, MF_BYPOSITION);
+			pMenu->DeleteMenu(count-i, MF_BYPOSITION);
 		}
 	}
-	*/
 }
 
 int RAGenDlg::FindMenuItem(CMenu* pMenu, LPCTSTR sMenu)
