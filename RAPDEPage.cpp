@@ -62,7 +62,9 @@ BEGIN_MESSAGE_MAP(RAPDEPage, CDialog)
 	ON_BN_CLICKED(IDC_PDE_CK_STDLIGHTS, &RAPDEPage::OnBnClickedCkStdlights)
 	ON_BN_CLICKED(IDC_PDE_CK_HEATER, &RAPDEPage::OnBnClickedCkHeater)
 	ON_BN_CLICKED(IDC_PDE_CK_CHILLER, &RAPDEPage::OnBnClickedCkChiller)
+	ON_BN_CLICKED(IDC_PDE_CK_DELAYON, &RAPDEPage::OnBnClickedCkDelayedOn)
 	ON_BN_CLICKED(IDC_PDE_CK_NOTUSED, &RAPDEPage::OnBnClickedCkNotused)
+	ON_EN_CHANGE(IDC_PDE_EDIT_DELAY_ON, &RAPDEPage::OnEnChangePdeEditDelayOn)
 END_MESSAGE_MAP()
 
 
@@ -72,10 +74,14 @@ BOOL RAPDEPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	CSpinButtonCtrl* pSpin;
+	pSpin = (CSpinButtonCtrl*)GetDlgItem(IDC_PDE_SPIN_DELAY_ON);
+	pSpin->SetBuddy(GetDlgItem(IDC_PDE_EDIT_DELAY_ON));
+	pSpin->SetRange32(1, BYTE_MAX);
+
 	// have to load the defaults first which initializes the boxes
 	// and loads in the default values before we can restore the settings
 	LoadDefaults();
-	LoadSettings();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -94,6 +100,7 @@ void RAPDEPage::InitPorts()
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
 		Ports[i] = 0;
+		Delays[i] = DEFAULT_DELAY_MINUTES;
 	}
 }
 
@@ -106,7 +113,9 @@ void RAPDEPage::LoadDeviceFunctions()
 		Devices[i].id = d;
 		switch ( d )
 		{
-			// TODO add in a delayed on function, Relay.DelayedOn
+		case IDC_PDE_CK_DELAYON:
+			Devices[i].sRAFunction = _T("Relay.DelayedOn");
+			break;
 		case IDC_PDE_CK_ALWAYS_ON:
 			Devices[i].sRAFunction = _T("Relay.On");
 			break;
@@ -327,9 +336,13 @@ void RAPDEPage::RefreshModePorts()
 	}  // for i
 }
 
-void RAPDEPage::SetPortDevice(int Port, int Device)
+void RAPDEPage::SetPortDevice(int Port, int Device, int Delay /*= 0*/)
 {
 	Ports[Port-1] = Device;
+	if ( Delay > 0 )
+	{
+		Delays[Port-1] = Delay;
+	}
 	UpdateDisplayDevice(Port);
 }
 
@@ -341,6 +354,8 @@ int RAPDEPage::GetPortDevice(int Port)
 void RAPDEPage::UpdateDisplayDevice(int Port)
 {
 	int device = GetPortDevice(Port);
+	// always update the delay value on changing ports no matter if it's selected or not
+	SetDlgItemInt(IDC_PDE_EDIT_DELAY_ON, Delays[Port-1]);
 	ToggleDeviceChecks(device);
 	UpdateDeviceAvailability();
 }
@@ -492,14 +507,14 @@ void RAPDEPage::ToggleDeviceFlag(int Device, BOOL fValue /*= TRUE*/)
 
 void RAPDEPage::LoadDefaultPortDevices()
 {
-	SetPortDevice(1, DEFAULT_PORT1_DEVICE);
-	SetPortDevice(2, DEFAULT_PORT2_DEVICE);
-	SetPortDevice(3, DEFAULT_PORT3_DEVICE);
-	SetPortDevice(4, DEFAULT_PORT4_DEVICE);
-	SetPortDevice(5, DEFAULT_PORT5_DEVICE);
-	SetPortDevice(6, DEFAULT_PORT6_DEVICE);
-	SetPortDevice(7, DEFAULT_PORT7_DEVICE);
-	SetPortDevice(8, DEFAULT_PORT8_DEVICE);
+	SetPortDevice(1, DEFAULT_PORT1_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(2, DEFAULT_PORT2_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(3, DEFAULT_PORT3_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(4, DEFAULT_PORT4_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(5, DEFAULT_PORT5_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(6, DEFAULT_PORT6_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(7, DEFAULT_PORT7_DEVICE, DEFAULT_DELAY_MINUTES);
+	SetPortDevice(8, DEFAULT_PORT8_DEVICE, DEFAULT_DELAY_MINUTES);
 	SelectPort1();
 }
 
@@ -560,6 +575,14 @@ void RAPDEPage::SaveSettings()
 	AfxGetApp()->WriteProfileInt(s, _T("Port6"), Ports[5]);
 	AfxGetApp()->WriteProfileInt(s, _T("Port7"), Ports[6]);
 	AfxGetApp()->WriteProfileInt(s, _T("Port8"), Ports[7]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay1"), Delays[0]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay2"), Delays[1]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay3"), Delays[2]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay4"), Delays[3]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay5"), Delays[4]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay6"), Delays[5]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay7"), Delays[6]);
+	AfxGetApp()->WriteProfileInt(s, _T("Delay8"), Delays[7]);
 }
 
 void RAPDEPage::LoadSettings()
@@ -573,14 +596,22 @@ void RAPDEPage::LoadSettings()
 	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
-	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE));
-	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE));
-	SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE));
-	SetPortDevice(4, AfxGetApp()->GetProfileInt(s, _T("Port4"), DEFAULT_PORT4_DEVICE));
-	SetPortDevice(5, AfxGetApp()->GetProfileInt(s, _T("Port5"), DEFAULT_PORT5_DEVICE));
-	SetPortDevice(6, AfxGetApp()->GetProfileInt(s, _T("Port6"), DEFAULT_PORT6_DEVICE));
-	SetPortDevice(7, AfxGetApp()->GetProfileInt(s, _T("Port7"), DEFAULT_PORT7_DEVICE));
-	SetPortDevice(8, AfxGetApp()->GetProfileInt(s, _T("Port8"), DEFAULT_PORT8_DEVICE));
+	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay1"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay2"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay3"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(4, AfxGetApp()->GetProfileInt(s, _T("Port4"), DEFAULT_PORT4_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay4"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(5, AfxGetApp()->GetProfileInt(s, _T("Port5"), DEFAULT_PORT5_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay5"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(6, AfxGetApp()->GetProfileInt(s, _T("Port6"), DEFAULT_PORT6_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay6"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(7, AfxGetApp()->GetProfileInt(s, _T("Port7"), DEFAULT_PORT7_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay7"), DEFAULT_DELAY_MINUTES));
+	SetPortDevice(8, AfxGetApp()->GetProfileInt(s, _T("Port8"), DEFAULT_PORT8_DEVICE),
+					 AfxGetApp()->GetProfileInt(s, _T("Delay8"), DEFAULT_DELAY_MINUTES));
 	UpdateData(FALSE);
 }
 
@@ -907,7 +938,14 @@ void loop()\r\n\
 			}
 			// Now we have a good port to use, so let's use it
 			LookupDeviceFunction(Ports[i], s);
-			s1.Format(_T("%sReefAngel.%s(Port%d);\r\n"), sTab, s, i+1);
+			if ( Ports[i] == IDC_PDE_CK_DELAYON )
+			{
+				s1.Format(_T("%sReefAngel.%s(Port%d, %d);\r\n"), sTab, s, i+1, Delays[i]);
+			}
+			else
+			{
+				s1.Format(_T("%sReefAngel.%s(Port%d);\r\n"), sTab, s, i+1);
+			}
 			f.Write(s1, s1.GetLength());
 		}
 
@@ -1246,4 +1284,15 @@ void RAPDEPage::OnBnClickedCkNotused()
 {
 	UpdateData();
 	SetPortDevice(bCurrentPort, IDC_PDE_CK_NOTUSED);
+}
+
+void RAPDEPage::OnBnClickedCkDelayedOn()
+{
+	UpdateData();
+	SetPortDevice(bCurrentPort, IDC_PDE_CK_DELAYON);
+}
+
+void RAPDEPage::OnEnChangePdeEditDelayOn()
+{
+	Delays[bCurrentPort-1] = GetDlgItemInt(IDC_PDE_EDIT_DELAY_ON);
 }

@@ -43,6 +43,7 @@
 #define DEFAULT_CHILLER_ON_TEMP_C		110 // offset
 #define DEFAULT_CHILLER_OFF_TEMP_C		85  // offset
 #define DEFAULT_OVERHEAT_TEMP_C			700 // offset
+#define DEFAULT_DELAY_MINUTES			5
 
 // default temperature ranges
 #define DEG_F_LOW_TEMP					70.0

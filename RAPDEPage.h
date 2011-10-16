@@ -20,7 +20,7 @@ typedef struct _device {
 /*! 
  * Maximum devices to choose from
  */
-#define MAX_DEVICES					13
+#define MAX_DEVICES					14
 //! Default ports toggled during Feeding mode, 10011000
 #define DEFAULT_FEEDINGMODE			152
 //! Default ports toggled during Water Change mode, 10011000
@@ -75,7 +75,8 @@ protected:
 // Implementation
 protected:
 	int Ports[MAX_PORTS]; //!< Array of Ports
-	device Devices[MAX_DEVICES];  //!< Array of Devices, 12 main devices and 1 device labeled Not Used
+	int Delays[MAX_PORTS];  //!< Array of Delays for Delayed on
+	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used
 
 	//! Enum of the different byte arrays
 	enum Modes {
@@ -177,8 +178,9 @@ protected:
 	 * \sa UpdateDisplayDevice()
 	 * \param Port Port number to be used
 	 * \param Device Device ID to be stored
+	 * \param Delay Delay in minutes to be stored for DelayedOn
 	 */
-	void SetPortDevice(int Port, int Device);
+	void SetPortDevice(int Port, int Device, int Delay = 0);
 	/*! Retrieves the device associated with the port
 	 *
 	 * \param Port Port number to retrieve
@@ -412,4 +414,9 @@ public:
 	 * \sa SetPortDevice()
 	 */
 	afx_msg void OnBnClickedCkNotused();
+	/*! DelayedOn CheckBox Press
+	 * \sa SetPortDevice()
+	 */
+	afx_msg void OnBnClickedCkDelayedOn();
+	afx_msg void OnEnChangePdeEditDelayOn();
 };
