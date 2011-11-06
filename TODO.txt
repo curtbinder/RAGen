@@ -12,6 +12,12 @@ TODO File
 	- Ability to toggle this setting/option
 - Internal Memory: Invalid range for actinic percentage still generated file even though not proper
 	- should do type / range checking before generation of file
+- Folder updating
+	- Sketchbook - Documents\Arduino
+	- Libraries - Documents\Arduino\libraries
+	- Arduino (for the executable) - Program Files\Reef Angel Controller
+	- If any of those folders do not exist, RAGen will automatically create them
+	- registry overrides for those folders will be cleared out if they exist
 
 
 Completed / Release Information
