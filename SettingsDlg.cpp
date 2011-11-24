@@ -53,6 +53,7 @@ void SettingsDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(SettingsDlg, CDialog)
 	ON_BN_CLICKED(IDC_SETTINGS_BTN_CLEAR, &SettingsDlg::OnBnClickedBtnClear)
+	ON_CBN_SELCHANGE(IDC_SETTINGS_CB_APP_MODE, &SettingsDlg::OnCbnSelchangeSettingsCbAppMode)
 END_MESSAGE_MAP()
 
 
@@ -70,6 +71,7 @@ BOOL SettingsDlg::OnInitDialog()
 #endif  // REEFANGEL_REG
 	SetDlgItemText(IDC_SETTINGS_TEXT_REGISTRY, s);
 	UpdateArduinoStatus();
+	UpdateDevVersionMenu();
 	return TRUE;
 }
 
@@ -106,4 +108,22 @@ void SettingsDlg::OnBnClickedBtnClear()
 		}
 		AfxMessageBox(sMsg, MB_ICONINFORMATION|MB_OK);
 	}
+}
+
+void SettingsDlg::OnCbnSelchangeSettingsCbAppMode()
+{
+	UpdateData();
+	UpdateDevVersionMenu();
+}
+
+void SettingsDlg::UpdateDevVersionMenu()
+{
+	// if the app mode is Standard Libraries, disable the Dev Version
+	CWnd* pDev = GetDlgItem(IDC_SETTINGS_CB_DEV_LIBRARIES);
+	BOOL fEnable = TRUE;
+	if ( m_iAppMode == 0 )
+	{
+		fEnable = FALSE;
+	}
+	pDev->EnableWindow(fEnable);
 }

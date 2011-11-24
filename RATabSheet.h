@@ -37,6 +37,7 @@ public:
 	TCHAR m_sLibraryDirectory[MAX_PATH];  //!< Libraries directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	int iLaunch;
+	int iDevVersion;
 	BOOL fHasArduinoExe;
 	Features m_Features;
 

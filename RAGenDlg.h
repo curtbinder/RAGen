@@ -39,6 +39,7 @@ protected:
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	int iLaunch;
 	int iAppMode;  //!< Application mode, 0 - normal, 1 - development libraries
+	int iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
 	BOOL fHasArduinoExe;
 	HICON m_hIcon;
 	BOOL fRestartRequired;
@@ -50,6 +51,7 @@ public:
 	void SetLaunchArduino(int iLaunchArduino) { iLaunch = iLaunchArduino; }
 	void SetSaveRegistry(int iSave) { iSaveReg = iSave; }
 	void SetAppMode(int iMode) { iAppMode = iMode; }
+	void SetDevLibraryVersion(int iVersion) { iDevVersion = iVersion; }
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();

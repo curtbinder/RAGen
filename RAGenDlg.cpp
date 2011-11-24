@@ -188,6 +188,7 @@ void RAGenDlg::UpdateSettings()
 	m_Tabs.fHasArduinoExe = fHasArduinoExe;
 	m_Tabs.iSaveReg = iSaveReg;
 	m_Tabs.iLaunch = iLaunch;
+	m_Tabs.iDevVersion = iDevVersion;
 	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(m_Tabs.m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
 	_tcscpy_s(m_Tabs.m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
@@ -331,6 +332,7 @@ void RAGenDlg::OnEditSettings()
 	dlg.m_iSaveRegistry = iSaveReg;
 	dlg.m_iLaunchArduino = iLaunch;
 	dlg.m_iAppMode = iAppMode;
+	dlg.m_iDevVersion = iDevVersion;
 	dlg.m_fHasArduinoExe = fHasArduinoExe;
 	dlg.m_sArduinoFolder = m_sArduinoDirectory;
 	INT_PTR iRet = dlg.DoModal();
@@ -354,6 +356,11 @@ void RAGenDlg::OnEditSettings()
 			iAppMode = dlg.m_iAppMode;
 			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
 			fRestartRequired = TRUE;
+		}
+		if ( iDevVersion != dlg.m_iDevVersion )
+		{
+			iDevVersion = dlg.m_iDevVersion;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevLibraryVersion"), iDevVersion);
 		}
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
 

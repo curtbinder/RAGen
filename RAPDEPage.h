@@ -65,6 +65,7 @@ public:
 
 	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
 	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
+	int iDevVersion; 
 	CString sFilename;  //!< Filename of the PDE file generated
 
 protected:
@@ -268,6 +269,7 @@ protected:
 	void LoadSettings();
 	void SelectPort1();
 	void MenuRemoveUnusedFeatures(Features& fs);
+	BOOL AutodetectDevVersion();
 
 public:
 	void UpdatePDEFeatures(Features& fs);

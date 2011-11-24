@@ -371,6 +371,7 @@ void RATabSheet::UpdateSettingsForTabs()
 	RAStdPage* ps = (RAStdPage*)m_pTabs[Standard];
 	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 
+	pp->iDevVersion = iDevVersion;
 	pp->iSaveReg = iSaveReg;
 	ps->iSaveReg = iSaveReg;
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);

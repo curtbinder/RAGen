@@ -41,5 +41,17 @@ void CmdLineParams::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL /*bLast*/
 		{
 			m_iSaveReg = ALWAYS;
 		}
+		if ( strcmp(pszParam, _T("autodetect")) == 0 )
+		{
+			m_iDevVersion = AUTODETECT;
+		}
+		if ( strcmp(pszParam, _T("force08x")) == 0 )
+		{
+			m_iDevVersion = FORCE_08X;
+		}
+		if ( strcmp(pszParam, _T("force09x")) == 0 )
+		{
+			m_iDevVersion = FORCE_09X;
+		}
 	}
 }

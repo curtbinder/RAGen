@@ -60,10 +60,12 @@ BOOL CRAGenApp::InitInstance()
 	int iLaunch = NOT_SET;
 	int iSave = NOT_SET;
 	int iAppMode = NOT_SET;
+	int iDevVersion = NOT_SET;
 	if ( info.TotalParams() > 0 )
 	{
 		iSave = info.GetSaveRegMode();
 		iAppMode = info.GetAppMode();
+		iDevVersion = info.GetDevVersionMode();
 	}
 
 	if ( iSave == NOT_SET )
@@ -96,6 +98,15 @@ BOOL CRAGenApp::InitInstance()
 		iAppMode = NORMAL_MODE;
 	}
 
+	if ( iDevVersion == NOT_SET )
+	{
+		iDevVersion = GetProfileInt(_T(""), _T("DevLibraryVersion"), AUTODETECT);
+	}
+	if ( (iDevVersion < AUTODETECT) || (iDevVersion > FORCE_09X) )
+	{
+		iDevVersion = AUTODETECT;
+	}
+
 	RAGenDlg dlg;
 	m_pMainWnd = &dlg;
 
@@ -103,6 +114,7 @@ BOOL CRAGenApp::InitInstance()
 	dlg.SetLaunchArduino(iLaunch);
 	dlg.SetSaveRegistry(iSave);
 	dlg.SetAppMode(iAppMode);
+	dlg.SetDevLibraryVersion(iDevVersion);
 	dlg.DoModal();
 
 	// Since the dialog has been closed, return FALSE so that we exit the

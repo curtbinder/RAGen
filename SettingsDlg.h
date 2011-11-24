@@ -18,6 +18,7 @@ public:
 protected:
 	HICON m_hIcon;
 	void UpdateArduinoStatus();
+	void UpdateDevVersionMenu();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	virtual BOOL OnInitDialog();
 	virtual void OnOK();
@@ -37,4 +38,5 @@ public:
 	// Folder for Arduino
 	CString m_sArduinoFolder;
 	afx_msg void OnBnClickedBtnClear();
+	afx_msg void OnCbnSelchangeSettingsCbAppMode();
 };

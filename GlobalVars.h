@@ -16,6 +16,12 @@ enum _AppMode {
 	DEV_MODE,
 };
 
+enum _DevLibVersion {
+	AUTODETECT,
+	FORCE_08X,
+	FORCE_09X,
+};
+
 // Features structure, update this if you change (add/remove) any of the features in the RAFeaturesPage class
 typedef struct _Features {
 	BOOL fDisplayImages;
