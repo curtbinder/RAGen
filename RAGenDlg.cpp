@@ -122,172 +122,64 @@ int RAGenDlg::FindMenuItem(CMenu* pMenu, LPCTSTR sMenu)
 	return pos;
 }
 
-BOOL RAGenDlg::GetSketchFolder()
-{
-	BOOL bRet = FALSE;
-	TCHAR szPath[MAX_PATH];
-	_tcscpy_s(szPath, MAX_PATH, m_sSketchDirectory);
-	PathAppend(szPath, _T("Arduino\\preferences.txt"));
-	// try to open file
-	// search for 'sketchbook.path='
-	TRY
-	{
-		CFile f;
-		CFileException fe;
-		if ( ! f.Open(szPath, CFile::modeRead, &fe) )
-		{
-			AfxThrowFileException(fe.m_cause, fe.m_lOsError, fe.m_strFileName);
-		}
-		// file open, so let's read in and look for sketchbook.path=
-		TCHAR buf[MAX_PATH];
-		DWORD dwRead;
-		TCHAR *p;
-		do
-		{
-			dwRead = f.Read(buf, MAX_PATH);
-			p = _tcsstr(buf, _T("sketchbook.path="));
-			if ( p != NULL && dwRead > 0)
-			{
-				int x = (int)strlen(_T("sketchbook.path="));
-				TCHAR szD[MAX_PATH];
-				TCHAR *q;
-				q = _tcsstr(p, "\r\n");
-				int s = (int)(q-(p+x));
-				_tcsncpy_s(szD, MAX_PATH, p+x, s);
-				TRACE("PATH=%s\n", szD);
-				_tcscpy_s(m_sSketchDirectory, MAX_PATH, szD);
-				bRet = TRUE;
-			}
-		} while ( dwRead > 0 );
-
-		f.Close();
-	}
-	CATCH_ALL(e)
-	{
-		bRet = FALSE;
-	}
-	END_CATCH_ALL
-
-	return bRet;
-}
-
-BOOL RAGenDlg::GetArduinoFolder(LPCTSTR sDir)
-{
-	BOOL bRet = FALSE;
-	TCHAR szPath[MAX_PATH];
-	_tcscpy_s(szPath, MAX_PATH, m_sArduinoDirectory);
-	PathAppend(szPath, sDir);
-
-	if ( cb_IsDirectory(szPath) )
-	{
-		PathAppend(m_sArduinoDirectory, sDir);
-		bRet = TRUE;
-	}
-
-	return bRet;
-}
-
 void RAGenDlg::GetFolders()
 {
-	BOOL bUseCurrentDirectory = TRUE;
-	CString s;
-	DWORD dwD = sizeof(m_sCurrentDirectory)/sizeof(TCHAR);
-	GetCurrentDirectory(dwD, m_sCurrentDirectory);
+	/*
+	Sketchbook - Documents\Arduino
+	Libraries - Documents\Arduino\libraries
+	Arduino (for the executable) - Program Files\Reef Angel Controller
+	If any of those folders do not exist, RAGen will automatically create them 
+	*/
 
-	s = AfxGetApp()->GetProfileString(_T(""), _T("SketchDirectory"), _T(""));
-	if ( s.IsEmpty() )
+	// Set Arduino folder
+	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
 	{
-		// No folder is in the registry, so let's look it up
-		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, SHGFP_TYPE_CURRENT, m_sSketchDirectory)) )
+		PathAppend(m_sArduinoDirectory, _T("Reef Angel Controller"));
+		if ( ! cb_IsDirectory(m_sArduinoDirectory) )
 		{
-			// Got directory, search for sketch folder location
-			if ( GetSketchFolder() )
+			// Directory doesn't exist, so we need to create it
+			if ( ! CreateDirectory(m_sArduinoDirectory, NULL) )
 			{
-				// Found sketch folder
-				bUseCurrentDirectory = FALSE;
+				CString msg;
+				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sArduinoDirectory);
+				AfxMessageBox(msg);
 			}
 		}
-	}
-	else
-	{
-		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), s);
-		bUseCurrentDirectory = FALSE;
-	}
-	if ( bUseCurrentDirectory )
-	{
-		_tcscpy_s(m_sSketchDirectory, MAX_PATH, m_sCurrentDirectory);
 	}
 
-	bUseCurrentDirectory = TRUE;
-	s = AfxGetApp()->GetProfileString(_T(""), _T("ArduinoDirectory"), _T(""));
-	if ( s.IsEmpty() )
+	// Set Sketchbook folder
+	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, m_sSketchDirectory)) )
 	{
-		// no directory, so locate arduino directory
-		// First check PROGRAM_FILES/Reef Angel Controller
-		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
+		PathAppend(m_sSketchDirectory, _T("Arduino"));
+		if ( ! cb_IsDirectory(m_sSketchDirectory) )
 		{
-			if ( GetArduinoFolder(_T("Reef Angel Controller")) )
+			if ( ! CreateDirectory(m_sSketchDirectory, NULL) )
 			{
-				bUseCurrentDirectory = FALSE;
+				CString msg;
+				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sSketchDirectory);
+				AfxMessageBox(msg);
 			}
 		}
-
-		if ( bUseCurrentDirectory )
-		{
-			// Check My Documents/Arduino folder
-			if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_MYDOCUMENTS, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
-			{
-				if ( GetArduinoFolder(_T("Arduino")) )
-				{
-					bUseCurrentDirectory = FALSE;
-				}
-			}
-		}
-	}
-	else
-	{
-		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), s);
-		bUseCurrentDirectory = FALSE;
-	}
-	if ( bUseCurrentDirectory )
-	{
-		_tcscpy_s(m_sArduinoDirectory, MAX_PATH, m_sCurrentDirectory);
 	}
 
-	// set the libraries folder
-	s = AfxGetApp()->GetProfileString(_T(""), _T("LibrariesDirectory"), _T(""));
-	if ( s.IsEmpty() )
+	// Set libraries folder
+	_tcscpy_s(m_sLibraryDirectory, MAX_PATH, m_sSketchDirectory);
+	PathAppend(m_sLibraryDirectory, _T("libraries"));
+	if ( ! cb_IsDirectory(m_sLibraryDirectory) )
 	{
-		BOOL bFound = FALSE;
-		// Check My Documents/Arduino/libraries folder
-		if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_MYDOCUMENTS, NULL, SHGFP_TYPE_CURRENT, m_sLibraryDirectory)) )
+		if ( ! CreateDirectory(m_sLibraryDirectory, NULL) )
 		{
-			s.Format(_T("%s\\Arduino\\libraries"), m_sLibraryDirectory);
-			if ( cb_IsDirectory(s) )
-			{
-				_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
-				bFound = TRUE;
-			}
-		}
-		// not found, set to arduino folder / libraries
-		if ( ! bFound )
-		{
-			s.Format(_T("%s\\libraries"), m_sArduinoDirectory);
-			if ( cb_IsDirectory(s) )
-			{
-				_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
-			}
-			else
-			{
-				// no libraries folder, so use the current directory
-				_tcscpy_s(m_sLibraryDirectory, MAX_PATH, m_sCurrentDirectory);
-			}
+			CString msg;
+			msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sLibraryDirectory);
+			AfxMessageBox(msg);
 		}
 	}
-	else
-	{
-		_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), s);
-	}
+
+	TRACE("Arduino:  '%s'\nSketchbook:  '%s'\nLibraries:  '%s'\n", m_sArduinoDirectory, m_sSketchDirectory, m_sLibraryDirectory);
+
+	//s = AfxGetApp()->GetProfileString(_T(""), _T("SketchDirectory"), _T(""));
+	//s = AfxGetApp()->GetProfileString(_T(""), _T("ArduinoDirectory"), _T(""));
+	//s = AfxGetApp()->GetProfileString(_T(""), _T("LibrariesDirectory"), _T(""));
 }
 
 void RAGenDlg::UpdateSettings()
@@ -440,9 +332,7 @@ void RAGenDlg::OnEditSettings()
 	dlg.m_iLaunchArduino = iLaunch;
 	dlg.m_iAppMode = iAppMode;
 	dlg.m_fHasArduinoExe = fHasArduinoExe;
-	dlg.m_sSketchFolder = m_sSketchDirectory;
 	dlg.m_sArduinoFolder = m_sArduinoDirectory;
-	dlg.m_sLibraryFolder = m_sLibraryDirectory;
 	INT_PTR iRet = dlg.DoModal();
 	if ( iRet == IDOK )
 	{
@@ -466,14 +356,6 @@ void RAGenDlg::OnEditSettings()
 			fRestartRequired = TRUE;
 		}
 		fHasArduinoExe = dlg.m_fHasArduinoExe;
-		_stprintf_s(m_sSketchDirectory, MAX_PATH, _T("%s"), dlg.m_sSketchFolder);
-		_stprintf_s(m_sArduinoDirectory, MAX_PATH, _T("%s"), dlg.m_sArduinoFolder);
-		_stprintf_s(m_sLibraryDirectory, MAX_PATH, _T("%s"), dlg.m_sLibraryFolder);
-
-		// always save these settings
-		AfxGetApp()->WriteProfileString(_T(""), _T("SketchDirectory"), m_sSketchDirectory);
-		AfxGetApp()->WriteProfileString(_T(""), _T("ArduinoDirectory"), m_sArduinoDirectory);
-		AfxGetApp()->WriteProfileString(_T(""), _T("LibrariesDirectory"), m_sLibraryDirectory);
 
 		UpdateSettings();
 		UpdateData(FALSE);

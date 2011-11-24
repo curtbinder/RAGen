@@ -25,8 +25,6 @@ protected:
 	void ClearStatusComPort();
 	void ChangeMenu(UINT menuID);
 	int FindMenuItem(CMenu* pMenu, LPCTSTR sMenu);
-	BOOL GetSketchFolder();
-	BOOL GetArduinoFolder(LPCTSTR sDir);
 	void GetFolders();
 	void UpdateSettings();
 	void UpdateLaunchButtonVisibility(int nCmdShow);

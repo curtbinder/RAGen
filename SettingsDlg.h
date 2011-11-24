@@ -30,16 +30,11 @@ public:
 	int m_iLaunchArduino;
 	// 0 - normal, 1 - development libraries
 	int m_iAppMode;
+	// 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
+	int m_iDevVersion;
 	// Is the arduino.exe file in the arduino directory?
 	BOOL m_fHasArduinoExe;
-	// Folder to save the sketch files
-	CString m_sSketchFolder;
 	// Folder for Arduino
 	CString m_sArduinoFolder;
-	// Folder for libraries folder
-	CString m_sLibraryFolder;
-	afx_msg void OnBnClickedSketchBtnBrowse();
-	afx_msg void OnBnClickedArduinoBtnBrowse();
-	afx_msg void OnBnClickedLibraryBtnBrowse();
 	afx_msg void OnBnClickedBtnClear();
 };

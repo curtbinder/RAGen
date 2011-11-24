@@ -16,9 +16,8 @@ SettingsDlg::SettingsDlg(CWnd* pParent /*=NULL*/)
 	, m_iSaveRegistry(0)
 	, m_iLaunchArduino(0)
 	, m_iAppMode(0)
-	, m_sSketchFolder(_T(""))
+	, m_iDevVersion(0)
 	, m_sArduinoFolder(_T(""))
-	, m_sLibraryFolder(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
 	m_fHasArduinoExe = FALSE;
@@ -48,13 +47,11 @@ void SettingsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_CBIndex(pDX, IDC_SETTINGS_CB_REGISTRY, m_iSaveRegistry);
 	DDX_CBIndex(pDX, IDC_SETTINGS_CB_LAUNCH, m_iLaunchArduino);
 	DDX_CBIndex(pDX, IDC_SETTINGS_CB_APP_MODE, m_iAppMode);
+	DDX_CBIndex(pDX, IDC_SETTINGS_CB_DEV_LIBRARIES, m_iDevVersion);
 }
 
 
 BEGIN_MESSAGE_MAP(SettingsDlg, CDialog)
-	ON_BN_CLICKED(IDC_SETTINGS_SKETCH_BTN_BROWSE, &SettingsDlg::OnBnClickedSketchBtnBrowse)
-	ON_BN_CLICKED(IDC_SETTINGS_ARDUINO_BTN_BROWSE, &SettingsDlg::OnBnClickedArduinoBtnBrowse)
-	ON_BN_CLICKED(IDC_SETTINGS_LIBRARY_BTN_BROWSE, &SettingsDlg::OnBnClickedLibraryBtnBrowse)
 	ON_BN_CLICKED(IDC_SETTINGS_BTN_CLEAR, &SettingsDlg::OnBnClickedBtnClear)
 END_MESSAGE_MAP()
 
@@ -72,100 +69,13 @@ BOOL SettingsDlg::OnInitDialog()
 	s.LoadString(IDS_REGISTRY_CB);
 #endif  // REEFANGEL_REG
 	SetDlgItemText(IDC_SETTINGS_TEXT_REGISTRY, s);
-	SetDlgItemText(IDC_SETTINGS_SKETCH_FOLDER, m_sSketchFolder);
-	SetDlgItemText(IDC_SETTINGS_ARDUINO_FOLDER, m_sArduinoFolder);
-	SetDlgItemText(IDC_SETTINGS_LIBRARY_FOLDER, m_sLibraryFolder);
 	UpdateArduinoStatus();
 	return TRUE;
 }
 
 void SettingsDlg::OnOK()
 {
-	GetDlgItemText(IDC_SETTINGS_SKETCH_FOLDER, m_sSketchFolder);
-	if ( m_sSketchFolder.IsEmpty() )
-	{
-		AfxMessageBox(_T("You must specify a directory for sketches."), MB_ICONINFORMATION|MB_OK);
-		return;
-	}
-	// validate folder and make sure it's a writable folder, if not don't exit
-	if ( ! cb_IsFolderWritable(m_sSketchFolder) )
-	{
-		CString s;
-		s.Format(_T("Invalid folder:\n\n%s\n\nPlease select another sketch folder."), m_sSketchFolder);
-		AfxMessageBox(s, MB_ICONINFORMATION|MB_OK);
-		return;
-	}
-	GetDlgItemText(IDC_SETTINGS_ARDUINO_FOLDER, m_sArduinoFolder);
-	if ( m_sArduinoFolder.IsEmpty() )
-	{
-		AfxMessageBox(_T("You must specify an arduino directory."), MB_ICONINFORMATION|MB_OK);
-		return;
-	}
-	// validate folder and make sure it exists, if not don't exit
-	if ( ! cb_IsDirectory(m_sArduinoFolder) )
-	{
-		CString s;
-		s.Format(_T("Invalid folder:\n\n%s\n\nPlease select another arduino folder."), m_sArduinoFolder);
-		AfxMessageBox(s, MB_ICONINFORMATION|MB_OK);
-		return;
-	}
-	GetDlgItemText(IDC_SETTINGS_LIBRARY_FOLDER, m_sLibraryFolder);
-	if ( m_sLibraryFolder.IsEmpty() )
-	{
-		AfxMessageBox(_T("You must specify a libraries directory."), MB_ICONINFORMATION|MB_OK);
-		return;
-	}
-	// validate the folder and make sure it exists
-	if ( ! cb_IsDirectory(m_sLibraryFolder) )
-	{
-		CString s;
-		s.Format(_T("Invalid folder:\n\n%s\n\nPlease select another libraries folder."), m_sLibraryFolder);
-		AfxMessageBox(s, MB_ICONINFORMATION|MB_OK);
-		return;
-	}
 	CDialog::OnOK();
-}
-
-void SettingsDlg::OnBnClickedSketchBtnBrowse()
-{
-	TCHAR szFolder[MAX_PATH];
-	TCHAR szPath[MAX_PATH];
-	
-	if ( ! cb_BrowseFolder(m_hWnd, szFolder, _T("Please select Sketchbook Folder"), szPath) )
-	{
-		// an error occurred or use cancelled for whatever reason, so break out
-		return;
-	}
-	m_sSketchFolder.Format(_T("%s"), szPath);
-	SetDlgItemText(IDC_SETTINGS_SKETCH_FOLDER, m_sSketchFolder);
-}
-
-void SettingsDlg::OnBnClickedArduinoBtnBrowse()
-{
-	TCHAR szFolder[MAX_PATH];
-	TCHAR szPath[MAX_PATH];
-	
-	if ( ! cb_BrowseFolder(m_hWnd, szFolder, _T("Please select Arduino Folder"), szPath) )
-	{
-		// an error occurred or use cancelled for whatever reason, so break out
-		return;
-	}
-	m_sArduinoFolder.Format(_T("%s"), szPath);
-	SetDlgItemText(IDC_SETTINGS_ARDUINO_FOLDER, m_sArduinoFolder);
-	UpdateArduinoStatus();
-}
-
-void SettingsDlg::OnBnClickedLibraryBtnBrowse()
-{
-	TCHAR szFolder[MAX_PATH];
-	TCHAR szPath[MAX_PATH];
-
-	if ( ! cb_BrowseFolder(m_hWnd, szFolder, _T("Please select the Libraries Folder"), szPath) )
-	{
-		return;
-	}
-	m_sLibraryFolder.Format(_T("%s"), szPath);
-	SetDlgItemText(IDC_SETTINGS_LIBRARY_FOLDER, m_sLibraryFolder);
 }
 
 void SettingsDlg::OnBnClickedBtnClear()
