@@ -10,7 +10,7 @@ void LoadWebBannerInfoDefaults(WebBannerInfo &wi)
 {
 	CString s;
 	s.LoadString(IDS_WEBBANNER);
-	wi.sID = AfxGetApp()->GetProfileString(s, _T("id"), _T("reefangel"));
+	wi.sID = AfxGetApp()->GetProfileString(s, _T("id"), _T("userid"));
 	wi.sT1n = AfxGetApp()->GetProfileString(s, _T("t1n"), _T("Water"));
 	wi.sT2n = AfxGetApp()->GetProfileString(s, _T("t2n"), _T("Room"));
 	wi.sT3n = AfxGetApp()->GetProfileString(s, _T("t3n"), _T(""));
