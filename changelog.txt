@@ -1,0 +1,120 @@
+Completed / Release Information
+-------------------------------
+v1.00
+--------------
+- Incorporate About dialog box
+- Convert RAGenPDE to Tab
+- Change output directory to be sketchfolder
+- Add in current directory
+- Update GetOutputFolder to be GetFolders
+- Convert RAGenFeatures to Tab
+	- Update output directory to be in libraries folder
+- Incorporate Settings dialog box
+- Improve Settings dialog box
+	- Add arduino folder to settings box
+- Create Internal Memory page to generate the default settings PDE file
+- Process command line arguments (create them and have them be used)
+	- these switches will override the registry settings (and currently replace 10-24-10)
+	- /dev, /normal - application mode
+	- /always, /never, /force - prompt to save settings
+- Standard Libraries page added
+	- Be only tab shown when in normal mode
+	- Save state of ports (enabled/disabled, reset all)
+	- Restore state of ports from saved (reset saved)
+	- Generate PDE file
+- Add in check for arduino.exe in arduino folder
+- Add launch arduino command after generate PDE, Internal Memory & Std page
+- Settings Page
+	- Add in Always Launch, Prompt to Launch, Never Launch arduino after generate
+	- Recheck for arduino.exe on folder change
+	- Add in ability to set Development Mode/Libraries from Settings Page
+- Have Launch button to launch arduino (PDE, Internal Memory, Standard pages)
+	- only visible after a generate
+	
+v1.0.1
+------
+- Added true status bar
+- Updated version string to be full version instead of shortened version
+- Removed generate button from Features page
+	- ReefAngel_Features.h is now generated when the PDE file is generated
+- fixed a tab in generated PDE file, switched to spaces
+- Added ability to customize libraries folder, searches default locations first
+	- My Documents/Arduino/libraries
+	- ARDUINO_PATH/libraries
+	- lastly set to current directory
+- Generate PDE generates features based on options selected on PDE page
+- Remove features from features page that are not controlled by PDE page
+- Hide Alternate Font check box, re-enable when alternate font is working
+- Add in Controller detection code
+- Add in Menu item for detection of controller
+- Add in window to list all COM Ports on system and if RA Controller is connected
+
+v1.0.2
+------
+- Fixed: if WM is set to always on and you disable and re-enable the wm, the spin box is re-enabled with the checkbox set
+- Added additional XML data output for Dave's client
+- Fixed: Added ReefAngel_Wifi.h include line to the dev PDE file being generated
+- Added in RelayExp define for the expansion modules.  To use, you must manually edit the PDE file to reference the ports.
+- Changed Send Parameters / Logging for Dave's client to PC
+- Added Web logging for web banner creation.  Default interval of 180 seconds and Roberto's id and labels
+- Added Web Banner customization dialog box, values always saved to registry and loaded from
+
+v1.0.3
+------
+- Fix XML ATO Low & High switch reading for Dev libraries (0.8.5.11 or later) (Removed due to changes in libraries)
+- Fix PC Logging to use new ReefAngel.PCLogging() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
+	- Not available in Standard libraries
+- Migrate Web Logging to use ReefAngel.WebBanner() function (0.8.5.12 or later)
+	- function reads strings from PROGMEM instead of RAM
+- Fixed several Standard Library bugs
+	- fixed menu_items variable
+	- fixed interval setting for logging features (pc & web)
+	- fixed MHlight define reference
+	- fixed TimerClass data type for pc logging
+- Added note in comments about WebBanner requiring 0.8.3.9 standard libraries
+
+v1.0.3-static
+------
+- Static linking of libraries
+- Minor fixes with changing tabs to spaces in PDE generation
+
+v1.0.4
+------
+- Dosing Pump Repeat Interval internal memory values get set on Internal Memory page
+	- Cannot change values currently (defaults to 60m)
+	- Have to manually edit PDE file to use the Dosing Pump Repeat Interval
+- Enabled features are now added to the PDE file comments for dev libraries
+- PC Logging removed, logging data to the Client is not pushed, now it's always pulled
+- Fixed bug with Reset->Logging not resetting the Web Banner value
+- Added WifiAuthentication dialog box and PDE addition
+- Add in DosingPumpIntervalSetup to Features page
+	- When enabling, it overrides the standard dosing pump.  So all one needs to do is to enable it and then choose Dosing Pump and you are set.
+- Fixed error with enabling / disabling PDE controlled features.  They were not being disabled after being enabled when you remove a device/feature.
+
+v1.1.0
+------
+- Updated copyright year
+- Changed to new logo
+- Added in new features
+- WIFI features is now a default
+- Ability to read in a Features file
+- Restores values on startup (PDE & Features)
+- Reads in Features file at startup
+- Updated Find Controller code
+- Internal Memory moved from a Tab to a separate window
+- ShowInterface added to end of generated PDE file
+- Updated icon
+- Delayed On device added
+
+v1.1.1
+------
+- Fixed bug with detecting "My Documents" folder
+- Folder updating, force the following folders
+	- Sketchbook - Documents\Arduino
+	- Libraries - Documents\Arduino\libraries
+	- Arduino (for the executable) - Program Files\Reef Angel Controller
+	- If any of those folders do not exist, RAGen will automatically create them
+- Updated PDE tab to be PDE / INO
+- Added autodetection for library version (0.8.X or 0.9.X) to generate file appropriately
+- Added updated extension based on library version (0.8.X used PDE & 0.9.X uses INO)

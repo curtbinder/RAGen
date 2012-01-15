@@ -38,6 +38,11 @@
 #define IDS_COMPORT                     149
 #define IDS_WEBBANNER                   150
 #define IDS_WIFI_PASSWORD               151
+#define IDS_CRLF                        152
+#define IDS_NEWLINE                     153
+#define IDS_WHITESPACE                  154
+#define IDS_PDE_EXTENSION               155
+#define IDS_INO_EXTENSION               156
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_OVERHEATSETUP      206

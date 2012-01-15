@@ -927,6 +927,19 @@ BEGIN
     IDS_WIFI_PASSWORD       "WifiPassword"
 END
 
+STRINGTABLE 
+BEGIN
+    IDS_CRLF                "\r\n"
+    IDS_NEWLINE             "\n"
+    IDS_WHITESPACE          "\t "
+    IDS_PDE_EXTENSION       ".pde"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_INO_EXTENSION       ".ino"
+END
+
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 

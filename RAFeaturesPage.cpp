@@ -634,21 +634,12 @@ BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)
 
 	TRY
 	{
-		CFile f;
-		if ( ! f.Open(sFeaturesFile, CFile::modeRead | CFile::shareDenyWrite) )
+		CString sCompleteFile;
+		sCompleteFile = ReadEntireFile(sFeaturesFile);
+		if ( sCompleteFile.IsEmpty() )
 		{
-			TRACE("Invalid file:  %s\n", sFeaturesFile);
-			return FALSE;
+			AfxThrowUserException();
 		}
-		CString sCompleteFile = _T("");
-		DWORD dwRead;
-		char buf[1024];
-		do
-		{
-			dwRead = f.Read(buf, 1024);
-			sCompleteFile.Append(buf, dwRead);
-		} while ( dwRead > 0 );
-		f.Close();
 
 		// clear out all the existing values
 		ClearFeatures();
@@ -664,8 +655,12 @@ BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)
 		*/
 		int pos = 0;
 		int npos = 0;
-		CString sTokenString = _T("\n");
-		CString sWhiteSpace = _T("\t ");
+		CString sTokenString;
+		sTokenString.LoadString(IDS_NEWLINE);
+		CString sWhiteSpace;
+		sWhiteSpace.LoadString(IDS_WHITESPACE);
+		CString sCRLF;
+		sCRLF.LoadString(IDS_CRLF);
 		CString token;
 		CString token2;
 		token = sCompleteFile.Tokenize(sTokenString, pos);
@@ -673,7 +668,7 @@ BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)
 		{
 			// process token
 			token.TrimLeft(sWhiteSpace);
-			token.TrimRight(_T("\r\n"));
+			token.TrimRight(sCRLF);
 			// split the line up into spaces if it begins with #define
 			if ( token.Left(7) == _T("#define") )
 			{

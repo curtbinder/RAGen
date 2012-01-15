@@ -376,6 +376,7 @@ void RATabSheet::UpdateSettingsForTabs()
 	ps->iSaveReg = iSaveReg;
 	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
 	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(pp->m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 
 	if ( m_fDevMode )
 	{

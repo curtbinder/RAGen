@@ -55,3 +55,5 @@ typedef struct _Features {
 } Features;
 
 void GetEnabledFeaturesList(Features& fs, CString& s);
+CString ReadLibraryVersion(CString sLibraryHeader);
+CString ReadEntireFile(CString sFile);
