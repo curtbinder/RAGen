@@ -502,7 +502,7 @@ void RAFeaturesPage::LoadDefaults()
 	UpdateData(FALSE);
 }
 
-void RAFeaturesPage::UpdateFeaturesStruct(Features& fs)
+void RAFeaturesPage::UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures /*= TRUE*/)
 {
 	UpdateData();
 	fs.fDisplayImages = m_bDisplayImages;
@@ -528,13 +528,16 @@ void RAFeaturesPage::UpdateFeaturesStruct(Features& fs)
 	fs.fAtoLogging = m_bAtoLogging;
 	fs.fExceedFlags = m_bExceedFlags;
 
-	// these features are set based on PDE page selection, so blank them out
-	fs.fDosingPumpSetup = FALSE;
-	fs.fWavemakerSetup = FALSE;
-	fs.fATOSetup = FALSE;
-	fs.fSingleATO = FALSE;
-	fs.fMetalHalideSetup = FALSE;
-	fs.fStandardLightSetup = FALSE;
+	if ( fResetPDEFeatures || m_bSimpleMenu || m_bCustomMenu )
+	{
+		// these features are set based on PDE page selection, so blank them out
+		fs.fDosingPumpSetup = FALSE;
+		fs.fWavemakerSetup = FALSE;
+		fs.fATOSetup = FALSE;
+		fs.fSingleATO = FALSE;
+		fs.fMetalHalideSetup = FALSE;
+		fs.fStandardLightSetup = FALSE;
+	}
 }
 
 BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)

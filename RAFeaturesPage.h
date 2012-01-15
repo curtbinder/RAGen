@@ -56,7 +56,7 @@ protected:
 
 public:
 	void LoadDefaults();
-	void UpdateFeaturesStruct(Features& fs);
+	void UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures = TRUE);
 	BOOL WriteFeatures(Features fs, LPCTSTR sLibraryFolder);
 	void SaveFeatures(Features fs);
 	BOOL ReadFeatures(CString sFeaturesFile);

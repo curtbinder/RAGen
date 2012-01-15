@@ -115,7 +115,7 @@ void RATabSheet::Generate()
 		case Features:
 		{
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-			pf->UpdateFeaturesStruct(m_Features);
+			pf->UpdateFeaturesStruct(m_Features, FALSE);
 			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
 			break;
 		}
