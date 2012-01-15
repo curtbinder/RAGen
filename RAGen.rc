@@ -825,9 +825,9 @@ BEGIN
 0x7461, 0x2065, 0x4450, 0x0045, 
     IDC_SETTINGS_CB_LAUNCH, 0x403, 6, 0
 0x654e, 0x6576, 0x0072, 
-    IDC_SETTINGS_CB_APP_MODE, 0x403, 19, 0
+    IDC_SETTINGS_CB_APP_MODE, 0x403, 32, 0
 0x7453, 0x6e61, 0x6164, 0x6472, 0x4c20, 0x6269, 0x6172, 0x6972, 0x7365, 
-"\000" 
+0x2820, 0x6544, 0x7270, 0x6365, 0x7461, 0x6465, 0x0029, 
     IDC_SETTINGS_CB_APP_MODE, 0x403, 22, 0
 0x6544, 0x6576, 0x6f6c, 0x6d70, 0x6e65, 0x2074, 0x694c, 0x7262, 0x7261, 
 0x6569, 0x0073, 
@@ -909,7 +909,7 @@ BEGIN
     IDS_COLORS_TAB          "Colors"
     IDS_MEMORY_TAB          "Internal Memory"
     IDS_STD_TAB             "Standard Libraries"
-    IDS_SUCCESS_GENERATE    "Success, Generated %s.pde"
+    IDS_SUCCESS_GENERATE    "Success, Generated %s%s"
     IDS_SUCCESS_COLORS      "Success, Generated ReefAngel_Colors.h"
     IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
     IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
@@ -925,18 +925,10 @@ BEGIN
     IDS_COMPORT             "COM%d"
     IDS_WEBBANNER           "WebBanner"
     IDS_WIFI_PASSWORD       "WifiPassword"
-END
-
-STRINGTABLE 
-BEGIN
     IDS_CRLF                "\r\n"
     IDS_NEWLINE             "\n"
     IDS_WHITESPACE          "\t "
     IDS_PDE_EXTENSION       ".pde"
-END
-
-STRINGTABLE 
-BEGIN
     IDS_INO_EXTENSION       ".ino"
 END
 

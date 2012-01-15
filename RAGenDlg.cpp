@@ -518,7 +518,9 @@ void RAGenDlg::OnControllerInternalMemory()
 {
 	RAInternalMemoryPage dlg;
 	dlg.iSaveReg = iSaveReg;
+	dlg.iDevVersion = iDevVersion;
 	_tcscpy_s(dlg.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
+	_tcscpy_s(dlg.m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 	dlg.DoModal();
 }
 
@@ -621,7 +623,9 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 		else
 		{
 			CString s2;
-			s2.Format(s, s1);
+			CString ext;
+			m_Tabs.GetFileExtension(ext);
+			s2.Format(s, s1, ext);
 			SetStatus(s2);
 			// show Launch Button
 			UpdateLaunchButtonVisibility(SW_SHOW);

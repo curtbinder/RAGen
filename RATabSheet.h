@@ -27,6 +27,7 @@ public:
 	void ResetLightsOn();
 	void UpdateSettingsForTabs();
 	void GetFilename(CString &s);
+	void GetFileExtension(CString &s);
 	void ImportFeatures(CString sFile);
 	void ShowUnknownFeatures();
 	inline BOOL IsStandardTab() { return m_iCurrentTab == Standard; }

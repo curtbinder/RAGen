@@ -184,14 +184,38 @@ void RATabSheet::LaunchArduino()
 	PROCESS_INFORMATION pi;
 	TCHAR sPDE[32768];
 	CString sFilename;
+	CString sFileExtension;
+	BOOL f09xDev = FALSE;
+
+	switch ( iDevVersion )
+	{
+	default:
+	case AUTODETECT:
+		f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
+		break;
+	case FORCE_08X:
+		f09xDev = FALSE;
+		break;
+	case FORCE_09X:
+		f09xDev = TRUE;
+		break;
+	}
+	if ( f09xDev )
+	{
+		sFileExtension.LoadString(IDS_INO_EXTENSION);
+	}
+	else
+	{
+		sFileExtension.LoadString(IDS_PDE_EXTENSION);
+	}
 
 	GetFilename(sFilename);
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(pi));
 
-	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s.pde\""), 
-			m_sArduinoDirectory, m_sSketchDirectory, sFilename, sFilename);
+	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s.%s\""), 
+			m_sArduinoDirectory, m_sSketchDirectory, sFilename, sFilename, sFileExtension);
 
 	if ( ! CreateProcess(NULL, sPDE, NULL, NULL, FALSE,
 						0, NULL, m_sArduinoDirectory,
@@ -401,6 +425,23 @@ void RATabSheet::GetFilename(CString &s)
 	{
 		RAStdPage* p = (RAStdPage*)m_pTabs[Standard];
 		s = p->sFilename;
+	}
+	else
+	{
+		s = _T("");
+	}
+}
+
+void RATabSheet::GetFileExtension(CString &s)
+{
+	if ( m_iCurrentTab == PDE )
+	{
+		RAPDEPage* p = (RAPDEPage*)m_pTabs[PDE];
+		s = p->sFileExtension;
+	}
+	else if ( m_iCurrentTab == Standard )
+	{
+		s.LoadString(IDS_PDE_EXTENSION);
 	}
 	else
 	{

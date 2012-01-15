@@ -229,3 +229,61 @@ CString ReadEntireFile(CString sFile)
 	return sCompleteFile;
 }
 
+BOOL AutodetectDevVersion(CString sLibraryDirectory)
+{
+	BOOL fRet = FALSE;
+	/*
+	Read ReefAngel.h file
+	Search for #define ReefAngel_Version "VERSION"
+	Check for version 0.8.5, 0.9.
+	*/
+	CString sFile;
+	sFile.Format(_T("%s\\ReefAngel\\ReefAngel.h"), sLibraryDirectory);
+	CString sVersion = ReadLibraryVersion(sFile);
+	TRACE("Version:  %s\n", sVersion);
+	// let's split the version into tokens and compare the revision
+	CString token;
+	CString t = _T(".");
+	int pos = 0;
+	int count = 0;
+	token = sVersion.Tokenize(t, pos);
+	while ( token != _T("") )
+	{
+		count++;
+		if ( (count == 1) && (token.Compare(_T("0")) != 0) )
+		{
+			// fail
+			break;
+		}
+		if ( count == 2 )
+		{
+			if ( token.Compare(_T("8")) == 0 ) 
+			{
+				// version 8
+				TRACE("Version 8\n");
+				break;
+			} else if ( token.Compare(_T("9")) == 0 )
+			{
+				// version 9
+				TRACE("Version 9\n");
+				fRet = TRUE;
+				break;
+			} else
+			{
+				// fail
+				break;
+			}
+		}
+		if ( count >= 3 ) 
+		{
+			//if ( token.Compare(_T("5")) == 0 )
+			//{
+			//	// version 8 rev 5 series, still fails
+			//}
+			break;
+		}
+
+		token = sVersion.Tokenize(t, pos);
+	} // while
+	return fRet;
+}
