@@ -118,3 +118,4 @@ v1.1.1
 - Updated PDE tab to be PDE / INO
 - Added autodetection for library version (0.8.X or 0.9.X) to generate file appropriately
 - Added updated extension based on library version (0.8.X used PDE & 0.9.X uses INO)
+- Added Save button to Features page to easily update/save features

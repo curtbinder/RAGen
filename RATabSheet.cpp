@@ -56,7 +56,9 @@ void RATabSheet::Init()
 			m_pTabs[i]->ShowWindow(SW_HIDE);
 		}
 		// hide generate button
-		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
+		//GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
+		// Change to Save since the Features Tab is the first tab
+		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 	}
 	else
 	{
@@ -110,6 +112,13 @@ void RATabSheet::Generate()
 {
 	switch ( m_iCurrentTab )
 	{
+		case Features:
+		{
+			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+			pf->UpdateFeaturesStruct(m_Features);
+			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
+			break;
+		}
 		case PDE:
 			{
 			/*
@@ -498,21 +507,23 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	m_iCurrentTab = cur;
 
 	// change the menu
-	int nShow = SW_SHOW;
+	//int nShow = SW_SHOW;
 	UINT menuID = IDR_MENU_RESET;
 	switch ( m_iCurrentTab )
 	{
 		case PDE:
 			menuID = IDR_MENU_PDE_RESET;
+			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
 			break;
 		case Features:
-			nShow = SW_HIDE;
+			//nShow = SW_HIDE;
+			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 			break;
 		//default:
 		//	break;
 	}
 	// show/hide generate button appropriately
-	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
+	//GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
 
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 
