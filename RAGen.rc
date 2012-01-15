@@ -905,7 +905,7 @@ END
 STRINGTABLE 
 BEGIN
     IDS_FEATURES_TAB        "Features"
-    IDS_PDE_TAB             "PDE"
+    IDS_PDE_TAB             "PDE / INO"
     IDS_COLORS_TAB          "Colors"
     IDS_MEMORY_TAB          "Internal Memory"
     IDS_STD_TAB             "Standard Libraries"

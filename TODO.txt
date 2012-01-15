@@ -14,6 +14,11 @@ TODO File
 	- should do type / range checking before generation of file
 - Folder updating
 	- registry overrides for those folders will be cleared out if they exist
+- Autodetection of libraries
+	- 0 - autodetect
+	- 2 - force 0.9.0 or later
+	- 1 - force 0.8.x
+	- idc_settings_cb_dev_libraries
 
 
 Completed / Release Information
@@ -133,3 +138,4 @@ v1.1.1
 	- Libraries - Documents\Arduino\libraries
 	- Arduino (for the executable) - Program Files\Reef Angel Controller
 	- If any of those folders do not exist, RAGen will automatically create them
+- Updated PDE tab to be PDE / INO
