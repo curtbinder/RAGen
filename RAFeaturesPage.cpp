@@ -441,6 +441,11 @@ void RAFeaturesPage::LoadFeatures()
 	m_bColorsPDE = AfxGetApp()->GetProfileInt(s, _T("ColorsPDE"), FALSE);
 	m_bAtoLogging = AfxGetApp()->GetProfileInt(s, _T("ATOLogging"), FALSE);
 	m_bExceedFlags = AfxGetApp()->GetProfileInt(s, _T("ExceedFlags"), FALSE);
+	m_fSalinity = AfxGetApp()->GetProfileInt(s, _T("SalinityExpansion"), FALSE);
+	m_fRF = AfxGetApp()->GetProfileInt(s, _T("RFExpansion"), FALSE);
+	m_fORP = AfxGetApp()->GetProfileInt(s, _T("ORPExpansion"), FALSE);
+	m_fIO = AfxGetApp()->GetProfileInt(s, _T("IOExpansion"), FALSE);
+	m_fAI = AfxGetApp()->GetProfileInt(s, _T("AILed"), FALSE);
 	UpdateData(FALSE);
 }
 
@@ -471,6 +476,11 @@ void RAFeaturesPage::SaveFeatures(Features fs)
 	AfxGetApp()->WriteProfileInt(s, _T("ColorsPDE"), fs.fColorsPDE);
 	AfxGetApp()->WriteProfileInt(s, _T("ATOLogging"), fs.fAtoLogging);
 	AfxGetApp()->WriteProfileInt(s, _T("ExceedFlags"), fs.fExceedFlags);
+	AfxGetApp()->WriteProfileInt(s, _T("SalinityExpansion"), fs.fSalinity);
+	AfxGetApp()->WriteProfileInt(s, _T("RFExpansion"), fs.fRF);
+	AfxGetApp()->WriteProfileInt(s, _T("ORPExpansion"), fs.fORP);
+	AfxGetApp()->WriteProfileInt(s, _T("IOExpansion"), fs.fIO);
+	AfxGetApp()->WriteProfileInt(s, _T("AILed"), fs.fAI);
 }
 
 void RAFeaturesPage::LoadDefaults()
@@ -499,6 +509,11 @@ void RAFeaturesPage::LoadDefaults()
 	m_bColorsPDE = FALSE;
 	m_bAtoLogging = FALSE;
 	m_bExceedFlags = FALSE;
+	m_fSalinity = FALSE;
+	m_fRF = FALSE;
+	m_fORP = FALSE;
+	m_fIO = FALSE;
+	m_fAI = FALSE;
 	UpdateData(FALSE);
 }
 
@@ -527,6 +542,11 @@ void RAFeaturesPage::UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures /
 	fs.fColorsPDE = m_bColorsPDE;
 	fs.fAtoLogging = m_bAtoLogging;
 	fs.fExceedFlags = m_bExceedFlags;
+	fs.fSalinity = m_fSalinity;
+	fs.fRF = m_fRF;
+	fs.fORP = m_fORP;
+	fs.fIO = m_fIO;
+	fs.fAI = m_fAI;
 
 	if ( fResetPDEFeatures || m_bSimpleMenu || m_bCustomMenu )
 	{

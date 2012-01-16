@@ -44,6 +44,11 @@ protected:
 	BOOL m_bExceedFlags;
 	int m_iCustomMenuEntries;
 	int m_iInstalledExpansionModules;
+	BOOL m_fSalinity;
+	BOOL m_fRF;
+	BOOL m_fORP;
+	BOOL m_fIO;
+	BOOL m_fAI;
 
 	// unknown features from features file
 	CString m_sUnknownFeatures;

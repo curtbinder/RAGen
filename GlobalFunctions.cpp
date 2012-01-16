@@ -120,6 +120,26 @@ void GetEnabledFeaturesList(Features& fs, CString& s)
 	{
 		s += _T("#define ENABLE_EXCEED_FLAGS\r\n");
 	}
+	if ( fs.fAI )
+	{
+		s += _T("#define AI_LED\r\n");
+	}
+	if ( fs.fORP )
+	{
+		s += _T("#define ORPEXPANSION\r\n");
+	}
+	if ( fs.fSalinity )
+	{
+		s += _T("#define SALINITYEXPANSION\r\n");
+	}
+	if ( fs.fRF )
+	{
+		s += _T("#define RFEXPANSION\r\n");
+	}
+	if ( fs.fIO )
+	{
+		s += _T("#define IOEXPANSION\r\n");
+	}
 }
 
 CString ReadLibraryVersion(CString sLibraryHeader)

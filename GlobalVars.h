@@ -52,6 +52,11 @@ typedef struct _Features {
 	BOOL fAtoLogging;
 	BOOL fExceedFlags;
 	int iCustomMenuEntries;
+	BOOL fSalinity;
+	BOOL fRF;
+	BOOL fORP;
+	BOOL fIO;
+	BOOL fAI;
 } Features;
 
 void GetEnabledFeaturesList(Features& fs, CString& s);
