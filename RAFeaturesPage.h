@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GlobalVars.h"
+#include "afxcmn.h"
 
 // RAFeaturesPage dialog
 
@@ -20,7 +21,10 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 
+	CTreeCtrl m_tree;
+
 	// features - if you change any features, make sure you update the _Features structure in GlobalVars.h
+	/*
 	BOOL m_bDisplayImages;
 	BOOL m_bSetupExtras;
 	BOOL m_bOverheatSetup;
@@ -49,6 +53,9 @@ protected:
 	BOOL m_fORP;
 	BOOL m_fIO;
 	BOOL m_fAI;
+	*/
+
+	FeatureData m_efd[25];
 
 	// unknown features from features file
 	CString m_sUnknownFeatures;
@@ -58,35 +65,17 @@ protected:
 	void LoadFeatures();
 	void ProcessFeature(CString sFeature, CString sValue = _T(""));
 	void ClearFeatures();
+	void InitTree();
 
 public:
 	void LoadDefaults();
-	void UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures = TRUE);
+	void UpdateFeaturesStruct(BOOL fResetPDEFeatures = TRUE);
 	BOOL WriteFeatures(Features fs, LPCTSTR sLibraryFolder);
-	void SaveFeatures(Features fs);
+	void SaveFeatures(/*Features fs*/);
 	BOOL ReadFeatures(CString sFeaturesFile);
 	void ShowUnknownFeatures();
-	afx_msg void OnBnHotItemChangeCkDisplayImages(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkSetupExtras(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkOverheatSetup(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkDateTimeSetup(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkVersionMenu(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkDirectTempSensor(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkDisplayLedPwm(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkWifi(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkAlternateFont(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkSaveRelayState(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkDosingIntervalSetup(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkAtoLogging(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkExceedFlag(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkWdt(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkCustomMenu(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkSimpleMenu(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkCustomMain(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkColorsPde(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnHotItemChangeCkPwmExpansion(NMHDR *pNMHDR, LRESULT *pResult);
+
+	afx_msg void OnTvnSelchangedFeaturesTree(NMHDR *pNMHDR, LRESULT *pResult);
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

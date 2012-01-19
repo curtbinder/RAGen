@@ -105,7 +105,7 @@ void RATabSheet::SetRectangle()
 void RATabSheet::SaveFeatures()
 {
 	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[m_iCurrentTab];
-	pf->SaveFeatures(m_Features);
+	pf->SaveFeatures();
 }
 
 void RATabSheet::Generate()
@@ -115,8 +115,8 @@ void RATabSheet::Generate()
 		case Features:
 		{
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-			pf->UpdateFeaturesStruct(m_Features, FALSE);
-			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
+			pf->UpdateFeaturesStruct(FALSE);
+			pf->WriteFeatures(g_Features, m_sLibraryDirectory);
 			break;
 		}
 		case PDE:
@@ -127,9 +127,9 @@ void RATabSheet::Generate()
 			Generate PDE file
 			*/
 			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
-			p->UpdatePDEFeatures(m_Features);
+			p->UpdatePDEFeatures(g_Features);
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-			pf->WriteFeatures(m_Features, m_sLibraryDirectory);
+			pf->WriteFeatures(g_Features, m_sLibraryDirectory);
 			p->OnBnClickedBtnGenerate();
 			}
 			break;
@@ -500,7 +500,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	{
 		// update the features structure before we proceed
 		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-		pf->UpdateFeaturesStruct(m_Features);
+		pf->UpdateFeaturesStruct();
 	}
 	m_pTabs[m_iCurrentTab]->ShowWindow(SW_HIDE);
 	m_pTabs[cur]->ShowWindow(SW_SHOW);

@@ -52,12 +52,23 @@ typedef struct _Features {
 	BOOL fAtoLogging;
 	BOOL fExceedFlags;
 	int iCustomMenuEntries;
+	int iInstalledExpansionModules;
 	BOOL fSalinity;
 	BOOL fRF;
 	BOOL fORP;
 	BOOL fIO;
 	BOOL fAI;
 } Features;
+extern Features g_Features;
+
+typedef struct _FeatureData {
+	UINT uID;
+	CString sDefine;
+} FeatureData;
+
+enum _FeatureIndex {
+	NONE = 0,
+};
 
 void GetEnabledFeaturesList(Features& fs, CString& s);
 CString ReadLibraryVersion(CString sLibraryHeader);

@@ -3,6 +3,9 @@
 #include "Resource.h"
 #include "GlobalVars.h"
 
+// Global Features
+Features g_Features;
+
 // Global Functions
 void GetEnabledFeaturesList(Features& fs, CString& s)
 {

@@ -26,55 +26,13 @@ RAFeaturesPage::~RAFeaturesPage()
 void RAFeaturesPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Check(pDX, IDC_FEATURES_CK_DISPLAY_IMAGES, m_bDisplayImages);
-	DDX_Check(pDX, IDC_FEATURES_CK_SETUP_EXTRAS, m_bSetupExtras);
-	DDX_Check(pDX, IDC_FEATURES_CK_OVERHEAT_SETUP, m_bOverheatSetup);
-	DDX_Check(pDX, IDC_FEATURES_CK_DATE_TIME_SETUP, m_bDateTimeSetup);
-	DDX_Check(pDX, IDC_FEATURES_CK_VERSION_MENU, m_bVersionMenu);
-	DDX_Check(pDX, IDC_FEATURES_CK_DIRECT_TEMP_SENSOR, m_bDirectTempSensor);
-	DDX_Check(pDX, IDC_FEATURES_CK_DISPLAY_LED_PWM, m_bDisplayLEDPWM);
-	DDX_Check(pDX, IDC_FEATURES_CK_WIFI, m_bWifi);
-	//DDX_Check(pDX, IDC_FEATURES_CK_ALTERNATE_FONT, m_bAlternateFont);
-	DDX_Check(pDX, IDC_FEATURES_CK_REMOVE_ALL_LIGHTS, m_bRemoveAllLights);
-	DDX_Check(pDX, IDC_FEATURES_CK_SAVE_RELAY_STATE, m_bSaveRelayState);
-	DDX_Check(pDX, IDC_FEATURES_CK_EXPANSION_MODULE, m_bExpansionModule);
-	DDX_Check(pDX, IDC_FEATURES_CK_DOSINGINTERVAL_SETUP, m_bDosingIntervalSetup);
-	DDX_Check(pDX, IDC_FEATURES_CK_ENABLE_ATO_LOGGING, m_bAtoLogging);
-	DDX_Check(pDX, IDC_FEATURES_CK_ENABLE_EXCEED_FLAG, m_bExceedFlags);
-	DDX_Check(pDX, IDC_FEATURES_CK_WDT, m_bWDT);
-	DDX_Check(pDX, IDC_FEATURES_CK_CUSTOM_MENU, m_bCustomMenu);
-	DDX_Check(pDX, IDC_FEATURES_CK_SIMPLE_MENU, m_bSimpleMenu);
-	DDX_Check(pDX, IDC_FEATURES_CK_CUSTOM_MAIN, m_bCustomMain);
-	DDX_Check(pDX, IDC_FEATURES_CK_COLORS_PDE, m_bColorsPDE);
-	DDX_Check(pDX, IDC_FEATURES_CK_PWMEXPANSION, m_bPWMExpansion);
-	DDX_Text(pDX, IDC_EDIT_ENTRIES, m_iCustomMenuEntries);
-	DDV_MinMaxInt(pDX, m_iCustomMenuEntries, MENU_MIN, MENU_MAX);
+	DDX_Control(pDX, IDC_FEATURES_TREE, m_tree);
 }
 
 
 BEGIN_MESSAGE_MAP(RAFeaturesPage, CDialog)
 	//}}AFX_MSG_MAP
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DISPLAY_IMAGES, &RAFeaturesPage::OnBnHotItemChangeCkDisplayImages)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_SETUP_EXTRAS, &RAFeaturesPage::OnBnHotItemChangeCkSetupExtras)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_OVERHEAT_SETUP, &RAFeaturesPage::OnBnHotItemChangeCkOverheatSetup)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DATE_TIME_SETUP, &RAFeaturesPage::OnBnHotItemChangeCkDateTimeSetup)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_VERSION_MENU, &RAFeaturesPage::OnBnHotItemChangeCkVersionMenu)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DIRECT_TEMP_SENSOR, &RAFeaturesPage::OnBnHotItemChangeCkDirectTempSensor)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DISPLAY_LED_PWM, &RAFeaturesPage::OnBnHotItemChangeCkDisplayLedPwm)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_WIFI, &RAFeaturesPage::OnBnHotItemChangeCkWifi)
-	//ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_ALTERNATE_FONT, &RAFeaturesPage::OnBnHotItemChangeCkAlternateFont)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_SAVE_RELAY_STATE, &RAFeaturesPage::OnBnHotItemChangeCkSaveRelayState)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_REMOVE_ALL_LIGHTS, &RAFeaturesPage::OnBnHotItemChangeCkRemoveAllLights)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_EXPANSION_MODULE, &RAFeaturesPage::OnBnHotItemChangeCkExpansionModule)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_DOSINGINTERVAL_SETUP, &RAFeaturesPage::OnBnHotItemChangeCkDosingIntervalSetup)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_ENABLE_ATO_LOGGING, &RAFeaturesPage::OnBnHotItemChangeCkAtoLogging)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_ENABLE_EXCEED_FLAG, &RAFeaturesPage::OnBnHotItemChangeCkExceedFlag)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_WDT, &RAFeaturesPage::OnBnHotItemChangeCkWdt)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_CUSTOM_MENU, &RAFeaturesPage::OnBnHotItemChangeCkCustomMenu)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_SIMPLE_MENU, &RAFeaturesPage::OnBnHotItemChangeCkSimpleMenu)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_CUSTOM_MAIN, &RAFeaturesPage::OnBnHotItemChangeCkCustomMain)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_COLORS_PDE, &RAFeaturesPage::OnBnHotItemChangeCkColorsPde)
-	ON_NOTIFY(BCN_HOTITEMCHANGE, IDC_FEATURES_CK_PWMEXPANSION, &RAFeaturesPage::OnBnHotItemChangeCkPwmExpansion)
+	ON_NOTIFY(TVN_SELCHANGED, IDC_FEATURES_TREE, &RAFeaturesPage::OnTvnSelchangedFeaturesTree)
 END_MESSAGE_MAP()
 
 
@@ -84,312 +42,148 @@ BOOL RAFeaturesPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// disable the alternate font check box
-	//GetDlgItem(IDC_FEATURES_CK_ALTERNATE_FONT)->ShowWindow(SW_HIDE);
-	CSpinButtonCtrl* pSpin;
-	pSpin = (CSpinButtonCtrl*)GetDlgItem(IDC_SPIN_ENTRIES);
-	pSpin->SetBuddy(GetDlgItem(IDC_EDIT_ENTRIES));
-	pSpin->SetRange32(1, 9);
-
 	LoadFeatures();
+
+	InitTree();
 
 	ClearDescription();
 
 	return TRUE;
 }
 
-void RAFeaturesPage::OnBnHotItemChangeCkDisplayImages(NMHDR *pNMHDR, LRESULT *pResult)
+void RAFeaturesPage::InitTree()
 {
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_DISPLAYIMAGES);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	m_tree.ModifyStyle(0, TVS_NOHSCROLL);
 
-void RAFeaturesPage::OnBnHotItemChangeCkSetupExtras(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_SETUPEXTRAS);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	HTREEITEM root;
+	HTREEITEM setup;
+	HTREEITEM menu;
+	HTREEITEM exp;
+	HTREEITEM screen;
+	HTREEITEM hi;
+	CString s;
+	m_efd[0].uID = 0;
+	m_efd[0].sDefine = _T("");
+	root = m_tree.InsertItem(_T("Features"));
+	m_tree.SetItemData(root, (DWORD)0);
+	hi = m_tree.InsertItem(_T("Wifi"), root);
+	m_efd[1].uID = IDS_FEATURES_WIFI;
+	m_efd[1].sDefine = _T("wifi");
+	m_tree.SetItemData(hi, (DWORD)1);
+	hi = m_tree.InsertItem(_T("Watchdog Timer"), root);
+	m_efd[2].uID = IDS_FEATURES_WDT;
+	m_efd[2].sDefine = _T("WDT");
+	m_tree.SetItemData(hi, (DWORD)2);
 
-void RAFeaturesPage::OnBnHotItemChangeCkOverheatSetup(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_OVERHEATSETUP);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	setup = m_tree.InsertItem(_T("Setup Menus"), root);
+	m_tree.SetItemData(setup, (DWORD)0);
+	hi = m_tree.InsertItem(_T("Overheat Setup"), setup);
+	m_efd[3].uID = IDS_FEATURES_OVERHEATSETUP;
+	m_efd[3].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)3);
+	hi = m_tree.InsertItem(_T("Date / Time Setup"), setup);
+	m_efd[4].uID = IDS_FEATURES_DATETIMESETUP;
+	m_efd[4].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)4);
+	hi = m_tree.InsertItem(_T("Dosing Repeat Setup"), setup);
+	m_efd[5].uID = IDS_FEATURES_DOSINGINTERVALSETUP;
+	m_efd[5].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)5);
+	hi = m_tree.InsertItem(_T("Setup Extras"), setup);
+	m_efd[6].uID = IDS_FEATURES_SETUPEXTRAS;
+	m_efd[6].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)6);
 
-void RAFeaturesPage::OnBnHotItemChangeCkDateTimeSetup(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_DATETIMESETUP);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	menu = m_tree.InsertItem(_T("Menu System"), root);
+	m_tree.SetItemData(menu, (DWORD)0);
+	hi = m_tree.InsertItem(_T("Simple Menu"), menu);
+	m_efd[7].uID = IDS_FEATURES_SIMPLEMENU;
+	m_efd[7].sDefine = _T("SIMPLE_MENU");
+	m_tree.SetItemData(hi, (DWORD)7);
+	hi = m_tree.InsertItem(_T("Custom Menu"), menu);
+	m_efd[8].uID = IDS_FEATURES_CUSTOMMENU;
+	m_efd[8].sDefine = _T("CUSTOM_MENU");
+	m_tree.SetItemData(hi, (DWORD)8);
 
-void RAFeaturesPage::OnBnHotItemChangeCkVersionMenu(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_VERSIONMENU);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	exp = m_tree.InsertItem(_T("Expansion Modules"), root);
+	m_tree.SetItemData(exp, (DWORD)0);
+	hi = m_tree.InsertItem(_T("Expansion Relays"), exp);
+	m_efd[9].uID = IDS_FEATURES_EXPANSIONMODULE;
+	m_efd[9].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)9);
+	hi = m_tree.InsertItem(_T("PWM"), exp);
+	m_efd[10].uID = IDS_FEATURES_PWMEXPANSION;
+	m_efd[10].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)10);
+	hi = m_tree.InsertItem(_T("Salinity"), exp);
+	m_efd[11].uID = 0;
+	m_efd[11].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)11);
+	hi = m_tree.InsertItem(_T("ORP"), exp);
+	m_efd[12].uID = 0;
+	m_efd[13].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)12);
+	hi = m_tree.InsertItem(_T("AI LED"), exp);
+	m_efd[13].uID = 0;
+	m_efd[13].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)13);
+	hi = m_tree.InsertItem(_T("RF"), exp);
+	m_efd[14].uID = 0;
+	m_efd[14].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)14);
 
-void RAFeaturesPage::OnBnHotItemChangeCkDirectTempSensor(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_DIRECTTEMPSENSOR);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	screen = m_tree.InsertItem(_T("Screen Options"), root);
+	m_tree.SetItemData(screen, (DWORD)0);
+	hi = m_tree.InsertItem(_T("Custom Main Screen"), screen);
+	m_efd[15].uID = IDS_FEATURES_CUSTOMMAIN;
+	m_efd[15].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)15);
+	hi = m_tree.InsertItem(_T("Display Images"), screen);
+	m_efd[16].uID = IDS_FEATURES_DISPLAYIMAGES;
+	m_efd[16].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)16);
+	hi = m_tree.InsertItem(_T("Version Menu"), screen);
+	m_efd[17].uID = IDS_FEATURES_VERSIONMENU;
+	m_efd[17].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)17);
+	hi = m_tree.InsertItem(_T("Display LED PWM"), screen);
+	m_efd[18].uID = IDS_FEATURES_DISPLAYLEDPWM;
+	m_efd[18].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)18);
+	hi = m_tree.InsertItem(_T("Remove All Lights"), screen);
+	m_efd[19].uID = IDS_FEATURES_REMOVEALLLIGHTS;
+	m_efd[19].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)19);
+	hi = m_tree.InsertItem(_T("Custom Colors"), screen);
+	m_efd[20].uID = IDS_FEATURES_COLORSPDE;
+	m_efd[20].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)20);
 
-void RAFeaturesPage::OnBnHotItemChangeCkDisplayLedPwm(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_DISPLAYLEDPWM);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	hi = m_tree.InsertItem(_T("ATO Logging"), root);
+	m_efd[21].uID = IDS_FEATURES_ATOLOGGING;
+	m_efd[21].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)21);
+	hi = m_tree.InsertItem(_T("Exceed Flagging"), root);
+	m_efd[22].uID = IDS_FEATURES_EXCEEDFLAG;
+	m_efd[22].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)22);
+	hi = m_tree.InsertItem(_T("Direct Temp Sensor"), root);
+	m_efd[23].uID = IDS_FEATURES_DIRECTTEMPSENSOR;
+	m_efd[23].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)23);
+	hi = m_tree.InsertItem(_T("Save Relay State"), root);
+	m_efd[24].uID = IDS_FEATURES_SAVERELAYSTATE;
+	m_efd[24].sDefine = _T("");
+	m_tree.SetItemData(hi, (DWORD)24);
 
-void RAFeaturesPage::OnBnHotItemChangeCkWifi(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_WIFI);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
+	// expand all the levels
+	m_tree.Expand(root, TVE_EXPAND);
+	m_tree.Expand(setup, TVE_EXPAND);
+	m_tree.Expand(menu, TVE_EXPAND);
+	m_tree.Expand(screen, TVE_EXPAND);
+	m_tree.Expand(exp, TVE_EXPAND);
 
-void RAFeaturesPage::OnBnHotItemChangeCkAlternateFont(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_ALTERNATEFONT);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkSaveRelayState(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_SAVERELAYSTATE);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkRemoveAllLights(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_REMOVEALLLIGHTS);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkExpansionModule(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_EXPANSIONMODULE);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkDosingIntervalSetup(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_DOSINGINTERVALSETUP);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkAtoLogging(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_ATOLOGGING);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkExceedFlag(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_EXCEEDFLAG);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkWdt(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_WDT);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkCustomMenu(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_CUSTOMMENU);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkSimpleMenu(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_SIMPLEMENU);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkCustomMain(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_CUSTOMMAIN);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkColorsPde(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_COLORSPDE);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
-}
-
-void RAFeaturesPage::OnBnHotItemChangeCkPwmExpansion(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMBCHOTITEM pHotItem = reinterpret_cast<LPNMBCHOTITEM>(pNMHDR);
-	if ( pHotItem->dwFlags & HICF_ENTERING )
-	{
-		SetDescription(IDS_FEATURES_PWMEXPANSION);
-	}
-	else if ( pHotItem->dwFlags & HICF_LEAVING )
-	{
-		ClearDescription();
-	}
-	*pResult = 0;
+	m_tree.SelectItem(root);
 }
 
 void RAFeaturesPage::OnResetAll()
@@ -404,7 +198,7 @@ void RAFeaturesPage::OnResetSaved()
 
 void RAFeaturesPage::ClearDescription()
 {
-	SetDlgItemText(IDC_FEATURES_TEXT_DESCRIPTION, _T("Move mouse over features to get descriptions."));
+	SetDlgItemTextA(IDC_FEATURES_TEXT_DESCRIPTION, _T("Click on features to get descriptions."));
 }
 
 void RAFeaturesPage::SetDescription(UINT id)
@@ -419,107 +213,111 @@ void RAFeaturesPage::LoadFeatures()
 	// Restore values from registry after last generation
 	CString s;
 	s.LoadStringA(IDS_FEATURES_TAB);
-	m_bDisplayImages = AfxGetApp()->GetProfileInt(s, _T("DisplayImages"), TRUE);
-	m_bSetupExtras = AfxGetApp()->GetProfileInt(s, _T("SetupExtras"), FALSE);
-	m_bOverheatSetup = AfxGetApp()->GetProfileInt(s, _T("OverheatSetup"), FALSE);
-	m_bDateTimeSetup = AfxGetApp()->GetProfileInt(s, _T("DateTimeSetup"), TRUE);
-	m_bVersionMenu = AfxGetApp()->GetProfileInt(s, _T("VersionMenu"), TRUE);
-	m_bDirectTempSensor = AfxGetApp()->GetProfileInt(s, _T("DirectTempSensor"), TRUE);
-	m_bDisplayLEDPWM = AfxGetApp()->GetProfileInt(s, _T("DisplayLEDPWM"), TRUE);
-	m_bWifi = AfxGetApp()->GetProfileInt(s, _T("Wifi"), TRUE);
-	m_bAlternateFont = AfxGetApp()->GetProfileInt(s, _T("AlternateFont"), FALSE);
-	m_bRemoveAllLights = AfxGetApp()->GetProfileInt(s, _T("RemoveAllLights"), FALSE);
-	m_bSaveRelayState = AfxGetApp()->GetProfileInt(s, _T("SaveRelayState"), FALSE);
-	m_bExpansionModule = AfxGetApp()->GetProfileInt(s, _T("ExpansionModule"), FALSE);
-	m_bDosingIntervalSetup = AfxGetApp()->GetProfileInt(s, _T("DosingIntervalSetup"), FALSE);
-	m_bWDT = AfxGetApp()->GetProfileInt(s, _T("Watchdog"), FALSE);
-	m_bCustomMenu = AfxGetApp()->GetProfileInt(s, _T("CustomMenu"), FALSE);
-	m_iCustomMenuEntries = AfxGetApp()->GetProfileInt(s, _T("CustomMenuEntries"), MENU_DEFAULT);
-	m_bSimpleMenu = AfxGetApp()->GetProfileInt(s, _T("SimpleMenu"), TRUE);
-	m_bPWMExpansion = AfxGetApp()->GetProfileInt(s, _T("PWMExpansion"), FALSE);
-	m_bCustomMain = AfxGetApp()->GetProfileInt(s, _T("CustomMain"), FALSE);
-	m_bColorsPDE = AfxGetApp()->GetProfileInt(s, _T("ColorsPDE"), FALSE);
-	m_bAtoLogging = AfxGetApp()->GetProfileInt(s, _T("ATOLogging"), FALSE);
-	m_bExceedFlags = AfxGetApp()->GetProfileInt(s, _T("ExceedFlags"), FALSE);
-	m_fSalinity = AfxGetApp()->GetProfileInt(s, _T("SalinityExpansion"), FALSE);
-	m_fRF = AfxGetApp()->GetProfileInt(s, _T("RFExpansion"), FALSE);
-	m_fORP = AfxGetApp()->GetProfileInt(s, _T("ORPExpansion"), FALSE);
-	m_fIO = AfxGetApp()->GetProfileInt(s, _T("IOExpansion"), FALSE);
-	m_fAI = AfxGetApp()->GetProfileInt(s, _T("AILed"), FALSE);
+	g_Features.fDisplayImages = AfxGetApp()->GetProfileInt(s, _T("DisplayImages"), TRUE);
+	g_Features.fSetupExtras = AfxGetApp()->GetProfileInt(s, _T("SetupExtras"), FALSE);
+	g_Features.fOverheatSetup = AfxGetApp()->GetProfileInt(s, _T("OverheatSetup"), FALSE);
+	g_Features.fDateTimeSetup = AfxGetApp()->GetProfileInt(s, _T("DateTimeSetup"), TRUE);
+	g_Features.fVersionMenu = AfxGetApp()->GetProfileInt(s, _T("VersionMenu"), TRUE);
+	g_Features.fDirectTempSensor = AfxGetApp()->GetProfileInt(s, _T("DirectTempSensor"), TRUE);
+	g_Features.fDisplayLEDPWM = AfxGetApp()->GetProfileInt(s, _T("DisplayLEDPWM"), TRUE);
+	g_Features.fWifi = AfxGetApp()->GetProfileInt(s, _T("Wifi"), TRUE);
+	g_Features.fAlternateFont = AfxGetApp()->GetProfileInt(s, _T("AlternateFont"), FALSE);
+	g_Features.fRemoveAllLights = AfxGetApp()->GetProfileInt(s, _T("RemoveAllLights"), FALSE);
+	g_Features.fSaveRelayState = AfxGetApp()->GetProfileInt(s, _T("SaveRelayState"), FALSE);
+	g_Features.fExpansionModule = AfxGetApp()->GetProfileInt(s, _T("ExpansionModule"), FALSE);
+	g_Features.fDosingIntervalSetup = AfxGetApp()->GetProfileInt(s, _T("DosingIntervalSetup"), FALSE);
+	g_Features.fWDT = AfxGetApp()->GetProfileInt(s, _T("Watchdog"), FALSE);
+	g_Features.fCustomMenu = AfxGetApp()->GetProfileInt(s, _T("CustomMenu"), FALSE);
+	g_Features.iCustomMenuEntries = AfxGetApp()->GetProfileInt(s, _T("CustomMenuEntries"), MENU_DEFAULT);
+	g_Features.fSimpleMenu = AfxGetApp()->GetProfileInt(s, _T("SimpleMenu"), TRUE);
+	g_Features.fPWMExpansion = AfxGetApp()->GetProfileInt(s, _T("PWMExpansion"), FALSE);
+	g_Features.fCustomMain = AfxGetApp()->GetProfileInt(s, _T("CustomMain"), FALSE);
+	g_Features.fColorsPDE = AfxGetApp()->GetProfileInt(s, _T("ColorsPDE"), FALSE);
+	g_Features.fAtoLogging = AfxGetApp()->GetProfileInt(s, _T("ATOLogging"), FALSE);
+	g_Features.fExceedFlags = AfxGetApp()->GetProfileInt(s, _T("ExceedFlags"), FALSE);
+	g_Features.fSalinity = AfxGetApp()->GetProfileInt(s, _T("SalinityExpansion"), FALSE);
+	g_Features.fRF = AfxGetApp()->GetProfileInt(s, _T("RFExpansion"), FALSE);
+	g_Features.fORP = AfxGetApp()->GetProfileInt(s, _T("ORPExpansion"), FALSE);
+	g_Features.fIO = AfxGetApp()->GetProfileInt(s, _T("IOExpansion"), FALSE);
+	g_Features.fAI = AfxGetApp()->GetProfileInt(s, _T("AILed"), FALSE);
 	UpdateData(FALSE);
 }
 
-void RAFeaturesPage::SaveFeatures(Features fs)
+void RAFeaturesPage::SaveFeatures(/*Features fs*/)
 {
+	// TODO remove parameter
 	// Save values to registry after last generation
 	CString s;
 	s.LoadString(IDS_FEATURES_TAB);
-	AfxGetApp()->WriteProfileInt(s, _T("DisplayImages"), fs.fDisplayImages);
-	AfxGetApp()->WriteProfileInt(s, _T("SetupExtras"), fs.fSetupExtras);
-	AfxGetApp()->WriteProfileInt(s, _T("OverheatSetup"), fs.fOverheatSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("DateTimeSetup"), fs.fDateTimeSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("VersionMenu"), fs.fVersionMenu);
-	AfxGetApp()->WriteProfileInt(s, _T("DirectTempSensor"), fs.fDirectTempSensor);
-	AfxGetApp()->WriteProfileInt(s, _T("DisplayLEDPWM"), fs.fDisplayLEDPWM);
-	AfxGetApp()->WriteProfileInt(s, _T("Wifi"), fs.fWifi);
-	AfxGetApp()->WriteProfileInt(s, _T("AlternateFont"), fs.fAlternateFont);
-	AfxGetApp()->WriteProfileInt(s, _T("RemoveAllLights"), fs.fRemoveAllLights);
-	AfxGetApp()->WriteProfileInt(s, _T("SaveRelayState"), fs.fSaveRelayState);
-	AfxGetApp()->WriteProfileInt(s, _T("ExpansionModule"), fs.fExpansionModule);
-	AfxGetApp()->WriteProfileInt(s, _T("DosingIntervalSetup"), fs.fDosingIntervalSetup);
-	AfxGetApp()->WriteProfileInt(s, _T("Watchdog"), fs.fWDT);
-	AfxGetApp()->WriteProfileInt(s, _T("CustomMenu"), fs.fCustomMenu);
-	AfxGetApp()->WriteProfileInt(s, _T("CustomMenuEntries"), fs.iCustomMenuEntries);
-	AfxGetApp()->WriteProfileInt(s, _T("SimpleMenu"), fs.fSimpleMenu);
-	AfxGetApp()->WriteProfileInt(s, _T("PWMExpansion"), fs.fPWMExpansion);
-	AfxGetApp()->WriteProfileInt(s, _T("CustomMain"), fs.fCustomMain);
-	AfxGetApp()->WriteProfileInt(s, _T("ColorsPDE"), fs.fColorsPDE);
-	AfxGetApp()->WriteProfileInt(s, _T("ATOLogging"), fs.fAtoLogging);
-	AfxGetApp()->WriteProfileInt(s, _T("ExceedFlags"), fs.fExceedFlags);
-	AfxGetApp()->WriteProfileInt(s, _T("SalinityExpansion"), fs.fSalinity);
-	AfxGetApp()->WriteProfileInt(s, _T("RFExpansion"), fs.fRF);
-	AfxGetApp()->WriteProfileInt(s, _T("ORPExpansion"), fs.fORP);
-	AfxGetApp()->WriteProfileInt(s, _T("IOExpansion"), fs.fIO);
-	AfxGetApp()->WriteProfileInt(s, _T("AILed"), fs.fAI);
+	AfxGetApp()->WriteProfileInt(s, _T("DisplayImages"), g_Features.fDisplayImages);
+	AfxGetApp()->WriteProfileInt(s, _T("SetupExtras"), g_Features.fSetupExtras);
+	AfxGetApp()->WriteProfileInt(s, _T("OverheatSetup"), g_Features.fOverheatSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("DateTimeSetup"), g_Features.fDateTimeSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("VersionMenu"), g_Features.fVersionMenu);
+	AfxGetApp()->WriteProfileInt(s, _T("DirectTempSensor"), g_Features.fDirectTempSensor);
+	AfxGetApp()->WriteProfileInt(s, _T("DisplayLEDPWM"), g_Features.fDisplayLEDPWM);
+	AfxGetApp()->WriteProfileInt(s, _T("Wifi"), g_Features.fWifi);
+	AfxGetApp()->WriteProfileInt(s, _T("AlternateFont"), g_Features.fAlternateFont);
+	AfxGetApp()->WriteProfileInt(s, _T("RemoveAllLights"), g_Features.fRemoveAllLights);
+	AfxGetApp()->WriteProfileInt(s, _T("SaveRelayState"), g_Features.fSaveRelayState);
+	AfxGetApp()->WriteProfileInt(s, _T("ExpansionModule"), g_Features.fExpansionModule);
+	AfxGetApp()->WriteProfileInt(s, _T("DosingIntervalSetup"), g_Features.fDosingIntervalSetup);
+	AfxGetApp()->WriteProfileInt(s, _T("Watchdog"), g_Features.fWDT);
+	AfxGetApp()->WriteProfileInt(s, _T("CustomMenu"), g_Features.fCustomMenu);
+	AfxGetApp()->WriteProfileInt(s, _T("CustomMenuEntries"), g_Features.iCustomMenuEntries);
+	AfxGetApp()->WriteProfileInt(s, _T("SimpleMenu"), g_Features.fSimpleMenu);
+	AfxGetApp()->WriteProfileInt(s, _T("PWMExpansion"), g_Features.fPWMExpansion);
+	AfxGetApp()->WriteProfileInt(s, _T("CustomMain"), g_Features.fCustomMain);
+	AfxGetApp()->WriteProfileInt(s, _T("ColorsPDE"), g_Features.fColorsPDE);
+	AfxGetApp()->WriteProfileInt(s, _T("ATOLogging"), g_Features.fAtoLogging);
+	AfxGetApp()->WriteProfileInt(s, _T("ExceedFlags"), g_Features.fExceedFlags);
+	AfxGetApp()->WriteProfileInt(s, _T("SalinityExpansion"), g_Features.fSalinity);
+	AfxGetApp()->WriteProfileInt(s, _T("RFExpansion"), g_Features.fRF);
+	AfxGetApp()->WriteProfileInt(s, _T("ORPExpansion"), g_Features.fORP);
+	AfxGetApp()->WriteProfileInt(s, _T("IOExpansion"), g_Features.fIO);
+	AfxGetApp()->WriteProfileInt(s, _T("AILed"), g_Features.fAI);
 }
 
 void RAFeaturesPage::LoadDefaults()
 {
 	// Loads the default values
-	m_bDisplayImages = TRUE;
-	m_bSetupExtras = FALSE;
-	m_bOverheatSetup = FALSE;
-	m_bDateTimeSetup = TRUE;
-	m_bVersionMenu = TRUE;
-	m_bDirectTempSensor = TRUE;
-	m_bDisplayLEDPWM = TRUE;
-	m_bWifi = TRUE;
-	m_bAlternateFont = FALSE;
-	m_bRemoveAllLights = FALSE;
-	m_bSaveRelayState = FALSE;
-	m_bExpansionModule = FALSE;
-	m_iInstalledExpansionModules = 0;
-	m_bDosingIntervalSetup = FALSE;
-	m_bWDT = FALSE;
-	m_bCustomMenu = FALSE;
-	m_iCustomMenuEntries = MENU_DEFAULT;
-	m_bSimpleMenu = TRUE;
-	m_bPWMExpansion = FALSE;
-	m_bCustomMain = FALSE;
-	m_bColorsPDE = FALSE;
-	m_bAtoLogging = FALSE;
-	m_bExceedFlags = FALSE;
-	m_fSalinity = FALSE;
-	m_fRF = FALSE;
-	m_fORP = FALSE;
-	m_fIO = FALSE;
-	m_fAI = FALSE;
+	g_Features.fDisplayImages = TRUE;
+	g_Features.fSetupExtras = FALSE;
+	g_Features.fOverheatSetup = FALSE;
+	g_Features.fDateTimeSetup = TRUE;
+	g_Features.fVersionMenu = TRUE;
+	g_Features.fDirectTempSensor = TRUE;
+	g_Features.fDisplayLEDPWM = TRUE;
+	g_Features.fWifi = TRUE;
+	g_Features.fAlternateFont = FALSE;
+	g_Features.fRemoveAllLights = FALSE;
+	g_Features.fSaveRelayState = FALSE;
+	g_Features.fExpansionModule = FALSE;
+	g_Features.iInstalledExpansionModules = 0;
+	g_Features.fDosingIntervalSetup = FALSE;
+	g_Features.fWDT = FALSE;
+	g_Features.fCustomMenu = FALSE;
+	g_Features.iCustomMenuEntries = MENU_DEFAULT;
+	g_Features.fSimpleMenu = TRUE;
+	g_Features.fPWMExpansion = FALSE;
+	g_Features.fCustomMain = FALSE;
+	g_Features.fColorsPDE = FALSE;
+	g_Features.fAtoLogging = FALSE;
+	g_Features.fExceedFlags = FALSE;
+	g_Features.fSalinity = FALSE;
+	g_Features.fRF = FALSE;
+	g_Features.fORP = FALSE;
+	g_Features.fIO = FALSE;
+	g_Features.fAI = FALSE;
 	UpdateData(FALSE);
 }
 
-void RAFeaturesPage::UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures /*= TRUE*/)
+void RAFeaturesPage::UpdateFeaturesStruct(BOOL fResetPDEFeatures /*= TRUE*/)
 {
+	// TODO remove Features parameter
+	// TODO update global Features based on items checked
 	UpdateData();
+	/*
 	fs.fDisplayImages = m_bDisplayImages;
 	fs.fSetupExtras = m_bSetupExtras;
 	fs.fOverheatSetup = m_bOverheatSetup;
@@ -558,10 +356,12 @@ void RAFeaturesPage::UpdateFeaturesStruct(Features& fs, BOOL fResetPDEFeatures /
 		fs.fMetalHalideSetup = FALSE;
 		fs.fStandardLightSetup = FALSE;
 	}
+	*/
 }
 
 BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 {
+	// TODO remove Features parameter
 	BOOL bRet = FALSE;
 
 	TRY
@@ -574,7 +374,7 @@ BOOL RAFeaturesPage::WriteFeatures(Features fs, LPCTSTR sLibraryFolder)
 				t.Format("%m/%d/%Y %H:%M"));
 		CString sHeader = _T("\
 /*\r\n\
- * Copyright 2010-11 Curt Binder\r\n\
+ * Copyright 2010-12 Curt Binder\r\n\
  *\r\n\
  * Licensed under the Apache License, Version 2.0 (the \"License\")\r\n\
  * you may not use this file except in compliance with the License.\r\n\
@@ -761,7 +561,7 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 		// skip this because it's for the features file itself
 	} else if ( sFeature == _T("DisplayImages") )
 	{
-		m_bDisplayImages = TRUE;
+		g_Features.fDisplayImages = TRUE;
 	} else if ( sFeature == _T("WavemakerSetup") )
 	{
 		// controlled via the installed device
@@ -773,19 +573,19 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 		// controlled via the installed device
 	} else if ( sFeature == _T("OverheatSetup") )
 	{
-		m_bOverheatSetup = TRUE;
+		g_Features.fOverheatSetup = TRUE;
 	} else if ( sFeature == _T("DateTimeSetup") )
 	{
-		m_bDateTimeSetup = TRUE;
+		g_Features.fDateTimeSetup = TRUE;
 	} else if ( sFeature == _T("VersionMenu") )
 	{
-		m_bVersionMenu = TRUE;
+		g_Features.fVersionMenu = TRUE;
 	} else if ( sFeature == _T("ATOSetup") ) 
 	{
 		// controlled via the installed device
 	} else if ( sFeature == _T("RemoveAllLights") )
 	{
-		m_bRemoveAllLights = TRUE;
+		g_Features.fRemoveAllLights = TRUE;
 	} else if ( sFeature == _T("MetalHalideSetup") )
 	{
 		// controlled via the installed device
@@ -794,46 +594,46 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 		// controlled via the installed device
 	} else if ( sFeature == _T("DirectTempSensor") )
 	{
-		m_bDirectTempSensor = TRUE;
+		g_Features.fDirectTempSensor = TRUE;
 	} else if ( sFeature == _T("SaveRelayState") )
 	{
-		m_bSaveRelayState = TRUE;
+		g_Features.fSaveRelayState = TRUE;
 	} else if ( sFeature == _T("wifi") )
 	{
-		m_bWifi = TRUE;
+		g_Features.fWifi = TRUE;
 	} else if ( sFeature == _T("DisplayLEDPWM") )
 	{
-		m_bDisplayLEDPWM = TRUE;
+		g_Features.fDisplayLEDPWM = TRUE;
 	} else if ( (sFeature == _T("PWMEXPANSION")) ||
 				(sFeature == _T("PWMExpansion")) ||		// old style
 				(sFeature == _T("PWMExpansionRelay")) ) // old style
 	{
-		m_bPWMExpansion = TRUE;
+		g_Features.fPWMExpansion = TRUE;
 	} else if ( sFeature == _T("SingleATOSetup") )
 	{
 		// controlled via the installed device
 	} else if ( sFeature == _T("COLORS_PDE") )
 	{
-		m_bColorsPDE = TRUE;
+		g_Features.fColorsPDE = TRUE;
 	} else if ( sFeature == _T("RelayExp") )
 	{
-		m_bExpansionModule = TRUE;
-		m_iInstalledExpansionModules = 1;
+		g_Features.fExpansionModule = TRUE;
+		g_Features.iInstalledExpansionModules = 1;
 	} else if ( sFeature == _T("InstalledRelayExpansionModules") )
 	{
-		m_iInstalledExpansionModules = atoi(sValue);
+		g_Features.iInstalledExpansionModules = atoi(sValue);
 	} else if ( sFeature == _T("CUSTOM_MAIN") )
 	{
-		m_bCustomMain = TRUE;
+		g_Features.fCustomMain = TRUE;
 	} else if ( sFeature == _T("SIMPLE_MENU") )
 	{
-		m_bSimpleMenu = TRUE;
+		g_Features.fSimpleMenu = TRUE;
 	} else if ( sFeature == _T("CUSTOM_MENU") )
 	{
-		m_bCustomMenu = TRUE;
+		g_Features.fCustomMenu = TRUE;
 	} else if ( sFeature == _T("CUSTOM_MENU_ENTRIES") )
 	{
-		m_iCustomMenuEntries = atoi(sValue);
+		g_Features.iCustomMenuEntries = atoi(sValue);
 	} else if ( (sFeature == _T("FONT_8x8")) ||
 				(sFeature == _T("FONT_8x16")) ||
 				(sFeature == _T("FONT_12x16")) ||
@@ -852,39 +652,55 @@ void RAFeaturesPage::ProcessFeature(CString sFeature, CString sValue /*= _T("")*
 		m_sUnknownFeatures += s;
 	} else if ( sFeature == _T("ENABLE_EXCEED_FLAGS") )
 	{
-		m_bExceedFlags = TRUE;
+		g_Features.fExceedFlags = TRUE;
 	} else if ( sFeature == _T("ENABLE_ATO_LOGGING") )
 	{
-		m_bAtoLogging = TRUE;
+		g_Features.fAtoLogging = TRUE;
 	} else if ( sFeature == _T("WDT") )
 	{
-		m_bWDT = TRUE;
+		g_Features.fWDT = TRUE;
 	}
 }
 
 void RAFeaturesPage::ClearFeatures()
 {
-	m_bDisplayImages = FALSE;
-	m_bSetupExtras = FALSE;
-	m_bOverheatSetup = FALSE;
-	m_bDateTimeSetup = FALSE;
-	m_bVersionMenu = FALSE;
-	m_bDirectTempSensor = FALSE;
-	m_bDisplayLEDPWM = FALSE;
-	m_bWifi = FALSE;
-	m_bAlternateFont = FALSE;
-	m_bRemoveAllLights = FALSE;
-	m_bSaveRelayState = FALSE;
-	m_bExpansionModule = FALSE;
-	m_bDosingIntervalSetup = FALSE;
-	m_bWDT = FALSE;
-	m_bCustomMenu = FALSE;
-	m_bSimpleMenu = FALSE;
-	m_bPWMExpansion = FALSE;
-	m_bCustomMain = FALSE;
-	m_bColorsPDE = FALSE;
-	m_bAtoLogging = FALSE;
-	m_bExceedFlags = FALSE;
-	m_iCustomMenuEntries = 1;
-	m_iInstalledExpansionModules = 0;
+	g_Features.fDisplayImages = FALSE;
+	g_Features.fSetupExtras = FALSE;
+	g_Features.fOverheatSetup = FALSE;
+	g_Features.fDateTimeSetup = FALSE;
+	g_Features.fVersionMenu = FALSE;
+	g_Features.fDirectTempSensor = FALSE;
+	g_Features.fDisplayLEDPWM = FALSE;
+	g_Features.fWifi = FALSE;
+	g_Features.fRemoveAllLights = FALSE;
+	g_Features.fSaveRelayState = FALSE;
+	g_Features.fExpansionModule = FALSE;
+	g_Features.fDosingIntervalSetup = FALSE;
+	g_Features.fWDT = FALSE;
+	g_Features.fCustomMenu = FALSE;
+	g_Features.fSimpleMenu = FALSE;
+	g_Features.fPWMExpansion = FALSE;
+	g_Features.fCustomMain = FALSE;
+	g_Features.fColorsPDE = FALSE;
+	g_Features.fAtoLogging = FALSE;
+	g_Features.fExceedFlags = FALSE;
+	g_Features.iCustomMenuEntries = 1;
+	g_Features.iInstalledExpansionModules = 0;
+}
+
+void RAFeaturesPage::OnTvnSelchangedFeaturesTree(NMHDR * /*pNMHDR*/, LRESULT *pResult)
+{
+	HTREEITEM i = m_tree.GetSelectedItem();
+	DWORD index = (DWORD)m_tree.GetItemData(i);
+	TRACE("Desc:  %s, %d\n", m_efd[index].sDefine, m_efd[index].uID);
+	if ( m_efd[index].uID == 0 )
+	{
+		ClearDescription();
+	}
+	else 
+	{
+		SetDescription(m_efd[index].uID);
+	}
+
+	*pResult = 0;
 }

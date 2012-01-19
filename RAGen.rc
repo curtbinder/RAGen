@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,1,128
- PRODUCTVERSION 1,1,1,128
+ FILEVERSION 1,1,1,130
+ PRODUCTVERSION 1,1,1,130
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 1, 1, 128"
+            VALUE "FileVersion", "1, 1, 1, 130"
             VALUE "InternalName", "RAGen.exe"
-            VALUE "LegalCopyright", "(c) 2010-11 Curt Binder.  All rights reserved."
+            VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 1, 1, 128"
+            VALUE "ProductVersion", "1, 1, 1, 130"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -164,19 +164,12 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 360
         VERTGUIDE, 12
-        VERTGUIDE, 92
-        VERTGUIDE, 181
-        VERTGUIDE, 276
-        VERTGUIDE, 354
+        VERTGUIDE, 147
+        VERTGUIDE, 153
+        VERTGUIDE, 159
         TOPMARGIN, 7
         BOTTOMMARGIN, 187
         HORZGUIDE, 19
-        HORZGUIDE, 35
-        HORZGUIDE, 51
-        HORZGUIDE, 67
-        HORZGUIDE, 83
-        HORZGUIDE, 103
-        HORZGUIDE, 115
         HORZGUIDE, 182
         HORZGUIDE, 187
     END
@@ -428,38 +421,9 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Select Features",IDC_STATIC,7,7,353,89
-    CONTROL         "Display Images",IDC_FEATURES_CK_DISPLAY_IMAGES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,19,64,10
-    CONTROL         "Setup Extras",IDC_FEATURES_CK_SETUP_EXTRAS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,35,57,10
-    CONTROL         "Save Relay State",IDC_FEATURES_CK_SAVE_RELAY_STATE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,51,71,10
-    CONTROL         "ATO Logging",IDC_FEATURES_CK_ENABLE_ATO_LOGGING,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,67,61,10
-    CONTROL         "Exceed Flagging",IDC_FEATURES_CK_ENABLE_EXCEED_FLAG,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,83,69,10
-    CONTROL         "Overheat Setup",IDC_FEATURES_CK_OVERHEAT_SETUP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,19,67,10
-    CONTROL         "Date / Time Setup",IDC_FEATURES_CK_DATE_TIME_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,35,73,10
-    CONTROL         "Version Menu",IDC_FEATURES_CK_VERSION_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,51,59,10
-    CONTROL         "Custom Main Screen",IDC_FEATURES_CK_CUSTOM_MAIN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,67,89,10
-    CONTROL         "PWM Expansion",IDC_FEATURES_CK_PWMEXPANSION,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,92,83,67,10
-    CONTROL         "Display LED PWM",IDC_FEATURES_CK_DISPLAY_LED_PWM,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,19,71,10
-    CONTROL         "Remove All Lights",IDC_FEATURES_CK_REMOVE_ALL_LIGHTS,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,35,72,10
-    CONTROL         "Direct Temp Sensor",IDC_FEATURES_CK_DIRECT_TEMP_SENSOR,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,51,78,10
-    CONTROL         "Simple Menu",IDC_FEATURES_CK_SIMPLE_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,67,58,10
-    CONTROL         "Custom Menu",IDC_FEATURES_CK_CUSTOM_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,181,83,57,10
-    EDITTEXT        IDC_EDIT_ENTRIES,242,81,27,12,ES_AUTOHSCROLL | ES_NUMBER
-    CONTROL         "",IDC_SPIN_ENTRIES,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,251,91,11,12
-    CONTROL         "Wifi",IDC_FEATURES_CK_WIFI,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,19,28,10
-    CONTROL         "Expansion Module",IDC_FEATURES_CK_EXPANSION_MODULE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,35,73,10
-    CONTROL         "Dosing Repeat Setup",IDC_FEATURES_CK_DOSINGINTERVAL_SETUP,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,51,78,10
-    CONTROL         "Watchdog Timer",IDC_FEATURES_CK_WDT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,67,69,10
-    CONTROL         "Custom Colors",IDC_FEATURES_CK_COLORS_PDE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,276,83,63,10
-    GROUPBOX        "Description of Feature",IDC_STATIC,7,103,353,84
-    LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,12,115,342,67
+    GROUPBOX        "Description of Feature",IDC_STATIC,153,7,207,180
+    LTEXT           "",IDC_FEATURES_TEXT_DESCRIPTION,159,19,194,163
+    CONTROL         "",IDC_FEATURES_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_NOTOOLTIPS | TVS_CHECKBOXES | WS_BORDER | WS_TABSTOP,7,7,140,180
 END
 
 IDD_RAPDEPAGE DIALOGEX 0, 0, 367, 194

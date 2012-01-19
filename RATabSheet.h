@@ -40,7 +40,7 @@ public:
 	int iLaunch;
 	int iDevVersion;
 	BOOL fHasArduinoExe;
-	Features m_Features;
+	//Features m_Features;
 
 protected:
 	void LaunchArduino();
