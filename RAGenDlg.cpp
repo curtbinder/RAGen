@@ -76,6 +76,8 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 	CMenu *pMenu = GetMenu()->GetSubMenu(1);
 	int pos = FindMenuItem(pMenu, sReset);
 
+	// TODO consider changing Web Banner / Portal menu entry based on library version
+
 	if ( pos >= 0 )
 	{
 		pMenu->DeleteMenu(pos, MF_BYPOSITION);
@@ -476,8 +478,15 @@ void RAGenDlg::OnControllerFind()
 void RAGenDlg::OnControllerWebBanner()
 {
 	// TODO update based on library version
-	WebBannerDlg dlg;
-	dlg.DoModal();
+	if ( theApp.f09xDev )
+	{
+		AfxMessageBox(_T("Portal configuration window goes here"));
+	}
+	else 
+	{
+		WebBannerDlg dlg;
+		dlg.DoModal();
+	}
 }
 
 void RAGenDlg::OnControllerPasswordProtectWifi()

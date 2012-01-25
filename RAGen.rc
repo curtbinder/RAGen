@@ -333,7 +333,7 @@ BEGIN
     POPUP "&Controller"
     BEGIN
         MENUITEM "F&ind Controller...",         ID_CONTROLLER_FIND
-        MENUITEM "&Web Banner...",              ID_CONTROLLER_WEBBANNER
+        MENUITEM "&Web Banner / Portal...",     ID_CONTROLLER_WEBBANNER
         MENUITEM "&Password Protect WIFI...",   ID_CONTROLLER_WIFIPASSWORD
         MENUITEM SEPARATOR
         MENUITEM "Import &Features from File...", ID_CONTROLLER_IMPORTFEATURESFROMFILE
