@@ -3,154 +3,13 @@
 #include "Resource.h"
 #include "GlobalVars.h"
 
-// Global Features
-//Features a_Features;
-
 // Global Functions
-/*
-void GetEnabledFeaturesList(Features& fs, CString& s)
-{
-	s = _T("");
-	if ( fs.fDisplayImages )
-	{
-		s += _T("#define DisplayImages\r\n");
-	}
-	if ( fs.fSetupExtras )
-	{
-		s += _T("#define SetupExtras\r\n");
-	}
-	if ( fs.fDosingPumpSetup && !fs.fDosingIntervalSetup )
-	{
-		// Only enable if Repeat setup is disabled
-		s += _T("#define DosingPumpSetup\r\n");
-	}
-	if ( fs.fDosingIntervalSetup && fs.fDosingPumpSetup )
-	{
-		// Only enable if user selected it AND they have chosen a Dosing Pump to be used
-		s += _T("#define DosingPumpIntervalSetup\r\n");
-	}
-	if ( fs.fWavemakerSetup )
-	{
-		s += _T("#define WavemakerSetup\r\n");
-	}
-	if ( fs.fOverheatSetup )
-	{
-		s += _T("#define OverheatSetup\r\n");
-	}
-	if ( fs.fDateTimeSetup )
-	{
-		s += _T("#define DateTimeSetup\r\n");
-	}
-	if ( fs.fVersionMenu )
-	{
-		s += _T("#define VersionMenu\r\n");
-	}
-	if ( fs.fATOSetup )
-	{
-		s += _T("#define ATOSetup\r\n");
-	}
-	if ( fs.fMetalHalideSetup )
-	{
-		s += _T("#define MetalHalideSetup\r\n");
-	}
-	if ( fs.fDirectTempSensor )
-	{
-		s += _T("#define DirectTempSensor\r\n");
-	}
-	if ( fs.fDisplayLEDPWM )
-	{
-		s += _T("#define DisplayLEDPWM\r\n");
-	}
-	if ( fs.fWifi )
-	{
-		s += _T("#define wifi\r\n");
-	}
-	if ( fs.fExpansionModule )
-	{
-		s += _T("#define RelayExp\r\n");
-	}
-	if ( fs.fAlternateFont )
-	{
-		s += _T("#define AlternateFont\r\n");
-	}
-	if ( fs.fSingleATO )
-	{
-		s += _T("#define SingleATOSetup\r\n");
-	}
-	if ( fs.fStandardLightSetup )
-	{
-		s += _T("#define StandardLightSetup\r\n");
-	}
-	if ( fs.fRemoveAllLights )
-	{
-		s += _T("#define RemoveAllLights\r\n");
-	}
-	if ( fs.fSaveRelayState )
-	{
-		s += _T("#define SaveRelayState\r\n");
-	}
-	if ( fs.fWDT )
-	{
-		s += _T("#define WDT\r\n");
-	}
-	if ( fs.fCustomMenu )
-	{
-		s += _T("#define CUSTOM_MENU\r\n");
-		CString buf;
-		buf.Format(_T("#define CUSTOM_MENU_ENTRIES  %d\r\n"), fs.iCustomMenuEntries);
-		s += buf;
-	}
-	if ( fs.fSimpleMenu )
-	{
-		s += _T("#define SIMPLE_MENU\r\n");
-	}
-	if ( fs.fPWMExpansion )
-	{
-		s += _T("#define PWMEXPANSION\r\n");
-	}
-	if ( fs.fCustomMain )
-	{
-		s += _T("#define CUSTOM_MAIN\r\n");
-	}
-	if ( fs.fColorsPDE )
-	{
-		s += _T("#define COLORS_PDE\r\n");
-	}
-	if ( fs.fAtoLogging )
-	{
-		s += _T("#define ENABLE_ATO_LOGGING\r\n");
-	}
-	if ( fs.fExceedFlags )
-	{
-		s += _T("#define ENABLE_EXCEED_FLAGS\r\n");
-	}
-	if ( fs.fAI )
-	{
-		s += _T("#define AI_LED\r\n");
-	}
-	if ( fs.fORP )
-	{
-		s += _T("#define ORPEXPANSION\r\n");
-	}
-	if ( fs.fSalinity )
-	{
-		s += _T("#define SALINITYEXPANSION\r\n");
-	}
-	if ( fs.fRF )
-	{
-		s += _T("#define RFEXPANSION\r\n");
-	}
-	if ( fs.fIO )
-	{
-		s += _T("#define IOEXPANSION\r\n");
-	}
-}
-*/
-
-CString ReadLibraryVersion(CString sLibraryHeader)
+CString ReadLibraryVersion(CString sLibraryDirectory)
 {
 	CString sVersion = _T("");
 	CString sCompleteFile = _T("");
+	CString sLibraryHeader;
+	sLibraryHeader.Format(_T("%s\\ReefAngel\\ReefAngel.h"), sLibraryDirectory);
 	sCompleteFile = ReadEntireFile(sLibraryHeader);
 	/*
 	Search for #define
@@ -262,9 +121,7 @@ BOOL AutodetectDevVersion(CString sLibraryDirectory)
 	Search for #define ReefAngel_Version "VERSION"
 	Check for version 0.8.5, 0.9.
 	*/
-	CString sFile;
-	sFile.Format(_T("%s\\ReefAngel\\ReefAngel.h"), sLibraryDirectory);
-	CString sVersion = ReadLibraryVersion(sFile);
+	CString sVersion = ReadLibraryVersion(sLibraryDirectory);
 	TRACE("Version:  %s\n", sVersion);
 	// let's split the version into tokens and compare the revision
 	CString token;

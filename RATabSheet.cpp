@@ -16,6 +16,7 @@ IMPLEMENT_DYNAMIC(RATabSheet, CTabCtrl)
 
 RATabSheet::RATabSheet()
 {
+	m_fDevMode = FALSE;
 }
 
 RATabSheet::~RATabSheet()

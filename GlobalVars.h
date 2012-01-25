@@ -22,53 +22,6 @@ enum _DevLibVersion {
 	FORCE_09X,
 };
 
-/*
-// Features structure, update this if you change (add/remove) any of the features in the RAFeaturesPage class
-typedef struct _Features {
-	BOOL fDisplayImages;
-	BOOL fSetupExtras;
-	BOOL fDosingPumpSetup;
-	BOOL fWavemakerSetup;
-	BOOL fOverheatSetup;
-	BOOL fDateTimeSetup;
-	BOOL fVersionMenu;
-	BOOL fATOSetup;
-	BOOL fMetalHalideSetup;
-	BOOL fDirectTempSensor;
-	BOOL fDisplayLEDPWM;
-	BOOL fWifi;
-	BOOL fAlternateFont;
-	BOOL fSingleATO;
-	BOOL fStandardLightSetup;
-	BOOL fRemoveAllLights;
-	BOOL fSaveRelayState;
-	BOOL fExpansionModule;
-	BOOL fDosingIntervalSetup;
-	BOOL fWDT;
-	BOOL fCustomMenu;
-	BOOL fSimpleMenu;
-	BOOL fPWMExpansion;
-	BOOL fCustomMain;
-	BOOL fColorsPDE;
-	BOOL fAtoLogging;
-	BOOL fExceedFlags;
-	int iCustomMenuEntries;
-	int iInstalledExpansionModules;
-	BOOL fSalinity;
-	BOOL fRF;
-	BOOL fORP;
-	BOOL fIO;
-	BOOL fAI;
-} Features;
-extern Features a_Features;
-
-typedef struct _FeatureData {
-	UINT uID;
-	CString sDefine;
-} FeatureData;
-
-*/
-
-CString ReadLibraryVersion(CString sLibraryHeader);
+CString ReadLibraryVersion(CString sLibraryDirectory);
 CString ReadEntireFile(CString sFile);
 BOOL AutodetectDevVersion(CString sLibraryDirectory);

@@ -234,6 +234,7 @@ BEGIN_MESSAGE_MAP(RAGenDlg, CDialog)
 	ON_COMMAND(ID_CONTROLLER_WIFIPASSWORD, &RAGenDlg::OnControllerPasswordProtectWifi)
 	ON_COMMAND(ID_CONTROLLER_IMPORTFEATURESFROMFILE, &RAGenDlg::OnControllerImportFeatures)
 	ON_COMMAND(ID_CONTROLLER_SHOWUNKNOWNFEATURES, &RAGenDlg::OnControllerShowUnknownFeatures)
+	ON_COMMAND(ID_CONTROLLER_SHOWLIBRARYVERSION, &RAGenDlg::OnControllerShowLibraryVersion)
 	ON_COMMAND(ID_CONTROLLER_INTERNALMEMORY, &RAGenDlg::OnControllerInternalMemory)
 	ON_COMMAND(ID_HELP_ABOUT, &RAGenDlg::OnHelpAbout)
 	ON_COMMAND(ID_RESET_ALL, &RAGenDlg::OnResetAll)
@@ -506,6 +507,16 @@ void RAGenDlg::OnControllerImportFeatures()
 void RAGenDlg::OnControllerShowUnknownFeatures()
 {
 	m_Tabs.ShowUnknownFeatures();
+}
+
+void RAGenDlg::OnControllerShowLibraryVersion()
+{
+	CString version = ReadLibraryVersion(theApp.m_sLibraryDirectory);
+	CString msg;
+	msg.Format(_T("Installed library version information:\n\n\
+Folder:  %s\n\n\
+Version:  %s"), theApp.m_sLibraryDirectory, version);
+	AfxMessageBox(msg, MB_ICONINFORMATION|MB_OK);
 }
 
 void RAGenDlg::OnControllerInternalMemory()

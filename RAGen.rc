@@ -338,6 +338,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Import &Features from File...", ID_CONTROLLER_IMPORTFEATURESFROMFILE
         MENUITEM "Show &Unknown Features...",   ID_CONTROLLER_SHOWUNKNOWNFEATURES
+        MENUITEM "Show &Library Version...",    ID_CONTROLLER_SHOWLIBRARYVERSION
         MENUITEM "Internal &Memory...",         ID_CONTROLLER_INTERNALMEMORY
     END
     POPUP "&Help"
