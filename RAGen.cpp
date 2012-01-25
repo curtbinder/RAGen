@@ -92,7 +92,7 @@ BOOL CRAGenApp::InitInstance()
 
 	if ( iAppMode == NOT_SET )
 	{
-		iAppMode = GetProfileInt(_T(""), _T("DevelopmentLibraries"), NORMAL_MODE);
+		iAppMode = GetProfileInt(_T(""), _T("DevelopmentLibraries"), DEV_MODE);
 	}
 	// sanity checks for ranges
 	if ( (iAppMode < NORMAL_MODE) || (iAppMode > DEV_MODE) )
