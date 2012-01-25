@@ -40,7 +40,7 @@ public:
 	// updates the features from the tree list
 	void UpdateFeatures(BOOL fResetPDEFeatures = TRUE);
 	// writes the features.h file
-	BOOL WriteFeatures(LPCTSTR sLibraryFolder);
+	BOOL WriteFeatures();
 	// saves features to registry
 	void SaveFeatures();
 	// reads the features.h file

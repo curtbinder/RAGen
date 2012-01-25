@@ -57,10 +57,12 @@ BOOL CRAGenApp::InitInstance()
 	// TODO process any command line arguments here and update settings appropriately
 	CmdLineParams info;
 	ParseCommandLine(info);
-	int iLaunch = NOT_SET;
-	int iSave = NOT_SET;
-	int iAppMode = NOT_SET;
-	int iDevVersion = NOT_SET;
+	iLaunch = NOT_SET;
+	iSave = NOT_SET;
+	iAppMode = NOT_SET;
+	iDevVersion = NOT_SET;
+	f09xDev = FALSE;
+
 	if ( info.TotalParams() > 0 )
 	{
 		iSave = info.GetSaveRegMode();
@@ -106,18 +108,31 @@ BOOL CRAGenApp::InitInstance()
 	{
 		iDevVersion = AUTODETECT;
 	}
+	AutoDetectLibraryVersion();
 
 	RAGenDlg dlg;
 	m_pMainWnd = &dlg;
-
-	// Set the modes and other stuff here before we show the window
-	dlg.SetLaunchArduino(iLaunch);
-	dlg.SetSaveRegistry(iSave);
-	dlg.SetAppMode(iAppMode);
-	dlg.SetDevLibraryVersion(iDevVersion);
 	dlg.DoModal();
 
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;
+}
+
+void CRAGenApp::AutoDetectLibraryVersion()
+{
+	// Call this function on app start and after settings changed
+	switch ( iDevVersion )
+	{
+	default:
+	case AUTODETECT:
+		f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
+		break;
+	case FORCE_08X:
+		f09xDev = FALSE;
+		break;
+	case FORCE_09X:
+		f09xDev = TRUE;
+		break;
+	}
 }

@@ -270,9 +270,9 @@ void RAFeaturesPage::UpdateFeatures(BOOL fResetPDEFeatures /*= TRUE*/)
 	}
 }
 
-BOOL RAFeaturesPage::WriteFeatures(LPCTSTR sLibraryFolder)
+BOOL RAFeaturesPage::WriteFeatures()
 {
-	return a_Features.Write(sLibraryFolder);
+	return a_Features.Write(theApp.m_sLibraryDirectory);
 }
 
 BOOL RAFeaturesPage::ReadFeatures(CString sFeaturesFile)

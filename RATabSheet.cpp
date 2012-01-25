@@ -16,8 +16,6 @@ IMPLEMENT_DYNAMIC(RATabSheet, CTabCtrl)
 
 RATabSheet::RATabSheet()
 {
-	m_fDevMode = FALSE;
-	fHasArduinoExe = FALSE;
 }
 
 RATabSheet::~RATabSheet()
@@ -116,7 +114,7 @@ void RATabSheet::Generate()
 		{
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 			pf->UpdateFeatures(FALSE);
-			pf->WriteFeatures(m_sLibraryDirectory);
+			pf->WriteFeatures();
 			break;
 		}
 		case PDE:
@@ -129,7 +127,7 @@ void RATabSheet::Generate()
 			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
 			p->UpdatePDEFeatures();
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-			pf->WriteFeatures(m_sLibraryDirectory);
+			pf->WriteFeatures();
 			p->OnBnClickedBtnGenerate();
 			}
 			break;
@@ -152,7 +150,7 @@ void RATabSheet::CheckLaunch(BOOL fSkipPrompt /*= FALSE*/)
 	{
 		return;
 	}
-	if ( ! fHasArduinoExe )
+	if ( ! theApp.fHasArduinoExe )
 	{
 		return;
 	}
@@ -164,7 +162,7 @@ void RATabSheet::CheckLaunch(BOOL fSkipPrompt /*= FALSE*/)
 		return;
 	}
 
-	switch ( iLaunch )
+	switch ( theApp.iLaunch )
 	{
 	case ALWAYS:
 		LaunchArduino();
@@ -194,22 +192,8 @@ void RATabSheet::LaunchArduino()
 	TCHAR sPDE[32768];
 	CString sFilename;
 	CString sFileExtension;
-	BOOL f09xDev = FALSE;
 
-	switch ( iDevVersion )
-	{
-	default:
-	case AUTODETECT:
-		f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
-		break;
-	case FORCE_08X:
-		f09xDev = FALSE;
-		break;
-	case FORCE_09X:
-		f09xDev = TRUE;
-		break;
-	}
-	if ( f09xDev )
+	if ( theApp.f09xDev )
 	{
 		sFileExtension.LoadString(IDS_INO_EXTENSION);
 	}
@@ -224,10 +208,10 @@ void RATabSheet::LaunchArduino()
 	ZeroMemory(&pi, sizeof(pi));
 
 	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s.%s\""), 
-			m_sArduinoDirectory, m_sSketchDirectory, sFilename, sFilename, sFileExtension);
+			theApp.m_sArduinoDirectory, theApp.m_sSketchDirectory, sFilename, sFilename, sFileExtension);
 
 	if ( ! CreateProcess(NULL, sPDE, NULL, NULL, FALSE,
-						0, NULL, m_sArduinoDirectory,
+						0, NULL, theApp.m_sArduinoDirectory,
 						&si, &pi) )
 	{
 		TRACE("Failed to launch arduino.exe\n");
@@ -400,21 +384,12 @@ void RATabSheet::ResetLightsOn()
 void RATabSheet::UpdateSettingsForTabs()
 {
 	// set the settings for the tabs
-	RAPDEPage* pp = (RAPDEPage*)m_pTabs[PDE];
-	RAStdPage* ps = (RAStdPage*)m_pTabs[Standard];
 	RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
-
-	pp->iDevVersion = iDevVersion;
-	pp->iSaveReg = iSaveReg;
-	ps->iSaveReg = iSaveReg;
-	_tcscpy_s(pp->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(ps->m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(pp->m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 
 	if ( m_fDevMode )
 	{
 		CString sFile;
-		sFile.Format(_T("%s\\ReefAngel_Features\\ReefAngel_Features.h"), m_sLibraryDirectory);
+		sFile.Format(_T("%s\\ReefAngel_Features\\ReefAngel_Features.h"), theApp.m_sLibraryDirectory);
 		if (  !pf->ReadFeatures(sFile) )
 		{
 			// we failed reading the file in, so let's restore the defaults

@@ -17,7 +17,6 @@ IMPLEMENT_DYNAMIC(RAStdPage, CDialog)
 RAStdPage::RAStdPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAStdPage::IDD, pParent)
 {
-	iSaveReg = PROMPT;
 	fUse12Hour = TRUE;
 	m_iWM1IntervalTemp = 0;
 	m_iWM2IntervalTemp = 0;
@@ -287,7 +286,7 @@ BOOL RAStdPage::WritePDE()
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.lpSecurityDescriptor = NULL;
 		sa.bInheritHandle = FALSE;
-		sFile.Format(_T("%s\\%s\\"), m_sSketchDirectory, sFilename);
+		sFile.Format(_T("%s\\%s\\"), theApp.m_sSketchDirectory, sFilename);
 		iRet = SHCreateDirectoryEx(NULL, sFile, &sa);
 		if ( iRet != ERROR_SUCCESS )
 		{
@@ -1114,7 +1113,7 @@ void RAStdPage::OnBnClickedBtnGenerate()
 	if ( WritePDE() )
 	{
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
-		switch ( iSaveReg )
+		switch ( theApp.iSave )
 		{
 		case ALWAYS:
 			SaveSettings();

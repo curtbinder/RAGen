@@ -667,7 +667,6 @@ BOOL RAPDEPage::WritePDE()
 		CString sTab = _T("    ");
 		BOOL fAddExtra = FALSE;
 		BOOL fOnce = FALSE;
-		BOOL f09xDev = FALSE;  // use new version of libs
 		int i, iRet;
 		CTime t = CTime::GetCurrentTime();
 		CFile f;
@@ -677,25 +676,12 @@ BOOL RAPDEPage::WritePDE()
 		{
 			LoadWebBannerInfoDefaults(wi);
 		}
-		switch ( iDevVersion )
-		{
-		default:
-		case AUTODETECT:
-			f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
-			break;
-		case FORCE_08X:
-			f09xDev = FALSE;
-			break;
-		case FORCE_09X:
-			f09xDev = TRUE;
-			break;
-		}
 
 		sFilename.Format(_T("RA_%s"), t.Format(_T("%m%d%y_%H%M")));
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.lpSecurityDescriptor = NULL;
 		sa.bInheritHandle = FALSE;
-		sFile.Format(_T("%s\\%s\\"), m_sSketchDirectory, sFilename);
+		sFile.Format(_T("%s\\%s\\"), theApp.m_sSketchDirectory, sFilename);
 		iRet = SHCreateDirectoryEx(NULL, sFile, &sa);
 		if ( iRet != ERROR_SUCCESS )
 		{
@@ -706,7 +692,7 @@ BOOL RAPDEPage::WritePDE()
 				AfxThrowUserException();
 			}
 		}
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			sFileExtension.LoadString(IDS_INO_EXTENSION);
 		} else
@@ -728,7 +714,7 @@ BOOL RAPDEPage::WritePDE()
 					cb_GetFileVersionString(AfxGetInstanceHandle()),
 					t.Format(_T("%m/%d/%Y %H:%M")),
 					sFilename, sFileExtension);
-		if ( f09xDev ) 
+		if ( theApp.f09xDev ) 
 		{
 			sAutoGenHeader += _T("// This version designed for v0.9.0 or later\r\n");
 		}
@@ -740,7 +726,7 @@ BOOL RAPDEPage::WritePDE()
 		// Write features list
 		f.Write(sFeatureList, sFeatureList.GetLength());
 		s = _T("\r\n\r\n#include <ReefAngel_Features.h>\r\n");
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			if ( fColorsPDE )
 			{
@@ -802,7 +788,7 @@ BOOL RAPDEPage::WritePDE()
 		}
 		f.Write(s, s.GetLength());
 
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			if ( fCustomMenu )
 			{
@@ -915,7 +901,7 @@ void setup()\r\n\
 		// web banner timer
 		if ( fBanner )
 		{
-			if ( f09xDev )
+			if ( theApp.f09xDev )
 			{
 				s.Format(_T("\
     // Initialize and start the web banner timer\r\n\
@@ -1142,7 +1128,7 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 	if ( WritePDE() )
 	{
 		AfxGetApp()->GetMainWnd()->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_UPDATE_STATUS, 0), LPARAM(IDS_SUCCESS_GENERATE));
-		switch ( iSaveReg )
+		switch ( theApp.iSave )
 		{
 		case ALWAYS:
 			// save the features first

@@ -14,10 +14,6 @@ public:
 // Dialog Data
 	enum { IDD = IDD_MEMORY };
 
-	TCHAR m_sSketchDirectory[MAX_PATH];  //!< Sketch directory
-	TCHAR m_sLibraryDirectory[MAX_PATH];  //!< Libraries directory
-	int iSaveReg;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
-	int iDevVersion;
 	CString sFilename;  //!< Filename of the file generated
 	CString sFileExtension;
 

@@ -397,7 +397,7 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 	if ( WriteValues() )
 	{
 		SetStatus(IDS_SUCCESS_GENERATE);
-		switch ( iSaveReg )
+		switch ( theApp.iSave )
 		{
 		case ALWAYS:  // always save, no prompt
 			SaveValues();
@@ -438,28 +438,13 @@ BOOL RAInternalMemoryPage::WriteValues()
 		int iRet;
 		CTime t = CTime::GetCurrentTime();
 		CFile f;
-		BOOL f09xDev = FALSE;
 		SECURITY_ATTRIBUTES sa;
-
-		switch ( iDevVersion )
-		{
-		default:
-		case AUTODETECT:
-			f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
-			break;
-		case FORCE_08X:
-			f09xDev = FALSE;
-			break;
-		case FORCE_09X:
-			f09xDev = TRUE;
-			break;
-		}
 
 		sFilename.Format(_T("Memory_%s"), t.Format(_T("%m%d%y_%H%M")));
 		sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 		sa.lpSecurityDescriptor = NULL;
 		sa.bInheritHandle = FALSE;
-		sFile.Format(_T("%s\\%s\\"), m_sSketchDirectory, sFilename);
+		sFile.Format(_T("%s\\%s\\"), theApp.m_sSketchDirectory, sFilename);
 		iRet = SHCreateDirectoryEx(NULL, sFile, &sa);
 		if ( iRet != ERROR_SUCCESS )
 		{
@@ -470,7 +455,7 @@ BOOL RAInternalMemoryPage::WriteValues()
 				AfxThrowUserException();
 			}
 		}
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			sFileExtension.LoadString(IDS_INO_EXTENSION);
 		} else
@@ -495,7 +480,7 @@ BOOL RAInternalMemoryPage::WriteValues()
 					t.Format(_T("%m/%d/%Y %H:%M")),
 					sFilename, sFileExtension);
 		f.Write(sAutoGenHeader, sAutoGenHeader.GetLength());
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			s = _T("\r\n\r\n\
 #include <ReefAngel_Features.h>\r\n\
@@ -630,7 +615,7 @@ void setup()\r\n\
 		s.Format(_T("    InternalMemory.PHMin_write(%d);\r\n"), m_iPH7);
 		f.Write(s, s.GetLength());
 
-		if ( f09xDev )
+		if ( theApp.f09xDev )
 		{
 			s = _T("\
     InternalMemory.SalMax_write(2550);\r\n\

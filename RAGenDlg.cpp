@@ -29,7 +29,6 @@ RAGenDlg::RAGenDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(RAGenDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_ICON_MAIN);
-	iAppMode = NOT_SET;
 	fRestartRequired = FALSE;
 	m_iStatusBarSize = sizeof(auIDStatusBar)/sizeof(UINT);
 }
@@ -132,50 +131,50 @@ void RAGenDlg::GetFolders()
 	*/
 
 	// Set Arduino folder
-	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, m_sArduinoDirectory)) )
+	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, theApp.m_sArduinoDirectory)) )
 	{
-		PathAppend(m_sArduinoDirectory, _T("Reef Angel Controller"));
-		if ( ! cb_IsDirectory(m_sArduinoDirectory) )
+		PathAppend(theApp.m_sArduinoDirectory, _T("Reef Angel Controller"));
+		if ( ! cb_IsDirectory(theApp.m_sArduinoDirectory) )
 		{
 			// Directory doesn't exist, so we need to create it
-			if ( ! CreateDirectory(m_sArduinoDirectory, NULL) )
+			if ( ! CreateDirectory(theApp.m_sArduinoDirectory, NULL) )
 			{
 				CString msg;
-				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sArduinoDirectory);
+				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), theApp.m_sArduinoDirectory);
 				AfxMessageBox(msg);
 			}
 		}
 	}
 
 	// Set Sketchbook folder
-	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, m_sSketchDirectory)) )
+	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL, NULL, SHGFP_TYPE_CURRENT, theApp.m_sSketchDirectory)) )
 	{
-		PathAppend(m_sSketchDirectory, _T("Arduino"));
-		if ( ! cb_IsDirectory(m_sSketchDirectory) )
+		PathAppend(theApp.m_sSketchDirectory, _T("Arduino"));
+		if ( ! cb_IsDirectory(theApp.m_sSketchDirectory) )
 		{
-			if ( ! CreateDirectory(m_sSketchDirectory, NULL) )
+			if ( ! CreateDirectory(theApp.m_sSketchDirectory, NULL) )
 			{
 				CString msg;
-				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sSketchDirectory);
+				msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), theApp.m_sSketchDirectory);
 				AfxMessageBox(msg);
 			}
 		}
 	}
 
 	// Set libraries folder
-	_tcscpy_s(m_sLibraryDirectory, MAX_PATH, m_sSketchDirectory);
-	PathAppend(m_sLibraryDirectory, _T("libraries"));
-	if ( ! cb_IsDirectory(m_sLibraryDirectory) )
+	_tcscpy_s(theApp.m_sLibraryDirectory, MAX_PATH, theApp.m_sSketchDirectory);
+	PathAppend(theApp.m_sLibraryDirectory, _T("libraries"));
+	if ( ! cb_IsDirectory(theApp.m_sLibraryDirectory) )
 	{
-		if ( ! CreateDirectory(m_sLibraryDirectory, NULL) )
+		if ( ! CreateDirectory(theApp.m_sLibraryDirectory, NULL) )
 		{
 			CString msg;
-			msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), m_sLibraryDirectory);
+			msg.Format(_T("Error creating directory:\n\n%s\n\nSome functionality may not work."), theApp.m_sLibraryDirectory);
 			AfxMessageBox(msg);
 		}
 	}
 
-	TRACE("Arduino:  '%s'\nSketchbook:  '%s'\nLibraries:  '%s'\n", m_sArduinoDirectory, m_sSketchDirectory, m_sLibraryDirectory);
+	TRACE("Arduino:  '%s'\nSketchbook:  '%s'\nLibraries:  '%s'\n", theApp.m_sArduinoDirectory, theApp.m_sSketchDirectory, theApp.m_sLibraryDirectory);
 
 	//s = AfxGetApp()->GetProfileString(_T(""), _T("SketchDirectory"), _T(""));
 	//s = AfxGetApp()->GetProfileString(_T(""), _T("ArduinoDirectory"), _T(""));
@@ -184,20 +183,12 @@ void RAGenDlg::GetFolders()
 
 void RAGenDlg::UpdateSettings()
 {
-	// copy the values over
-	m_Tabs.fHasArduinoExe = fHasArduinoExe;
-	m_Tabs.iSaveReg = iSaveReg;
-	m_Tabs.iLaunch = iLaunch;
-	m_Tabs.iDevVersion = iDevVersion;
-	_tcscpy_s(m_Tabs.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(m_Tabs.m_sArduinoDirectory, MAX_PATH, m_sArduinoDirectory);
-	_tcscpy_s(m_Tabs.m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 	m_Tabs.UpdateSettingsForTabs();
 }
 
 void RAGenDlg::UpdateLaunchButtonVisibility(int nCmdShow)
 {
-	if ( ! fHasArduinoExe )
+	if ( ! theApp.fHasArduinoExe )
 	{
 		GetDlgItem(IDC_BTN_LAUNCH)->ShowWindow(SW_HIDE);
 		return;
@@ -271,18 +262,18 @@ BOOL RAGenDlg::OnInitDialog()
 	
 	CreateStatusBar();
 	GetFolders();
-	if ( cb_DoesArduinoExist(m_sArduinoDirectory) )
+	if ( cb_DoesArduinoExist(theApp.m_sArduinoDirectory) )
 	{
-		fHasArduinoExe = TRUE;
+		theApp.fHasArduinoExe = TRUE;
 	}
 	else
 	{
-		fHasArduinoExe = FALSE;
+		theApp.fHasArduinoExe = FALSE;
 	}
 	UpdateLaunchButtonVisibility(SW_HIDE);
 
 	// set Development Libraries mode 
-	if ( iAppMode == DEV_MODE )
+	if ( theApp.iAppMode == DEV_MODE )
 	{
 		m_Tabs.SetDeveloperMode();
 	}
@@ -329,40 +320,42 @@ HCURSOR RAGenDlg::OnQueryDragIcon()
 void RAGenDlg::OnEditSettings()
 {
 	SettingsDlg dlg;
-	dlg.m_iSaveRegistry = iSaveReg;
-	dlg.m_iLaunchArduino = iLaunch;
-	dlg.m_iAppMode = iAppMode;
-	dlg.m_iDevVersion = iDevVersion;
-	dlg.m_fHasArduinoExe = fHasArduinoExe;
-	dlg.m_sArduinoFolder = m_sArduinoDirectory;
+	dlg.m_iSaveRegistry = theApp.iSave;
+	dlg.m_iLaunchArduino = theApp.iLaunch;
+	dlg.m_iAppMode = theApp.iAppMode;
+	dlg.m_iDevVersion = theApp.iDevVersion;
+	dlg.m_fHasArduinoExe = theApp.fHasArduinoExe;
+	dlg.m_sArduinoFolder = theApp.m_sArduinoDirectory;
 	INT_PTR iRet = dlg.DoModal();
 	if ( iRet == IDOK )
 	{
 		// if OK is pressed, we need to update the settings
 		// update settings if needed
-		if ( iSaveReg != dlg.m_iSaveRegistry )
+		if ( theApp.iSave != dlg.m_iSaveRegistry )
 		{
-			iSaveReg = dlg.m_iSaveRegistry;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), iSaveReg);
+			theApp.iSave = dlg.m_iSaveRegistry;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("RegistrySavePrompt"), theApp.iSave);
 		}
-		if ( iLaunch != dlg.m_iLaunchArduino )
+		if ( theApp.iLaunch != dlg.m_iLaunchArduino )
 		{
-			iLaunch = dlg.m_iLaunchArduino;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), iLaunch);
+			theApp.iLaunch = dlg.m_iLaunchArduino;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("LaunchArduino"), theApp.iLaunch);
 		}
-		if ( iAppMode != dlg.m_iAppMode )
+		if ( theApp.iAppMode != dlg.m_iAppMode )
 		{
 			// update application mode if it's changed
-			iAppMode = dlg.m_iAppMode;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), iAppMode);
+			theApp.iAppMode = dlg.m_iAppMode;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), theApp.iAppMode);
 			fRestartRequired = TRUE;
 		}
-		if ( iDevVersion != dlg.m_iDevVersion )
+		if ( theApp.iDevVersion != dlg.m_iDevVersion )
 		{
-			iDevVersion = dlg.m_iDevVersion;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("DevLibraryVersion"), iDevVersion);
+			theApp.iDevVersion = dlg.m_iDevVersion;
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevLibraryVersion"), theApp.iDevVersion);
 		}
-		fHasArduinoExe = dlg.m_fHasArduinoExe;
+		theApp.fHasArduinoExe = dlg.m_fHasArduinoExe;
+
+		theApp.AutoDetectLibraryVersion();
 
 		UpdateSettings();
 		UpdateData(FALSE);
@@ -481,6 +474,7 @@ void RAGenDlg::OnControllerFind()
 
 void RAGenDlg::OnControllerWebBanner()
 {
+	// TODO update based on library version
 	WebBannerDlg dlg;
 	dlg.DoModal();
 }
@@ -517,10 +511,6 @@ void RAGenDlg::OnControllerShowUnknownFeatures()
 void RAGenDlg::OnControllerInternalMemory()
 {
 	RAInternalMemoryPage dlg;
-	dlg.iSaveReg = iSaveReg;
-	dlg.iDevVersion = iDevVersion;
-	_tcscpy_s(dlg.m_sSketchDirectory, MAX_PATH, m_sSketchDirectory);
-	_tcscpy_s(dlg.m_sLibraryDirectory, MAX_PATH, m_sLibraryDirectory);
 	dlg.DoModal();
 }
 
