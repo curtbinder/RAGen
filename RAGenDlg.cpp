@@ -91,9 +91,9 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 		// Standard tab, so remove the additional menu entries from Controller Menu
 		// Get Controller Menu
 		pMenu = GetMenu()->GetSubMenu(2);
-		// Delete the last 4 entries
+		// Delete the last 5 entries
 		UINT count = pMenu->GetMenuItemCount();
-		for ( int i = 0; i <= 4; i++ )
+		for ( int i = 0; i <= 5; i++ )
 		{
 			pMenu->DeleteMenu(count-i, MF_BYPOSITION);
 		}
