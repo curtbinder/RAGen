@@ -35,12 +35,12 @@ typedef struct _device {
 #define DEFAULT_PORT2_DEVICE		IDC_PDE_CK_STDLIGHTS
 //! Default Port 3 device is Metal Halides
 #define DEFAULT_PORT3_DEVICE		IDC_PDE_CK_METALHALIDES
-//! Default Port 4 device is Wavemaker 1
-#define DEFAULT_PORT4_DEVICE		IDC_PDE_CK_WM1
-//! Default Port 5 device is Wavemaker 2
-#define DEFAULT_PORT5_DEVICE		IDC_PDE_CK_WM2
-//! Default Port 6 device is Fan/Chiller
-#define DEFAULT_PORT6_DEVICE		IDC_PDE_CK_CHILLER
+//! Default Port 4 device is Fan/Chiller
+#define DEFAULT_PORT4_DEVICE		IDC_PDE_CK_CHILLER
+//! Default Port 5 device is Wavemaker 1
+#define DEFAULT_PORT5_DEVICE		IDC_PDE_CK_WM1
+//! Default Port 6 device is Wavemaker 2
+#define DEFAULT_PORT6_DEVICE		IDC_PDE_CK_WM2
 //! Default Port 7 device is Heater
 #define DEFAULT_PORT7_DEVICE		IDC_PDE_CK_HEATER
 //! Default Port 8 device is Sump/Always On
