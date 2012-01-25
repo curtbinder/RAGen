@@ -17,4 +17,20 @@ TODO File
 - Separate out core functions from the gui
 	- have "core" class of functions and a static/global reference to them
 	- have gui functions call global functions with proper parameters
-
+- Force Wavemakers to only be on Ports 5 & 6 and prevent from being on other ports
+- Portal
+	- Add in portal dialog box for 0.9.x libraries (like password protection for controller)
+	- Change Web Banner to be Web Banner / Portal:  Portal(username) or Portal(Username, Password)
+	- Only need the Portal(u) & Portal(u,p) functions
+	- Remove the LoadWebBanner & Timer references for Portal
+	- Goes in loop()
+- Ability to change the quantity of custom menu entries
+- add in custom menu tab
+- use the Port1Bit for the bitwise generation of ports to be toggled
+- Update strings for RF, ORP, Salinity, AI LED, IO
+- Add in 'custom code' tab to place custom code inside the setup() and loop() functions
+- Internal memory to use RA_NokiaLCD on 0.9.x libraries
+- PDE tab & saved features in registry
+	PDE or INO
+	Rename PDE to PDE / INO
+- Colors_PDE changed to CustomColors

@@ -72,6 +72,11 @@
 #define IDS_FEATURES_NUMBERS_8X16       232
 #define IDS_FEATURES_NUMBERS_12X16      233
 #define IDS_FEATURES_NUMBERS_16X16      234
+#define IDS_FEATURES_SALINITY           235
+#define IDS_FEATURES_RF                 236
+#define IDS_FEATURES_AILED              237
+#define IDS_FEATURES_ORP                238
+#define IDS_FEATURES_IO                 239
 #define IDC_PDE_CK_FEEDING_1            300
 #define IDC_PDE_CK_FEEDING_2            301
 #define IDC_PDE_CK_FEEDING_3            302

@@ -5,8 +5,6 @@
 #include "InternalMemoryDefaults.h"
 #include "cb_FileVersion.h"
 
-// The Features class
-CFeatures a_Features;
 
 CFeatures::CFeatures(void)
 {
@@ -390,11 +388,11 @@ void CFeatures::InitFeatureData()
 	SetFeatureData(CUSTOM_COLORS, IDS_FEATURES_COLORSPDE, _T("COLORS_PDE"));
 	SetFeatureData(ATO_LOGGING, IDS_FEATURES_ATOLOGGING, _T("ENABLE_ATO_LOGGING"));
 	SetFeatureData(EXCEED_FLAGS, IDS_FEATURES_EXCEEDFLAG, _T("ENABLE_EXCEED_FLAGS"));
-	SetFeatureData(SALINITY, 0, _T("SALINITYEXPANSION"));
-	SetFeatureData(RF, 0, _T("RFEXPANSION"));
-	SetFeatureData(ORP, 0, _T("ORPEXPANSION"));
-	SetFeatureData(IO, 0, _T("IOEXPANSION"));
-	SetFeatureData(AI, 0, _T("AI_LED"));
+	SetFeatureData(SALINITY, IDS_FEATURES_SALINITY, _T("SALINITYEXPANSION"));
+	SetFeatureData(RF, IDS_FEATURES_RF, _T("RFEXPANSION"));
+	SetFeatureData(ORP, IDS_FEATURES_ORP, _T("ORPEXPANSION"));
+	SetFeatureData(IO, IDS_FEATURES_IO, _T("IOEXPANSION"));
+	SetFeatureData(AI, IDS_FEATURES_AILED, _T("AI_LED"));
 	SetFeatureData(FONT_8x8, IDS_FEATURES_FONT_8X8, _T("FONT_8x8"));
 	SetFeatureData(FONT_8x16, IDS_FEATURES_FONT_8X16, _T("FONT_8x16"));
 	SetFeatureData(FONT_12x16, IDS_FEATURES_FONT_12X16, _T("FONT_12x16"));

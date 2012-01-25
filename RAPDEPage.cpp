@@ -9,7 +9,7 @@
 #include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
 #include "InternalMemoryDefaults.h"
-#include "Features.h"
+#include "Controller.h"
 
 
 // RAPDEPage dialog
@@ -651,11 +651,13 @@ void RAPDEPage::SelectPort1()
 
 void RAPDEPage::MenuRemoveUnusedFeatures()
 {
-	a_Features.CleanupFeatures();
+	a_Controller.Features.CleanupFeatures();
 }
 
 BOOL RAPDEPage::WritePDE()
 {
+	return a_Controller.WriteFile();
+	/*
 	BOOL bRet = FALSE;
 
 	TRY
@@ -1050,6 +1052,7 @@ void loop()\r\n\
 	END_CATCH_ALL
 
 	return bRet;
+	*/
 }
 
 void RAPDEPage::UpdatePDEFeatures()
@@ -1058,10 +1061,10 @@ void RAPDEPage::UpdatePDEFeatures()
 	// Since we are always looping through all the ports and updating the values, 
 	// we need to turn them off initially and then turn them on if a device is assigned to a port
 	// This is to prevent additional features from being enabled if we turn off a feature.
-	a_Features.ClearINOFeatures();
+	a_Controller.Features.ClearINOFeatures();
 
 	// check if we need to override the DosingPump with DosingPumpRepeat
-	if ( a_Features.GetFeatureValue(a_Features.DOSING_INTERVAL_SETUP) )
+	if ( a_Controller.Features.GetFeatureValue(a_Controller.Features.DOSING_INTERVAL_SETUP) )
 	{
 		fUseDPRepeat = TRUE;
 	}
@@ -1082,33 +1085,33 @@ void RAPDEPage::UpdatePDEFeatures()
 		switch ( Ports[i] )
 		{
 			case IDC_PDE_CK_METALHALIDES:
-				a_Features.SetFeatureValue(a_Features.METAL_HALIDE_SETUP, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.METAL_HALIDE_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_STDLIGHTS:
-				a_Features.SetFeatureValue(a_Features.STANDARD_LIGHT_SETUP, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.STANDARD_LIGHT_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_WM1:
 			case IDC_PDE_CK_WM2:
-				a_Features.SetFeatureValue(a_Features.WAVEMAKER_SETUP, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.WAVEMAKER_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_DP1:
 			case IDC_PDE_CK_DP2:
-				a_Features.SetFeatureValue(a_Features.DOSING_PUMP_SETUP, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.DOSING_PUMP_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_SINGLEATOLOW:
 			case IDC_PDE_CK_SINGLEATOHIGH:
-				a_Features.SetFeatureValue(a_Features.SINGLE_ATO, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.SINGLE_ATO, TRUE);
 			case IDC_PDE_CK_DUALATO:
-				a_Features.SetFeatureValue(a_Features.ATO_SETUP, TRUE);
+				a_Controller.Features.SetFeatureValue(a_Controller.Features.ATO_SETUP, TRUE);
 				break;
 		}
 	}
 
 	// Update settings in PDE class used for generating the PDE file
-	fCustomMenu = a_Features.GetFeatureValue(a_Features.CUSTOM_MENU);
-	iCustomMenuEntries = a_Features.iCustomMenuEntries;
-	fCustomMain = a_Features.GetFeatureValue(a_Features.CUSTOM_MAIN);
-	fColorsPDE = a_Features.GetFeatureValue(a_Features.CUSTOM_COLORS);
+	fCustomMenu = a_Controller.Features.GetFeatureValue(a_Controller.Features.CUSTOM_MENU);
+	iCustomMenuEntries = a_Controller.Features.iCustomMenuEntries;
+	fCustomMain = a_Controller.Features.GetFeatureValue(a_Controller.Features.CUSTOM_MAIN);
+	fColorsPDE = a_Controller.Features.GetFeatureValue(a_Controller.Features.CUSTOM_COLORS);
 
 	// if we have simple_menu or custom_menu defined, we need to remove the unused features
 	MenuRemoveUnusedFeatures();
@@ -1116,7 +1119,7 @@ void RAPDEPage::UpdatePDEFeatures()
 	// Get a list of the features used for this file
 	CString s;
 	sFeatureList = _T("\r\n/* The following features are enabled for this File: \r\n");
-	s = a_Features.GetEnabledList();
+	s = a_Controller.Features.GetEnabledList();
 	sFeatureList += s;
 	sFeatureList += _T("*/\r\n");
 }

@@ -8,6 +8,7 @@
 #include "RAPDEPage.h"
 //#include "RAColorsPage.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
+#include "Controller.h"
 
 
 // RATabSheet
@@ -403,8 +404,7 @@ void RATabSheet::GetFilename(CString &s)
 {
 	if ( m_iCurrentTab == PDE )
 	{
-		RAPDEPage* p = (RAPDEPage*)m_pTabs[PDE];
-		s = p->sFilename;
+		s = a_Controller.GetFilename();
 	}
 	else if ( m_iCurrentTab == Standard )
 	{
@@ -421,8 +421,7 @@ void RATabSheet::GetFileExtension(CString &s)
 {
 	if ( m_iCurrentTab == PDE )
 	{
-		RAPDEPage* p = (RAPDEPage*)m_pTabs[PDE];
-		s = p->sFileExtension;
+		s = a_Controller.GetExtension();
 	}
 	else if ( m_iCurrentTab == Standard )
 	{

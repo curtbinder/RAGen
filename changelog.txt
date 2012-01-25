@@ -107,7 +107,7 @@ v1.1.0
 - Updated icon
 - Delayed On device added
 
-v1.1.1
+v1.2.0
 ------
 - Fixed bug with detecting "My Documents" folder
 - Folder updating, force the following folders
@@ -119,3 +119,9 @@ v1.1.1
 - Added autodetection for library version (0.8.X or 0.9.X) to generate file appropriately
 - Added updated extension based on library version (0.8.X used PDE & 0.9.X uses INO)
 - Added Save button to Features page to easily update/save features
+- Moved to new Feature List screen
+- Changed default devices on ports 4 (Chiller), 5 (WM1), 6 (WM2)
+- Cleaned up code and improved performance
+- Use appropriate file extension based on what version of libraries (PDE vs INO)
+- Added in "Show Library Version" menu entry to display what version of the libraries are installed
+- Made DEV libraries the default libraries

@@ -387,6 +387,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Controller.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CustomMenu.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DlgStatusBar.cpp"
 				>
 			</File>
@@ -510,6 +518,14 @@
 			</File>
 			<File
 				RelativePath=".\ComPortListDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Controller.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CustomMenu.h"
 				>
 			</File>
 			<File

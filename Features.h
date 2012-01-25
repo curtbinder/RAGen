@@ -92,5 +92,3 @@ private:
 	void SetFeatureData(int index, UINT stringID, CString sDefine, BOOL fValue = FALSE);
 	void ProcessFeature(CString sFeature, CString sValue = _T(""));
 };
-
-extern CFeatures a_Features;

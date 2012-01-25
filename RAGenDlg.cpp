@@ -132,6 +132,15 @@ void RAGenDlg::GetFolders()
 	If any of those folders do not exist, RAGen will automatically create them 
 	*/
 
+	/*
+	TODO check on the install paths
+Last installer I was not making the x86 vs x64 check and the installer was installing everything under Program Files/Reef Angel Controller.
+This new installer is doing the check and will place the files in the appropriate folder.
+So, for x86 it places on Program Files/Reef Angel Controller and for x64 it places on Program Files (x86)/Reef Angel Controller.
+I'm pretty sure you can use these to get it to give you the right path.
+Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86));
+Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+	*/
 	// Set Arduino folder
 	if ( SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES, NULL, SHGFP_TYPE_CURRENT, theApp.m_sArduinoDirectory)) )
 	{
@@ -626,12 +635,14 @@ BOOL RAGenDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 		m_Tabs.GetFilename(s1);
 		if ( s1.IsEmpty() )
 		{
+			TRACE("Command: s1 EMPTY\n");
 			// hide Launch Button
 			UpdateLaunchButtonVisibility(SW_HIDE);
 			SetStatus(s);
 		}
 		else
 		{
+			TRACE("Command: s1 has something\n");
 			CString s2;
 			CString ext;
 			m_Tabs.GetFileExtension(ext);

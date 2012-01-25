@@ -870,6 +870,11 @@ BEGIN
     IDS_FEATURES_NUMBERS_8X16 "Numbers ONLY (0-9 / .) 8x16 size"
     IDS_FEATURES_NUMBERS_12X16 "Numbers ONLY (0-9 / .) 12x16 size"
     IDS_FEATURES_NUMBERS_16X16 "Numbers ONLY (0-9 / .) 16x16 size"
+    IDS_FEATURES_SALINITY   "Salinity Expansion"
+    IDS_FEATURES_RF         "RF Expansion"
+    IDS_FEATURES_AILED      "AI LED"
+    IDS_FEATURES_ORP        "ORP Expansion"
+    IDS_FEATURES_IO         "IO Expansion"
 END
 
 STRINGTABLE 
