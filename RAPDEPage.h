@@ -270,10 +270,10 @@ protected:
 	void SaveSettings();
 	void LoadSettings();
 	void SelectPort1();
-	void MenuRemoveUnusedFeatures(Features& fs);
+	void MenuRemoveUnusedFeatures(/*Features& fs*/);
 
 public:
-	void UpdatePDEFeatures(Features& fs);
+	void UpdatePDEFeatures(/*Features& fs*/);
 	/*! Generate Button Press
 	 * \sa WritePDE()
 	 */

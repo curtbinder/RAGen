@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,1,130
- PRODUCTVERSION 1,1,1,130
+ FILEVERSION 1,2,0,135
+ PRODUCTVERSION 1,2,0,135
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 1, 1, 130"
+            VALUE "FileVersion", "1, 2, 0, 135"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 1, 1, 130"
+            VALUE "ProductVersion", "1, 2, 0, 135"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -841,8 +841,6 @@ BEGIN
     IDS_FEATURES_WIFI       "If you have purchased the wifi module for your controller, selecting this feature will setup the built-in webserver for the controller.  This feature will increase the overall file size and will require some other features to be disabled for it to compile in with the library in it's current state."
     IDS_FEATURES_DISPLAYLEDPWM 
                             "This will control the displaying of all LED PWM related items.  The items it controls are:\n  - DP && AP displaying on main screen\n  - LED PWM Setup screen\nSo, if you do not use LED PWM's at all and do not wish to display anything related to it, do not select this feature.\n\nApproximately 720 bytes to have this feature."
-    IDS_FEATURES_ALTERNATEFONT 
-                            "Enabling this feature will use an alternate font instead of the default one that comes with ReefAngel."
     IDS_FEATURES_REMOVEALLLIGHTS 
                             "This feature will remove all lighting functionality from the controller.  It is the equivalent to disabling MetalHalideSetup, StandardLightSetup, and DisplayLEDPWM.  This will OVERRIDE any of these features.\r\n\r\nSo use caution when enabling this feature."
     IDS_FEATURES_SAVERELAYSTATE 
@@ -864,19 +862,13 @@ BEGIN
     IDS_FEATURES_COLORSPDE  "This will enable the ability to customize the colors on your controller.  You will have to edit the file ReefAngel_CustomColors.h to change the colors.  The colors available are listed in the ReefAngel_Colors.h file."
     IDS_FEATURES_PWMEXPANSION 
                             "This will allow the enabling of the PWM Expansion Device.  It will add a menu entry that displays 'PWM ->'.  It will give the preset defaults for the expansion device.\nThe menu entries will be:\n\nSlow Cloud, Fast Cloud, T-storm 1, T-storm 2, 0%, 50%, 100%, Custom\r\n\r\nApproximately 630 bytes to have this feature"
-END
-
-STRINGTABLE 
-BEGIN
-    IDS_FEATURES_TAB        "Features"
-    IDS_PDE_TAB             "PDE / INO"
-    IDS_COLORS_TAB          "Colors"
-    IDS_MEMORY_TAB          "Internal Memory"
-    IDS_STD_TAB             "Standard Libraries"
-    IDS_SUCCESS_GENERATE    "Success, Generated %s%s"
-    IDS_SUCCESS_COLORS      "Success, Generated ReefAngel_Colors.h"
-    IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
-    IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
+    IDS_FEATURES_FONT_8X8   "Entire Font 8x8 size"
+    IDS_FEATURES_FONT_8X16  "Entire Font 8x16 size"
+    IDS_FEATURES_FONT_12X16 "Entire Font 12x16 size"
+    IDS_FEATURES_NUMBERS_8X8 "Numbers ONLY (0-9 / .) 8x8 size"
+    IDS_FEATURES_NUMBERS_8X16 "Numbers ONLY (0-9 / .) 8x16 size"
+    IDS_FEATURES_NUMBERS_12X16 "Numbers ONLY (0-9 / .) 12x16 size"
+    IDS_FEATURES_NUMBERS_16X16 "Numbers ONLY (0-9 / .) 16x16 size"
 END
 
 STRINGTABLE 
@@ -894,6 +886,21 @@ BEGIN
     IDS_WHITESPACE          "\t "
     IDS_PDE_EXTENSION       ".pde"
     IDS_INO_EXTENSION       ".ino"
+    IDS_NO_UNKNOWN_FEATURES "No unknown Features."
+    IDS_UNKNOWN_FEATURES    "Additional unrecognized features found:\n\n%s"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_FEATURES_TAB        "Features"
+    IDS_PDE_TAB             "PDE / INO"
+    IDS_COLORS_TAB          "Colors"
+    IDS_MEMORY_TAB          "Internal Memory"
+    IDS_STD_TAB             "Standard Libraries"
+    IDS_SUCCESS_GENERATE    "Success, Generated %s%s"
+    IDS_SUCCESS_COLORS      "Success, Generated ReefAngel_Colors.h"
+    IDS_REGISTRY_CB         "HKCU\\Software\\Curt Binder\\RAGen\\"
+    IDS_REGISTRY_RA         "HKCU\\Software\\Reef Angel\\RAGen\\"
 END
 
 #endif    // English (U.S.) resources

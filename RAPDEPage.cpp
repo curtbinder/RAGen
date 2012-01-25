@@ -9,6 +9,7 @@
 #include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
 #include "InternalMemoryDefaults.h"
+#include "Features.h"
 
 
 // RAPDEPage dialog
@@ -648,29 +649,9 @@ void RAPDEPage::SelectPort1()
 	p->SetCheck(BST_CHECKED);
 }
 
-void RAPDEPage::MenuRemoveUnusedFeatures(Features& fs)
+void RAPDEPage::MenuRemoveUnusedFeatures()
 {
-	if ( fs.fCustomMenu )
-	{
-		// CustomMenu overrides SimpleMenu
-		fs.fSimpleMenu = FALSE;
-	}
-
-	if ( fs.fSimpleMenu || fs.fCustomMenu )
-	{
-		// The following features are not used when using the alternate menus
-		// Disable them when we go to generate the features file so we don't have
-		// any extra confusion in the file
-		fs.fStandardLightSetup = FALSE;
-		fs.fMetalHalideSetup = FALSE;
-		fs.fATOSetup = FALSE;
-		fs.fDosingPumpSetup = FALSE;
-		fs.fDosingIntervalSetup = FALSE;
-		fs.fWavemakerSetup = FALSE;
-		fs.fSingleATO = FALSE;
-		fs.fOverheatSetup = FALSE;
-		fs.fSetupExtras = FALSE;
-	}
+	a_Features.CleanupFeatures();
 }
 
 BOOL RAPDEPage::WritePDE()
@@ -1085,21 +1066,16 @@ void loop()\r\n\
 	return bRet;
 }
 
-void RAPDEPage::UpdatePDEFeatures(Features& fs)
+void RAPDEPage::UpdatePDEFeatures()
 {
 	// These ports are updated based on the devices enabled on the ports
 	// Since we are always looping through all the ports and updating the values, 
 	// we need to turn them off initially and then turn them on if a device is assigned to a port
 	// This is to prevent additional features from being enabled if we turn off a feature.
-	fs.fMetalHalideSetup = FALSE;
-	fs.fStandardLightSetup = FALSE;
-	fs.fWavemakerSetup = FALSE;
-	fs.fDosingPumpSetup = FALSE;
-	fs.fSingleATO = FALSE;
-	fs.fATOSetup = FALSE;
+	a_Features.ClearINOFeatures();
 
 	// check if we need to override the DosingPump with DosingPumpRepeat
-	if ( fs.fDosingIntervalSetup )
+	if ( a_Features.GetFeatureValue(a_Features.DOSING_INTERVAL_SETUP) )
 	{
 		fUseDPRepeat = TRUE;
 	}
@@ -1120,41 +1096,41 @@ void RAPDEPage::UpdatePDEFeatures(Features& fs)
 		switch ( Ports[i] )
 		{
 			case IDC_PDE_CK_METALHALIDES:
-				fs.fMetalHalideSetup = TRUE;
+				a_Features.SetFeatureValue(a_Features.METAL_HALIDE_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_STDLIGHTS:
-				fs.fStandardLightSetup = TRUE;
+				a_Features.SetFeatureValue(a_Features.STANDARD_LIGHT_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_WM1:
 			case IDC_PDE_CK_WM2:
-				fs.fWavemakerSetup = TRUE;
+				a_Features.SetFeatureValue(a_Features.WAVEMAKER_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_DP1:
 			case IDC_PDE_CK_DP2:
-				fs.fDosingPumpSetup = TRUE;
+				a_Features.SetFeatureValue(a_Features.DOSING_PUMP_SETUP, TRUE);
 				break;
 			case IDC_PDE_CK_SINGLEATOLOW:
 			case IDC_PDE_CK_SINGLEATOHIGH:
-				fs.fSingleATO = TRUE;
+				a_Features.SetFeatureValue(a_Features.SINGLE_ATO, TRUE);
 			case IDC_PDE_CK_DUALATO:
-				fs.fATOSetup = TRUE;
+				a_Features.SetFeatureValue(a_Features.ATO_SETUP, TRUE);
 				break;
 		}
 	}
 
 	// Update settings in PDE class used for generating the PDE file
-	fCustomMenu = fs.fCustomMenu;
-	iCustomMenuEntries = fs.iCustomMenuEntries;
-	fCustomMain = fs.fCustomMain;
-	fColorsPDE = fs.fColorsPDE;
+	fCustomMenu = a_Features.GetFeatureValue(a_Features.CUSTOM_MENU);
+	iCustomMenuEntries = a_Features.iCustomMenuEntries;
+	fCustomMain = a_Features.GetFeatureValue(a_Features.CUSTOM_MAIN);
+	fColorsPDE = a_Features.GetFeatureValue(a_Features.CUSTOM_COLORS);
 
 	// if we have simple_menu or custom_menu defined, we need to remove the unused features
-	MenuRemoveUnusedFeatures(fs);
+	MenuRemoveUnusedFeatures();
 
-	// Get a list of the features used for this PDE file
+	// Get a list of the features used for this file
 	CString s;
-	sFeatureList = _T("\r\n/* The following features are enabled for this PDE File: \r\n");
-	GetEnabledFeaturesList(fs, s);
+	sFeatureList = _T("\r\n/* The following features are enabled for this File: \r\n");
+	s = a_Features.GetEnabledList();
 	sFeatureList += s;
 	sFeatureList += _T("*/\r\n");
 }

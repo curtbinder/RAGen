@@ -391,6 +391,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Features.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GlobalFunctions.cpp"
 				>
 			</File>
@@ -510,6 +514,10 @@
 			</File>
 			<File
 				RelativePath=".\DlgStatusBar.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Features.h"
 				>
 			</File>
 			<File

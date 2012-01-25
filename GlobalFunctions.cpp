@@ -4,9 +4,10 @@
 #include "GlobalVars.h"
 
 // Global Features
-Features g_Features;
+//Features a_Features;
 
 // Global Functions
+/*
 void GetEnabledFeaturesList(Features& fs, CString& s)
 {
 	s = _T("");
@@ -144,6 +145,7 @@ void GetEnabledFeaturesList(Features& fs, CString& s)
 		s += _T("#define IOEXPANSION\r\n");
 	}
 }
+*/
 
 CString ReadLibraryVersion(CString sLibraryHeader)
 {

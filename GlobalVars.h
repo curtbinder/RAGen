@@ -22,6 +22,7 @@ enum _DevLibVersion {
 	FORCE_09X,
 };
 
+/*
 // Features structure, update this if you change (add/remove) any of the features in the RAFeaturesPage class
 typedef struct _Features {
 	BOOL fDisplayImages;
@@ -59,18 +60,15 @@ typedef struct _Features {
 	BOOL fIO;
 	BOOL fAI;
 } Features;
-extern Features g_Features;
+extern Features a_Features;
 
 typedef struct _FeatureData {
 	UINT uID;
 	CString sDefine;
 } FeatureData;
 
-enum _FeatureIndex {
-	NONE = 0,
-};
+*/
 
-void GetEnabledFeaturesList(Features& fs, CString& s);
 CString ReadLibraryVersion(CString sLibraryHeader);
 CString ReadEntireFile(CString sFile);
 BOOL AutodetectDevVersion(CString sLibraryDirectory);
