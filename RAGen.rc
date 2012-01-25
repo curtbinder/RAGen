@@ -687,7 +687,7 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "Internal Memory Values"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    LTEXT           "This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE file.  Upload this file first, then upload your PDE file.",IDC_STATIC,7,7,353,18
+    LTEXT           "This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE / INO file.  Upload this file first, then upload your PDE / INO file.",IDC_STATIC,7,7,353,18
     GROUPBOX        "Lights",IDC_MEMORY_GROUP_LIGHTS,7,31,202,71
     LTEXT           "Metal Halides:",IDC_STATIC,13,50,46,8
     LTEXT           "On",IDC_STATIC,83,39,10,8
