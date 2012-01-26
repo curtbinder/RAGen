@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GlobalVars.h"
+#include "InternalMemoryDefaults.h"
 
 
 
@@ -23,9 +24,12 @@ public:
 	BOOL IsPortNotUsed(int port);
 	BOOL IsPortDelayedOn(int port);
 	int GetPortDelay(int port);
+	void SetPortDelay(int port, int delay);
 	// TODO update based on what expansion relay device
 	CString GetPortMode(BYTE mode);  // returns complete string "ReefAngel.PORTSMODE = ports;"
-	void SetPortDevice(int Port, int Device, int Delay = 0);
+	BYTE GetPortModes(BYTE mode);
+	void SetPortMode(BYTE mode, BYTE Ports);
+	void SetPortDevice(int Port, int Device, int Delay = DEFAULT_DELAY_MINUTES);
 	int GetPortDevice(int Port);
 	void ResetPortModes();
 	void ResetPortDevices();
@@ -40,4 +44,6 @@ private:
 	BYTE WaterChangeModePorts;  //!< Ports toggled during Water Change Mode
 	BYTE OverheatPorts;  //!< Ports that get shutoff during Overheat
 	BYTE LightsOnPorts;  //!< Ports toggled during lights on/off
+
+	void InitPorts();
 };

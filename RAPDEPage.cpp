@@ -27,7 +27,7 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 	fColorsPDE = FALSE;
 	sFeatureList = _T("");
 	fUseDPRepeat = FALSE;
-	LoadDeviceFunctions();
+	//LoadDeviceFunctions();
 }
 
 RAPDEPage::~RAPDEPage()
@@ -92,10 +92,10 @@ BOOL RAPDEPage::OnInitDialog()
 	iCustomMenuEntries = MENU_DEFAULT;
 	fCustomMain = FALSE;
 	fColorsPDE = FALSE;
-	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
-	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
-	SetPortMode(Overheat, DEFAULT_OVERHEAT);
-	SetPortMode(LightsOn, DEFAULT_LIGHTSON);
+	SetPortMode(a_Controller.Relay.Feeding, DEFAULT_FEEDINGMODE);
+	SetPortMode(a_Controller.Relay.WaterChange, DEFAULT_WATERCHANGEMODE);
+	SetPortMode(a_Controller.Relay.Overheat, DEFAULT_OVERHEAT);
+	SetPortMode(a_Controller.Relay.LightsOn, DEFAULT_LIGHTSON);
 	UpdateData(FALSE);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -112,13 +112,13 @@ void RAPDEPage::InitPorts()
 	fSingleATOLow = FALSE;
 	fSingleATOHigh = FALSE;
 	// blank out the ports first before we populate them
-	for ( int i = 0; i < MAX_PORTS; i++ )
-	{
-		Ports[i] = 0;
-		Delays[i] = DEFAULT_DELAY_MINUTES;
-	}
+	//for ( int i = 0; i < MAX_PORTS; i++ )
+	//{
+	//	Ports[i] = 0;
+	//	Delays[i] = DEFAULT_DELAY_MINUTES;
+	//}
 }
-
+/*
 void RAPDEPage::LoadDeviceFunctions()
 {
 	// TODO make global Controller devices
@@ -175,6 +175,7 @@ void RAPDEPage::LoadDeviceFunctions()
 		}
 	}
 }
+*/
 
 void RAPDEPage::LoadDefaults()
 {
@@ -187,10 +188,10 @@ void RAPDEPage::LoadDefaults()
 	iCustomMenuEntries = MENU_DEFAULT;
 	fCustomMain = FALSE;
 	fColorsPDE = FALSE;
-	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
-	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
-	SetPortMode(Overheat, DEFAULT_OVERHEAT);
-	SetPortMode(LightsOn, DEFAULT_LIGHTSON);
+	SetPortMode(a_Controller.Relay.Feeding, DEFAULT_FEEDINGMODE);
+	SetPortMode(a_Controller.Relay.WaterChange, DEFAULT_WATERCHANGEMODE);
+	SetPortMode(a_Controller.Relay.Overheat, DEFAULT_OVERHEAT);
+	SetPortMode(a_Controller.Relay.LightsOn, DEFAULT_LIGHTSON);
 	UpdateData(FALSE);
 }
 
@@ -199,24 +200,24 @@ void RAPDEPage::GetPortMode(BYTE Mode, CString &sMode)
 	// Creates the binary code for adding to the PDE file
 	// binary code is stored in sMode
 	int i;
-	BYTE ports;
+	//BYTE ports;
 	switch ( Mode )
 	{
-	case Feeding:
+	case a_Controller.Relay.Feeding:
 		i = IDC_PDE_CK_FEEDING_1;
-		ports = FeedingModePorts;
+		//ports = a_Controller.Relay.FeedingModePorts;
 		break;
-	case WaterChange:
+	case a_Controller.Relay.WaterChange:
 		i = IDC_PDE_CK_WATER_1;
-		ports = WaterChangeModePorts;
+		//ports = a_Controller.Relay.WaterChangeModePorts;
 		break;
-	case Overheat:
+	case a_Controller.Relay.Overheat:
 		i = IDC_PDE_CK_OVERHEAT_1;
-		ports = OverheatPorts;
+		//ports = a_Controller.Relay.OverheatPorts;
 		break;
-	case LightsOn:
+	case a_Controller.Relay.LightsOn:
 		i = IDC_PDE_CK_LIGHTS_1;
-		ports = LightsOnPorts;
+		//ports = a_Controller.Relay.LightsOnPorts;
 		break;
 	default:
 		return;
@@ -244,24 +245,27 @@ void RAPDEPage::GetPortMode(BYTE Mode, CString &sMode)
 
 void RAPDEPage::SetPortMode(BYTE Mode, BYTE Ports)
 {
+	/*
 	switch ( Mode )
 	{
-	case Feeding:
+	case a_Controller.Relay.Feeding:
 		FeedingModePorts = Ports;
 		break;
-	case WaterChange:
+	case a_Controller.Relay.WaterChange:
 		WaterChangeModePorts = Ports;
 		break;
-	case Overheat:
+	case a_Controller.Relay.Overheat:
 		OverheatPorts = Ports;
 		break;
-	case LightsOn:
+	case a_Controller.Relay.LightsOn:
 		LightsOnPorts = Ports;
 		break;
 	default:
 		return;
 		break;
 	}
+	*/
+	a_Controller.Relay.SetPortMode(Mode, Ports);
 	UpdateDisplayPorts(Mode);
 }
 
@@ -273,21 +277,21 @@ void RAPDEPage::UpdateDisplayPorts(BYTE Mode)
 	BYTE ports;
 	switch ( Mode )
 	{
-	case Feeding:
+	case a_Controller.Relay.Feeding:
 		i = IDC_PDE_CK_FEEDING_1;
-		ports = FeedingModePorts;
+		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.Feeding);
 		break;
-	case WaterChange:
+	case a_Controller.Relay.WaterChange:
 		i = IDC_PDE_CK_WATER_1;
-		ports = WaterChangeModePorts;
+		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.WaterChange);
 		break;
-	case Overheat:
+	case a_Controller.Relay.Overheat:
 		i = IDC_PDE_CK_OVERHEAT_1;
-		ports = OverheatPorts;
+		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.Overheat);
 		break;
-	case LightsOn:
+	case a_Controller.Relay.LightsOn:
 		i = IDC_PDE_CK_LIGHTS_1;
-		ports = LightsOnPorts;
+		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.LightsOn);
 		break;
 	default:
 		return;
@@ -337,41 +341,48 @@ void RAPDEPage::RefreshModePorts()
 		switch ( i )
 		{
 		case 0:
-			FeedingModePorts = x;
+			//FeedingModePorts = x;
+			a_Controller.Relay.SetPortMode(a_Controller.Relay.Feeding, x);
 			break;
 		case 1:
-			WaterChangeModePorts = x;
+			///WaterChangeModePorts = x;
+			a_Controller.Relay.SetPortMode(a_Controller.Relay.WaterChange, x);
 			break;
 		case 2:
-			OverheatPorts = x;
+			//OverheatPorts = x;
+			a_Controller.Relay.SetPortMode(a_Controller.Relay.Overheat, x);
 			break;
 		case 3:
-			LightsOnPorts = x;
+			//LightsOnPorts = x;
+			a_Controller.Relay.SetPortMode(a_Controller.Relay.LightsOn, x);
 			break;
 		}
 	}  // for i
 }
-
-void RAPDEPage::SetPortDevice(int Port, int Device, int Delay /*= 0*/)
+/*
+void RAPDEPage::SetPortDevice(int Port, int Device, int Delay)
 {
 	Ports[Port-1] = Device;
 	if ( Delay > 0 )
 	{
 		Delays[Port-1] = Delay;
 	}
+	a_Controller.Relay.SetPortDevice(Port, Device, Delay);
 	UpdateDisplayDevice(Port);
 }
-
+*/
+/*
 int RAPDEPage::GetPortDevice(int Port)
 {
 	return Ports[Port-1];
 }
+*/
 
 void RAPDEPage::UpdateDisplayDevice(int Port)
 {
-	int device = GetPortDevice(Port);
+	int device = a_Controller.Relay.GetPortDevice(Port);
 	// always update the delay value on changing ports no matter if it's selected or not
-	SetDlgItemInt(IDC_PDE_EDIT_DELAY_ON, Delays[Port-1]);
+	SetDlgItemInt(IDC_PDE_EDIT_DELAY_ON, a_Controller.Relay.GetPortDelay(Port));
 	ToggleDeviceChecks(device);
 	UpdateDeviceAvailability();
 }
@@ -381,7 +392,7 @@ void RAPDEPage::UpdateDeviceAvailability()
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
 		// Set the device flags ON if we have the device checked
-		ToggleDeviceFlag(Ports[i]);
+		ToggleDeviceFlag(a_Controller.Relay.GetPortDevice(i+1));
 	}
 
 	// Toggle & Enable/Disable devices based on device passed in (which is selected device)
@@ -420,7 +431,7 @@ void RAPDEPage::UpdateDeviceAvailability()
 
 BOOL RAPDEPage::IsDeviceCkEnabled(int Device, BOOL fDevFlag, BOOL fOppDevFlag)
 {
-	int nCurrentDevice = Ports[bCurrentPort-1];
+	int nCurrentDevice = a_Controller.Relay.GetPortDevice(bCurrentPort);
 	BOOL fRet;
 	if ( fDevFlag )
 	{
@@ -523,17 +534,18 @@ void RAPDEPage::ToggleDeviceFlag(int Device, BOOL fValue /*= TRUE*/)
 
 void RAPDEPage::LoadDefaultPortDevices()
 {
-	SetPortDevice(1, DEFAULT_PORT1_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(2, DEFAULT_PORT2_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(3, DEFAULT_PORT3_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(4, DEFAULT_PORT4_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(5, DEFAULT_PORT5_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(6, DEFAULT_PORT6_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(7, DEFAULT_PORT7_DEVICE, DEFAULT_DELAY_MINUTES);
-	SetPortDevice(8, DEFAULT_PORT8_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(1, DEFAULT_PORT1_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(2, DEFAULT_PORT2_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(3, DEFAULT_PORT3_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(4, DEFAULT_PORT4_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(5, DEFAULT_PORT5_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(6, DEFAULT_PORT6_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(7, DEFAULT_PORT7_DEVICE, DEFAULT_DELAY_MINUTES);
+	a_Controller.Relay.SetPortDevice(8, DEFAULT_PORT8_DEVICE, DEFAULT_DELAY_MINUTES);
 	SelectPort1();
 }
 
+/*
 void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 {
 	sFunction = _T("");
@@ -571,34 +583,35 @@ void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 		}
 	}
 }
+*/
 
 void RAPDEPage::SaveSettings()
 {
 	// saves the settings to the registry
 	CString s;
 	s.LoadStringA(IDS_PDE_TAB);
-	AfxGetApp()->WriteProfileInt(s, _T("FeedingModePorts"), FeedingModePorts);
-	AfxGetApp()->WriteProfileInt(s, _T("WaterChangeModePorts"), WaterChangeModePorts);
-	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), OverheatPorts);
-	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), LightsOnPorts);
+	AfxGetApp()->WriteProfileInt(s, _T("FeedingModePorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.Feeding));
+	AfxGetApp()->WriteProfileInt(s, _T("WaterChangeModePorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.WaterChange));
+	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.Overheat));
+	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.LightsOn));
 	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
 	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
-	AfxGetApp()->WriteProfileInt(s, _T("Port1"), Ports[0]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port2"), Ports[1]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port3"), Ports[2]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port4"), Ports[3]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port5"), Ports[4]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port6"), Ports[5]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port7"), Ports[6]);
-	AfxGetApp()->WriteProfileInt(s, _T("Port8"), Ports[7]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay1"), Delays[0]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay2"), Delays[1]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay3"), Delays[2]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay4"), Delays[3]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay5"), Delays[4]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay6"), Delays[5]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay7"), Delays[6]);
-	AfxGetApp()->WriteProfileInt(s, _T("Delay8"), Delays[7]);
+	AfxGetApp()->WriteProfileInt(s, _T("Port1"), a_Controller.Relay.GetPortDevice(1));
+	AfxGetApp()->WriteProfileInt(s, _T("Port2"), a_Controller.Relay.GetPortDevice(2));
+	AfxGetApp()->WriteProfileInt(s, _T("Port3"), a_Controller.Relay.GetPortDevice(3));
+	AfxGetApp()->WriteProfileInt(s, _T("Port4"), a_Controller.Relay.GetPortDevice(4));
+	AfxGetApp()->WriteProfileInt(s, _T("Port5"), a_Controller.Relay.GetPortDevice(5));
+	AfxGetApp()->WriteProfileInt(s, _T("Port6"), a_Controller.Relay.GetPortDevice(6));
+	AfxGetApp()->WriteProfileInt(s, _T("Port7"), a_Controller.Relay.GetPortDevice(7));
+	AfxGetApp()->WriteProfileInt(s, _T("Port8"), a_Controller.Relay.GetPortDevice(8));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay1"), a_Controller.Relay.GetPortDelay(1));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay2"), a_Controller.Relay.GetPortDelay(2));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay3"), a_Controller.Relay.GetPortDelay(3));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay4"), a_Controller.Relay.GetPortDelay(4));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay5"), a_Controller.Relay.GetPortDelay(5));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay6"), a_Controller.Relay.GetPortDelay(6));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay7"), a_Controller.Relay.GetPortDelay(7));
+	AfxGetApp()->WriteProfileInt(s, _T("Delay8"), a_Controller.Relay.GetPortDelay(8));
 }
 
 void RAPDEPage::LoadSettings()
@@ -606,27 +619,27 @@ void RAPDEPage::LoadSettings()
 	// loads the settings from the registry
 	CString s;
 	s.LoadStringA(IDS_PDE_TAB);
-	SetPortMode(Feeding, (BYTE)AfxGetApp()->GetProfileInt(s, _T("FeedingModePorts"), DEFAULT_FEEDINGMODE));
-	SetPortMode(WaterChange, (BYTE)AfxGetApp()->GetProfileInt(s, _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
-	SetPortMode(Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));
-	SetPortMode(LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
+	SetPortMode(a_Controller.Relay.Feeding, (BYTE)AfxGetApp()->GetProfileInt(s, _T("FeedingModePorts"), DEFAULT_FEEDINGMODE));
+	SetPortMode(a_Controller.Relay.WaterChange, (BYTE)AfxGetApp()->GetProfileInt(s, _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
+	SetPortMode(a_Controller.Relay.Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));
+	SetPortMode(a_Controller.Relay.LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
 	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
 	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
-	SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE),
+	a_Controller.Relay.SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay1"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE),
+	a_Controller.Relay.SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay2"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE),
+	a_Controller.Relay.SetPortDevice(3, AfxGetApp()->GetProfileInt(s, _T("Port3"), DEFAULT_PORT3_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay3"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(4, AfxGetApp()->GetProfileInt(s, _T("Port4"), DEFAULT_PORT4_DEVICE),
+	a_Controller.Relay.SetPortDevice(4, AfxGetApp()->GetProfileInt(s, _T("Port4"), DEFAULT_PORT4_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay4"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(5, AfxGetApp()->GetProfileInt(s, _T("Port5"), DEFAULT_PORT5_DEVICE),
+	a_Controller.Relay.SetPortDevice(5, AfxGetApp()->GetProfileInt(s, _T("Port5"), DEFAULT_PORT5_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay5"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(6, AfxGetApp()->GetProfileInt(s, _T("Port6"), DEFAULT_PORT6_DEVICE),
+	a_Controller.Relay.SetPortDevice(6, AfxGetApp()->GetProfileInt(s, _T("Port6"), DEFAULT_PORT6_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay6"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(7, AfxGetApp()->GetProfileInt(s, _T("Port7"), DEFAULT_PORT7_DEVICE),
+	a_Controller.Relay.SetPortDevice(7, AfxGetApp()->GetProfileInt(s, _T("Port7"), DEFAULT_PORT7_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay7"), DEFAULT_DELAY_MINUTES));
-	SetPortDevice(8, AfxGetApp()->GetProfileInt(s, _T("Port8"), DEFAULT_PORT8_DEVICE),
+	a_Controller.Relay.SetPortDevice(8, AfxGetApp()->GetProfileInt(s, _T("Port8"), DEFAULT_PORT8_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay8"), DEFAULT_DELAY_MINUTES));
 	UpdateData(FALSE);
 }
@@ -1075,15 +1088,15 @@ void RAPDEPage::UpdatePDEFeatures()
 	}
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
-		if ( (Ports[i] == IDC_PDE_CK_ALWAYS_ON) ||
-			 (Ports[i] == IDC_PDE_CK_NOTUSED) )
+		if ( (a_Controller.Relay.IsPortAlwaysOn(i)) ||
+			 (a_Controller.Relay.IsPortNotUsed(i)) )
 		{
 			// skip the ports that are always on because they were handled above
 			// also skip the ports that are not in use
 			continue;
 		}
 		// we have a good port to work with, so check it against the features to enable
-		switch ( Ports[i] )
+		switch ( a_Controller.Relay.GetPortDevice(i) )
 		{
 			case IDC_PDE_CK_METALHALIDES:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.METAL_HALIDE_SETUP, TRUE);
@@ -1196,25 +1209,25 @@ void RAPDEPage::OnResetLogging()
 void RAPDEPage::OnResetFeedingMode()
 {
 	UpdateData();
-	SetPortMode(Feeding, DEFAULT_FEEDINGMODE);
+	SetPortMode(a_Controller.Relay.Feeding, DEFAULT_FEEDINGMODE);
 }
 
 void RAPDEPage::OnResetWaterChangeMode()
 {
 	UpdateData();
-	SetPortMode(WaterChange, DEFAULT_WATERCHANGEMODE);
+	SetPortMode(a_Controller.Relay.WaterChange, DEFAULT_WATERCHANGEMODE);
 }
 
 void RAPDEPage::OnResetOverheat()
 {
 	UpdateData();
-	SetPortMode(Overheat, DEFAULT_OVERHEAT);
+	SetPortMode(a_Controller.Relay.Overheat, DEFAULT_OVERHEAT);
 }
 
 void RAPDEPage::OnResetLightsOn()
 {
 	UpdateData();
-	SetPortMode(LightsOn, DEFAULT_LIGHTSON);
+	SetPortMode(a_Controller.Relay.LightsOn, DEFAULT_LIGHTSON);
 }
 
 void RAPDEPage::OnBnClickedPort1()
@@ -1276,88 +1289,102 @@ void RAPDEPage::OnBnClickedPort8()
 void RAPDEPage::OnBnClickedCkWm1()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_WM1);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_WM1);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkWm2()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_WM2);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_WM2);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkDp1()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_DP1);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DP1);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkDp2()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_DP2);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DP2);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkDualato()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_DUALATO);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DUALATO);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkSingleatolow()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOLOW);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOLOW);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkSingleatohigh()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOHIGH);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOHIGH);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkAlwaysOn()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_ALWAYS_ON);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_ALWAYS_ON);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkMetalhalides()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_METALHALIDES);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_METALHALIDES);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkStdlights()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_STDLIGHTS);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_STDLIGHTS);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkHeater()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_HEATER);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_HEATER);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkChiller()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_CHILLER);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_CHILLER);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkNotused()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_NOTUSED);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_NOTUSED);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnBnClickedCkDelayedOn()
 {
 	UpdateData();
-	SetPortDevice(bCurrentPort, IDC_PDE_CK_DELAYON);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DELAYON);
+	UpdateDisplayDevice(bCurrentPort);
 }
 
 void RAPDEPage::OnEnChangePdeEditDelayOn()
 {
-	Delays[bCurrentPort-1] = GetDlgItemInt(IDC_PDE_EDIT_DELAY_ON);
+	a_Controller.Relay.SetPortDelay(bCurrentPort, GetDlgItemInt(IDC_PDE_EDIT_DELAY_ON));
 }

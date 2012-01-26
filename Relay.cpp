@@ -5,12 +5,13 @@
 
 CRelay::CRelay(void)
 {
-	m_iRelayDevice = 0;
+	CRelay(0);
 }
 
 CRelay::CRelay(int expansion)
 {
 	m_iRelayDevice = expansion;
+	InitPorts();
 }
 
 CRelay::~CRelay(void)
@@ -34,7 +35,12 @@ BOOL CRelay::IsPortDelayedOn(int port)
 
 int CRelay::GetPortDelay(int port)
 {
-	return Delays[port];
+	return Delays[port-1];
+}
+
+void CRelay::SetPortDelay(int port, int delay)
+{
+	Delays[port-1] = delay;
 }
 
 CString CRelay::GetPortMode(BYTE mode)
@@ -42,7 +48,51 @@ CString CRelay::GetPortMode(BYTE mode)
 	return _T("");
 }
 
-void CRelay::SetPortDevice(int Port, int Device, int Delay /*= 0*/)
+BYTE CRelay::GetPortModes(BYTE mode)
+{
+	BYTE ports;
+	switch ( mode )
+	{
+	default:
+	case Feeding:
+		ports = FeedingModePorts;
+		break;
+	case WaterChange:
+		ports = WaterChangeModePorts;
+		break;
+	case Overheat:
+		ports = OverheatPorts;
+		break;
+	case LightsOn:
+		ports = LightsOnPorts;
+		break;
+	}
+	return ports;
+}
+
+void CRelay::SetPortMode(BYTE mode, BYTE Ports)
+{
+	switch ( mode )
+	{
+	case Feeding:
+		FeedingModePorts = Ports;
+		break;
+	case WaterChange:
+		WaterChangeModePorts = Ports;
+		break;
+	case Overheat:
+		OverheatPorts = Ports;
+		break;
+	case LightsOn:
+		LightsOnPorts = Ports;
+		break;
+	default:
+		return;
+		break;
+	}
+}
+
+void CRelay::SetPortDevice(int Port, int Device, int Delay /*= DEFAULT_DELAY_MINUTES*/)
 {
 	Ports[Port-1] = Device;
 	if ( Delay > 0 )
@@ -74,4 +124,14 @@ void CRelay::ResetPortDevices()
 	SetPortDevice(6, DEFAULT_PORT6_DEVICE, DEFAULT_DELAY_MINUTES);
 	SetPortDevice(7, DEFAULT_PORT7_DEVICE, DEFAULT_DELAY_MINUTES);
 	SetPortDevice(8, DEFAULT_PORT8_DEVICE, DEFAULT_DELAY_MINUTES);
+}
+
+void CRelay::InitPorts()
+{
+	// blank out the ports first before we populate them
+	for ( int i = 0; i < MAX_PORTS; i++ )
+	{
+		Ports[i] = 0;
+		Delays[i] = DEFAULT_DELAY_MINUTES;
+	}
 }

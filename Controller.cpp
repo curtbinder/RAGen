@@ -16,6 +16,7 @@ CController::CController(void)
 	m_sExtension = _T("");
 	m_fBanner = FALSE;
 	m_fTemp = FALSE;
+	LoadDeviceFunctions();
 }
 
 CController::~CController(void)

@@ -65,8 +65,8 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RAPDEPAGE };
 
-	CString sFilename;  //!< Filename of the PDE file generated
-	CString sFileExtension;
+	//CString sFilename;  //!< Filename of the PDE file generated
+	//CString sFileExtension;
 
 protected:
 	//! DDX/DDV Data Exchange between controls and variables
@@ -75,11 +75,13 @@ protected:
 
 // Implementation
 protected:
+	/*
 	int Ports[MAX_PORTS]; //!< Array of Ports
 	int Delays[MAX_PORTS];  //!< Array of Delays for Delayed on
 	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used
 
 	//! Enum of the different byte arrays
+	/*
 	enum Modes {
 		Feeding,  //!< Feeding Mode ports
 		WaterChange, //!< WaterChange Mode ports
@@ -91,6 +93,7 @@ protected:
 	BYTE WaterChangeModePorts;  //!< Ports toggled during Water Change Mode
 	BYTE OverheatPorts;  //!< Ports that get shutoff during Overheat
 	BYTE LightsOnPorts;  //!< Ports toggled during lights on/off
+	*/
 
 	BOOL fTemp;  //!< Temperature flag, 0 - Fahrenheit, 1 - Celcuis
 	BOOL fBanner;  //!< Web banner mode flag, 0 - no banner / logging, 1 - web banner enabled
@@ -141,7 +144,7 @@ protected:
 	 * function names and not the class name or parenthesis afterwards.
 	 * The ID for the window/item is also stored for comparison.
 	 */
-	void LoadDeviceFunctions();
+	//void LoadDeviceFunctions();
 	/*! Creates the Binary string for the mode
 	 *
 	 * The mode (Feeding, WaterChange, Overheat, Lights On) is created in a binary string
@@ -181,13 +184,13 @@ protected:
 	 * \param Device Device ID to be stored
 	 * \param Delay Delay in minutes to be stored for DelayedOn
 	 */
-	void SetPortDevice(int Port, int Device, int Delay = 0);
+	//void SetPortDevice(int Port, int Device, int Delay = 0);
 	/*! Retrieves the device associated with the port
 	 *
 	 * \param Port Port number to retrieve
 	 * \retval int Device ID associated with the port
 	 */
-	int GetPortDevice(int Port);
+	//int GetPortDevice(int Port);
 	/*! Updates the device list for the specified port
 	 *
 	 * Updates the device list based on the port provided.  This is called when the port
@@ -264,7 +267,7 @@ protected:
 	 * \param Device ID of the device
 	 * \param sFunction string that contains the ReefAngel function call
 	 */
-	void LookupDeviceFunction(int Device, CString &sFunction);
+	//void LookupDeviceFunction(int Device, CString &sFunction);
 	void SaveSettings();
 	void LoadSettings();
 	void SelectPort1();
