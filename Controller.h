@@ -1,6 +1,8 @@
 #pragma once
 
+#include "GlobalVars.h"
 #include "Features.h"
+#include "Relay.h"
 
 class CController
 {
@@ -17,8 +19,12 @@ public:
 	inline CString GetFilename() { return m_sFilename; }
 	inline CString GetExtension() { return m_sExtension; }
 	BOOL WriteFile();
+	void LookupDeviceFunction(int Device, CString &sFunction);
 
 	CFeatures Features;
+	CRelay Relay;
+	
+	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used
 
 private:
 	CString m_sFilename;
@@ -27,6 +33,7 @@ private:
 	BOOL m_fTemp;
 	//BOOL m_fWifiPassordEnabled;
 
+	void LoadDeviceFunctions();
 	void GenerateFilename(CTime &t);
 	void GenerateHeader(CFile &f, CTime &t);
 	void WriteIncludes(CFile &f);

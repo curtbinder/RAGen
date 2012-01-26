@@ -7,19 +7,21 @@
  * Contains the device ID (ID of the checkbox) and the ReefAngel function name
  * associated with the device
  */
+/*
 typedef struct _device {
 	int id;   //!< ID of the check box
 	CString sRAFunction;  //!< Function name only, no ReefAngel or parentheses
 } device;
-
+*/
 
 /*!
  * Maximum ports for the controller
  */
-#define MAX_PORTS					8
+//#define MAX_PORTS					8
 /*! 
  * Maximum devices to choose from
  */
+/*
 #define MAX_DEVICES					14
 //! Default ports toggled during Feeding mode, 10011000
 #define DEFAULT_FEEDINGMODE			152
@@ -45,7 +47,7 @@ typedef struct _device {
 #define DEFAULT_PORT7_DEVICE		IDC_PDE_CK_HEATER
 //! Default Port 8 device is Sump/Always On
 #define DEFAULT_PORT8_DEVICE		IDC_PDE_CK_ALWAYS_ON
-
+*/
 
 // RAPDEPage dialog
 /*! RAPDEPage Dialog class

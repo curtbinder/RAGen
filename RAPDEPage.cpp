@@ -121,6 +121,7 @@ void RAPDEPage::InitPorts()
 
 void RAPDEPage::LoadDeviceFunctions()
 {
+	// TODO make global Controller devices
 	int d = IDC_PDE_CK_ALWAYS_ON;
 	int i;
 	for ( i = 0; i < MAX_DEVICES; i++, d++ )

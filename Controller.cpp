@@ -22,6 +22,67 @@ CController::~CController(void)
 {
 }
 
+void CController::LookupDeviceFunction(int Device, CString &sFunction)
+{
+	sFunction = Devices[Device].sRAFunction;
+}
+
+void CController::LoadDeviceFunctions()
+{
+	int d = IDC_PDE_CK_ALWAYS_ON;
+	int i;
+	for ( i = 0; i < MAX_DEVICES; i++, d++ )
+	{
+		Devices[i].id = d;
+		switch ( d )
+		{
+		case IDC_PDE_CK_DELAYON:
+			Devices[i].sRAFunction = _T("Relay.DelayedOn");
+			break;
+		case IDC_PDE_CK_ALWAYS_ON:
+			Devices[i].sRAFunction = _T("Relay.On");
+			break;
+		case IDC_PDE_CK_METALHALIDES:
+			Devices[i].sRAFunction = _T("MHLights");
+			break;
+		case IDC_PDE_CK_STDLIGHTS:
+			Devices[i].sRAFunction = _T("StandardLights");
+			break;
+		case IDC_PDE_CK_HEATER:
+			Devices[i].sRAFunction = _T("StandardHeater");
+			break;
+		case IDC_PDE_CK_CHILLER:
+			Devices[i].sRAFunction = _T("StandardFan");
+			break;
+		case IDC_PDE_CK_WM1:
+			Devices[i].sRAFunction = _T("Wavemaker1");
+			break;
+		case IDC_PDE_CK_WM2:
+			Devices[i].sRAFunction = _T("Wavemaker2");
+			break;
+		case IDC_PDE_CK_DP1:
+			Devices[i].sRAFunction = _T("DosingPump1");
+			break;
+		case IDC_PDE_CK_DP2:
+			Devices[i].sRAFunction = _T("DosingPump2");
+			break;
+		case IDC_PDE_CK_DUALATO:
+			Devices[i].sRAFunction = _T("StandardATO");
+			break;
+		case IDC_PDE_CK_SINGLEATOLOW:
+			Devices[i].sRAFunction = _T("SingleATOLow");
+			break;
+		case IDC_PDE_CK_SINGLEATOHIGH:
+			Devices[i].sRAFunction = _T("SingleATOHigh");
+			break;
+		default:
+		case IDC_PDE_CK_NOTUSED:
+			Devices[i].sRAFunction = _T("");
+			break;
+		}
+	}
+}
+
 BOOL CController::WriteFile()
 {
 	BOOL bRet = FALSE;
