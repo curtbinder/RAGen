@@ -20,17 +20,17 @@ CRelay::~CRelay(void)
 
 BOOL CRelay::IsPortAlwaysOn(int port)
 {
-	return (Ports[port] == IDC_PDE_CK_ALWAYS_ON);
+	return (Ports[port] == IDC_RELAY_CK_ALWAYS_ON);
 }
 
 BOOL CRelay::IsPortNotUsed(int port)
 {
-	return (Ports[port] == IDC_PDE_CK_NOTUSED);
+	return (Ports[port] == IDC_RELAY_CK_NOTUSED);
 }
 
 BOOL CRelay::IsPortDelayedOn(int port)
 {
-	return (Ports[port] == IDC_PDE_CK_DELAYON);
+	return (Ports[port] == IDC_RELAY_CK_DELAYON);
 }
 
 int CRelay::GetPortDelay(int port)

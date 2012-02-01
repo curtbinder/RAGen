@@ -125,3 +125,5 @@ v1.2.0
 - Use appropriate file extension based on what version of libraries (PDE vs INO)
 - Added in "Show Library Version" menu entry to display what version of the libraries are installed
 - Made DEV libraries the default libraries
+- Changed PDE reference to Relay
+

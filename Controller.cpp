@@ -30,54 +30,54 @@ void CController::LookupDeviceFunction(int Device, CString &sFunction)
 
 void CController::LoadDeviceFunctions()
 {
-	int d = IDC_PDE_CK_ALWAYS_ON;
+	int d = IDC_RELAY_CK_ALWAYS_ON;
 	int i;
 	for ( i = 0; i < MAX_DEVICES; i++, d++ )
 	{
 		Devices[i].id = d;
 		switch ( d )
 		{
-		case IDC_PDE_CK_DELAYON:
+		case IDC_RELAY_CK_DELAYON:
 			Devices[i].sRAFunction = _T("Relay.DelayedOn");
 			break;
-		case IDC_PDE_CK_ALWAYS_ON:
+		case IDC_RELAY_CK_ALWAYS_ON:
 			Devices[i].sRAFunction = _T("Relay.On");
 			break;
-		case IDC_PDE_CK_METALHALIDES:
+		case IDC_RELAY_CK_METALHALIDES:
 			Devices[i].sRAFunction = _T("MHLights");
 			break;
-		case IDC_PDE_CK_STDLIGHTS:
+		case IDC_RELAY_CK_STDLIGHTS:
 			Devices[i].sRAFunction = _T("StandardLights");
 			break;
-		case IDC_PDE_CK_HEATER:
+		case IDC_RELAY_CK_HEATER:
 			Devices[i].sRAFunction = _T("StandardHeater");
 			break;
-		case IDC_PDE_CK_CHILLER:
+		case IDC_RELAY_CK_CHILLER:
 			Devices[i].sRAFunction = _T("StandardFan");
 			break;
-		case IDC_PDE_CK_WM1:
+		case IDC_RELAY_CK_WM1:
 			Devices[i].sRAFunction = _T("Wavemaker1");
 			break;
-		case IDC_PDE_CK_WM2:
+		case IDC_RELAY_CK_WM2:
 			Devices[i].sRAFunction = _T("Wavemaker2");
 			break;
-		case IDC_PDE_CK_DP1:
+		case IDC_RELAY_CK_DP1:
 			Devices[i].sRAFunction = _T("DosingPump1");
 			break;
-		case IDC_PDE_CK_DP2:
+		case IDC_RELAY_CK_DP2:
 			Devices[i].sRAFunction = _T("DosingPump2");
 			break;
-		case IDC_PDE_CK_DUALATO:
+		case IDC_RELAY_CK_DUALATO:
 			Devices[i].sRAFunction = _T("StandardATO");
 			break;
-		case IDC_PDE_CK_SINGLEATOLOW:
+		case IDC_RELAY_CK_SINGLEATOLOW:
 			Devices[i].sRAFunction = _T("SingleATOLow");
 			break;
-		case IDC_PDE_CK_SINGLEATOHIGH:
+		case IDC_RELAY_CK_SINGLEATOHIGH:
 			Devices[i].sRAFunction = _T("SingleATOHigh");
 			break;
 		default:
-		case IDC_PDE_CK_NOTUSED:
+		case IDC_RELAY_CK_NOTUSED:
 			Devices[i].sRAFunction = _T("");
 			break;
 		}
@@ -472,7 +472,7 @@ void setup()\r\n\
 	// Ports that are always on
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
-		if ( Ports[i] == IDC_PDE_CK_ALWAYS_ON )
+		if ( Ports[i] == IDC_RELAY_CK_ALWAYS_ON )
 		{
 			if ( !fOnce )
 			{
@@ -511,8 +511,8 @@ void loop()\r\n\
 	// Specific functions
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
-		if ( (Ports[i] == IDC_PDE_CK_ALWAYS_ON) ||
-			 (Ports[i] == IDC_PDE_CK_NOTUSED) )
+		if ( (Ports[i] == IDC_RELAY_CK_ALWAYS_ON) ||
+			 (Ports[i] == IDC_RELAY_CK_NOTUSED) )
 		{
 			// skip the ports that are always on because they were handled above
 			// also skip the ports that are not in use
@@ -520,7 +520,7 @@ void loop()\r\n\
 		}
 		// Now we have a good port to use, so let's use it
 		LookupDeviceFunction(Ports[i], s);
-		if ( Ports[i] == IDC_PDE_CK_DELAYON )
+		if ( Ports[i] == IDC_RELAY_CK_DELAYON )
 		{
 			s1.Format(_T("%sReefAngel.%s(Port%d, %d);\r\n"), sTab, s, i+1, Delays[i]);
 		}

@@ -43,7 +43,7 @@ protected:
 
 	enum Tabs {
 		Features,
-		PDE,
+		MainRelay,
 		//Colors,
 		Standard,
 	};

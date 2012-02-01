@@ -32,38 +32,38 @@ typedef struct _device {
 //! Default ports toggled during lights on/lights off, 00000110
 #define DEFAULT_LIGHTSON			6
 //! Default Port 1 device is Dual ATO
-#define DEFAULT_PORT1_DEVICE		IDC_PDE_CK_DUALATO
+#define DEFAULT_PORT1_DEVICE		IDC_RELAY_CK_DUALATO
 //! Default Port 2 device is Standard Lights
-#define DEFAULT_PORT2_DEVICE		IDC_PDE_CK_STDLIGHTS
+#define DEFAULT_PORT2_DEVICE		IDC_RELAY_CK_STDLIGHTS
 //! Default Port 3 device is Metal Halides
-#define DEFAULT_PORT3_DEVICE		IDC_PDE_CK_METALHALIDES
+#define DEFAULT_PORT3_DEVICE		IDC_RELAY_CK_METALHALIDES
 //! Default Port 4 device is Fan/Chiller
-#define DEFAULT_PORT4_DEVICE		IDC_PDE_CK_CHILLER
+#define DEFAULT_PORT4_DEVICE		IDC_RELAY_CK_CHILLER
 //! Default Port 5 device is Wavemaker 1
-#define DEFAULT_PORT5_DEVICE		IDC_PDE_CK_WM1
+#define DEFAULT_PORT5_DEVICE		IDC_RELAY_CK_WM1
 //! Default Port 6 device is Wavemaker 2
-#define DEFAULT_PORT6_DEVICE		IDC_PDE_CK_WM2
+#define DEFAULT_PORT6_DEVICE		IDC_RELAY_CK_WM2
 //! Default Port 7 device is Heater
-#define DEFAULT_PORT7_DEVICE		IDC_PDE_CK_HEATER
+#define DEFAULT_PORT7_DEVICE		IDC_RELAY_CK_HEATER
 //! Default Port 8 device is Sump/Always On
-#define DEFAULT_PORT8_DEVICE		IDC_PDE_CK_ALWAYS_ON
+#define DEFAULT_PORT8_DEVICE		IDC_RELAY_CK_ALWAYS_ON
 */
 
-// RAPDEPage dialog
-/*! RAPDEPage Dialog class
+// RARelayPage dialog
+/*! RARelayPage Dialog class
  *
  * Contains all the operations for the program
  */
-class RAPDEPage : public CDialog
+class RARelayPage : public CDialog
 {
-	DECLARE_DYNAMIC(RAPDEPage)
+	DECLARE_DYNAMIC(RARelayPage)
 
 public:
-	RAPDEPage(CWnd* pParent = NULL);
-	virtual ~RAPDEPage();
+	RARelayPage(CWnd* pParent = NULL);
+	virtual ~RARelayPage();
 
 // Dialog Data
-	enum { IDD = IDD_RAPDEPAGE };
+	enum { IDD = IDD_RARELAYPAGE };
 
 	//CString sFilename;  //!< Filename of the PDE file generated
 	//CString sFileExtension;

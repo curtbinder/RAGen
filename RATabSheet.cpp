@@ -5,7 +5,7 @@
 #include "RAGen.h"
 #include "RATabSheet.h"
 #include "RAFeaturesPage.h"
-#include "RAPDEPage.h"
+#include "RARelayPage.h"
 //#include "RAColorsPage.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
 #include "Controller.h"
@@ -31,7 +31,7 @@ RATabSheet::~RATabSheet()
 void RATabSheet::Init()
 {
 	m_pTabs[0] = new RAFeaturesPage;
-	m_pTabs[1] = new RAPDEPage;
+	m_pTabs[1] = new RARelayPage;
 	m_pTabs[2] = new RAStdPage;
 	m_iNumTabs = 3;
 
@@ -41,13 +41,13 @@ void RATabSheet::Init()
 		s.LoadStringA(IDS_FEATURES_TAB);
 		InsertItem(Features, s);
 		s.LoadStringA(IDS_PDE_TAB);
-		InsertItem(PDE, s);
+		InsertItem(MainRelay, s);
 		//s.LoadStringA(IDS_COLORS_TAB);
 		//InsertItem(Colors, _T("Colors"));
 
 		m_iCurrentTab = 0;
 		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
-		m_pTabs[PDE]->Create(IDD_RAPDEPAGE, this);
+		m_pTabs[MainRelay]->Create(IDD_RARELAYPAGE, this);
 		//m_pTabs[Colors]->Create(IDD_RACOLORSPAGE, this);
 
 		m_pTabs[0]->ShowWindow(SW_SHOW);
@@ -119,14 +119,14 @@ void RATabSheet::Generate()
 			pf->WriteFeatures();
 			break;
 		}
-		case PDE:
+		case MainRelay:
 			{
 			/*
 			Update PDE Features list
 			Write ReefAngel_Features.h file
 			Generate PDE file
 			*/
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->UpdatePDEFeatures();
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 			pf->WriteFeatures();
@@ -234,9 +234,9 @@ void RATabSheet::ResetAll()
 			p->OnResetAll();
 			}
 			break;
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetAll();
 			}
 			break;
@@ -261,9 +261,9 @@ void RATabSheet::ResetSaved()
 			p->OnResetSaved();
 			}
 			break;
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetSaved();
 			}
 			break;
@@ -282,9 +282,9 @@ void RATabSheet::ResetPorts()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetPorts();
 			}
 			break;
@@ -297,9 +297,9 @@ void RATabSheet::ResetTemp()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetTemperature();
 			}
 			break;
@@ -312,9 +312,9 @@ void RATabSheet::ResetLogging()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetLogging();
 			}
 			break;
@@ -327,9 +327,9 @@ void RATabSheet::ResetFeedingMode()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetFeedingMode();
 			}
 			break;
@@ -342,9 +342,9 @@ void RATabSheet::ResetWaterChangeMode()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetWaterChangeMode();
 			}
 			break;
@@ -357,9 +357,9 @@ void RATabSheet::ResetOverheat()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetOverheat();
 			}
 			break;
@@ -372,9 +372,9 @@ void RATabSheet::ResetLightsOn()
 {
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			{
-			RAPDEPage* p = (RAPDEPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetLightsOn();
 			}
 			break;
@@ -402,7 +402,7 @@ void RATabSheet::UpdateSettingsForTabs()
 
 void RATabSheet::GetFilename(CString &s)
 {
-	if ( m_iCurrentTab == PDE )
+	if ( m_iCurrentTab == MainRelay )
 	{
 		s = a_Controller.GetFilename();
 	}
@@ -419,7 +419,7 @@ void RATabSheet::GetFilename(CString &s)
 
 void RATabSheet::GetFileExtension(CString &s)
 {
-	if ( m_iCurrentTab == PDE )
+	if ( m_iCurrentTab == MainRelay )
 	{
 		s = a_Controller.GetExtension();
 	}
@@ -486,7 +486,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	UINT menuID = IDR_MENU_RESET;
 	switch ( m_iCurrentTab )
 	{
-		case PDE:
+		case MainRelay:
 			menuID = IDR_MENU_PDE_RESET;
 			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
 			break;

@@ -1,9 +1,9 @@
-// RAPDEPage.cpp : implementation file
+// RARelayPage.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "RAGen.h"
-#include "RAPDEPage.h"
+#include "RARelayPage.h"
 #include "cb_FileVersion.h"
 #include "GlobalVars.h"
 #include "WebBannerDlg.h"
@@ -12,12 +12,12 @@
 #include "Controller.h"
 
 
-// RAPDEPage dialog
+// RARelayPage dialog
 
-IMPLEMENT_DYNAMIC(RAPDEPage, CDialog)
+IMPLEMENT_DYNAMIC(RARelayPage, CDialog)
 
-RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
-	: CDialog(RAPDEPage::IDD, pParent)
+RARelayPage::RARelayPage(CWnd* pParent /*=NULL*/)
+	: CDialog(RARelayPage::IDD, pParent)
 {
 	fTemp = FALSE;
 	fBanner = FALSE;
@@ -30,54 +30,54 @@ RAPDEPage::RAPDEPage(CWnd* pParent /*=NULL*/)
 	//LoadDeviceFunctions();
 }
 
-RAPDEPage::~RAPDEPage()
+RARelayPage::~RARelayPage()
 {
 }
 
-void RAPDEPage::DoDataExchange(CDataExchange* pDX)
+void RARelayPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Radio(pDX, IDC_PDE_TEMP_0, fTemp);
-	DDX_Check(pDX, IDC_PDE_CK_WEB, fBanner);
+	DDX_Radio(pDX, IDC_RELAY_TEMP_0, fTemp);
+	DDX_Check(pDX, IDC_RELAY_CK_WEB, fBanner);
 }
 
-BEGIN_MESSAGE_MAP(RAPDEPage, CDialog)
+BEGIN_MESSAGE_MAP(RARelayPage, CDialog)
 	//}}AFX_MSG_MAP
-	ON_BN_CLICKED(IDC_PDE_PORT_1, &RAPDEPage::OnBnClickedPort1)
-	ON_BN_CLICKED(IDC_PDE_PORT_2, &RAPDEPage::OnBnClickedPort2)
-	ON_BN_CLICKED(IDC_PDE_PORT_3, &RAPDEPage::OnBnClickedPort3)
-	ON_BN_CLICKED(IDC_PDE_PORT_4, &RAPDEPage::OnBnClickedPort4)
-	ON_BN_CLICKED(IDC_PDE_PORT_5, &RAPDEPage::OnBnClickedPort5)
-	ON_BN_CLICKED(IDC_PDE_PORT_6, &RAPDEPage::OnBnClickedPort6)
-	ON_BN_CLICKED(IDC_PDE_PORT_7, &RAPDEPage::OnBnClickedPort7)
-	ON_BN_CLICKED(IDC_PDE_PORT_8, &RAPDEPage::OnBnClickedPort8)
-	ON_BN_CLICKED(IDC_PDE_CK_WM1, &RAPDEPage::OnBnClickedCkWm1)
-	ON_BN_CLICKED(IDC_PDE_CK_WM2, &RAPDEPage::OnBnClickedCkWm2)
-	ON_BN_CLICKED(IDC_PDE_CK_DP1, &RAPDEPage::OnBnClickedCkDp1)
-	ON_BN_CLICKED(IDC_PDE_CK_DP2, &RAPDEPage::OnBnClickedCkDp2)
-	ON_BN_CLICKED(IDC_PDE_CK_DUALATO, &RAPDEPage::OnBnClickedCkDualato)
-	ON_BN_CLICKED(IDC_PDE_CK_SINGLEATOLOW, &RAPDEPage::OnBnClickedCkSingleatolow)
-	ON_BN_CLICKED(IDC_PDE_CK_SINGLEATOHIGH, &RAPDEPage::OnBnClickedCkSingleatohigh)
-	ON_BN_CLICKED(IDC_PDE_CK_ALWAYS_ON, &RAPDEPage::OnBnClickedCkAlwaysOn)
-	ON_BN_CLICKED(IDC_PDE_CK_METALHALIDES, &RAPDEPage::OnBnClickedCkMetalhalides)
-	ON_BN_CLICKED(IDC_PDE_CK_STDLIGHTS, &RAPDEPage::OnBnClickedCkStdlights)
-	ON_BN_CLICKED(IDC_PDE_CK_HEATER, &RAPDEPage::OnBnClickedCkHeater)
-	ON_BN_CLICKED(IDC_PDE_CK_CHILLER, &RAPDEPage::OnBnClickedCkChiller)
-	ON_BN_CLICKED(IDC_PDE_CK_DELAYON, &RAPDEPage::OnBnClickedCkDelayedOn)
-	ON_BN_CLICKED(IDC_PDE_CK_NOTUSED, &RAPDEPage::OnBnClickedCkNotused)
-	ON_EN_CHANGE(IDC_PDE_EDIT_DELAY_ON, &RAPDEPage::OnEnChangePdeEditDelayOn)
+	ON_BN_CLICKED(IDC_RELAY_PORT_1, &RARelayPage::OnBnClickedPort1)
+	ON_BN_CLICKED(IDC_RELAY_PORT_2, &RARelayPage::OnBnClickedPort2)
+	ON_BN_CLICKED(IDC_RELAY_PORT_3, &RARelayPage::OnBnClickedPort3)
+	ON_BN_CLICKED(IDC_RELAY_PORT_4, &RARelayPage::OnBnClickedPort4)
+	ON_BN_CLICKED(IDC_RELAY_PORT_5, &RARelayPage::OnBnClickedPort5)
+	ON_BN_CLICKED(IDC_RELAY_PORT_6, &RARelayPage::OnBnClickedPort6)
+	ON_BN_CLICKED(IDC_RELAY_PORT_7, &RARelayPage::OnBnClickedPort7)
+	ON_BN_CLICKED(IDC_RELAY_PORT_8, &RARelayPage::OnBnClickedPort8)
+	ON_BN_CLICKED(IDC_RELAY_CK_WM1, &RARelayPage::OnBnClickedCkWm1)
+	ON_BN_CLICKED(IDC_RELAY_CK_WM2, &RARelayPage::OnBnClickedCkWm2)
+	ON_BN_CLICKED(IDC_RELAY_CK_DP1, &RARelayPage::OnBnClickedCkDp1)
+	ON_BN_CLICKED(IDC_RELAY_CK_DP2, &RARelayPage::OnBnClickedCkDp2)
+	ON_BN_CLICKED(IDC_RELAY_CK_DUALATO, &RARelayPage::OnBnClickedCkDualato)
+	ON_BN_CLICKED(IDC_RELAY_CK_SINGLEATOLOW, &RARelayPage::OnBnClickedCkSingleatolow)
+	ON_BN_CLICKED(IDC_RELAY_CK_SINGLEATOHIGH, &RARelayPage::OnBnClickedCkSingleatohigh)
+	ON_BN_CLICKED(IDC_RELAY_CK_ALWAYS_ON, &RARelayPage::OnBnClickedCkAlwaysOn)
+	ON_BN_CLICKED(IDC_RELAY_CK_METALHALIDES, &RARelayPage::OnBnClickedCkMetalhalides)
+	ON_BN_CLICKED(IDC_RELAY_CK_STDLIGHTS, &RARelayPage::OnBnClickedCkStdlights)
+	ON_BN_CLICKED(IDC_RELAY_CK_HEATER, &RARelayPage::OnBnClickedCkHeater)
+	ON_BN_CLICKED(IDC_RELAY_CK_CHILLER, &RARelayPage::OnBnClickedCkChiller)
+	ON_BN_CLICKED(IDC_RELAY_CK_DELAYON, &RARelayPage::OnBnClickedCkDelayedOn)
+	ON_BN_CLICKED(IDC_RELAY_CK_NOTUSED, &RARelayPage::OnBnClickedCkNotused)
+	ON_EN_CHANGE(IDC_RELAY_EDIT_DELAY_ON, &RARelayPage::OnEnChangePdeEditDelayOn)
 END_MESSAGE_MAP()
 
 
-// RAPDEPage message handlers
+// RARelayPage message handlers
 
-BOOL RAPDEPage::OnInitDialog()
+BOOL RARelayPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
 	CSpinButtonCtrl* pSpin;
-	pSpin = (CSpinButtonCtrl*)GetDlgItem(IDC_PDE_SPIN_DELAY_ON);
-	pSpin->SetBuddy(GetDlgItem(IDC_PDE_EDIT_DELAY_ON));
+	pSpin = (CSpinButtonCtrl*)GetDlgItem(IDC_RELAY_SPIN_DELAY_ON);
+	pSpin->SetBuddy(GetDlgItem(IDC_RELAY_EDIT_DELAY_ON));
 	pSpin->SetRange32(1, BYTE_MAX);
 
 	// have to load the defaults first which initializes the boxes
@@ -101,7 +101,7 @@ BOOL RAPDEPage::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void RAPDEPage::InitPorts()
+void RARelayPage::InitPorts()
 {
 	bCurrentPort = 1;
 	fWM1 = FALSE;
@@ -119,57 +119,57 @@ void RAPDEPage::InitPorts()
 	//}
 }
 /*
-void RAPDEPage::LoadDeviceFunctions()
+void RARelayPage::LoadDeviceFunctions()
 {
 	// TODO make global Controller devices
-	int d = IDC_PDE_CK_ALWAYS_ON;
+	int d = IDC_RELAY_CK_ALWAYS_ON;
 	int i;
 	for ( i = 0; i < MAX_DEVICES; i++, d++ )
 	{
 		Devices[i].id = d;
 		switch ( d )
 		{
-		case IDC_PDE_CK_DELAYON:
+		case IDC_RELAY_CK_DELAYON:
 			Devices[i].sRAFunction = _T("Relay.DelayedOn");
 			break;
-		case IDC_PDE_CK_ALWAYS_ON:
+		case IDC_RELAY_CK_ALWAYS_ON:
 			Devices[i].sRAFunction = _T("Relay.On");
 			break;
-		case IDC_PDE_CK_METALHALIDES:
+		case IDC_RELAY_CK_METALHALIDES:
 			Devices[i].sRAFunction = _T("MHLights");
 			break;
-		case IDC_PDE_CK_STDLIGHTS:
+		case IDC_RELAY_CK_STDLIGHTS:
 			Devices[i].sRAFunction = _T("StandardLights");
 			break;
-		case IDC_PDE_CK_HEATER:
+		case IDC_RELAY_CK_HEATER:
 			Devices[i].sRAFunction = _T("StandardHeater");
 			break;
-		case IDC_PDE_CK_CHILLER:
+		case IDC_RELAY_CK_CHILLER:
 			Devices[i].sRAFunction = _T("StandardFan");
 			break;
-		case IDC_PDE_CK_WM1:
+		case IDC_RELAY_CK_WM1:
 			Devices[i].sRAFunction = _T("Wavemaker1");
 			break;
-		case IDC_PDE_CK_WM2:
+		case IDC_RELAY_CK_WM2:
 			Devices[i].sRAFunction = _T("Wavemaker2");
 			break;
-		case IDC_PDE_CK_DP1:
+		case IDC_RELAY_CK_DP1:
 			Devices[i].sRAFunction = _T("DosingPump1");
 			break;
-		case IDC_PDE_CK_DP2:
+		case IDC_RELAY_CK_DP2:
 			Devices[i].sRAFunction = _T("DosingPump2");
 			break;
-		case IDC_PDE_CK_DUALATO:
+		case IDC_RELAY_CK_DUALATO:
 			Devices[i].sRAFunction = _T("StandardATO");
 			break;
-		case IDC_PDE_CK_SINGLEATOLOW:
+		case IDC_RELAY_CK_SINGLEATOLOW:
 			Devices[i].sRAFunction = _T("SingleATOLow");
 			break;
-		case IDC_PDE_CK_SINGLEATOHIGH:
+		case IDC_RELAY_CK_SINGLEATOHIGH:
 			Devices[i].sRAFunction = _T("SingleATOHigh");
 			break;
 		default:
-		case IDC_PDE_CK_NOTUSED:
+		case IDC_RELAY_CK_NOTUSED:
 			Devices[i].sRAFunction = _T("");
 			break;
 		}
@@ -177,7 +177,7 @@ void RAPDEPage::LoadDeviceFunctions()
 }
 */
 
-void RAPDEPage::LoadDefaults()
+void RARelayPage::LoadDefaults()
 {
 	// Load the default values
 	InitPorts();
@@ -195,7 +195,7 @@ void RAPDEPage::LoadDefaults()
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::GetPortMode(BYTE Mode, CString &sMode)
+void RARelayPage::GetPortMode(BYTE Mode, CString &sMode)
 {
 	// Creates the binary code for adding to the PDE file
 	// binary code is stored in sMode
@@ -204,19 +204,19 @@ void RAPDEPage::GetPortMode(BYTE Mode, CString &sMode)
 	switch ( Mode )
 	{
 	case a_Controller.Relay.Feeding:
-		i = IDC_PDE_CK_FEEDING_1;
+		i = IDC_RELAY_CK_FEEDING_1;
 		//ports = a_Controller.Relay.FeedingModePorts;
 		break;
 	case a_Controller.Relay.WaterChange:
-		i = IDC_PDE_CK_WATER_1;
+		i = IDC_RELAY_CK_WATER_1;
 		//ports = a_Controller.Relay.WaterChangeModePorts;
 		break;
 	case a_Controller.Relay.Overheat:
-		i = IDC_PDE_CK_OVERHEAT_1;
+		i = IDC_RELAY_CK_OVERHEAT_1;
 		//ports = a_Controller.Relay.OverheatPorts;
 		break;
 	case a_Controller.Relay.LightsOn:
-		i = IDC_PDE_CK_LIGHTS_1;
+		i = IDC_RELAY_CK_LIGHTS_1;
 		//ports = a_Controller.Relay.LightsOnPorts;
 		break;
 	default:
@@ -243,7 +243,7 @@ void RAPDEPage::GetPortMode(BYTE Mode, CString &sMode)
 	sMode.Insert(0, _T("B"));
 }
 
-void RAPDEPage::SetPortMode(BYTE Mode, BYTE Ports)
+void RARelayPage::SetPortMode(BYTE Mode, BYTE Ports)
 {
 	/*
 	switch ( Mode )
@@ -269,7 +269,7 @@ void RAPDEPage::SetPortMode(BYTE Mode, BYTE Ports)
 	UpdateDisplayPorts(Mode);
 }
 
-void RAPDEPage::UpdateDisplayPorts(BYTE Mode)
+void RARelayPage::UpdateDisplayPorts(BYTE Mode)
 {
 	// Updates the check boxes on the display
 	// Only updates the mode passed in
@@ -278,19 +278,19 @@ void RAPDEPage::UpdateDisplayPorts(BYTE Mode)
 	switch ( Mode )
 	{
 	case a_Controller.Relay.Feeding:
-		i = IDC_PDE_CK_FEEDING_1;
+		i = IDC_RELAY_CK_FEEDING_1;
 		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.Feeding);
 		break;
 	case a_Controller.Relay.WaterChange:
-		i = IDC_PDE_CK_WATER_1;
+		i = IDC_RELAY_CK_WATER_1;
 		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.WaterChange);
 		break;
 	case a_Controller.Relay.Overheat:
-		i = IDC_PDE_CK_OVERHEAT_1;
+		i = IDC_RELAY_CK_OVERHEAT_1;
 		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.Overheat);
 		break;
 	case a_Controller.Relay.LightsOn:
-		i = IDC_PDE_CK_LIGHTS_1;
+		i = IDC_RELAY_CK_LIGHTS_1;
 		ports = a_Controller.Relay.GetPortModes(a_Controller.Relay.LightsOn);
 		break;
 	default:
@@ -316,14 +316,14 @@ void RAPDEPage::UpdateDisplayPorts(BYTE Mode)
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::RefreshModePorts()
+void RARelayPage::RefreshModePorts()
 {
 	// Refresh the port variables based on the check boxes
 	// Refreshes all the ports, only update before we write the value out since
 	// there isn't any variable associated with each checkbox
 	
 	// loop through the four modes
-	int modes[4] = {IDC_PDE_CK_FEEDING_1, IDC_PDE_CK_WATER_1, IDC_PDE_CK_OVERHEAT_1, IDC_PDE_CK_LIGHTS_1};
+	int modes[4] = {IDC_RELAY_CK_FEEDING_1, IDC_RELAY_CK_WATER_1, IDC_RELAY_CK_OVERHEAT_1, IDC_RELAY_CK_LIGHTS_1};
 	int i, j;
 	BYTE v, x;
 	CButton* p;
@@ -360,7 +360,7 @@ void RAPDEPage::RefreshModePorts()
 	}  // for i
 }
 /*
-void RAPDEPage::SetPortDevice(int Port, int Device, int Delay)
+void RARelayPage::SetPortDevice(int Port, int Device, int Delay)
 {
 	Ports[Port-1] = Device;
 	if ( Delay > 0 )
@@ -372,22 +372,22 @@ void RAPDEPage::SetPortDevice(int Port, int Device, int Delay)
 }
 */
 /*
-int RAPDEPage::GetPortDevice(int Port)
+int RARelayPage::GetPortDevice(int Port)
 {
 	return Ports[Port-1];
 }
 */
 
-void RAPDEPage::UpdateDisplayDevice(int Port)
+void RARelayPage::UpdateDisplayDevice(int Port)
 {
 	int device = a_Controller.Relay.GetPortDevice(Port);
 	// always update the delay value on changing ports no matter if it's selected or not
-	SetDlgItemInt(IDC_PDE_EDIT_DELAY_ON, a_Controller.Relay.GetPortDelay(Port));
+	SetDlgItemInt(IDC_RELAY_EDIT_DELAY_ON, a_Controller.Relay.GetPortDelay(Port));
 	ToggleDeviceChecks(device);
 	UpdateDeviceAvailability();
 }
 
-void RAPDEPage::UpdateDeviceAvailability()
+void RARelayPage::UpdateDeviceAvailability()
 {
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
@@ -396,40 +396,40 @@ void RAPDEPage::UpdateDeviceAvailability()
 	}
 
 	// Toggle & Enable/Disable devices based on device passed in (which is selected device)
-	GetDlgItem(IDC_PDE_CK_WM1)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_WM1, fWM1, fDP1));
-	GetDlgItem(IDC_PDE_CK_WM2)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_WM2, fWM2, fDP2));
-	GetDlgItem(IDC_PDE_CK_DP1)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_DP1, fDP1, fWM1));
-	GetDlgItem(IDC_PDE_CK_DP2)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_DP2, fDP2, fWM2));
+	GetDlgItem(IDC_RELAY_CK_WM1)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_WM1, fWM1, fDP1));
+	GetDlgItem(IDC_RELAY_CK_WM2)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_WM2, fWM2, fDP2));
+	GetDlgItem(IDC_RELAY_CK_DP1)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_DP1, fDP1, fWM1));
+	GetDlgItem(IDC_RELAY_CK_DP2)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_DP2, fDP2, fWM2));
 
 	if ( fSingleATOLow || fSingleATOHigh )
 	{
 		// a single switch is enabled somewhere
 		// disable the dual ato device
-		GetDlgItem(IDC_PDE_CK_DUALATO)->EnableWindow(FALSE);
+		GetDlgItem(IDC_RELAY_CK_DUALATO)->EnableWindow(FALSE);
 		// determine if we need to show them enabled or not
-		GetDlgItem(IDC_PDE_CK_SINGLEATOLOW)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_SINGLEATOLOW, fSingleATOLow, fSingleATOLow));
-		GetDlgItem(IDC_PDE_CK_SINGLEATOHIGH)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_SINGLEATOHIGH, fSingleATOHigh, fSingleATOHigh));
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOLOW)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_SINGLEATOLOW, fSingleATOLow, fSingleATOLow));
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOHIGH)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_SINGLEATOHIGH, fSingleATOHigh, fSingleATOHigh));
 	}
 	else if ( fDualATO )
 	{
 		// dual switch is enabled somewhere
 		// determine if we need to show it enabled or not
-		GetDlgItem(IDC_PDE_CK_DUALATO)->EnableWindow(IsDeviceCkEnabled(IDC_PDE_CK_DUALATO, fDualATO, fDualATO));
+		GetDlgItem(IDC_RELAY_CK_DUALATO)->EnableWindow(IsDeviceCkEnabled(IDC_RELAY_CK_DUALATO, fDualATO, fDualATO));
 		// disable the single ato devices
-		GetDlgItem(IDC_PDE_CK_SINGLEATOLOW)->EnableWindow(FALSE);
-		GetDlgItem(IDC_PDE_CK_SINGLEATOHIGH)->EnableWindow(FALSE);
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOLOW)->EnableWindow(FALSE);
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOHIGH)->EnableWindow(FALSE);
 	}
 	else
 	{
 		// no ato switches enabled
 		// enable all the ato devices
-		GetDlgItem(IDC_PDE_CK_DUALATO)->EnableWindow();
-		GetDlgItem(IDC_PDE_CK_SINGLEATOLOW)->EnableWindow();
-		GetDlgItem(IDC_PDE_CK_SINGLEATOHIGH)->EnableWindow();
+		GetDlgItem(IDC_RELAY_CK_DUALATO)->EnableWindow();
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOLOW)->EnableWindow();
+		GetDlgItem(IDC_RELAY_CK_SINGLEATOHIGH)->EnableWindow();
 	}
 }
 
-BOOL RAPDEPage::IsDeviceCkEnabled(int Device, BOOL fDevFlag, BOOL fOppDevFlag)
+BOOL RARelayPage::IsDeviceCkEnabled(int Device, BOOL fDevFlag, BOOL fOppDevFlag)
 {
 	int nCurrentDevice = a_Controller.Relay.GetPortDevice(bCurrentPort);
 	BOOL fRet;
@@ -464,11 +464,11 @@ BOOL RAPDEPage::IsDeviceCkEnabled(int Device, BOOL fDevFlag, BOOL fOppDevFlag)
 	return fRet;
 }
 
-void RAPDEPage::ToggleDeviceChecks(int Device)
+void RARelayPage::ToggleDeviceChecks(int Device)
 {
 	int i;
 	CButton* p;
-	for ( i = IDC_PDE_CK_ALWAYS_ON; i <= IDC_PDE_CK_NOTUSED; i++ )
+	for ( i = IDC_RELAY_CK_ALWAYS_ON; i <= IDC_RELAY_CK_NOTUSED; i++ )
 	{
 		p = (CButton*)GetDlgItem(i);
 		if ( i == Device )
@@ -502,29 +502,29 @@ void RAPDEPage::ToggleDeviceChecks(int Device)
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::ToggleDeviceFlag(int Device, BOOL fValue /*= TRUE*/)
+void RARelayPage::ToggleDeviceFlag(int Device, BOOL fValue /*= TRUE*/)
 {
 	switch ( Device )
 	{
-	case IDC_PDE_CK_WM1:
+	case IDC_RELAY_CK_WM1:
 		fWM1 = fValue;
 		break;
-	case IDC_PDE_CK_WM2:
+	case IDC_RELAY_CK_WM2:
 		fWM2 = fValue;
 		break;
-	case IDC_PDE_CK_DP1:
+	case IDC_RELAY_CK_DP1:
 		fDP1 = fValue;
 		break;
-	case IDC_PDE_CK_DP2:
+	case IDC_RELAY_CK_DP2:
 		fDP2 = fValue;
 		break;
-	case IDC_PDE_CK_SINGLEATOLOW:
+	case IDC_RELAY_CK_SINGLEATOLOW:
 		fSingleATOLow = fValue;
 		break;
-	case IDC_PDE_CK_SINGLEATOHIGH:
+	case IDC_RELAY_CK_SINGLEATOHIGH:
 		fSingleATOHigh = fValue;
 		break;
-	case IDC_PDE_CK_DUALATO:
+	case IDC_RELAY_CK_DUALATO:
 		fDualATO = fValue;
 		break;
 	default:
@@ -532,7 +532,7 @@ void RAPDEPage::ToggleDeviceFlag(int Device, BOOL fValue /*= TRUE*/)
 	}
 }
 
-void RAPDEPage::LoadDefaultPortDevices()
+void RARelayPage::LoadDefaultPortDevices()
 {
 	a_Controller.Relay.SetPortDevice(1, DEFAULT_PORT1_DEVICE, DEFAULT_DELAY_MINUTES);
 	a_Controller.Relay.SetPortDevice(2, DEFAULT_PORT2_DEVICE, DEFAULT_DELAY_MINUTES);
@@ -553,15 +553,15 @@ void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 	{
 		if ( Devices[i].id == Device )
 		{
-			if ( (Device == IDC_PDE_CK_DP1) ||
-				 (Device == IDC_PDE_CK_DP2) )
+			if ( (Device == IDC_RELAY_CK_DP1) ||
+				 (Device == IDC_RELAY_CK_DP2) )
 			{
 				// For Dosing Pumps, if the user chose to use the Repeat Interval
 				// Then let's switch things around and choose the Repeat Interval instead
 				// of the standard dosing pump if they chose to use a dosing pump
 				if ( fUseDPRepeat )
 				{
-					if ( Device == IDC_PDE_CK_DP1 )
+					if ( Device == IDC_RELAY_CK_DP1 )
 					{
 						sFunction = _T("DosingPumpRepeat1");
 					}
@@ -585,7 +585,7 @@ void RAPDEPage::LookupDeviceFunction(int Device, CString &sFunction)
 }
 */
 
-void RAPDEPage::SaveSettings()
+void RARelayPage::SaveSettings()
 {
 	// saves the settings to the registry
 	CString s;
@@ -614,7 +614,7 @@ void RAPDEPage::SaveSettings()
 	AfxGetApp()->WriteProfileInt(s, _T("Delay8"), a_Controller.Relay.GetPortDelay(8));
 }
 
-void RAPDEPage::LoadSettings()
+void RARelayPage::LoadSettings()
 {
 	// loads the settings from the registry
 	CString s;
@@ -644,13 +644,13 @@ void RAPDEPage::LoadSettings()
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::SelectPort1()
+void RARelayPage::SelectPort1()
 {
-	PostMessage(WM_COMMAND, MAKEWPARAM(IDC_PDE_PORT_1, BM_CLICK));
+	PostMessage(WM_COMMAND, MAKEWPARAM(IDC_RELAY_PORT_1, BM_CLICK));
 	// uncheck current checked port
 	CButton* p;
 	int c;
-	for ( int i = IDC_PDE_PORT_8; i > IDC_PDE_PORT_1; i-- )
+	for ( int i = IDC_RELAY_PORT_8; i > IDC_RELAY_PORT_1; i-- )
 	{
 		p = (CButton*)GetDlgItem(i);
 		c = p->GetCheck();
@@ -659,16 +659,16 @@ void RAPDEPage::SelectPort1()
 			p->SetCheck(BST_UNCHECKED);
 		}
 	}
-	p = (CButton*)GetDlgItem(IDC_PDE_PORT_1);
+	p = (CButton*)GetDlgItem(IDC_RELAY_PORT_1);
 	p->SetCheck(BST_CHECKED);
 }
 
-void RAPDEPage::MenuRemoveUnusedFeatures()
+void RARelayPage::MenuRemoveUnusedFeatures()
 {
 	a_Controller.Features.CleanupFeatures();
 }
 
-BOOL RAPDEPage::WritePDE()
+BOOL RARelayPage::WritePDE()
 {
 	return a_Controller.WriteFile();
 	/*
@@ -982,7 +982,7 @@ void setup()\r\n\
 		// Ports that are always on
 		for ( i = 0; i < MAX_PORTS; i++ )
 		{
-			if ( Ports[i] == IDC_PDE_CK_ALWAYS_ON )
+			if ( Ports[i] == IDC_RELAY_CK_ALWAYS_ON )
 			{
 				if ( !fOnce )
 				{
@@ -1011,8 +1011,8 @@ void loop()\r\n\
 		// Specific functions
 		for ( i = 0; i < MAX_PORTS; i++ )
 		{
-			if ( (Ports[i] == IDC_PDE_CK_ALWAYS_ON) ||
-				 (Ports[i] == IDC_PDE_CK_NOTUSED) )
+			if ( (Ports[i] == IDC_RELAY_CK_ALWAYS_ON) ||
+				 (Ports[i] == IDC_RELAY_CK_NOTUSED) )
 			{
 				// skip the ports that are always on because they were handled above
 				// also skip the ports that are not in use
@@ -1020,7 +1020,7 @@ void loop()\r\n\
 			}
 			// Now we have a good port to use, so let's use it
 			LookupDeviceFunction(Ports[i], s);
-			if ( Ports[i] == IDC_PDE_CK_DELAYON )
+			if ( Ports[i] == IDC_RELAY_CK_DELAYON )
 			{
 				s1.Format(_T("%sReefAngel.%s(Port%d, %d);\r\n"), sTab, s, i+1, Delays[i]);
 			}
@@ -1069,7 +1069,7 @@ void loop()\r\n\
 	*/
 }
 
-void RAPDEPage::UpdatePDEFeatures()
+void RARelayPage::UpdatePDEFeatures()
 {
 	// These ports are updated based on the devices enabled on the ports
 	// Since we are always looping through all the ports and updating the values, 
@@ -1098,24 +1098,24 @@ void RAPDEPage::UpdatePDEFeatures()
 		// we have a good port to work with, so check it against the features to enable
 		switch ( a_Controller.Relay.GetPortDevice(i) )
 		{
-			case IDC_PDE_CK_METALHALIDES:
+			case IDC_RELAY_CK_METALHALIDES:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.METAL_HALIDE_SETUP, TRUE);
 				break;
-			case IDC_PDE_CK_STDLIGHTS:
+			case IDC_RELAY_CK_STDLIGHTS:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.STANDARD_LIGHT_SETUP, TRUE);
 				break;
-			case IDC_PDE_CK_WM1:
-			case IDC_PDE_CK_WM2:
+			case IDC_RELAY_CK_WM1:
+			case IDC_RELAY_CK_WM2:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.WAVEMAKER_SETUP, TRUE);
 				break;
-			case IDC_PDE_CK_DP1:
-			case IDC_PDE_CK_DP2:
+			case IDC_RELAY_CK_DP1:
+			case IDC_RELAY_CK_DP2:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.DOSING_PUMP_SETUP, TRUE);
 				break;
-			case IDC_PDE_CK_SINGLEATOLOW:
-			case IDC_PDE_CK_SINGLEATOHIGH:
+			case IDC_RELAY_CK_SINGLEATOLOW:
+			case IDC_RELAY_CK_SINGLEATOHIGH:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.SINGLE_ATO, TRUE);
-			case IDC_PDE_CK_DUALATO:
+			case IDC_RELAY_CK_DUALATO:
 				a_Controller.Features.SetFeatureValue(a_Controller.Features.ATO_SETUP, TRUE);
 				break;
 		}
@@ -1138,7 +1138,7 @@ void RAPDEPage::UpdatePDEFeatures()
 	sFeatureList += _T("*/\r\n");
 }
 
-void RAPDEPage::OnBnClickedBtnGenerate()
+void RARelayPage::OnBnClickedBtnGenerate()
 {
 	UpdateData();
 	RefreshModePorts();
@@ -1172,19 +1172,19 @@ void RAPDEPage::OnBnClickedBtnGenerate()
 	}
 }
 
-void RAPDEPage::OnResetAll()
+void RARelayPage::OnResetAll()
 {
 	LoadDefaults();
 }
 
-void RAPDEPage::OnResetSaved()
+void RARelayPage::OnResetSaved()
 {
 	LoadSettings();
 	SelectPort1();
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::OnResetPorts()
+void RARelayPage::OnResetPorts()
 {
 	UpdateData();
 	InitPorts();
@@ -1192,199 +1192,199 @@ void RAPDEPage::OnResetPorts()
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::OnResetTemperature()
+void RARelayPage::OnResetTemperature()
 {
 	UpdateData();
 	fTemp = FALSE;
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::OnResetLogging()
+void RARelayPage::OnResetLogging()
 {
 	UpdateData();
 	fBanner = FALSE;
 	UpdateData(FALSE);
 }
 
-void RAPDEPage::OnResetFeedingMode()
+void RARelayPage::OnResetFeedingMode()
 {
 	UpdateData();
 	SetPortMode(a_Controller.Relay.Feeding, DEFAULT_FEEDINGMODE);
 }
 
-void RAPDEPage::OnResetWaterChangeMode()
+void RARelayPage::OnResetWaterChangeMode()
 {
 	UpdateData();
 	SetPortMode(a_Controller.Relay.WaterChange, DEFAULT_WATERCHANGEMODE);
 }
 
-void RAPDEPage::OnResetOverheat()
+void RARelayPage::OnResetOverheat()
 {
 	UpdateData();
 	SetPortMode(a_Controller.Relay.Overheat, DEFAULT_OVERHEAT);
 }
 
-void RAPDEPage::OnResetLightsOn()
+void RARelayPage::OnResetLightsOn()
 {
 	UpdateData();
 	SetPortMode(a_Controller.Relay.LightsOn, DEFAULT_LIGHTSON);
 }
 
-void RAPDEPage::OnBnClickedPort1()
+void RARelayPage::OnBnClickedPort1()
 {
 	UpdateData();
 	bCurrentPort = 1;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort2()
+void RARelayPage::OnBnClickedPort2()
 {
 	UpdateData();
 	bCurrentPort = 2;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort3()
+void RARelayPage::OnBnClickedPort3()
 {
 	UpdateData();
 	bCurrentPort = 3;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort4()
+void RARelayPage::OnBnClickedPort4()
 {
 	UpdateData();
 	bCurrentPort = 4;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort5()
+void RARelayPage::OnBnClickedPort5()
 {
 	UpdateData();
 	bCurrentPort = 5;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort6()
+void RARelayPage::OnBnClickedPort6()
 {
 	UpdateData();
 	bCurrentPort = 6;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort7()
+void RARelayPage::OnBnClickedPort7()
 {
 	UpdateData();
 	bCurrentPort = 7;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedPort8()
+void RARelayPage::OnBnClickedPort8()
 {
 	UpdateData();
 	bCurrentPort = 8;
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkWm1()
+void RARelayPage::OnBnClickedCkWm1()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_WM1);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_WM1);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkWm2()
+void RARelayPage::OnBnClickedCkWm2()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_WM2);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_WM2);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkDp1()
+void RARelayPage::OnBnClickedCkDp1()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DP1);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_DP1);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkDp2()
+void RARelayPage::OnBnClickedCkDp2()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DP2);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_DP2);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkDualato()
+void RARelayPage::OnBnClickedCkDualato()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DUALATO);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_DUALATO);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkSingleatolow()
+void RARelayPage::OnBnClickedCkSingleatolow()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOLOW);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_SINGLEATOLOW);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkSingleatohigh()
+void RARelayPage::OnBnClickedCkSingleatohigh()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_SINGLEATOHIGH);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_SINGLEATOHIGH);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkAlwaysOn()
+void RARelayPage::OnBnClickedCkAlwaysOn()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_ALWAYS_ON);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_ALWAYS_ON);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkMetalhalides()
+void RARelayPage::OnBnClickedCkMetalhalides()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_METALHALIDES);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_METALHALIDES);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkStdlights()
+void RARelayPage::OnBnClickedCkStdlights()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_STDLIGHTS);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_STDLIGHTS);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkHeater()
+void RARelayPage::OnBnClickedCkHeater()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_HEATER);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_HEATER);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkChiller()
+void RARelayPage::OnBnClickedCkChiller()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_CHILLER);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_CHILLER);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkNotused()
+void RARelayPage::OnBnClickedCkNotused()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_NOTUSED);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_NOTUSED);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnBnClickedCkDelayedOn()
+void RARelayPage::OnBnClickedCkDelayedOn()
 {
 	UpdateData();
-	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_PDE_CK_DELAYON);
+	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_DELAYON);
 	UpdateDisplayDevice(bCurrentPort);
 }
 
-void RAPDEPage::OnEnChangePdeEditDelayOn()
+void RARelayPage::OnEnChangePdeEditDelayOn()
 {
-	a_Controller.Relay.SetPortDelay(bCurrentPort, GetDlgItemInt(IDC_PDE_EDIT_DELAY_ON));
+	a_Controller.Relay.SetPortDelay(bCurrentPort, GetDlgItemInt(IDC_RELAY_EDIT_DELAY_ON));
 }
