@@ -257,7 +257,7 @@ void CController::WriteIncludes(CFile &f)
 #include <LED.h>\r\n\
 #include <RA_TempSensor.h>\r\n\
 #include <Relay.h>\r\n\
-#include <PWM.h>\r\n\
+#include <RA_PWM.h>\r\n\
 #include <Timer.h>\r\n\
 #include <Memory.h>\r\n\
 ");
