@@ -115,7 +115,7 @@ v1.2.0
 	- Libraries - Documents\Arduino\libraries
 	- Arduino (for the executable) - Program Files\Reef Angel Controller
 	- If any of those folders do not exist, RAGen will automatically create them
-- Updated PDE tab to be PDE / INO
+- Updated PDE tab to be Main Relay
 - Added autodetection for library version (0.8.X or 0.9.X) to generate file appropriately
 - Added updated extension based on library version (0.8.X used PDE & 0.9.X uses INO)
 - Added Save button to Features page to easily update/save features
