@@ -195,53 +195,53 @@ void RARelayPage::LoadDefaults()
 	UpdateData(FALSE);
 }
 
-void RARelayPage::GetPortMode(BYTE Mode, CString &sMode)
-{
-	// Creates the binary code for adding to the PDE file
-	// binary code is stored in sMode
-	int i;
-	//BYTE ports;
-	switch ( Mode )
-	{
-	case a_Controller.Relay.Feeding:
-		i = IDC_RELAY_CK_FEEDING_1;
-		//ports = a_Controller.Relay.FeedingModePorts;
-		break;
-	case a_Controller.Relay.WaterChange:
-		i = IDC_RELAY_CK_WATER_1;
-		//ports = a_Controller.Relay.WaterChangeModePorts;
-		break;
-	case a_Controller.Relay.Overheat:
-		i = IDC_RELAY_CK_OVERHEAT_1;
-		//ports = a_Controller.Relay.OverheatPorts;
-		break;
-	case a_Controller.Relay.LightsOn:
-		i = IDC_RELAY_CK_LIGHTS_1;
-		//ports = a_Controller.Relay.LightsOnPorts;
-		break;
-	default:
-		return;
-		break;
-	}
-
-	int max = i+8;
-	BYTE v = 0;
-	CButton *pButton;
-	sMode = _T("");
-	for (; i < max; i++, v++ )
-	{
-		pButton = (CButton*)GetDlgItem(i);
-		if ( pButton->GetCheck() == BST_CHECKED )
-		{
-			sMode.Insert(0, _T("1"));
-		}
-		else
-		{
-			sMode.Insert(0, _T("0"));
-		}
-	}
-	sMode.Insert(0, _T("B"));
-}
+//void RARelayPage::GetPortMode(BYTE Mode, CString &sMode)
+//{
+//	// Creates the binary code for adding to the PDE file
+//	// binary code is stored in sMode
+//	int i;
+//	//BYTE ports;
+//	switch ( Mode )
+//	{
+//	case a_Controller.Relay.Feeding:
+//		i = IDC_RELAY_CK_FEEDING_1;
+//		//ports = a_Controller.Relay.FeedingModePorts;
+//		break;
+//	case a_Controller.Relay.WaterChange:
+//		i = IDC_RELAY_CK_WATER_1;
+//		//ports = a_Controller.Relay.WaterChangeModePorts;
+//		break;
+//	case a_Controller.Relay.Overheat:
+//		i = IDC_RELAY_CK_OVERHEAT_1;
+//		//ports = a_Controller.Relay.OverheatPorts;
+//		break;
+//	case a_Controller.Relay.LightsOn:
+//		i = IDC_RELAY_CK_LIGHTS_1;
+//		//ports = a_Controller.Relay.LightsOnPorts;
+//		break;
+//	default:
+//		return;
+//		break;
+//	}
+//
+//	int max = i+8;
+//	BYTE v = 0;
+//	CButton *pButton;
+//	sMode = _T("");
+//	for (; i < max; i++, v++ )
+//	{
+//		pButton = (CButton*)GetDlgItem(i);
+//		if ( pButton->GetCheck() == BST_CHECKED )
+//		{
+//			sMode.Insert(0, _T("1"));
+//		}
+//		else
+//		{
+//			sMode.Insert(0, _T("0"));
+//		}
+//	}
+//	sMode.Insert(0, _T("B"));
+//}
 
 void RARelayPage::SetPortMode(BYTE Mode, BYTE Ports)
 {
@@ -1078,6 +1078,7 @@ void RARelayPage::UpdatePDEFeatures()
 	a_Controller.Features.ClearINOFeatures();
 
 	// check if we need to override the DosingPump with DosingPumpRepeat
+	/*
 	if ( a_Controller.Features.GetFeatureValue(a_Controller.Features.DOSING_INTERVAL_SETUP) )
 	{
 		fUseDPRepeat = TRUE;
@@ -1086,6 +1087,7 @@ void RARelayPage::UpdatePDEFeatures()
 	{
 		fUseDPRepeat = FALSE;
 	}
+	*/
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
 		if ( (a_Controller.Relay.IsPortAlwaysOn(i)) ||

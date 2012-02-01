@@ -30,7 +30,15 @@ TODO File
 - Update strings for RF, ORP, Salinity, AI LED, IO
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
 - Internal memory to use RA_NokiaLCD on 0.9.x libraries
-- PDE tab & saved features in registry
-	PDE or INO
-	Rename PDE to PDE / INO
+- PDE tab & saved features in registry, leave off...changed to Main Relay
+	- old settings are "lost" which just are the default ports
+- Create Controller tab
+	- Have WIFI drop down menu
+		- Have button to open wifi authentication u/p window
+	- Have Expansion Relays with drop down menu from 0 - 8
+	- Have 'Enable Web Banner / Portal'
+		- Have button open up the web banner labels or the portal username & key
+	- Have 'Add PWMSlope code' to code file
+	- Updates the features appropriately with tab change (wifi, expansion, etc)	
+	- Have Temperature section
 - Colors_PDE changed to CustomColors

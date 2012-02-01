@@ -154,7 +154,7 @@ protected:
 	 * \param Mode ID of the mode to generate (Feeding, WaterChange, Overheat, Lights On)
 	 * \param sMode CString that contains the finalized binary string
 	 */
-	void GetPortMode(BYTE Mode, CString &sMode);
+	//void GetPortMode(BYTE Mode, CString &sMode);
 	/*! Sets the mode based on the specified ports
 	 *
 	 * Stores the ports to the corresponding port mode member varialbe.

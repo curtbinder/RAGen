@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,135
- PRODUCTVERSION 1,2,0,135
+ FILEVERSION 1,2,0,140
+ PRODUCTVERSION 1,2,0,140
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 0, 135"
+            VALUE "FileVersion", "1, 2, 0, 140"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 0, 135"
+            VALUE "ProductVersion", "1, 2, 0, 140"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -853,16 +853,16 @@ BEGIN
     IDS_FEATURES_ATOLOGGING "Enabling will log the ATO events to the internal memory for later querying from another application such as Client Suite.  This will help catch the ATO events that occur between the logging intervals.  Only useful to enable if you have WIFI enabled as well.\n\nThe values must be queried by another application or you must add functionality to your homescreen to display the results."
     IDS_FEATURES_EXCEEDFLAG "The red LED on the controller gets turned on when either the Overheat temp is reached OR if the ATO timeout is exceeded.  Enabling this feature will keep track of which event caused the LED to be turned on.  The event gets stored in the internal memory.  When you clear the event (either ATO or Overheat), the event is cleared from memory.  This should only be enabled if you are running a custom main screen because you have to code it manually to display.\n\nApproximately 68 bytes to enable the storing of the exceeded flags (not counting displaying them on the screen)"
     IDS_FEATURES_WDT        "With the optiboot bootloader, enabling the watchdog timer is possible.  You must have version 4 of the optiboot booloader installed on the controller for this to work.  Once enabled, the watchdog timer must be reset/tickled/touched periodically or else the controller will reboot.\n\nIf enabled, there is a check on controller initialization that verifies the proper bootloader is installed before enabling the watchdog timer.\n\nApproximately 82 bytes to have Watchdog Enabled (WDT)."
-    IDS_FEATURES_CUSTOMMENU "This option allows you to handle the menu in your PDE file.  You must also define how many menu entries you want.  There is a max of 9 entries.  You have to add several items to your PDE file.  You will be creating your menu at the top of the file just like in the Standard Libraries.  You will also need to edit the menu entry functions associated with all of your menu entries.\nThe PDE generated will contain the necessary code for you.  You must edit the functions to have them perform the tasks you want."
+    IDS_FEATURES_CUSTOMMENU "This option allows you to handle the menu in your PDE file.  You must also define how many menu entries you want.  There is a max of 9 entries.  You have to add several items to your PDE file.  You will be creating your menu at the top of the file just like in the Standard Libraries.  You will also need to edit the menu entry functions associated with all of your menu entries.\n\nThe PDE generated will contain the necessary code for you.  You must edit the functions to have them perform the tasks you want."
 END
 
 STRINGTABLE 
 BEGIN
-    IDS_FEATURES_SIMPLEMENU "This is for the simplified menu.  All the additional / extra menus have been stripped down.\n\nThe menu system only contains:\nFeeding Mode,Water Change Mode,ATO Clear,Overheat Clear,PH Calibration,Date / Time Setup (ability to be removed),Version Menu (ability to be removed)\n\nApproximately 4566 bytes removed when using the Simplified Menu"
+    IDS_FEATURES_SIMPLEMENU "This is for the simplified menu.  All the additional / extra menus have been stripped down.\n\nThe menu system only contains:\nFeeding Mode\nWater Change Mode\nATO Clear\nOverheat Clear\nPH Calibration\nDate / Time Setup (ability to be removed)\nVersion Menu (ability to be removed)\n\nApproximately 4566 bytes removed when using the Simplified Menu"
     IDS_FEATURES_CUSTOMMAIN "This will enable the ability for people to create a custom main screen with the complete menu system and without having to modify the libraries.  Once this is defined/enabled, you MUST edit the following functions inside your PDE file.  If you do not, you will have the default main screen.\n\nvoid DrawCustomMain()\nvoid DrawCustomGraph()"
     IDS_FEATURES_COLORSPDE  "This will enable the ability to customize the colors on your controller.  You will have to edit the file ReefAngel_CustomColors.h to change the colors.  The colors available are listed in the ReefAngel_Colors.h file."
     IDS_FEATURES_PWMEXPANSION 
-                            "This will allow the enabling of the PWM Expansion Device.  It will add a menu entry that displays 'PWM ->'.  It will give the preset defaults for the expansion device.\nThe menu entries will be:\n\nSlow Cloud, Fast Cloud, T-storm 1, T-storm 2, 0%, 50%, 100%, Custom\r\n\r\nApproximately 630 bytes to have this feature"
+                            "This will allow the enabling of the PWM Expansion Device.  It will add a menu entry that displays 'PWM ->'.  It will give the preset defaults for the expansion device.\nThe menu entries will be:\n\nSlow Cloud, Fast Cloud, T-storm 1, T-storm 2, 0%, 50%, 100%, Custom\r\n\r\nThis will not work with Simple or Custom Menu.\r\n\r\nApproximately 630 bytes to have this feature"
     IDS_FEATURES_FONT_8X8   "Entire Font 8x8 size"
     IDS_FEATURES_FONT_8X16  "Entire Font 8x16 size"
     IDS_FEATURES_FONT_12X16 "Entire Font 12x16 size"

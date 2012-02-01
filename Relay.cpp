@@ -45,7 +45,40 @@ void CRelay::SetPortDelay(int port, int delay)
 
 CString CRelay::GetPortMode(BYTE mode)
 {
-	return _T("");
+	CString s;
+	BYTE ports;
+	switch ( mode )
+	{
+	case Feeding:
+		ports = FeedingModePorts;
+		break;
+	case WaterChange:
+		ports = WaterChangeModePorts;
+		break;
+	case Overheat:
+		ports = OverheatPorts;
+		break;
+	case LightsOn:
+		ports = LightsOnPorts;
+		break;
+	default:
+		return _T("0");
+		break;
+	}
+	BYTE v = 0;
+	for (int i = 0; i < MAX_PORTS; i++, v++ )
+	{
+		if ( ports & (1<<v) )
+		{
+			s.Insert(0, _T("1"));
+		}
+		else
+		{
+			s.Insert(0, _T("0"));
+		}
+	}
+	s.Insert(0, _T("B"));
+	return s;
 }
 
 BYTE CRelay::GetPortModes(BYTE mode)

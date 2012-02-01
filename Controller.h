@@ -19,7 +19,7 @@ public:
 	inline CString GetFilename() { return m_sFilename; }
 	inline CString GetExtension() { return m_sExtension; }
 	BOOL WriteFile();
-	void LookupDeviceFunction(int Device, CString &sFunction);
+	CString LookupDeviceFunction(int Device);
 
 	CFeatures Features;
 	CRelay Relay;

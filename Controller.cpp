@@ -23,9 +23,43 @@ CController::~CController(void)
 {
 }
 
-void CController::LookupDeviceFunction(int Device, CString &sFunction)
+CString CController::LookupDeviceFunction(int Device)
 {
-	sFunction = Devices[Device].sRAFunction;
+	CString s = _T("");
+	for ( int i = 0; i < MAX_DEVICES; i++ )
+	{
+		if ( Devices[i].id == Device )
+		{
+			if ( (Device == IDC_RELAY_CK_DP1) ||
+				 (Device == IDC_RELAY_CK_DP2) )
+			{
+				// For Dosing Pumps, if the user chose to use the Repeat Interval
+				// Then let's switch things around and choose the Repeat Interval instead
+				// of the standard dosing pump if they chose to use a dosing pump
+				if ( Features.GetFeatureValue(Features.DOSING_INTERVAL_SETUP) )
+				{
+					if ( Device == IDC_RELAY_CK_DP1 )
+					{
+						s = _T("DosingPumpRepeat1");
+					}
+					else
+					{
+						s = _T("DosingPumpRepeat2");
+					}
+				}
+				else
+				{
+					s = Devices[i].sRAFunction;
+				}
+			}
+			else
+			{
+				s = Devices[i].sRAFunction;
+			}
+			break;
+		}
+	}
+	return s;
 }
 
 void CController::LoadDeviceFunctions()
@@ -81,6 +115,10 @@ void CController::LoadDeviceFunctions()
 			Devices[i].sRAFunction = _T("");
 			break;
 		}
+	}
+	for ( i = 0; i < MAX_DEVICES; i++ )
+	{
+		TRACE("Device %d:  %s\n", i, Devices[i].sRAFunction);
 	}
 }
 
@@ -430,67 +468,69 @@ void setup()\r\n\
 	s = _T("\r\n");
 	f.Write(s, s.GetLength());
 
-	/*
+	BOOL fAddExtraLineSpace = FALSE;
 	// Toggle Ports, only write if they differ from defaults
-	if ( FeedingModePorts != DEFAULT_FEEDINGMODE )
+	if ( Relay.GetPortModes(Relay.Feeding) != DEFAULT_FEEDINGMODE )
 	{
 		s = sTab + _T("ReefAngel.FeedingModePorts = ");
 		f.Write(s, s.GetLength());
-		GetPortMode(Feeding, s);
+		s = Relay.GetPortMode(Relay.Feeding);
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
-		fAddExtra = TRUE;
+		fAddExtraLineSpace = TRUE;
 	}
-	if ( WaterChangeModePorts != DEFAULT_WATERCHANGEMODE )
+	if ( Relay.GetPortModes(Relay.WaterChange) != DEFAULT_WATERCHANGEMODE )
 	{
 		s = sTab + _T("ReefAngel.WaterChangePorts = ");
 		f.Write(s, s.GetLength());
-		GetPortMode(WaterChange, s);
+		s = Relay.GetPortMode(Relay.WaterChange);
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
-		fAddExtra = TRUE;
+		fAddExtraLineSpace = TRUE;
 	}
-	if ( OverheatPorts != DEFAULT_OVERHEAT )
+	if ( Relay.GetPortModes(Relay.Overheat) != DEFAULT_OVERHEAT )
 	{
 		s = sTab + _T("ReefAngel.OverheatShutoffPorts = ");
 		f.Write(s, s.GetLength());
-		GetPortMode(Overheat, s);
+		s = Relay.GetPortMode(Relay.Overheat);
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
-		fAddExtra = TRUE;
+		fAddExtraLineSpace = TRUE;
 	}
-	if ( LightsOnPorts != DEFAULT_LIGHTSON )
+	if ( Relay.GetPortModes(Relay.LightsOn) != DEFAULT_LIGHTSON )
 	{
 		s = sTab + _T("ReefAngel.LightsOnPorts = ");
 		f.Write(s, s.GetLength());
-		GetPortMode(LightsOn, s);
+		s = Relay.GetPortMode(Relay.LightsOn);
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
-		fAddExtra = TRUE;
+		fAddExtraLineSpace = TRUE;
 	}
 
+	BOOL fAddAlwaysOnComment = FALSE;
 	// Ports that are always on
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
-		if ( Ports[i] == IDC_RELAY_CK_ALWAYS_ON )
+		if ( Relay.IsPortAlwaysOn(i) )
 		{
-			if ( !fOnce )
+			if ( !fAddAlwaysOnComment )
 			{
-				if ( fAddExtra )
+				// do we need an extra line to space the ports from above??
+				if ( fAddExtraLineSpace )
 				{
 					s = _T("\r\n");
 					f.Write(s, s.GetLength());
 				}
 				s = sTab + _T("// Ports that are always on\r\n");
 				f.Write(s, s.GetLength());
-				fOnce = TRUE;
+				fAddAlwaysOnComment = TRUE;
 			}
-			LookupDeviceFunction(Ports[i], s);
+			s = LookupDeviceFunction(Relay.GetPortDevice(i+1));
 			s1.Format(_T("%sReefAngel.%s(Port%d);\r\n"), sTab, s, i+1);
 			f.Write(s1, s1.GetLength());
 		}
 	}
-	*/
+
 	s = _T("\
 }\
 \r\n");
@@ -507,22 +547,22 @@ void loop()\r\n\
     // Specific functions\r\n\
 ");
 	f.Write(s, s.GetLength());
-	/*
+
 	// Specific functions
 	for ( int i = 0; i < MAX_PORTS; i++ )
 	{
-		if ( (Ports[i] == IDC_RELAY_CK_ALWAYS_ON) ||
-			 (Ports[i] == IDC_RELAY_CK_NOTUSED) )
+		if ( Relay.IsPortAlwaysOn(i) ||
+			 Relay.IsPortNotUsed(i) )
 		{
 			// skip the ports that are always on because they were handled above
 			// also skip the ports that are not in use
 			continue;
 		}
 		// Now we have a good port to use, so let's use it
-		LookupDeviceFunction(Ports[i], s);
-		if ( Ports[i] == IDC_RELAY_CK_DELAYON )
+		s = LookupDeviceFunction(Relay.GetPortDevice(i+1));
+		if ( Relay.IsPortDelayedOn(i) )
 		{
-			s1.Format(_T("%sReefAngel.%s(Port%d, %d);\r\n"), sTab, s, i+1, Delays[i]);
+			s1.Format(_T("%sReefAngel.%s(Port%d, %d);\r\n"), sTab, s, i+1, Relay.GetPortDelay(i+1));
 		}
 		else
 		{
@@ -530,7 +570,6 @@ void loop()\r\n\
 		}
 		f.Write(s1, s1.GetLength());
 	}
-	*/
 
 	if ( m_fBanner  )
 	{
