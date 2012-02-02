@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RAController.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAFeaturesPage.cpp"
 				>
 			</File>
@@ -546,6 +550,10 @@
 			</File>
 			<File
 				RelativePath=".\InternalMemoryDefaults.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RAController.h"
 				>
 			</File>
 			<File

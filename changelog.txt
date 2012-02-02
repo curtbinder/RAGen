@@ -126,4 +126,5 @@ v1.2.0
 - Added in "Show Library Version" menu entry to display what version of the libraries are installed
 - Made DEV libraries the default libraries
 - Changed PDE reference to Relay
+- Internal memory to use RA_NokiaLCD on 0.9.x libraries
 

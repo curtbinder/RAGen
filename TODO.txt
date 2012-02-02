@@ -17,6 +17,7 @@ TODO File
 - Separate out core functions from the gui
 	- have "core" class of functions and a static/global reference to them
 	- have gui functions call global functions with proper parameters
+	
 - Force Wavemakers to only be on Ports 5 & 6 and prevent from being on other ports
 - Portal
 	- Add in portal dialog box for 0.9.x libraries (like password protection for controller)
@@ -24,12 +25,13 @@ TODO File
 	- Only need the Portal(u) & Portal(u,p) functions
 	- Remove the LoadWebBanner & Timer references for Portal
 	- Goes in loop()
+	- Drop Web Banner code entirely...force Portal only
+	
 - Ability to change the quantity of custom menu entries
 - add in custom menu tab
 - use the Port1Bit for the bitwise generation of ports to be toggled
 - Update strings for RF, ORP, Salinity, AI LED, IO
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
-- Internal memory to use RA_NokiaLCD on 0.9.x libraries
 - PDE tab & saved features in registry, leave off...changed to Main Relay
 	- old settings are "lost" which just are the default ports
 - Create Controller tab
@@ -41,4 +43,9 @@ TODO File
 	- Have 'Add PWMSlope code' to code file
 	- Updates the features appropriately with tab change (wifi, expansion, etc)	
 	- Have Temperature section
+	- update drop down menus
+	- update values and variables appropriately (test combo box values)
+	- pwmslope option enables ledpwm feature
 - Colors_PDE changed to CustomColors
+- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
+- Add program license 

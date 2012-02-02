@@ -311,6 +311,19 @@ BEGIN
         HORZGUIDE, 226
         HORZGUIDE, 231
     END
+
+    IDD_RACONTROLLER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 360
+        VERTGUIDE, 142
+        VERTGUIDE, 148
+        VERTGUIDE, 202
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 187
+        HORZGUIDE, 99
+        HORZGUIDE, 106
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -333,7 +346,7 @@ BEGIN
     POPUP "&Controller"
     BEGIN
         MENUITEM "F&ind Controller...",         ID_CONTROLLER_FIND
-        MENUITEM "&Web Banner / Portal...",     ID_CONTROLLER_WEBBANNER
+        MENUITEM "P&ortal...",                  ID_CONTROLLER_WEBBANNER
         MENUITEM "&Password Protect WIFI...",   ID_CONTROLLER_WIFIPASSWORD
         MENUITEM SEPARATOR
         MENUITEM "Import &Features from File...", ID_CONTROLLER_IMPORTFEATURESFROMFILE
@@ -462,7 +475,7 @@ BEGIN
     CONTROL         "° F",IDC_RELAY_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,104,25,10
     CONTROL         "° C",IDC_RELAY_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
     GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
-    CONTROL         "Web Banner",IDC_RELAY_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,52,10
+    CONTROL         "Portal",IDC_RELAY_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,52,10
     GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
     LTEXT           "8",IDC_STATIC,83,141,8,8
     LTEXT           "7",IDC_STATIC,95,141,8,8
@@ -523,8 +536,6 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,310,7,50,16
-    PUSHBUTTON      "Cancel",IDCANCEL,310,26,50,16
 END
 
 IDD_RAGEN DIALOGEX 0, 0, 385, 243
@@ -774,6 +785,26 @@ BEGIN
     LTEXT           "",IDC_MEMORY_STATUS,7,217,297,8
 END
 
+IDD_RACONTROLLER DIALOGEX 0, 0, 367, 194
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_APPWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "Temperature",IDC_STATIC,296,106,64,28
+    CONTROL         "° F",IDC_CONTROLLER_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,302,117,25,10
+    CONTROL         "° C",IDC_CONTROLLER_TEMP_1,"Button",BS_AUTORADIOBUTTON,331,117,23,10
+    LTEXT           "Enable WIFI module?",IDC_STATIC,7,108,135,8
+    COMBOBOX        IDC_CBO_WIFI,148,106,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Configure...",IDC_BTN_PORTAL,202,160,50,14
+    LTEXT           "Number of Expansion Relays Installed:",IDC_STATIC,7,126,133,8
+    COMBOBOX        IDC_CBO_EXP_RELAY_QTY,148,124,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Add PWMSlope function to code?",IDC_STATIC,7,145,135,8
+    COMBOBOX        IDC_CBO_PWMSLOPE,148,142,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Send controller data to Web Portal?",IDC_STATIC,7,162,135,8
+    COMBOBOX        IDC_CBO_PORTAL,148,160,48,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Text",IDC_CONTROLLER_TITLE,7,7,348,92
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -815,11 +846,51 @@ BEGIN
     0
 END
 
+IDD_RACONTROLLER DLGINIT
+BEGIN
+    IDC_CBO_WIFI, 0x403, 3, 0
+0x6f4e, "\000" 
+    IDC_CBO_WIFI, 0x403, 4, 0
+0x6559, 0x0073, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0030, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0031, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0032, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0033, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0034, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0035, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0036, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0037, 
+    IDC_CBO_EXP_RELAY_QTY, 0x403, 2, 0
+0x0038, 
+    IDC_CBO_PWMSLOPE, 0x403, 3, 0
+0x6f4e, "\000" 
+    IDC_CBO_PWMSLOPE, 0x403, 4, 0
+0x6559, 0x0073, 
+    IDC_CBO_PORTAL, 0x403, 3, 0
+0x6f4e, "\000" 
+    IDC_CBO_PORTAL, 0x403, 4, 0
+0x6559, 0x0073, 
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
+
+STRINGTABLE 
+BEGIN
+    IDS_CONTROLLER_TIPS     "Some tips for configuring your controller and using this app.\n\n1. Controller Tab - Contains some general configuration choices about the controller.  The wifi feature can also be changed on the Features tab.  Your choices are saved once you make them on this screen.\n\n2. Features Tab - Contains all the features that can be enabled on the controller.  Read the descriptions carefully.  You can save your changes and have the Features file update immediately.  Otherwise, it gets saved and updated when the controller code is generated.\n\n3. Main Relay Tab - Configures the relay ports for the main relay.  Once configured, click the Generate button to create the code file to be uploaded to the controller."
+END
 
 STRINGTABLE 
 BEGIN
@@ -839,7 +910,7 @@ BEGIN
                             "Selecting this feature will display a Version menu entry to see what version of the software is on the controller.\n\nApproximately 144 bytes to have this feature."
     IDS_FEATURES_DIRECTTEMPSENSOR 
                             "If you want to use the old way of reading the temp sensor which is always reading the value in and not performing any sanity check, then you will not want to select this feature.  Otherwise if you select this feature, you will use the new way to handle the temperatures.  The value is read in and then compared to the existing value.  If the difference between the 2 values is less than MAX_TEMP_SWING or the temperature is 0 then the temperature is allowed to be updated, otherwise it is not updated. MAX_TEMP_SWING (inside ReefAngel_Globals.h) is currently set to 50, which is 5.0 F.  This prevents any temporary large fluctations in temperatures.  Also, there should not be more than a 5.0 F degree fluctation in 1 second."
-    IDS_FEATURES_WIFI       "If you have purchased the wifi module for your controller, selecting this feature will setup the built-in webserver for the controller.  This feature will increase the overall file size and will require some other features to be disabled for it to compile in with the library in it's current state."
+    IDS_FEATURES_WIFI       "If you have purchased the wifi module for your controller, selecting this feature will setup the built-in webserver for the controller.  This feature will increase the overall file size and will require some other features to be disabled for it to compile in with the library in it's current state.\n\nThis is needed for all the communication apps (Android, Client Suite, iPhone/iPad, Portal, Status)."
     IDS_FEATURES_DISPLAYLEDPWM 
                             "This will control the displaying of all LED PWM related items.  The items it controls are:\n  - DP && AP displaying on main screen\n  - LED PWM Setup screen\nSo, if you do not use LED PWM's at all and do not wish to display anything related to it, do not select this feature.\n\nApproximately 720 bytes to have this feature."
     IDS_FEATURES_REMOVEALLLIGHTS 
@@ -894,6 +965,7 @@ BEGIN
     IDS_INO_EXTENSION       ".ino"
     IDS_NO_UNKNOWN_FEATURES "No unknown Features."
     IDS_UNKNOWN_FEATURES    "Additional unrecognized features found:\n\n%s"
+    IDS_CONTROLLER_TAB      "Controller"
 END
 
 STRINGTABLE 

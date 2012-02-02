@@ -7,6 +7,7 @@
 #include "RAFeaturesPage.h"
 #include "RARelayPage.h"
 //#include "RAColorsPage.h"
+#include "RAController.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
 #include "Controller.h"
 
@@ -30,14 +31,17 @@ RATabSheet::~RATabSheet()
 
 void RATabSheet::Init()
 {
-	m_pTabs[0] = new RAFeaturesPage;
-	m_pTabs[1] = new RARelayPage;
-	m_pTabs[2] = new RAStdPage;
-	m_iNumTabs = 3;
+	m_pTabs[0] = new RAController;
+	m_pTabs[1] = new RAFeaturesPage;
+	m_pTabs[2] = new RARelayPage;
+	m_pTabs[3] = new RAStdPage;
+	m_iNumTabs = 4;
 
 	CString s;
 	if ( m_fDevMode )
 	{
+		s.LoadStringA(IDS_CONTROLLER_TAB);
+		InsertItem(Controller, s);
 		s.LoadStringA(IDS_FEATURES_TAB);
 		InsertItem(Features, s);
 		s.LoadStringA(IDS_PDE_TAB);
@@ -46,6 +50,7 @@ void RATabSheet::Init()
 		//InsertItem(Colors, _T("Colors"));
 
 		m_iCurrentTab = 0;
+		m_pTabs[Controller]->Create(IDD_RACONTROLLER, this);
 		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
 		m_pTabs[MainRelay]->Create(IDD_RARELAYPAGE, this);
 		//m_pTabs[Colors]->Create(IDD_RACOLORSPAGE, this);
@@ -56,7 +61,7 @@ void RATabSheet::Init()
 			m_pTabs[i]->ShowWindow(SW_HIDE);
 		}
 		// hide generate button
-		//GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
+		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
 		// Change to Save since the Features Tab is the first tab
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 	}
@@ -476,13 +481,22 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 		// update the features structure before we proceed
 		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 		pf->UpdateFeatures();
+		RAController* pc = (RAController*)m_pTabs[Controller];
+		pc->UpdateValues();
 	}
+	
+	if ( m_iCurrentTab == Controller )
+	{
+		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
+		pf->UpdateDisplay();
+	}
+
 	m_pTabs[m_iCurrentTab]->ShowWindow(SW_HIDE);
 	m_pTabs[cur]->ShowWindow(SW_SHOW);
 	m_iCurrentTab = cur;
 
 	// change the menu
-	//int nShow = SW_SHOW;
+	int nShow = SW_SHOW;
 	UINT menuID = IDR_MENU_RESET;
 	switch ( m_iCurrentTab )
 	{
@@ -494,11 +508,14 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			//nShow = SW_HIDE;
 			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 			break;
+		case Controller:
+			nShow = SW_HIDE;
+			break;
 		//default:
 		//	break;
 	}
 	// show/hide generate button appropriately
-	//GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
+	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
 
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 
