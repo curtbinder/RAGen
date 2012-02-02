@@ -12,7 +12,7 @@
 #include "ComPortFunctions.h"
 #include "TestComPortsDlg.h"
 #include "ComPortListDlg.h"
-#include "WebBannerDlg.h"
+//#include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
 #include "RAInternalMemoryPage.h"
 
@@ -75,8 +75,6 @@ void RAGenDlg::ChangeMenu(UINT menuID)
 	sReset.LoadStringA(IDS_RESET_MENU);
 	CMenu *pMenu = GetMenu()->GetSubMenu(1);
 	int pos = FindMenuItem(pMenu, sReset);
-
-	// TODO consider changing Web Banner / Portal menu entry based on library version
 
 	if ( pos >= 0 )
 	{
@@ -486,16 +484,8 @@ void RAGenDlg::OnControllerFind()
 
 void RAGenDlg::OnControllerWebBanner()
 {
-	// TODO update based on library version
-	if ( theApp.f09xDev )
-	{
-		AfxMessageBox(_T("Portal configuration window goes here"));
-	}
-	else 
-	{
-		WebBannerDlg dlg;
-		dlg.DoModal();
-	}
+	// TODO web banner goes away, ONLY portal
+	AfxMessageBox(_T("Portal configuration window goes here"));
 }
 
 void RAGenDlg::OnControllerPasswordProtectWifi()

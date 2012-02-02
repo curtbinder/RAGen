@@ -209,7 +209,7 @@ void RATabSheet::LaunchArduino()
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(pi));
 
-	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s.%s\""), 
+	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s%s\""), 
 			theApp.m_sArduinoDirectory, theApp.m_sSketchDirectory, sFilename, sFilename, sFileExtension);
 
 	if ( ! CreateProcess(NULL, sPDE, NULL, NULL, FALSE,
