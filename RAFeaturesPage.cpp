@@ -106,6 +106,8 @@ void RAFeaturesPage::InitTree()
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.AI);
 	hi = m_tree.InsertItem(_T("RF"), exp);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.RF);
+	hi = m_tree.InsertItem(_T("I/O"), exp);
+	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.IO);
 
 	screen = m_tree.InsertItem(_T("Screen Options"), root);
 	m_tree.SetItemData(screen, (DWORD)a_Controller.Features.NONE);
