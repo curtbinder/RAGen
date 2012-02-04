@@ -18,8 +18,12 @@ public:
 	inline BOOL IsCelsius() { return m_fTemp; }
 	inline CString GetFilename() { return m_sFilename; }
 	inline CString GetExtension() { return m_sExtension; }
+	inline void SetDevLibVersion(int iVersion) { m_iDevVersion = iVersion; }
+	inline int GetDevLibVersion() { return m_iDevVersion; }
+	inline BOOL IsLatestDevVersion() { return m_fLatestDev; }
 	BOOL WriteFile();
 	CString LookupDeviceFunction(int Device);
+	void AutodetectVersion(CString sLibraryFolder);
 
 	CFeatures Features;
 	CRelay Relay;
@@ -32,6 +36,8 @@ private:
 	BOOL m_fBanner;
 	BOOL m_fTemp;
 	//BOOL m_fWifiPassordEnabled;
+	int m_iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
+	BOOL m_fLatestDev; //f09xDev;
 
 	void LoadDeviceFunctions();
 	void GenerateFilename(CTime &t);

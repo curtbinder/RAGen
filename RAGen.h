@@ -36,11 +36,7 @@ public:
 	int iSave;  //!< Variable for saving to registry, 0 - always, 1 - prompt, 2 - never
 	int iLaunch;
 	int iAppMode;  //!< Application mode, 0 - normal, 1 - development libraries
-	int iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
 	BOOL fHasArduinoExe;
-	BOOL f09xDev;
-
-	void AutoDetectLibraryVersion();
 };
 
 extern CRAGenApp theApp;

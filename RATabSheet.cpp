@@ -200,7 +200,7 @@ void RATabSheet::LaunchArduino()
 	CString sFilename;
 	CString sFileExtension;
 
-	if ( theApp.f09xDev )
+	if ( a_Controller.IsLatestDevVersion() )
 	{
 		sFileExtension.LoadString(IDS_INO_EXTENSION);
 	}

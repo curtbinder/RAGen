@@ -6,6 +6,7 @@
 #include "RAGenDlg.h"
 #include "GlobalVars.h"
 #include "CmdLineParams.h"
+#include "Controller.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -60,14 +61,12 @@ BOOL CRAGenApp::InitInstance()
 	iLaunch = NOT_SET;
 	iSave = NOT_SET;
 	iAppMode = NOT_SET;
-	iDevVersion = NOT_SET;
-	f09xDev = FALSE;
 
 	if ( info.TotalParams() > 0 )
 	{
 		iSave = info.GetSaveRegMode();
 		iAppMode = info.GetAppMode();
-		iDevVersion = info.GetDevVersionMode();
+		a_Controller.SetDevLibVersion(info.GetDevVersionMode());
 	}
 
 	if ( iSave == NOT_SET )
@@ -100,15 +99,14 @@ BOOL CRAGenApp::InitInstance()
 		iAppMode = NORMAL_MODE;
 	}
 
-	if ( iDevVersion == NOT_SET )
+	if ( a_Controller.GetDevLibVersion() == NOT_SET )
 	{
-		iDevVersion = GetProfileInt(_T(""), _T("DevLibraryVersion"), AUTODETECT);
+		a_Controller.SetDevLibVersion(GetProfileInt(_T(""), _T("DevLibraryVersion"), AUTODETECT));
 	}
-	if ( (iDevVersion < AUTODETECT) || (iDevVersion > FORCE_09X) )
+	if ( (a_Controller.GetDevLibVersion() < AUTODETECT) || (a_Controller.GetDevLibVersion() > FORCE_09X) )
 	{
-		iDevVersion = AUTODETECT;
+		a_Controller.SetDevLibVersion(AUTODETECT);
 	}
-	AutoDetectLibraryVersion();
 
 	RAGenDlg dlg;
 	m_pMainWnd = &dlg;
@@ -117,22 +115,4 @@ BOOL CRAGenApp::InitInstance()
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;
-}
-
-void CRAGenApp::AutoDetectLibraryVersion()
-{
-	// Call this function on app start and after settings changed
-	switch ( iDevVersion )
-	{
-	default:
-	case AUTODETECT:
-		f09xDev = AutodetectDevVersion(m_sLibraryDirectory);
-		break;
-	case FORCE_08X:
-		f09xDev = FALSE;
-		break;
-	case FORCE_09X:
-		f09xDev = TRUE;
-		break;
-	}
 }

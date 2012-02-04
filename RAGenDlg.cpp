@@ -15,6 +15,7 @@
 //#include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
 #include "RAInternalMemoryPage.h"
+#include "Controller.h"
 
 static UINT auIDStatusBar[] = {
 	ID_SEPARATOR,
@@ -262,7 +263,6 @@ END_MESSAGE_MAP()
 
 
 // RAGenDlg message handlers
-
 BOOL RAGenDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -272,6 +272,7 @@ BOOL RAGenDlg::OnInitDialog()
 	
 	CreateStatusBar();
 	GetFolders();
+	a_Controller.AutodetectVersion(theApp.m_sLibraryDirectory);
 	if ( cb_DoesArduinoExist(theApp.m_sArduinoDirectory) )
 	{
 		theApp.fHasArduinoExe = TRUE;
@@ -333,7 +334,7 @@ void RAGenDlg::OnEditSettings()
 	dlg.m_iSaveRegistry = theApp.iSave;
 	dlg.m_iLaunchArduino = theApp.iLaunch;
 	dlg.m_iAppMode = theApp.iAppMode;
-	dlg.m_iDevVersion = theApp.iDevVersion;
+	dlg.m_iDevVersion = a_Controller.GetDevLibVersion();
 	dlg.m_fHasArduinoExe = theApp.fHasArduinoExe;
 	dlg.m_sArduinoFolder = theApp.m_sArduinoDirectory;
 	INT_PTR iRet = dlg.DoModal();
@@ -358,14 +359,14 @@ void RAGenDlg::OnEditSettings()
 			AfxGetApp()->WriteProfileInt(_T(""), _T("DevelopmentLibraries"), theApp.iAppMode);
 			fRestartRequired = TRUE;
 		}
-		if ( theApp.iDevVersion != dlg.m_iDevVersion )
+		if ( a_Controller.GetDevLibVersion() != dlg.m_iDevVersion )
 		{
-			theApp.iDevVersion = dlg.m_iDevVersion;
-			AfxGetApp()->WriteProfileInt(_T(""), _T("DevLibraryVersion"), theApp.iDevVersion);
+			a_Controller.SetDevLibVersion(dlg.m_iDevVersion);
+			AfxGetApp()->WriteProfileInt(_T(""), _T("DevLibraryVersion"), a_Controller.GetDevLibVersion());
 		}
 		theApp.fHasArduinoExe = dlg.m_fHasArduinoExe;
 
-		theApp.AutoDetectLibraryVersion();
+		a_Controller.AutodetectVersion(theApp.m_sLibraryDirectory);
 
 		UpdateSettings();
 		UpdateData(FALSE);

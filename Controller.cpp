@@ -16,6 +16,8 @@ CController::CController(void)
 	m_sExtension = _T("");
 	m_fBanner = FALSE;
 	m_fTemp = FALSE;
+	m_iDevVersion = NOT_SET;
+	m_fLatestDev = FALSE;
 	LoadDeviceFunctions();
 }
 
@@ -60,6 +62,26 @@ CString CController::LookupDeviceFunction(int Device)
 		}
 	}
 	return s;
+}
+
+void CController::AutodetectVersion(CString sLibraryFolder)
+{
+	// Call this function on app start and after settings changed
+	ASSERT(!sLibraryFolder.IsEmpty());
+	switch ( m_iDevVersion )
+	{
+	default:
+	case AUTODETECT:
+		TRACE("Lib Dir:  %s\n", sLibraryFolder);
+		m_fLatestDev = AutodetectDevVersion(sLibraryFolder);
+		break;
+	case FORCE_08X:
+		m_fLatestDev = FALSE;
+		break;
+	case FORCE_09X:
+		m_fLatestDev = TRUE;
+		break;
+	}
 }
 
 void CController::LoadDeviceFunctions()
@@ -193,7 +215,7 @@ void CController::GenerateFilename(CTime &t)
 {
 	m_sFilename.Format(_T("RA_%s"), t.Format(_T("%m%d%y_%H%M")));
 
-	if ( theApp.f09xDev )
+	if ( IsLatestDevVersion() )
 	{
 		m_sExtension.LoadString(IDS_INO_EXTENSION);
 	} else
@@ -212,7 +234,7 @@ void CController::GenerateHeader(CFile &f, CTime &t)
 				cb_GetFileVersionString(AfxGetInstanceHandle()),
 				t.Format(_T("%m/%d/%Y %H:%M")),
 				m_sFilename, m_sExtension);
-	if ( theApp.f09xDev ) 
+	if ( IsLatestDevVersion() ) 
 	{
 		s += _T("// This version designed for v0.9.0 or later\r\n");
 	}
@@ -234,7 +256,7 @@ void CController::WriteIncludes(CFile &f)
 	CString s;
 
 	s = _T("\r\n\r\n#include <ReefAngel_Features.h>\r\n");
-	if ( theApp.f09xDev )
+	if ( IsLatestDevVersion() )
 	{
 		if ( Features.GetFeatureValue(Features.CUSTOM_COLORS) )
 		{
@@ -329,7 +351,7 @@ void CController::WriteIncludes(CFile &f)
 void CController::WriteCustomMenu(CFile &f)
 {
 	CString s;
-	if ( theApp.f09xDev )
+	if ( IsLatestDevVersion() )
 	{
 		if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 		{
@@ -452,7 +474,7 @@ void setup()\r\n\
 	}
 
 	// web banner timer
-	if ( m_fBanner && !theApp.f09xDev )
+	if ( m_fBanner && !IsLatestDevVersion() )
 	{
 		WebBannerInfo wi;
 		LoadWebBannerInfoDefaults(wi);
@@ -574,7 +596,7 @@ void loop()\r\n\
 	if ( m_fBanner  )
 	{
 		// 0.9.X has a built-in timer with the function
-		if ( theApp.f09xDev )
+		if ( IsLatestDevVersion() )
 		{
 			// TODO improve to include the scenario for passwords
 			// Portal("user"); and Portal("user", "pass");

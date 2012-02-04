@@ -7,6 +7,7 @@
 #include "InternalMemoryDefaults.h"
 #include "cb_FileVersion.h"
 #include "GlobalVars.h"
+#include "Controller.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -455,7 +456,7 @@ BOOL RAInternalMemoryPage::WriteValues()
 				AfxThrowUserException();
 			}
 		}
-		if ( theApp.f09xDev )
+		if ( a_Controller.IsLatestDevVersion() )
 		{
 			sFileExtension.LoadString(IDS_INO_EXTENSION);
 		} else
@@ -480,7 +481,7 @@ BOOL RAInternalMemoryPage::WriteValues()
 					t.Format(_T("%m/%d/%Y %H:%M")),
 					sFilename, sFileExtension);
 		f.Write(sAutoGenHeader, sAutoGenHeader.GetLength());
-		if ( theApp.f09xDev )
+		if ( a_Controller.IsLatestDevVersion() )
 		{
 			s = _T("\r\n\r\n\
 #include <ReefAngel_Features.h>\r\n\
@@ -615,7 +616,7 @@ void setup()\r\n\
 		s.Format(_T("    InternalMemory.PHMin_write(%d);\r\n"), m_iPH7);
 		f.Write(s, s.GetLength());
 
-		if ( theApp.f09xDev )
+		if ( a_Controller.IsLatestDevVersion() )
 		{
 			s = _T("\
     InternalMemory.SalMax_write(2550);\r\n\
