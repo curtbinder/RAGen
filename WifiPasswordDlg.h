@@ -29,6 +29,8 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedPasswordShow();
 	afx_msg void OnBnClickedOk();
+public:
+	afx_msg void OnBnClickedPasswordClear();
 };
 
 

@@ -21,12 +21,20 @@ public:
 	inline void SetDevLibVersion(int iVersion) { m_iDevVersion = iVersion; }
 	inline int GetDevLibVersion() { return m_iDevVersion; }
 	inline BOOL IsLatestDevVersion() { return m_fLatestDev; }
+	/*
+	inline CString GetWifiUsername() { return m_sWifiUsername; }
+	inline CString GetWifiPassword() { return m_sWifiPassword; }
+	void SetWifiUP(CString sUser, CString sPassword);
+	CString GetWifiString();
+	*/
 	BOOL WriteFile();
 	CString LookupDeviceFunction(int Device);
 	void AutodetectVersion(CString sLibraryFolder);
 
 	CFeatures Features;
 	CRelay Relay;
+	// CCustomMenu
+	// CCustomMain
 	
 	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used
 
@@ -37,7 +45,9 @@ private:
 	BOOL m_fTemp;
 	//BOOL m_fWifiPassordEnabled;
 	int m_iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
-	BOOL m_fLatestDev; //f09xDev;
+	BOOL m_fLatestDev;
+	//CString m_sWifiUsername;
+	//CString m_sWifiPassword;
 
 	void LoadDeviceFunctions();
 	void GenerateFilename(CTime &t);

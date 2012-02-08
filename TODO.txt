@@ -48,3 +48,4 @@ TODO File
 	- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
 - Add program license 
 - allow for multiple wavemakers & dosing pumps 
+- create a Load / Save file for an xml file that contains all settings

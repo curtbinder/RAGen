@@ -69,6 +69,7 @@ void WifiPasswordDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(WifiPasswordDlg, CDialog)
 	ON_BN_CLICKED(IDC_PASSWORD_SHOW, &WifiPasswordDlg::OnBnClickedPasswordShow)
 	ON_BN_CLICKED(IDOK, &WifiPasswordDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_PASSWORD_CLEAR, &WifiPasswordDlg::OnBnClickedPasswordClear)
 END_MESSAGE_MAP()
 
 
@@ -99,12 +100,12 @@ void WifiPasswordDlg::OnBnClickedPasswordShow()
 	if ( m_fShowPassword )
 	{
 		e->SetPasswordChar(0);
-		b->SetWindowText(_T("Hide"));
+		b->SetWindowText(_T("Hide Password"));
 	}
 	else
 	{
 		e->SetPasswordChar('*');
-		b->SetWindowText(_T("Show"));
+		b->SetWindowText(_T("Show Password"));
 	}
 	e->Invalidate();
 }
@@ -136,4 +137,10 @@ void WifiPasswordDlg::OnBnClickedOk()
 	}
 	SavePasswordProtection(m_sUsername, m_sPassword);
 	OnOK();
+}
+
+void WifiPasswordDlg::OnBnClickedPasswordClear()
+{
+	SetDlgItemText(IDC_PASSWORD_USERNAME, _T(""));
+	SetDlgItemText(IDC_PASSWORD_PASSWORD, _T(""));
 }

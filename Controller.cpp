@@ -19,6 +19,8 @@ CController::CController(void)
 	m_iDevVersion = NOT_SET;
 	m_fLatestDev = FALSE;
 	LoadDeviceFunctions();
+	//m_sWifiUsername = _T("");
+	//m_sWifiPassword = _T("");
 }
 
 CController::~CController(void)
@@ -143,6 +145,19 @@ void CController::LoadDeviceFunctions()
 		TRACE("Device %d:  %s\n", i, Devices[i].sRAFunction);
 	}
 }
+/*
+void CController::SetWifiUP(CString sUser, CString sPassword)
+{
+	m_sWifiUsername = sUser;
+	m_sWifiPassword = sPassword;
+}
+
+CString CController::GetWifiString()
+{
+	CString s;
+	return s;
+}
+*/
 
 BOOL CController::WriteFile()
 {
