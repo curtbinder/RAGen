@@ -2,53 +2,6 @@
 
 #include "GlobalVars.h"
 
-/*! Reef Angel device structure
- *
- * Contains the device ID (ID of the checkbox) and the ReefAngel function name
- * associated with the device
- */
-/*
-typedef struct _device {
-	int id;   //!< ID of the check box
-	CString sRAFunction;  //!< Function name only, no ReefAngel or parentheses
-} device;
-*/
-
-/*!
- * Maximum ports for the controller
- */
-//#define MAX_PORTS					8
-/*! 
- * Maximum devices to choose from
- */
-/*
-#define MAX_DEVICES					14
-//! Default ports toggled during Feeding mode, 10011000
-#define DEFAULT_FEEDINGMODE			152
-//! Default ports toggled during Water Change mode, 10011000
-#define DEFAULT_WATERCHANGEMODE		152
-//! Default ports shutoff when Overheat is triggered, 00000100
-#define DEFAULT_OVERHEAT			4
-//! Default ports toggled during lights on/lights off, 00000110
-#define DEFAULT_LIGHTSON			6
-//! Default Port 1 device is Dual ATO
-#define DEFAULT_PORT1_DEVICE		IDC_RELAY_CK_DUALATO
-//! Default Port 2 device is Standard Lights
-#define DEFAULT_PORT2_DEVICE		IDC_RELAY_CK_STDLIGHTS
-//! Default Port 3 device is Metal Halides
-#define DEFAULT_PORT3_DEVICE		IDC_RELAY_CK_METALHALIDES
-//! Default Port 4 device is Fan/Chiller
-#define DEFAULT_PORT4_DEVICE		IDC_RELAY_CK_CHILLER
-//! Default Port 5 device is Wavemaker 1
-#define DEFAULT_PORT5_DEVICE		IDC_RELAY_CK_WM1
-//! Default Port 6 device is Wavemaker 2
-#define DEFAULT_PORT6_DEVICE		IDC_RELAY_CK_WM2
-//! Default Port 7 device is Heater
-#define DEFAULT_PORT7_DEVICE		IDC_RELAY_CK_HEATER
-//! Default Port 8 device is Sump/Always On
-#define DEFAULT_PORT8_DEVICE		IDC_RELAY_CK_ALWAYS_ON
-*/
-
 // RARelayPage dialog
 /*! RARelayPage Dialog class
  *
@@ -65,9 +18,6 @@ public:
 // Dialog Data
 	enum { IDD = IDD_RARELAYPAGE };
 
-	//CString sFilename;  //!< Filename of the PDE file generated
-	//CString sFileExtension;
-
 protected:
 	//! DDX/DDV Data Exchange between controls and variables
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -75,35 +25,9 @@ protected:
 
 // Implementation
 protected:
-	/*
-	int Ports[MAX_PORTS]; //!< Array of Ports
-	int Delays[MAX_PORTS];  //!< Array of Delays for Delayed on
-	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used
-
-	//! Enum of the different byte arrays
-	/*
-	enum Modes {
-		Feeding,  //!< Feeding Mode ports
-		WaterChange, //!< WaterChange Mode ports
-		Overheat,  //!< Overheat ports
-		LightsOn  //!< LightsOn ports
-	};
-	// Ports that get toggled on/off in specified modes
-	BYTE FeedingModePorts;  //!< Ports toggled during Feeding Mode
-	BYTE WaterChangeModePorts;  //!< Ports toggled during Water Change Mode
-	BYTE OverheatPorts;  //!< Ports that get shutoff during Overheat
-	BYTE LightsOnPorts;  //!< Ports toggled during lights on/off
-	*/
-
-	//BOOL fTemp;  //!< Temperature flag, 0 - Fahrenheit, 1 - Celcuis
-	//BOOL fBanner;  //!< Web banner mode flag, 0 - no banner / logging, 1 - web banner enabled
 	int bCurrentPort;  //!< Currently selected Port
 	CString sFeatureList;  //!< List of features enabled when PDE generated
 	BOOL fUseDPRepeat;  //!< Do we use DosingPumpRepeat instead of DosingPump
-	BOOL fCustomMenu;  //!< Is the CustomMenu enabled?
-	int iCustomMenuEntries;  //!< Number of CustomMenuEntries
-	BOOL fCustomMain;	//!< Is the CustomMain screen enabled?
-	BOOL fColorsPDE;	//!< Are we using CustomColors?
 
 	// Single use devices
 	BOOL fWM1;  //!< Flag for determining if WM1 is selected
@@ -134,27 +58,6 @@ protected:
 	 * \sa InitPorts(), LoadDefaultPortDevices(), SetPortMode()
 	 */
 	void LoadDefaults();
-	/*! Initializes the Devices variable
-	 *
-	 * Functions will be stored as
-     *
-	 * FUNCTION
-	 *
-	 * The ReefAngel.XXX(PORT); will be added after the function call.  We just store the 
-	 * function names and not the class name or parenthesis afterwards.
-	 * The ID for the window/item is also stored for comparison.
-	 */
-	//void LoadDeviceFunctions();
-	/*! Creates the Binary string for the mode
-	 *
-	 * The mode (Feeding, WaterChange, Overheat, Lights On) is created in a binary string
-	 * for use in generation of the PDE file so the controller knows what ports to toggle
-	 * during the appropriate mode.
-	 *
-	 * \param Mode ID of the mode to generate (Feeding, WaterChange, Overheat, Lights On)
-	 * \param sMode CString that contains the finalized binary string
-	 */
-	//void GetPortMode(BYTE Mode, CString &sMode);
 	/*! Sets the mode based on the specified ports
 	 *
 	 * Stores the ports to the corresponding port mode member varialbe.
@@ -175,22 +78,6 @@ protected:
 	 * on the display.
 	 */
 	void RefreshModePorts();
-	/*! Assigns the specified device to the specified port
-	 *
-	 * Stores the Device (check box id) in the Ports array assigned to the port.
-	 *
-	 * \sa UpdateDisplayDevice()
-	 * \param Port Port number to be used
-	 * \param Device Device ID to be stored
-	 * \param Delay Delay in minutes to be stored for DelayedOn
-	 */
-	//void SetPortDevice(int Port, int Device, int Delay = 0);
-	/*! Retrieves the device associated with the port
-	 *
-	 * \param Port Port number to retrieve
-	 * \retval int Device ID associated with the port
-	 */
-	//int GetPortDevice(int Port);
 	/*! Updates the device list for the specified port
 	 *
 	 * Updates the device list based on the port provided.  This is called when the port
@@ -262,12 +149,6 @@ protected:
 	 * \sa SetPortDevice()
 	 */
 	void LoadDefaultPortDevices();
-	/*! Looks up the ReefAngel Function associated with the device
-	 *
-	 * \param Device ID of the device
-	 * \param sFunction string that contains the ReefAngel function call
-	 */
-	//void LookupDeviceFunction(int Device, CString &sFunction);
 	void SaveSettings();
 	void LoadSettings();
 	void SelectPort1();
@@ -279,11 +160,6 @@ public:
 	 * \sa WritePDE()
 	 */
 	void OnBnClickedBtnGenerate();
-	/*! Edit Menu, Settings selection
-	 * 
-	 * Launches Settings Dialog box
-	 */
-	//afx_msg void OnEditSettings();
 	/*! Edit Menu, Reset All selection
 	 *
 	 * Resets all the values to the default
@@ -300,16 +176,6 @@ public:
 	 * \sa InitPorts(), LoadDefaultPortDevices()
 	 */
 	void OnResetPorts();
-	/*! Edit Menu, Reset Temperature selection
-	 *
-	 * Resets the temperature selection to default
-	 */
-	//void OnResetTemperature();
-	/*! Edit Menu, Reset Logging selection
-	 *
-	 * Resets the logging selection to default
-	 */
-	//void OnResetLogging();
 	/*! Edit Menu, Reset Feeding Mode selection
 	 *
 	 * Resets the FeedingModePorts to default
