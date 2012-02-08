@@ -80,7 +80,11 @@ void RAController::UpdateValues()
 		m_fPortal = FALSE;
 	}
 
-	// TODO if pwm disabled, disable pwmslope function
+	// if pwm disabled, disable pwmslope function
+	if ( ! a_Controller.Features.GetFeatureValue(a_Controller.Features.DISPLAY_LED_PWM) )
+	{
+		m_fAddPWM = FALSE;
+	}
 
 	UpdateData(FALSE);
 }
@@ -113,9 +117,14 @@ void RAController::OnCbnSelchangeCboExpRelayQty()
 
 void RAController::OnCbnSelchangeCboPwmslope()
 {
-	// TODO set the variable in the controller needed to enable the PWMSlope function
 	UpdateData();
 	TRACE("PWM:  %d\n", m_fAddPWM);
+	if ( m_fAddPWM )
+	{
+		// enable display led pwm if we add pwmslope
+		a_Controller.Features.SetFeatureValue(a_Controller.Features.DISPLAY_LED_PWM, TRUE);
+	}
+	// do not disable led pwm if we remove pwmslope
 }
 
 void RAController::OnCbnSelchangeCboPortal()
