@@ -2,7 +2,7 @@
 #include "Resource.h"
 #include "Controller.h"
 #include "RAGen.h"
-#include "WebBannerDlg.h"
+//#include "WebBannerDlg.h"
 #include "cb_FileVersion.h"
 #include "WifiPasswordDlg.h"
 
@@ -367,6 +367,7 @@ void CController::WriteIncludes(CFile &f)
 void CController::WriteCustomMenu(CFile &f)
 {
 	CString s;
+	/*
 	if ( IsLatestDevVersion() )
 	{
 		if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
@@ -396,10 +397,14 @@ void CController::WriteCustomMenu(CFile &f)
 			f.Write(s, s.GetLength());
 		}
 	}
+	*/
 
 	if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 	{
 		// Create the custom menu here
+		// Custom Menu requires avr/pgmspace.h
+		s = _T("#include <avr/pgmspace.h>\r\n");
+		f.Write(s, s.GetLength());
 		int i;
 		CString labels = _T("");
 		CString menu = _T("PROGMEM const char *menu_items[] = {\r\n");
@@ -490,6 +495,7 @@ void setup()\r\n\
 	}
 
 	// web banner timer
+	/*
 	if ( m_fBanner && !IsLatestDevVersion() )
 	{
 		WebBannerInfo wi;
@@ -501,6 +507,7 @@ void setup()\r\n\
     ReefAngel.Timer[4].Start();\r\n"), wi.nInterval, wi.nInterval);
 		f.Write(s, s.GetLength());
 	}
+	*/
 
 	// add in an extra line to separate first part between the modes
 	s = _T("\r\n");
@@ -612,12 +619,15 @@ void loop()\r\n\
 	if ( m_fBanner  )
 	{
 		// 0.9.X has a built-in timer with the function
+		/*
 		if ( IsLatestDevVersion() )
 		{
+		*/
 			// TODO improve to include the scenario for passwords
 			// Portal("user"); and Portal("user", "pass");
 			s.Format(_T("\
 	ReefAngel.Portal(\"%s\");\r\n"), _T("userid"));
+		/*
 		}
 		else
 		{
@@ -631,6 +641,7 @@ void loop()\r\n\
     }\r\n\
 ");
 		}
+		*/
 		f.Write(s, s.GetLength());
 	}
 

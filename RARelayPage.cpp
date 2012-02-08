@@ -6,7 +6,6 @@
 #include "RARelayPage.h"
 #include "cb_FileVersion.h"
 #include "GlobalVars.h"
-#include "WebBannerDlg.h"
 #include "WifiPasswordDlg.h"
 #include "InternalMemoryDefaults.h"
 #include "Controller.h"
