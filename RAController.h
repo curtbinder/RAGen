@@ -32,5 +32,8 @@ public:
 	afx_msg void OnCbnSelchangeCboExpRelayQty();
 	afx_msg void OnCbnSelchangeCboPwmslope();
 	afx_msg void OnCbnSelchangeCboPortal();
+	afx_msg void OnBnClickedControllerTemp0();
+	afx_msg void OnBnClickedControllerTemp1();
 	void UpdateValues();
+	void UpdateControllerTemperature();
 };

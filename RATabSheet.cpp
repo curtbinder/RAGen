@@ -261,12 +261,13 @@ void RATabSheet::ResetPorts()
 
 void RATabSheet::ResetTemp()
 {
+	// TODO switch to Controller
 	switch ( m_iCurrentTab )
 	{
 		case MainRelay:
 			{
-			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
-			p->OnResetTemperature();
+			//RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
+			//p->OnResetTemperature();
 			}
 			break;
 		default:
@@ -276,12 +277,13 @@ void RATabSheet::ResetTemp()
 
 void RATabSheet::ResetLogging()
 {
+	// TODO switch to Controller
 	switch ( m_iCurrentTab )
 	{
 		case MainRelay:
 			{
-			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
-			p->OnResetLogging();
+			//RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
+			//p->OnResetLogging();
 			}
 			break;
 		default:

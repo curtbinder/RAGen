@@ -19,8 +19,8 @@ IMPLEMENT_DYNAMIC(RARelayPage, CDialog)
 RARelayPage::RARelayPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RARelayPage::IDD, pParent)
 {
-	fTemp = FALSE;
-	fBanner = FALSE;
+//	fTemp = FALSE;
+//	fBanner = FALSE;
 	fCustomMenu = FALSE;
 	iCustomMenuEntries = MENU_DEFAULT;
 	fCustomMain = FALSE;
@@ -37,8 +37,8 @@ RARelayPage::~RARelayPage()
 void RARelayPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Radio(pDX, IDC_RELAY_TEMP_0, fTemp);
-	DDX_Check(pDX, IDC_RELAY_CK_WEB, fBanner);
+//	DDX_Radio(pDX, IDC_RELAY_TEMP_0, fTemp);
+//	DDX_Check(pDX, IDC_RELAY_CK_WEB, fBanner);
 }
 
 BEGIN_MESSAGE_MAP(RARelayPage, CDialog)
@@ -86,8 +86,8 @@ BOOL RARelayPage::OnInitDialog()
 	InitPorts();
 	LoadSettings();
 	SelectPort1();
-	fTemp = FALSE;  // set to Fahrenheit
-	fBanner = FALSE;  // set to disable web banner
+	//fTemp = FALSE;  // set to Fahrenheit
+	//fBanner = FALSE;  // set to disable web banner
 	fCustomMenu = FALSE;
 	iCustomMenuEntries = MENU_DEFAULT;
 	fCustomMain = FALSE;
@@ -182,8 +182,8 @@ void RARelayPage::LoadDefaults()
 	// Load the default values
 	InitPorts();
 	LoadDefaultPortDevices();
-	fTemp = FALSE;  // set to Fahrenheit
-	fBanner = FALSE;  // set to disable web banner
+	//fTemp = FALSE;  // set to Fahrenheit
+	//fBanner = FALSE;  // set to disable web banner
 	fCustomMenu = FALSE;
 	iCustomMenuEntries = MENU_DEFAULT;
 	fCustomMain = FALSE;
@@ -594,8 +594,8 @@ void RARelayPage::SaveSettings()
 	AfxGetApp()->WriteProfileInt(s, _T("WaterChangeModePorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.WaterChange));
 	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.Overheat));
 	AfxGetApp()->WriteProfileInt(s, _T("LightsOnPorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.LightsOn));
-	AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
-	AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
+	//AfxGetApp()->WriteProfileInt(s, _T("Temp"), fTemp);
+	//AfxGetApp()->WriteProfileInt(s, _T("WebBanner"), fBanner);
 	AfxGetApp()->WriteProfileInt(s, _T("Port1"), a_Controller.Relay.GetPortDevice(1));
 	AfxGetApp()->WriteProfileInt(s, _T("Port2"), a_Controller.Relay.GetPortDevice(2));
 	AfxGetApp()->WriteProfileInt(s, _T("Port3"), a_Controller.Relay.GetPortDevice(3));
@@ -623,8 +623,8 @@ void RARelayPage::LoadSettings()
 	SetPortMode(a_Controller.Relay.WaterChange, (BYTE)AfxGetApp()->GetProfileInt(s, _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
 	SetPortMode(a_Controller.Relay.Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));
 	SetPortMode(a_Controller.Relay.LightsOn, (BYTE)AfxGetApp()->GetProfileInt(s, _T("LightsOnPorts"), DEFAULT_LIGHTSON));
-	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
-	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
+//	fTemp = AfxGetApp()->GetProfileInt(s, _T("Temp"), FALSE);
+//	fBanner = AfxGetApp()->GetProfileInt(s, _T("WebBanner"), FALSE);
 	a_Controller.Relay.SetPortDevice(1, AfxGetApp()->GetProfileInt(s, _T("Port1"), DEFAULT_PORT1_DEVICE),
 					 AfxGetApp()->GetProfileInt(s, _T("Delay1"), DEFAULT_DELAY_MINUTES));
 	a_Controller.Relay.SetPortDevice(2, AfxGetApp()->GetProfileInt(s, _T("Port2"), DEFAULT_PORT2_DEVICE),
@@ -1194,19 +1194,21 @@ void RARelayPage::OnResetPorts()
 	UpdateData(FALSE);
 }
 
+/*
 void RARelayPage::OnResetTemperature()
 {
 	UpdateData();
-	fTemp = FALSE;
+	//fTemp = FALSE;
 	UpdateData(FALSE);
 }
 
 void RARelayPage::OnResetLogging()
 {
 	UpdateData();
-	fBanner = FALSE;
+	//fBanner = FALSE;
 	UpdateData(FALSE);
 }
+*/
 
 void RARelayPage::OnResetFeedingMode()
 {

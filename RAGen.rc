@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,145
- PRODUCTVERSION 1,2,0,145
+ FILEVERSION 1,2,0,146
+ PRODUCTVERSION 1,2,0,146
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 0, 145"
+            VALUE "FileVersion", "1, 2, 0, 146"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 0, 145"
+            VALUE "ProductVersion", "1, 2, 0, 146"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -185,8 +185,7 @@ BEGIN
         VERTGUIDE, 251
         TOPMARGIN, 7
         HORZGUIDE, 19
-        HORZGUIDE, 87
-        HORZGUIDE, 93
+        HORZGUIDE, 115
         HORZGUIDE, 121
         HORZGUIDE, 128
         HORZGUIDE, 187
@@ -445,15 +444,15 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
 EXSTYLE WS_EX_APPWINDOW
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "Ports",IDC_STATIC,7,7,168,80
-    CONTROL         "Port 1",IDC_RELAY_PORT_1,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | WS_GROUP,13,19,78,15
-    CONTROL         "Port 2",IDC_RELAY_PORT_2,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,19,78,15
-    CONTROL         "Port 3",IDC_RELAY_PORT_3,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,34,78,15
-    CONTROL         "Port 4",IDC_RELAY_PORT_4,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,34,78,15
-    CONTROL         "Port 5",IDC_RELAY_PORT_5,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,49,78,15
-    CONTROL         "Port 6",IDC_RELAY_PORT_6,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,49,78,15
-    CONTROL         "Port 7",IDC_RELAY_PORT_7,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,64,78,15
-    CONTROL         "Port 8",IDC_RELAY_PORT_8,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,64,78,15
+    GROUPBOX        "Ports",IDC_STATIC,7,7,168,114
+    CONTROL         "Port 1",IDC_RELAY_PORT_1,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE | WS_GROUP,13,19,78,24
+    CONTROL         "Port 2",IDC_RELAY_PORT_2,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,19,78,24
+    CONTROL         "Port 3",IDC_RELAY_PORT_3,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,43,78,24
+    CONTROL         "Port 4",IDC_RELAY_PORT_4,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,43,78,24
+    CONTROL         "Port 5",IDC_RELAY_PORT_5,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,67,78,24
+    CONTROL         "Port 6",IDC_RELAY_PORT_6,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,67,78,24
+    CONTROL         "Port 7",IDC_RELAY_PORT_7,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,13,91,78,24
+    CONTROL         "Port 8",IDC_RELAY_PORT_8,"Button",BS_AUTORADIOBUTTON | BS_PUSHLIKE,91,91,78,24
     GROUPBOX        "Devices",IDC_STATIC,191,7,169,114
     CONTROL         "Always ON",IDC_RELAY_CK_ALWAYS_ON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,19,51,10
     CONTROL         "Metal Halides",IDC_RELAY_CK_METALHALIDES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,33,58,10
@@ -471,11 +470,6 @@ BEGIN
     CONTROL         "Dual ATO",IDC_RELAY_CK_DUALATO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,290,75,46,10
     CONTROL         "Single ATO Low",IDC_RELAY_CK_SINGLEATOLOW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,290,89,65,10
     CONTROL         "Single ATO High",IDC_RELAY_CK_SINGLEATOHIGH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,290,103,67,10
-    GROUPBOX        "Temperature",IDC_STATIC,7,93,64,28
-    CONTROL         "° F",IDC_RELAY_TEMP_0,"Button",BS_AUTORADIOBUTTON | WS_GROUP,13,104,25,10
-    CONTROL         "° C",IDC_RELAY_TEMP_1,"Button",BS_AUTORADIOBUTTON,42,104,23,10
-    GROUPBOX        "Logging",IDC_STATIC,78,93,97,28
-    CONTROL         "Portal",IDC_RELAY_CK_WEB,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,104,52,10
     GROUPBOX        "Ports Toggled During Modes",IDC_STATIC,7,128,353,59
     LTEXT           "8",IDC_STATIC,83,141,8,8
     LTEXT           "7",IDC_STATIC,95,141,8,8

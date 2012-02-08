@@ -43,6 +43,8 @@ BEGIN_MESSAGE_MAP(RAController, CDialog)
 	ON_CBN_SELCHANGE(IDC_CBO_EXP_RELAY_QTY, &RAController::OnCbnSelchangeCboExpRelayQty)
 	ON_CBN_SELCHANGE(IDC_CBO_PWMSLOPE, &RAController::OnCbnSelchangeCboPwmslope)
 	ON_CBN_SELCHANGE(IDC_CBO_PORTAL, &RAController::OnCbnSelchangeCboPortal)
+	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_0, &RAController::OnBnClickedControllerTemp0)
+	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_1, &RAController::OnBnClickedControllerTemp1)
 END_MESSAGE_MAP()
 
 
@@ -128,4 +130,22 @@ void RAController::OnCbnSelchangeCboPortal()
 		m_fWifi = 1;
 		UpdateData(FALSE);
 	}
+}
+
+void RAController::OnBnClickedControllerTemp0()
+{
+	UpdateData();
+	UpdateControllerTemperature();
+}
+
+void RAController::OnBnClickedControllerTemp1()
+{
+	UpdateData();
+	UpdateControllerTemperature();
+}
+
+void RAController::UpdateControllerTemperature()
+{
+	TRACE("Temp:  %s\n", m_fTemp?"Celsius":"Fahrenheit");
+	a_Controller.SetTemperatureUnit(m_fTemp);
 }
