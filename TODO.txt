@@ -37,15 +37,16 @@ TODO File
 	X - Have Expansion Relays with drop down menu from 0 - 8
 	- Have 'Enable Portal'
 		- Have button open up the portal username & key
-	X - Have 'Add PWMSlope code' to code file
-	- Updates the features appropriately with tab change (wifi, expansion, etc)	
+	- Have 'Add PWMSlope code' to code file
+	X - Updates the features appropriately with tab change (wifi, expansion, etc)	
 	X - Have Temperature section
-	- update drop down menus
-	- update values and variables appropriately (test combo box values)
-	- pwmslope option enables ledpwm feature
+	X - update drop down menus
+	X - update values and variables appropriately (test combo box values)
+	X - pwmslope option enables ledpwm feature
 - Colors_PDE changed to CustomColors
 - Folder updating
 	- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
 - Add program license 
 - allow for multiple wavemakers & dosing pumps 
 - create a Load / Save file for an xml file that contains all settings
+- Add PWM tab that allows for selection of what PWM slope function to use

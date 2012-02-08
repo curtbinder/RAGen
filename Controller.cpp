@@ -18,6 +18,7 @@ CController::CController(void)
 	m_fTemp = FALSE;
 	m_iDevVersion = NOT_SET;
 	m_fLatestDev = FALSE;
+	m_fAddPWMSlope = FALSE;
 	LoadDeviceFunctions();
 	//m_sWifiUsername = _T("");
 	//m_sWifiPassword = _T("");
@@ -629,6 +630,42 @@ void loop()\r\n\
         ReefAngel.WebBanner();\r\n\
     }\r\n\
 ");
+		}
+		f.Write(s, s.GetLength());
+	}
+
+	// add in pwmslope code here
+	if ( m_fAddPWMSlope )
+	{
+		if ( IsLatestDevVersion() )
+		{
+			s = _T("\r\n\
+    ReefAngel.PWM.ActinicPWMSlope();\r\n\
+    ReefAngel.PWM.DaylightPWMSlope();\r\n");
+		}
+		else
+		{
+			s = _T("\r\n\
+    ReefAngel.PWM.SetActinic(PWMSlope(\r\n\
+        InternalMemory.StdLightsOnHour_read(),\r\n\
+        InternalMemory.StdLightsOnMinute_read(),\r\n\
+        InternalMemory.StdLightsOffHour_read(),\r\n\
+        InternalMemory.StdLightsOffMinute_read(),\r\n\
+        InternalMemory.PWMSlopeStartA_read(),\r\n\
+        InternalMemory.PWMSlopeEndA_read(),\r\n\
+        InternalMemory.PWMSlopeDurationA_read(),\r\n\
+        ReefAngel.PWM.GetActinicValue()\r\n\
+        ));\r\n\
+    ReefAngel.PWM.SetDaylight(PWMSlope(\r\n\
+        InternalMemory.StdLightsOnHour_read(),\r\n\
+        InternalMemory.StdLightsOnMinute_read(),\r\n\
+        InternalMemory.StdLightsOffHour_read(),\r\n\
+        InternalMemory.StdLightsOffMinute_read(),\r\n\
+        InternalMemory.PWMSlopeStartD_read(),\r\n\
+        InternalMemory.PWMSlopeEndD_read(),\r\n\
+        InternalMemory.PWMSlopeDurationD_read(),\r\n\
+        ReefAngel.PWM.GetDaylightValue()\r\n\
+        ));\r\n");
 		}
 		f.Write(s, s.GetLength());
 	}

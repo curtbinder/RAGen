@@ -21,6 +21,7 @@ public:
 	inline void SetDevLibVersion(int iVersion) { m_iDevVersion = iVersion; }
 	inline int GetDevLibVersion() { return m_iDevVersion; }
 	inline BOOL IsLatestDevVersion() { return m_fLatestDev; }
+	inline void AddPWMSlope(BOOL fEnable = TRUE) { m_fAddPWMSlope = fEnable; }
 	/*
 	inline CString GetWifiUsername() { return m_sWifiUsername; }
 	inline CString GetWifiPassword() { return m_sWifiPassword; }
@@ -46,6 +47,7 @@ private:
 	//BOOL m_fWifiPassordEnabled;
 	int m_iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later
 	BOOL m_fLatestDev;
+	BOOL m_fAddPWMSlope;
 	//CString m_sWifiUsername;
 	//CString m_sWifiPassword;
 

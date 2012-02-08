@@ -85,6 +85,7 @@ void RAController::UpdateValues()
 	{
 		m_fAddPWM = FALSE;
 	}
+	a_Controller.AddPWMSlope(m_fAddPWM);
 
 	UpdateData(FALSE);
 }
@@ -119,6 +120,7 @@ void RAController::OnCbnSelchangeCboPwmslope()
 {
 	UpdateData();
 	TRACE("PWM:  %d\n", m_fAddPWM);
+	a_Controller.AddPWMSlope(m_fAddPWM);
 	if ( m_fAddPWM )
 	{
 		// enable display led pwm if we add pwmslope

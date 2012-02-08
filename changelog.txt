@@ -133,5 +133,5 @@ v1.2.0
 - Updated strings for ORP, Salinity, RF, I/O and AI modules
 - Added "Clear Password" button to wifi password window
 - Changed "Show/Hide" to "Show/Hide Password" on wifi window
-
+- Ability to Add PWMSlope default functions to code file based on library version
 
