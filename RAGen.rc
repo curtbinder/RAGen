@@ -936,11 +936,11 @@ BEGIN
     IDS_FEATURES_NUMBERS_8X16 "Numbers ONLY (0-9 / .) 8x16 size"
     IDS_FEATURES_NUMBERS_12X16 "Numbers ONLY (0-9 / .) 12x16 size"
     IDS_FEATURES_NUMBERS_16X16 "Numbers ONLY (0-9 / .) 16x16 size"
-    IDS_FEATURES_SALINITY   "Salinity Expansion"
-    IDS_FEATURES_RF         "RF Expansion"
-    IDS_FEATURES_AILED      "AI LED"
-    IDS_FEATURES_ORP        "ORP Expansion"
-    IDS_FEATURES_IO         "IO Expansion"
+    IDS_FEATURES_SALINITY   "Enable if you have a Salinity Module that you would like to use.  You will want to use a custom main screen as well to display the Salinity values for you.\n\nApproximately 208 bytes to enable this feature"
+    IDS_FEATURES_RF         "This module is capable of controlling the Vortech pumps with ES wireless drivers. Vortech pumps will turn to feeding mode automatically when you start the ""Feeding Mode"" on your Reef Angel. You can also put them into Night mode automatically to follow your lighting schedule. All of the modes that the ES driver offers can be emulated.\nCheck out the forum or manual for more detailed information about this module.\n\nApproximately 346 bytes to enable this feature"
+    IDS_FEATURES_AILED      "This features the ability to control the Aqua Illumination LED's.\n\nApproximately 382 bytes to enable this feature"
+    IDS_FEATURES_ORP        "ORP Expansion module\n\nEnable if you have the ORP module"
+    IDS_FEATURES_IO         "IO Expansion hub\n\nEnable to use the Expansion hub."
 END
 
 STRINGTABLE 

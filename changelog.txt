@@ -130,5 +130,5 @@ v1.2.0
 - Added "Launch" button to Internal memory window
 - Removed Temperature and Logging from Main Relay page
 - Increased size of port buttons on Main Relay page
-
+- Updated strings for ORP, Salinity, RF, I/O and AI modules
 

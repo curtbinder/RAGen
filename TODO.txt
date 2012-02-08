@@ -28,7 +28,6 @@ TODO File
 ** - Ability to change the quantity of custom menu entries
 ** - add in custom menu tab
 ** - use the Port1Bit for the bitwise generation of ports to be toggled
-** - Update strings for RF, ORP, Salinity, AI LED, IO
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
 - PDE tab & saved features in registry, leave off...changed to Main Relay
 	- old settings are "lost" which just are the default ports
