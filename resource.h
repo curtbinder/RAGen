@@ -46,9 +46,9 @@
 #define IDS_INO_EXTENSION               156
 #define IDS_NO_UNKNOWN_FEATURES         157
 #define IDS_UNKNOWN_FEATURES            158
-#define IDS_CONTROLLER_TAB				159
-#define IDS_CONTROLLER_TIPS				160
-#define IDC_CONTROLLER_TITLE			201
+#define IDS_CONTROLLER_TAB              159
+#define IDS_CONTROLLER_TIPS             160
+#define IDC_CONTROLLER_TITLE            201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_OVERHEATSETUP      206
@@ -199,6 +199,7 @@
 #define IDC_MEMORY_BTN_GENERATE         456
 #define IDC_MEMORY_BTN_ENABLE_ADVANCED  457
 #define IDC_MEMORY_STATUS               458
+#define IDC_MEMORY_BTN_LAUNCH           459
 #define IDC_STD_GROUP_LIGHTS            600
 #define IDC_STD_GROUP_WAVEMAKERS        601
 #define IDC_STD_GROUP_PORTS             602

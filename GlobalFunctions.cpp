@@ -1,7 +1,9 @@
 
 #include "stdafx.h"
 #include "Resource.h"
+#include "RAGen.h"
 #include "GlobalVars.h"
+#include "Controller.h"
 
 // Global Functions
 CString ReadLibraryVersion(CString sLibraryDirectory)
@@ -168,4 +170,42 @@ BOOL AutodetectDevVersion(CString sLibraryDirectory)
 		token = sVersion.Tokenize(t, pos);
 	} // while
 	return fRet;
+}
+
+void LaunchArduino(CString sFilename)
+{
+	// use CreateProcess function to launch arduino
+	// use m_sArduinoFolder + arduino.exe for application
+	// use m_sSketchFolder + sketchfilename for PDE file to open
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+	TCHAR sPDE[32768];
+	CString sFileExtension;
+
+	if ( a_Controller.IsLatestDevVersion() )
+	{
+		sFileExtension.LoadString(IDS_INO_EXTENSION);
+	}
+	else
+	{
+		sFileExtension.LoadString(IDS_PDE_EXTENSION);
+	}
+
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	_stprintf_s(sPDE, 32768, _T("%s\\arduino.exe \"%s\\%s\\%s%s\""), 
+			theApp.m_sArduinoDirectory, theApp.m_sSketchDirectory, sFilename, sFilename, sFileExtension);
+
+	if ( ! CreateProcess(NULL, sPDE, NULL, NULL, FALSE,
+						0, NULL, theApp.m_sArduinoDirectory,
+						&si, &pi) )
+	{
+		TRACE("Failed to launch arduino.exe\n");
+		AfxMessageBox(_T("Failed to launch arduino.exe"), MB_ICONINFORMATION|MB_OK);
+	}
+
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
 }

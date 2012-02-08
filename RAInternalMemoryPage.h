@@ -72,6 +72,7 @@ public:
 	afx_msg void OnBnClickedBtnEnableAdvanced();
 	//void OnEditTimeoutsPH();
 	afx_msg void OnBnClickedBtnGenerate();
+	afx_msg void OnBnClickedBtnLaunch();
 	void OnResetAll();
 	void OnResetSaved();
 };

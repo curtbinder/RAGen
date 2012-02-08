@@ -544,7 +544,7 @@ void RAGenDlg::OnBnClickedBtnGenerate()
 {
 	// Process the Generate Button Press
 	m_Tabs.Generate();
-	m_Tabs.CheckLaunch();
+	m_Tabs.CheckLaunch(FALSE);
 }
 
 void RAGenDlg::OnBnClickedBtnLaunch()

@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,140
- PRODUCTVERSION 1,2,0,140
+ FILEVERSION 1,2,0,145
+ PRODUCTVERSION 1,2,0,145
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 0, 140"
+            VALUE "FileVersion", "1, 2, 0, 145"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 0, 140"
+            VALUE "ProductVersion", "1, 2, 0, 145"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -780,6 +780,7 @@ BEGIN
     EDITTEXT        IDC_MEMORY_EDIT_PH10,319,191,35,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
     CONTROL         "",IDC_MEMORY_SPIN_PH10,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,325,193,11,14
     PUSHBUTTON      "&Generate",IDC_MEMORY_BTN_GENERATE,7,231,50,14
+    PUSHBUTTON      "&Launch",IDC_MEMORY_BTN_LAUNCH,63,231,50,14
     PUSHBUTTON      "&Enable Timeouts && PH",IDC_MEMORY_BTN_ENABLE_ADVANCED,221,231,83,14
     PUSHBUTTON      "&Close",IDCANCEL,310,231,50,14
     LTEXT           "",IDC_MEMORY_STATUS,7,217,297,8

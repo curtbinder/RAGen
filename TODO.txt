@@ -8,12 +8,10 @@ TODO File
 - Allow for selection of what port to use for RA Controller
 - Defines
 	- 500-600 Colors (5000-6000 controls)
-- Restore saved settings at startup
-	- Ability to toggle this setting/option
+
+- Ability to toggle restoring settings at startup
 - Internal Memory: Invalid range for actinic percentage still generated file even though not proper
 	- should do type / range checking before generation of file
-- Folder updating
-	- registry overrides for those folders will be cleared out if they exist
 - Separate out core functions from the gui
 	- have "core" class of functions and a static/global reference to them
 	- have gui functions call global functions with proper parameters
@@ -47,5 +45,7 @@ TODO File
 	- update values and variables appropriately (test combo box values)
 	- pwmslope option enables ledpwm feature
 - Colors_PDE changed to CustomColors
-- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
+- Folder updating
+	- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
 - Add program license 
+- allow for multiple wavemakers & dosing pumps 

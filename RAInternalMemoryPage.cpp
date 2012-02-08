@@ -71,6 +71,7 @@ BEGIN_MESSAGE_MAP(RAInternalMemoryPage, CDialog)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM1_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm1AlwaysOn)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM2_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm2AlwaysOn)
 	ON_BN_CLICKED(IDC_MEMORY_BTN_GENERATE, &RAInternalMemoryPage::OnBnClickedBtnGenerate)
+	ON_BN_CLICKED(IDC_MEMORY_BTN_LAUNCH, &RAInternalMemoryPage::OnBnClickedBtnLaunch)
 	ON_BN_CLICKED(IDC_MEMORY_BTN_ENABLE_ADVANCED, &RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced)
 END_MESSAGE_MAP()
 
@@ -90,6 +91,8 @@ BOOL RAInternalMemoryPage::OnInitDialog()
 	UpdateCheckBoxes();
 	// Disable the Timeouts & PH stuff by default
 	EnableTimeoutsPH(FALSE);
+	// Hide launch button
+	GetDlgItem(IDC_MEMORY_BTN_LAUNCH)->ShowWindow(SW_HIDE);
 	SetStatus("");
 	UpdateData(FALSE);
 
@@ -418,7 +421,23 @@ void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 		//case NEVER:  // Never save
 			break;
 		}
+
+		if ( theApp.fHasArduinoExe )
+		{
+			// show launch button only if Arduino is installed
+			GetDlgItem(IDC_MEMORY_BTN_LAUNCH)->ShowWindow(SW_SHOW);
+		}
 	}
+}
+
+void RAInternalMemoryPage::OnBnClickedBtnLaunch()
+{
+	if ( ! theApp.fHasArduinoExe )
+	{
+		AfxMessageBox(_T("Arduino not installed, unable to launch"));
+		return;
+	}
+	LaunchArduino(sFilename);
 }
 
 void RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced()

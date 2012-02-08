@@ -15,7 +15,7 @@ public:
 	void SetRectangle();
 	void SaveFeatures();
 	void Generate();
-	void CheckLaunch(BOOL fSkipPrompt = FALSE);
+	void CheckLaunch(BOOL fSkipPrompt);
 	void ResetAll();
 	void ResetSaved();
 	void ResetPorts();
@@ -34,7 +34,6 @@ public:
 	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
 protected:
-	void LaunchArduino();
 	DECLARE_MESSAGE_MAP()
 	int m_iNumTabs;
 	int m_iCurrentTab;

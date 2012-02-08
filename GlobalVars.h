@@ -69,3 +69,4 @@ typedef struct _device {
 CString ReadLibraryVersion(CString sLibraryDirectory);
 CString ReadEntireFile(CString sFile);
 BOOL AutodetectDevVersion(CString sLibraryDirectory);
+void LaunchArduino(CString sFilename);

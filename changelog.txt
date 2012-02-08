@@ -127,4 +127,5 @@ v1.2.0
 - Made DEV libraries the default libraries
 - Changed PDE reference to Relay
 - Internal memory to use RA_NokiaLCD on 0.9.x libraries
+- Added "Launch" button to Internal memory window
 
