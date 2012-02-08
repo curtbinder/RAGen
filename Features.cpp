@@ -434,10 +434,23 @@ void CFeatures::ProcessFeature(CString sFeature, CString sValue /*= _T("")*/)
 	} else if ( sFeature == _T("InstalledRelayExpansionModules") )
 	{
 		iInstalledExpansionModules = atoi(sValue);
+		if ( (iInstalledExpansionModules < 0) ||
+			 (iInstalledExpansionModules > MAX_PORTS) )
+		{
+			iInstalledExpansionModules = 0;
+		}
 	} else if ( (sFeature == _T("PWMExpansion")) ||		// old style
 			    (sFeature == _T("PWMExpansionRelay")) ) // old style
 	{
 		// look for the older style expansion defines
 		SetFeatureValue(PWM_EXPANSION, TRUE);
+	} else if ( sFeature == _T("CUSTOM_MENU_ENTRIES") )
+	{
+		iCustomMenuEntries = atoi(sValue);
+		if ( (iCustomMenuEntries < MENU_MIN) ||
+			 (iCustomMenuEntries > MENU_MAX) )
+		{
+			iCustomMenuEntries = MENU_DEFAULT;
+		}
 	}
 }
