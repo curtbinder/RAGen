@@ -646,6 +646,16 @@ void RARelayPage::OnBnClickedPort8()
 
 void RARelayPage::OnBnClickedCkWm1()
 {
+	if ( (bCurrentPort < 5) || (bCurrentPort > 6) )
+	{
+		TRACE("Invalid port WM1\n");
+		CButton *p = (CButton*)GetDlgItem(IDC_RELAY_CK_WM1);
+		p->SetCheck(BST_UNCHECKED);
+		CString s;
+		s.LoadString(IDS_WAVEMAKER_PORTS);
+		AfxMessageBox(s, MB_ICONEXCLAMATION|MB_OK);
+		return;
+	}
 	UpdateData();
 	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_WM1);
 	UpdateDisplayDevice(bCurrentPort);
@@ -653,6 +663,16 @@ void RARelayPage::OnBnClickedCkWm1()
 
 void RARelayPage::OnBnClickedCkWm2()
 {
+	if ( (bCurrentPort < 5) || (bCurrentPort > 6) )
+	{
+		TRACE("Invalid port WM2\n");
+		CButton *p = (CButton*)GetDlgItem(IDC_RELAY_CK_WM2);
+		p->SetCheck(BST_UNCHECKED);
+		CString s;
+		s.LoadString(IDS_WAVEMAKER_PORTS);
+		AfxMessageBox(s, MB_ICONEXCLAMATION|MB_OK);
+		return;
+	}
 	UpdateData();
 	a_Controller.Relay.SetPortDevice(bCurrentPort, IDC_RELAY_CK_WM2);
 	UpdateDisplayDevice(bCurrentPort);

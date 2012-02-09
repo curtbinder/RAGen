@@ -997,6 +997,7 @@ BEGIN
     IDS_INO_EXTENSION       ".ino"
     IDS_NO_UNKNOWN_FEATURES "No unknown Features."
     IDS_UNKNOWN_FEATURES    "Additional unrecognized features found:\n\n%s"
+	IDS_WAVEMAKER_PORTS		"Wavemakers are designed to be on Ports 5 or 6"
     IDS_CONTROLLER_TAB      "Controller"
 END
 

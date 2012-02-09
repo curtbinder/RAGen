@@ -16,10 +16,8 @@ TODO File
 	- have "core" class of functions and a static/global reference to them
 	- have gui functions call global functions with proper parameters
 	
-** - Force Wavemakers to only be on Ports 5 & 6 and prevent from being on other ports
 ** - Ability to change the quantity of custom menu entries
 ** - add in custom menu tab
-** - use the Port1Bit for the bitwise generation of ports to be toggled
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
 - PDE tab & saved features in registry, leave off...changed to Main Relay
 	- old settings are "lost" which just are the default ports

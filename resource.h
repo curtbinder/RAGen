@@ -49,6 +49,7 @@
 #define IDS_CONTROLLER_TAB              159
 #define IDS_CONTROLLER_TIPS             160
 #define IDS_PORTAL						161
+#define IDS_WAVEMAKER_PORTS				162
 #define IDC_CONTROLLER_TITLE            201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
