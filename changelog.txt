@@ -142,3 +142,4 @@ v1.2.0
 	- Inclusion of PWMSlope
 - use the PortXBit for the bitwise generation of ports to be toggled for new version, to improve code readability
 - Force Wavemakers to only be on Ports 5 or 6 and prevent from being on other ports
+- Moved reset temperature and portal to Controller reset menu

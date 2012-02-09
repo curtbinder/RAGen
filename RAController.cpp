@@ -133,7 +133,6 @@ void RAController::OnCbnSelchangeCboPwmslope()
 
 void RAController::OnCbnSelchangeCboPortal()
 {
-	// TODO update the controller variable used for enabling the PORTAL
 	UpdateData();
 	TRACE("Portal:  %d\n", m_fPortal);
 	a_Controller.EnablePortal(m_fPortal);
@@ -162,4 +161,34 @@ void RAController::UpdateControllerTemperature()
 {
 	TRACE("Temp:  %s\n", m_fTemp?"Celsius":"Fahrenheit");
 	a_Controller.SetTemperatureUnit(m_fTemp);
+}
+
+void RAController::OnResetTemperature()
+{
+	UpdateData();
+	m_fTemp = FALSE;
+	UpdateData(FALSE);
+	UpdateControllerTemperature();
+}
+
+void RAController::OnResetLogging()
+{
+	UpdateData();
+	m_fPortal = FALSE;
+	UpdateData(FALSE);
+	OnCbnSelchangeCboPortal();
+}
+
+void RAController::OnResetAll()
+{
+	OnResetLogging();
+	OnResetTemperature();
+	// TODO improve reset all
+	UpdateData(FALSE);
+}
+
+void RAController::OnResetSaved()
+{
+	// TODO Code in ResetSaved - save values on generate
+	UpdateData(FALSE);
 }

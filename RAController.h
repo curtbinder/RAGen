@@ -37,4 +37,8 @@ public:
 	afx_msg void OnBnClickedControllerTemp1();
 	void UpdateValues();
 	void UpdateControllerTemperature();
+	void OnResetTemperature();
+	void OnResetLogging();
+	void OnResetAll();
+	void OnResetSaved();
 };

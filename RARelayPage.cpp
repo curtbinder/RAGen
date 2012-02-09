@@ -372,7 +372,7 @@ void RARelayPage::SaveSettings()
 {
 	// saves the settings to the registry
 	CString s;
-	s.LoadStringA(IDS_PDE_TAB);
+	s.LoadStringA(IDS_MAIN_RELAY_TAB);
 	AfxGetApp()->WriteProfileInt(s, _T("FeedingModePorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.Feeding));
 	AfxGetApp()->WriteProfileInt(s, _T("WaterChangeModePorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.WaterChange));
 	AfxGetApp()->WriteProfileInt(s, _T("OverheatPorts"), a_Controller.Relay.GetPortModes(a_Controller.Relay.Overheat));
@@ -401,7 +401,7 @@ void RARelayPage::LoadSettings()
 {
 	// loads the settings from the registry
 	CString s;
-	s.LoadStringA(IDS_PDE_TAB);
+	s.LoadStringA(IDS_MAIN_RELAY_TAB);
 	SetPortMode(a_Controller.Relay.Feeding, (BYTE)AfxGetApp()->GetProfileInt(s, _T("FeedingModePorts"), DEFAULT_FEEDINGMODE));
 	SetPortMode(a_Controller.Relay.WaterChange, (BYTE)AfxGetApp()->GetProfileInt(s, _T("WaterChangeModePorts"), DEFAULT_WATERCHANGEMODE));
 	SetPortMode(a_Controller.Relay.Overheat, (BYTE)AfxGetApp()->GetProfileInt(s, _T("OverheatPorts"), DEFAULT_OVERHEAT));

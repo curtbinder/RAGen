@@ -38,13 +38,14 @@ void RATabSheet::Init()
 	m_iNumTabs = 4;
 
 	CString s;
+	UINT menuID = IDR_MENU_RESET;
 	if ( m_fDevMode )
 	{
 		s.LoadStringA(IDS_CONTROLLER_TAB);
 		InsertItem(Controller, s);
 		s.LoadStringA(IDS_FEATURES_TAB);
 		InsertItem(Features, s);
-		s.LoadStringA(IDS_PDE_TAB);
+		s.LoadStringA(IDS_MAIN_RELAY_TAB);
 		InsertItem(MainRelay, s);
 		//s.LoadStringA(IDS_COLORS_TAB);
 		//InsertItem(Colors, _T("Colors"));
@@ -64,6 +65,8 @@ void RATabSheet::Init()
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
 		// Change to Save since the Features Tab is the first tab
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
+		// set the controller menu
+		menuID = IDR_MENU_CONTROLLER_RESET;
 	}
 	else
 	{
@@ -75,7 +78,7 @@ void RATabSheet::Init()
 		m_pTabs[Standard]->ShowWindow(SW_SHOW);
 	}
 
-	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(IDR_MENU_RESET));
+	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 
 	SetRectangle();
 }
@@ -206,6 +209,12 @@ void RATabSheet::ResetAll()
 			p->OnResetAll();
 			}
 			break;
+		case Controller:
+			{
+			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			p->OnResetAll();
+			}
+			break;
 		case Standard:
 			{
 			RAStdPage* p = (RAStdPage*)m_pTabs[m_iCurrentTab];
@@ -230,6 +239,12 @@ void RATabSheet::ResetSaved()
 		case MainRelay:
 			{
 			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
+			p->OnResetSaved();
+			}
+			break;
+		case Controller:
+			{
+			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
 			p->OnResetSaved();
 			}
 			break;
@@ -261,13 +276,12 @@ void RATabSheet::ResetPorts()
 
 void RATabSheet::ResetTemp()
 {
-	// TODO switch to Controller
 	switch ( m_iCurrentTab )
 	{
-		case MainRelay:
+		case Controller:
 			{
-			//RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
-			//p->OnResetTemperature();
+			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			p->OnResetTemperature();
 			}
 			break;
 		default:
@@ -277,13 +291,12 @@ void RATabSheet::ResetTemp()
 
 void RATabSheet::ResetLogging()
 {
-	// TODO switch to Controller
 	switch ( m_iCurrentTab )
 	{
-		case MainRelay:
+		case Controller:
 			{
-			//RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
-			//p->OnResetLogging();
+			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			p->OnResetLogging();
 			}
 			break;
 		default:
@@ -470,7 +483,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	switch ( m_iCurrentTab )
 	{
 		case MainRelay:
-			menuID = IDR_MENU_PDE_RESET;
+			menuID = IDR_MENU_RELAY_RESET;
 			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
 			break;
 		case Features:
@@ -479,6 +492,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			break;
 		case Controller:
 			nShow = SW_HIDE;
+			menuID = IDR_MENU_CONTROLLER_RESET;
 			break;
 		//default:
 		//	break;
