@@ -134,4 +134,10 @@ v1.2.0
 - Added "Clear Password" button to wifi password window
 - Changed "Show/Hide" to "Show/Hide Password" on wifi window
 - Ability to Add PWMSlope default functions to code file based on library version
-
+- Added in Portal window and portal code generation
+- Added Controller tab
+	- Moved Temperature and Portal to this tab from Main Relay tab
+	- Enabling of Wifi possible in addition to Features page
+	- Selection of number of Expansion relays
+	- Inclusion of PWMSlope
+- use the PortXBit for the bitwise generation of ports to be toggled for new version, to improve code readability

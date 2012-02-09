@@ -26,6 +26,7 @@ protected:
 	BOOL m_fTemp;
 
 public:
+	inline void EnablePortal(BOOL fEnable) { m_fPortal = fEnable; }
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedBtnPortal();
 	afx_msg void OnCbnSelchangeCboWifi();

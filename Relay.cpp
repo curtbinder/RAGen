@@ -81,6 +81,53 @@ CString CRelay::GetPortMode(BYTE mode)
 	return s;
 }
 
+CString CRelay::GetPortModeText(BYTE mode)
+{
+	CString s;
+	BYTE ports;
+	switch ( mode )
+	{
+	case Feeding:
+		ports = FeedingModePorts;
+		break;
+	case WaterChange:
+		ports = WaterChangeModePorts;
+		break;
+	case Overheat:
+		ports = OverheatPorts;
+		break;
+	case LightsOn:
+		ports = LightsOnPorts;
+		break;
+	default:
+		return _T("0");
+		break;
+	}
+	BYTE v = 0;
+	s = _T("");
+	CString s1;
+	int count = 0;
+	for (int i = 0; i < MAX_PORTS; i++, v++ )
+	{
+		if ( ports & (1<<v) )
+		{
+			//s.Insert(0, _T("1"));
+			s1.Format(_T("Port%dBit"), v+1);
+			if ( count > 0 )
+			{
+				s.Append(_T(" | "));
+			}
+			s.Append(s1);
+			count++;
+		}
+	}
+	if ( s.IsEmpty() )
+	{
+		s = _T("0");
+	}
+	return s;
+}
+
 BYTE CRelay::GetPortModes(BYTE mode)
 {
 	BYTE ports;

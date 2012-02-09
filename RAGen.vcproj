@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PortalDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAController.cpp"
 				>
 			</File>
@@ -550,6 +554,10 @@
 			</File>
 			<File
 				RelativePath=".\InternalMemoryDefaults.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PortalDlg.h"
 				>
 			</File>
 			<File

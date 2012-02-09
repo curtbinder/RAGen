@@ -75,9 +75,11 @@ void RAController::UpdateValues()
 	{
 		m_iExpRelayQty = 0;
 	}
+	m_fPortal = a_Controller.IsPortalEnabled();
 	if ( m_fPortal && !m_fWifi)
 	{
 		m_fPortal = FALSE;
+		a_Controller.EnablePortal(m_fPortal);
 	}
 
 	// if pwm disabled, disable pwmslope function
@@ -134,6 +136,7 @@ void RAController::OnCbnSelchangeCboPortal()
 	// TODO update the controller variable used for enabling the PORTAL
 	UpdateData();
 	TRACE("Portal:  %d\n", m_fPortal);
+	a_Controller.EnablePortal(m_fPortal);
 	if ( m_fPortal )
 	{
 		// Make sure wifi is enabled if we enable the portal

@@ -3,6 +3,7 @@
 #include "Controller.h"
 #include "RAGen.h"
 //#include "WebBannerDlg.h"
+#include "PortalDlg.h"
 #include "cb_FileVersion.h"
 #include "WifiPasswordDlg.h"
 
@@ -14,7 +15,7 @@ CController::CController(void)
 {
 	m_sFilename = _T("");
 	m_sExtension = _T("");
-	m_fBanner = FALSE;
+	m_fPortal = FALSE;
 	m_fTemp = FALSE;
 	m_iDevVersion = NOT_SET;
 	m_fLatestDev = FALSE;
@@ -519,7 +520,14 @@ void setup()\r\n\
 	{
 		s = sTab + _T("ReefAngel.FeedingModePorts = ");
 		f.Write(s, s.GetLength());
-		s = Relay.GetPortMode(Relay.Feeding);
+		if ( IsLatestDevVersion() )
+		{
+			s = Relay.GetPortModeText(Relay.Feeding);
+		}
+		else
+		{
+			s = Relay.GetPortMode(Relay.Feeding);
+		}
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
 		fAddExtraLineSpace = TRUE;
@@ -528,7 +536,14 @@ void setup()\r\n\
 	{
 		s = sTab + _T("ReefAngel.WaterChangePorts = ");
 		f.Write(s, s.GetLength());
-		s = Relay.GetPortMode(Relay.WaterChange);
+		if ( IsLatestDevVersion() )
+		{
+			s = Relay.GetPortModeText(Relay.WaterChange);
+		}
+		else
+		{
+			s = Relay.GetPortMode(Relay.WaterChange);
+		}
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
 		fAddExtraLineSpace = TRUE;
@@ -537,7 +552,14 @@ void setup()\r\n\
 	{
 		s = sTab + _T("ReefAngel.OverheatShutoffPorts = ");
 		f.Write(s, s.GetLength());
-		s = Relay.GetPortMode(Relay.Overheat);
+		if ( IsLatestDevVersion() )
+		{
+			s = Relay.GetPortModeText(Relay.Overheat);
+		}
+		else
+		{
+			s = Relay.GetPortMode(Relay.Overheat);
+		}
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
 		fAddExtraLineSpace = TRUE;
@@ -546,7 +568,14 @@ void setup()\r\n\
 	{
 		s = sTab + _T("ReefAngel.LightsOnPorts = ");
 		f.Write(s, s.GetLength());
-		s = Relay.GetPortMode(Relay.LightsOn);
+		if ( IsLatestDevVersion() )
+		{
+			s = Relay.GetPortModeText(Relay.LightsOn);
+		}
+		else
+		{
+			s = Relay.GetPortMode(Relay.LightsOn);
+		}
 		s += _T(";\r\n");
 		f.Write(s, s.GetLength());
 		fAddExtraLineSpace = TRUE;
@@ -616,33 +645,24 @@ void loop()\r\n\
 		f.Write(s1, s1.GetLength());
 	}
 
-	if ( m_fBanner  )
+	if ( m_fPortal )
 	{
 		// 0.9.X has a built-in timer with the function
-		/*
-		if ( IsLatestDevVersion() )
+		CString sUser, sKey;
+		// TODO improve storing and retrieving portal info
+		LoadPortalInfo(sUser, sKey);
+		if ( !sUser.IsEmpty() )
 		{
-		*/
-			// TODO improve to include the scenario for passwords
-			// Portal("user"); and Portal("user", "pass");
-			s.Format(_T("\
-	ReefAngel.Portal(\"%s\");\r\n"), _T("userid"));
-		/*
+			if ( sKey.IsEmpty() )
+			{
+				s.Format(_T("    ReefAngel.Portal(\"%s\");\r\n"), sUser);
+			}
+			else
+			{
+				s.Format(_T("    ReefAngel.Portal(\"%s\", \"%s\");\r\n"), sUser, sKey);
+			}
+			f.Write(s, s.GetLength());
 		}
-		else
-		{
-			// 0.8.5.X uses a timer for sending the data
-			s = _T("\r\n\
-    // Web Banner stuff\r\n\
-    if(ReefAngel.Timer[4].IsTriggered())\r\n\
-    {\r\n\
-        ReefAngel.Timer[4].Start();\r\n\
-        ReefAngel.WebBanner();\r\n\
-    }\r\n\
-");
-		}
-		*/
-		f.Write(s, s.GetLength());
 	}
 
 	// add in pwmslope code here

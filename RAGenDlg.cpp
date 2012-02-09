@@ -12,7 +12,7 @@
 #include "ComPortFunctions.h"
 #include "TestComPortsDlg.h"
 #include "ComPortListDlg.h"
-//#include "WebBannerDlg.h"
+#include "PortalDlg.h"
 #include "WifiPasswordDlg.h"
 #include "RAInternalMemoryPage.h"
 #include "Controller.h"
@@ -485,8 +485,28 @@ void RAGenDlg::OnControllerFind()
 
 void RAGenDlg::OnControllerWebBanner()
 {
-	// TODO web banner goes away, ONLY portal
-	AfxMessageBox(_T("Portal configuration window goes here"));
+	CString sUser, sKey;
+	LoadPortalInfo(sUser, sKey);
+	CPortalDlg dlg;
+	dlg.SetUsername(sUser);
+	dlg.SetKey(sKey);
+	INT_PTR iRet = dlg.DoModal();
+	if ( iRet == IDOK )
+	{
+		// save / update values
+		sUser = dlg.GetUsername();
+		sKey = dlg.GetKey();
+		TRACE("New Values:  %s, %s\n", sUser, sKey);
+		SavePortalInfo(sUser, sKey);
+	}
+	BOOL fEnable = FALSE;
+	if ( ! sUser.IsEmpty() )
+	{
+		fEnable = TRUE;
+	}
+	a_Controller.EnablePortal(fEnable);
+	// update Controller tab / screen
+	m_Tabs.UpdateControllerTab();
 }
 
 void RAGenDlg::OnControllerPasswordProtectWifi()

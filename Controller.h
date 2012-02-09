@@ -10,8 +10,8 @@ public:
 	CController(void);
 	~CController(void);
 
-	inline void EnableBanner(BOOL fEnable = TRUE) { m_fBanner = fEnable; }
-	inline BOOL IsWebBannerEnabled() { return m_fBanner; }
+	inline void EnablePortal(BOOL fEnable = TRUE) { m_fPortal = fEnable; }
+	inline BOOL IsPortalEnabled() { return m_fPortal; }
 	inline void SetTemperatureUnit(BOOL fEnableCelsius) { m_fTemp = fEnableCelsius; }
 	inline void SetCelsius() { m_fTemp = TRUE; }
 	inline void SetFahrenheit() { m_fTemp = FALSE; }
@@ -42,7 +42,7 @@ public:
 private:
 	CString m_sFilename;
 	CString m_sExtension;
-	BOOL m_fBanner;
+	BOOL m_fPortal;
 	BOOL m_fTemp;
 	//BOOL m_fWifiPassordEnabled;
 	int m_iDevVersion;  //!< 0 - autodetect, 1 - force 0.8.x, 2 - force 0.9.x or later

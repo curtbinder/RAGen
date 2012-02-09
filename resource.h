@@ -48,6 +48,7 @@
 #define IDS_UNKNOWN_FEATURES            158
 #define IDS_CONTROLLER_TAB              159
 #define IDS_CONTROLLER_TIPS             160
+#define IDS_PORTAL						161
 #define IDC_CONTROLLER_TITLE            201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
@@ -249,6 +250,7 @@
 #define IDD_COM_LIST                    701
 #define IDD_WEB_BANNER                  750
 #define IDC_WEB_ID                      751
+#define IDD_PORTAL                      751
 #define IDC_WEB_T1                      752
 #define IDC_WEB_T2                      753
 #define IDC_WEB_T3                      754
@@ -300,6 +302,11 @@
 #define IDC_CBO_EXP_RELAY_QTY           1035
 #define IDC_CBO_PWMSLOPE                1036
 #define IDC_CBO_PORTAL                  1037
+#define IDC_PORTAL_USERNAME             1038
+#define IDC_PORTAL_KEY                  1039
+#define IDC_PORTAL_SHOW                 1040
+#define IDC_PORTAL_CLEAR                1041
+#define IDC_PORTAL_CLEAR_ALL            1042
 #define IDC_FEATURES_TEXT_DESCRIPTION   2001
 #define IDC_FEATURES_TREE               2002
 #define ID_FILE_EXIT                    32771
@@ -333,7 +340,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        801
 #define _APS_NEXT_COMMAND_VALUE         32795
-#define _APS_NEXT_CONTROL_VALUE         1038
+#define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           114
 #endif
 #endif

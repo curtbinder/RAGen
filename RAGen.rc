@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,146
- PRODUCTVERSION 1,2,0,146
+ FILEVERSION 1,2,0,150
+ PRODUCTVERSION 1,2,0,150
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 0, 146"
+            VALUE "FileVersion", "1, 2, 0, 150"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 0, 146"
+            VALUE "ProductVersion", "1, 2, 0, 150"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -322,6 +322,24 @@ BEGIN
         BOTTOMMARGIN, 187
         HORZGUIDE, 99
         HORZGUIDE, 106
+    END
+
+    IDD_PORTAL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 220
+        VERTGUIDE, 53
+        VERTGUIDE, 132
+        VERTGUIDE, 138
+        VERTGUIDE, 162
+        VERTGUIDE, 168
+        VERTGUIDE, 220
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 123
+        HORZGUIDE, 38
+        HORZGUIDE, 53
+        HORZGUIDE, 59
+        HORZGUIDE, 93
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -680,12 +698,12 @@ BEGIN
     LTEXT           "This will set a username and password to connect to the WIFI interface on your controller.  The combined length of the username and password cannot exceed 20 chars (including a colon).  If any field is left blank, password protection will be disabled.",IDC_STATIC,7,7,213,46
     LTEXT           "Username:",IDC_STATIC,7,61,36,8
     EDITTEXT        IDC_PASSWORD_USERNAME,53,59,79,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Clear Password",IDC_PASSWORD_CLEAR,137,59,83,14
     LTEXT           "Password:",IDC_STATIC,7,81,34,8
     EDITTEXT        IDC_PASSWORD_PASSWORD,53,79,79,14,ES_AUTOHSCROLL
     PUSHBUTTON      "Show Password",IDC_PASSWORD_SHOW,138,79,82,14
     DEFPUSHBUTTON   "OK",IDOK,112,109,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,170,109,50,14
-    PUSHBUTTON      "Clear Password",IDC_PASSWORD_CLEAR,137,59,83,14
 END
 
 IDD_MEMORY DIALOGEX 0, 0, 367, 252
@@ -801,6 +819,23 @@ BEGIN
     LTEXT           "Text",IDC_CONTROLLER_TITLE,7,7,348,92
 END
 
+IDD_PORTAL DIALOGEX 0, 0, 227, 130
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Portal Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "This is will set your username and security key for updating your information on the reefangel.com portal.  The Username is your login for the forum.  The Portal Key must match what is set on the portal.  The key is not required for portal usage.",IDC_STATIC,7,7,213,46
+    LTEXT           "Username:",IDC_STATIC,7,61,36,8
+    EDITTEXT        IDC_PORTAL_USERNAME,53,59,79,14,ES_AUTOHSCROLL
+    LTEXT           "Portal Key:",IDC_STATIC,7,81,36,8
+    EDITTEXT        IDC_PORTAL_KEY,53,79,79,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Show",IDC_PORTAL_SHOW,138,79,24,14
+    PUSHBUTTON      "Clear All",IDC_PORTAL_CLEAR_ALL,168,59,52,14
+    PUSHBUTTON      "Clear Key",IDC_PORTAL_CLEAR,168,79,52,14
+    DEFPUSHBUTTON   "OK",IDOK,112,109,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,170,109,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -886,6 +921,7 @@ END
 STRINGTABLE 
 BEGIN
     IDS_CONTROLLER_TIPS     "Some tips for configuring your controller and using this app.\n\n1. Controller Tab - Contains some general configuration choices about the controller.  The wifi feature can also be changed on the Features tab.  Your choices are saved once you make them on this screen.\n\n2. Features Tab - Contains all the features that can be enabled on the controller.  Read the descriptions carefully.  You can save your changes and have the Features file update immediately.  Otherwise, it gets saved and updated when the controller code is generated.\n\n3. Main Relay Tab - Configures the relay ports for the main relay.  Once configured, click the Generate button to create the code file to be uploaded to the controller."
+    IDS_PORTAL              "Portal"
 END
 
 STRINGTABLE 

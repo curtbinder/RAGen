@@ -30,8 +30,9 @@ public:
 	void GetFileExtension(CString &s);
 	void ImportFeatures(CString sFile);
 	void ShowUnknownFeatures();
+	void UpdateControllerTab();
 	inline BOOL IsStandardTab() { return m_iCurrentTab == Standard; }
-	void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
+	inline void SetDeveloperMode(BOOL fEnable = TRUE) { m_fDevMode = fEnable; }
 	
 protected:
 	DECLARE_MESSAGE_MAP()

@@ -27,6 +27,7 @@ public:
 	void SetPortDelay(int port, int delay);
 	// TODO update based on what expansion relay device
 	CString GetPortMode(BYTE mode);  // returns complete string "ReefAngel.PORTSMODE = ports;"
+	CString GetPortModeText(BYTE mode);
 	BYTE GetPortModes(BYTE mode);
 	void SetPortMode(BYTE mode, BYTE Ports);
 	void SetPortDevice(int Port, int Device, int Delay = DEFAULT_DELAY_MINUTES);

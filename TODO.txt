@@ -17,31 +17,12 @@ TODO File
 	- have gui functions call global functions with proper parameters
 	
 ** - Force Wavemakers to only be on Ports 5 & 6 and prevent from being on other ports
-** - Portal
-	- Add in portal dialog box for 0.9.x libraries (like password protection for controller)
-	- Change Web Banner to Portal:  Portal(username) or Portal(Username, Password)
-	- Only need the Portal(u) & Portal(u,p) functions
-	- Goes in loop()
-	- Drop Web Banner code entirely...force Portal only
-	
 ** - Ability to change the quantity of custom menu entries
 ** - add in custom menu tab
 ** - use the Port1Bit for the bitwise generation of ports to be toggled
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
 - PDE tab & saved features in registry, leave off...changed to Main Relay
 	- old settings are "lost" which just are the default ports
-** - Create Controller tab
-	X - Have WIFI drop down menu
-		- Have button to open wifi authentication u/p window ??
-	X - Have Expansion Relays with drop down menu from 0 - 8
-	- Have 'Enable Portal'
-		- Have button open up the portal username & key
-	X - Have 'Add PWMSlope code' to code file
-	X - Updates the features appropriately with tab change (wifi, expansion, etc)	
-	X - Have Temperature section
-	X - update drop down menus
-	X - update values and variables appropriately (test combo box values)
-	X - pwmslope option enables ledpwm feature
 - Colors_PDE changed to CustomColors
 - Folder updating
 	- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()

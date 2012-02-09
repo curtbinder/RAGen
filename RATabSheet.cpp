@@ -422,6 +422,12 @@ void RATabSheet::ShowUnknownFeatures()
 	pf->ShowUnknownFeatures();
 }
 
+void RATabSheet::UpdateControllerTab()
+{
+	RAController* pc = (RAController*)m_pTabs[Controller];
+	pc->UpdateValues();
+}
+
 BEGIN_MESSAGE_MAP(RATabSheet, CTabCtrl)
 	ON_NOTIFY_REFLECT(TCN_SELCHANGE, &RATabSheet::OnTcnSelchange)
 END_MESSAGE_MAP()
