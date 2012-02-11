@@ -16,13 +16,15 @@
 #define IDD_WIFI_PASSWORD               111
 #define IDD_MEMORY                      112
 #define IDD_RACONTROLLER                113
+#define IDD_RACUSTOMMENU				114
+#define IDD_RACUSTOMMAIN				115
 #define IDB_CB_BANNER                   120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
 #define IDR_MENU_MAIN                   129
 #define IDR_MENU_RESET                  130
 #define IDR_MENU_RELAY_RESET            131
-#define IDR_MENU_CONTROLLER_RESET		132
+#define IDR_MENU_CONTROLLER_RESET       132
 #define IDS_FEATURES_TAB                133
 #define IDS_MAIN_RELAY_TAB              134
 #define IDS_COLORS_TAB                  135
@@ -49,8 +51,8 @@
 #define IDS_UNKNOWN_FEATURES            158
 #define IDS_CONTROLLER_TAB              159
 #define IDS_CONTROLLER_TIPS             160
-#define IDS_PORTAL						161
-#define IDS_WAVEMAKER_PORTS				162
+#define IDS_PORTAL                      161
+#define IDS_WAVEMAKER_PORTS             162
 #define IDC_CONTROLLER_TITLE            201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
@@ -343,6 +345,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        801
 #define _APS_NEXT_COMMAND_VALUE         32795
 #define _APS_NEXT_CONTROL_VALUE         1043
-#define _APS_NEXT_SYMED_VALUE           114
+#define _APS_NEXT_SYMED_VALUE           116
 #endif
 #endif
