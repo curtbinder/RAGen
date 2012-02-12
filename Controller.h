@@ -29,6 +29,8 @@ public:
 	void SetWifiUP(CString sUser, CString sPassword);
 	CString GetWifiString();
 	*/
+	void LoadInitialMenu();
+	void LoadSimpleMenu();
 	BOOL WriteFile();
 	CString LookupDeviceFunction(int Device);
 	void AutodetectVersion(CString sLibraryFolder);

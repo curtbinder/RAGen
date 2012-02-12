@@ -101,7 +101,6 @@ void RACustomMenuPage::SaveCurrentFunction()
 void RACustomMenuPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	//DDX_CBIndex(pDX, IDC_MENU_CBO_ENTRIES, m_iMenuQty);
 	DDX_CBIndex(pDX, IDC_MENU_CBO_MENU, m_iCurrent);
 }
 
@@ -138,8 +137,7 @@ void RACustomMenuPage::OnBnClickedMenuBtnReset()
 	}
 	TRACE("Reset menu\n");
 	m_iMenuQty = MENU_DEFAULT;
-	a_Controller.Menu.LoadInitialMenu();
-	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
+	a_Controller.LoadInitialMenu();
 	UpdateDisplay();
 	UpdateData(FALSE);
 }
@@ -153,28 +151,27 @@ void RACustomMenuPage::OnBnClickedMenuBtnLoad()
 		TRACE("Load cancelled\n");
 		return;
 	}
-	// TODO change quantity based on the features enabled
-	m_iMenuQty = 8;
-	a_Controller.Menu.LoadSimpleMenu();
-	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
+	// Load the menu
+	a_Controller.LoadSimpleMenu();
+	// Set the menu quantity based on menu entries
+	m_iMenuQty = a_Controller.Features.iCustomMenuEntries;
 	UpdateDisplay();
 	UpdateData(FALSE);
 }
 
 void RACustomMenuPage::OnBnClickedMenuBtnClear()
 {
-	// TODO clear function button
 	SetDlgItemText(IDC_MENU_FUNCTION_TEXT, _T(""));
 }
 
 void RACustomMenuPage::OnCbnSelchangeMenuCboMenu()
 {
 	// Menu entry:  Listed item is 1 more than indexed item
-	TRACE("Pre Item:  %d\n", m_iCurrent);
+	//TRACE("Pre Item:  %d\n", m_iCurrent);
 	SaveCurrentFunction();
 	UpdateData();
 	// m_iCurrent is the new value changing to
-	TRACE("Post Item:  %d\n", m_iCurrent);
+	//TRACE("Post Item:  %d\n", m_iCurrent);
 	LoadCurrentFunction();
 }
 
@@ -184,7 +181,6 @@ void RACustomMenuPage::OnCbnSelchangeMenuCboEntries()
 	CComboBox *p = (CComboBox *)GetDlgItem(IDC_MENU_CBO_ENTRIES);
 	m_iMenuQty = p->GetCurSel() + 1;
 	TRACE("Changed to %d entries\n", m_iMenuQty);
-	// TODO save current function
 	SaveCurrentFunction();
 	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
 	LoadMenuEntrySelections(m_iMenuQty);

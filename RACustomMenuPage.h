@@ -39,4 +39,5 @@ public:
 	afx_msg void OnCbnSelchangeMenuCboMenu();
 	afx_msg void OnCbnSelchangeMenuCboEntries();
 	afx_msg void OnBnClickedMenuCkEnable();
+	// TODO add in buttons to insert a function/action for the current menu item
 };

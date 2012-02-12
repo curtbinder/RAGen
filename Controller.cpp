@@ -161,6 +161,34 @@ CString CController::GetWifiString()
 }
 */
 
+void CController::LoadInitialMenu()
+{
+	Menu.LoadInitialMenu();
+	Features.iCustomMenuEntries = MENU_DEFAULT;
+}
+
+void CController::LoadSimpleMenu()
+{
+	int count = 5;
+	Menu.LoadSimpleMenu();
+	if ( Features.GetFeatureValue(Features.SALINITY) )
+	{
+		Menu.AddSalinityItem(count);
+		count++;
+	}
+	if ( Features.GetFeatureValue(Features.DATE_TIME_SETUP) )
+	{
+		Menu.AddDateTimeItem(count);
+		count++;
+	}
+	if ( Features.GetFeatureValue(Features.VERSION_MENU) )
+	{
+		Menu.AddVersionItem(count);
+		count++;
+	}
+	Features.iCustomMenuEntries = count;
+}
+
 BOOL CController::WriteFile()
 {
 	BOOL bRet = FALSE;
@@ -378,32 +406,7 @@ void CController::WriteCustomMenu(CFile &f)
 
 	if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 	{
-		// TODO use CustomMenu class
-		// Create the custom menu here
-		// Custom Menu requires avr/pgmspace.h
-		s = _T("#include <avr/pgmspace.h>\r\n");
-		f.Write(s, s.GetLength());
-		int i;
-		CString labels = _T("");
-		CString menu = _T("PROGMEM const char *menu_items[] = {\r\n");
-		CString functions = _T("");
-		for ( i = 0; i < Features.iCustomMenuEntries; i++ )
-		{
-			s.Format(_T("prog_char menu%d_label[] PROGMEM = \"Item %d\";\r\n"), i, i+1);
-			labels += s;
-			s.Format(_T("menu%d_label%c "), i, (i+1==Features.iCustomMenuEntries)?' ':',');
-			menu += s;
-			s.Format(_T("void MenuEntry%d()\r\n\
-{\r\n\
-    ReefAngel.DisplayMenuEntry(\"Item %d\");\r\n\
-}\r\n"), i+1, i+1);
-			functions += s;
-		}
-		menu += _T("};\r\n\r\n");
-		functions += _T("\r\n");
-		f.Write(labels, labels.GetLength());
-		f.Write(menu, menu.GetLength());
-		f.Write(functions, functions.GetLength());
+		Menu.WriteMenuCode(f, Features.iCustomMenuEntries);
 	}
 }
 
