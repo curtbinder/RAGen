@@ -378,6 +378,7 @@ void CController::WriteCustomMenu(CFile &f)
 
 	if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 	{
+		// TODO use CustomMenu class
 		// Create the custom menu here
 		// Custom Menu requires avr/pgmspace.h
 		s = _T("#include <avr/pgmspace.h>\r\n");

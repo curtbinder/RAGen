@@ -10,6 +10,7 @@
 #include "RAController.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
 #include "Controller.h"
+#include "RACustomMenuPage.h"
 
 
 // RATabSheet
@@ -31,11 +32,12 @@ RATabSheet::~RATabSheet()
 
 void RATabSheet::Init()
 {
-	m_pTabs[0] = new RAController;
-	m_pTabs[1] = new RAFeaturesPage;
-	m_pTabs[2] = new RARelayPage;
-	m_pTabs[3] = new RAStdPage;
-	m_iNumTabs = 4;
+	m_pTabs[Controller] = new RAController;
+	m_pTabs[Features] = new RAFeaturesPage;
+	m_pTabs[MainRelay] = new RARelayPage;
+	m_pTabs[CustomMenu] = new RACustomMenuPage;
+	m_pTabs[Standard] = new RAStdPage;
+	m_iNumTabs = 5;
 
 	CString s;
 	UINT menuID = IDR_MENU_RESET;
@@ -47,6 +49,8 @@ void RATabSheet::Init()
 		InsertItem(Features, s);
 		s.LoadStringA(IDS_MAIN_RELAY_TAB);
 		InsertItem(MainRelay, s);
+		s.LoadStringA(IDS_CUSTOM_MENU_TAB);
+		InsertItem(CustomMenu, s);
 		//s.LoadStringA(IDS_COLORS_TAB);
 		//InsertItem(Colors, _T("Colors"));
 
@@ -54,6 +58,7 @@ void RATabSheet::Init()
 		m_pTabs[Controller]->Create(IDD_RACONTROLLER, this);
 		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
 		m_pTabs[MainRelay]->Create(IDD_RARELAYPAGE, this);
+		m_pTabs[CustomMenu]->Create(IDD_RACUSTOMMENU, this);
 		//m_pTabs[Colors]->Create(IDD_RACOLORSPAGE, this);
 
 		m_pTabs[0]->ShowWindow(SW_SHOW);
@@ -465,9 +470,12 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 		pf->UpdateFeatures();
 		RAController* pc = (RAController*)m_pTabs[Controller];
 		pc->UpdateValues();
+		RACustomMenuPage* pm = (RACustomMenuPage*)m_pTabs[CustomMenu];
+		pm->UpdateValues();
 	}
 	
-	if ( m_iCurrentTab == Controller )
+	if ( (m_iCurrentTab == Controller) ||
+		 (m_iCurrentTab == CustomMenu) )
 	{
 		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 		pf->UpdateDisplay();
@@ -494,12 +502,17 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			nShow = SW_HIDE;
 			menuID = IDR_MENU_CONTROLLER_RESET;
 			break;
+		case CustomMenu:
+			nShow = SW_HIDE;
+			// TODO hide Reset menu for Custom Menu
+			break;
 		//default:
 		//	break;
 	}
 	// show/hide generate button appropriately
 	GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(nShow);
 
+	// update the reset menu appropriately
 	GetParent()->PostMessageA(WM_COMMAND, MAKEWPARAM(ID_CHANGE_MENU, 0), LPARAM(menuID));
 
 	// clear the status

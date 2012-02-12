@@ -31,7 +31,7 @@ void RAController::DoDataExchange(CDataExchange* pDX)
 	DDX_Radio(pDX, IDC_CONTROLLER_TEMP_0, m_fTemp);
 	DDX_CBIndex(pDX, IDC_CBO_WIFI, m_fWifi);
 	DDX_CBIndex(pDX, IDC_CBO_EXP_RELAY_QTY, m_iExpRelayQty);
-	DDV_MinMaxInt(pDX, m_iExpRelayQty, 0, 8);
+	DDV_MinMaxInt(pDX, m_iExpRelayQty, 0, MAX_PORTS);
 	DDX_CBIndex(pDX, IDC_CBO_PWMSLOPE, m_fAddPWM);
 	DDX_CBIndex(pDX, IDC_CBO_PORTAL, m_fPortal);
 }

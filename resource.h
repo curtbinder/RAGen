@@ -16,8 +16,8 @@
 #define IDD_WIFI_PASSWORD               111
 #define IDD_MEMORY                      112
 #define IDD_RACONTROLLER                113
-#define IDD_RACUSTOMMENU				114
-#define IDD_RACUSTOMMAIN				115
+#define IDD_RACUSTOMMENU                114
+#define IDD_RACUSTOMMAIN                115
 #define IDB_CB_BANNER                   120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -53,6 +53,7 @@
 #define IDS_CONTROLLER_TIPS             160
 #define IDS_PORTAL                      161
 #define IDS_WAVEMAKER_PORTS             162
+#define IDS_CUSTOM_MENU_TAB             163
 #define IDC_CONTROLLER_TITLE            201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
@@ -253,9 +254,9 @@
 #define IDC_STD_CK_WEB                  644
 #define IDC_TESTING_STATUS              700
 #define IDD_COM_LIST                    701
+#define IDD_PORTAL                      702
 #define IDD_WEB_BANNER                  750
 #define IDC_WEB_ID                      751
-#define IDD_PORTAL                      751
 #define IDC_WEB_T1                      752
 #define IDC_WEB_T2                      753
 #define IDC_WEB_T3                      754
@@ -270,6 +271,14 @@
 #define IDC_WEB_EDIT_INTERVAL           763
 #define IDC_WEB_SPIN_INTERVAL           764
 #define IDC_WEB_BTN_QUESTION            765
+#define IDC_MENU_CK_ENABLE              800
+#define IDC_MENU_FUNCTION_TEXT          801
+#define IDC_MENU_CBO_ENTRIES            802
+#define IDC_MENU_CBO_MENU               803
+#define IDC_MENU_BTN_LOAD               804
+#define IDC_MENU_BTN_RESET              805
+#define IDC_MENU_FUNCTION_LABEL         806
+#define IDC_MENU_BTN_CLEAR              807
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -302,8 +311,7 @@
 #define IDC_CONTROLLER_TEMP_0           1029
 #define IDC_CONTROLLER_TEMP_1           1030
 #define IDC_CBO_WIFI                    1032
-#define IDC_BUTTON2                     1034
-#define IDC_BTN_PORTAL                  1034
+#define IDC_BTN_PORTAL                  1033
 #define IDC_CBO_EXP_RELAY_QTY           1035
 #define IDC_CBO_PWMSLOPE                1036
 #define IDC_CBO_PORTAL                  1037
@@ -343,7 +351,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        801
+#define _APS_NEXT_RESOURCE_VALUE        850
 #define _APS_NEXT_COMMAND_VALUE         32795
 #define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           116

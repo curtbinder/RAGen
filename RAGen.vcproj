@@ -415,6 +415,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RACustomMenuPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAFeaturesPage.cpp"
 				>
 			</File>
@@ -562,6 +566,10 @@
 			</File>
 			<File
 				RelativePath=".\RAController.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RACustomMenuPage.h"
 				>
 			</File>
 			<File

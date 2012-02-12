@@ -3,6 +3,7 @@
 #include "GlobalVars.h"
 #include "Features.h"
 #include "Relay.h"
+#include "CustomMenu.h"
 
 class CController
 {
@@ -34,7 +35,7 @@ public:
 
 	CFeatures Features;
 	CRelay Relay;
-	// CCustomMenu
+	CCustomMenu Menu;
 	// CCustomMain
 	
 	device Devices[MAX_DEVICES];  //!< Array of Devices, 13 main devices and 1 device labeled Not Used

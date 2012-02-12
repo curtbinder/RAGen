@@ -38,13 +38,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	int m_iNumTabs;
 	int m_iCurrentTab;
-	CDialog* m_pTabs[4];
+	CDialog* m_pTabs[5];
 	BOOL m_fDevMode;
 
 	enum Tabs {
 		Controller,
 		Features,
 		MainRelay,
+		CustomMenu,
 		//Colors,
 		Standard,
 	};
