@@ -15,6 +15,7 @@ public:
 	enum { IDD = IDD_RACUSTOMMENU };
 
 	void UpdateValues();
+	void UpdateDisplay();
 	void SelectMenuQuantity(int qty);
 	void LoadMenuEntrySelections(int qty);
 	void EnableWindows(BOOL fEnable);

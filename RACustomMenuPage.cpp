@@ -37,6 +37,13 @@ void RACustomMenuPage::UpdateValues()
 	p->SetCheck(ck);
 }
 
+void RACustomMenuPage::UpdateDisplay()
+{
+	SelectMenuQuantity(m_iMenuQty);
+	LoadMenuEntrySelections(m_iMenuQty);
+	LoadCurrentFunction();
+}
+
 void RACustomMenuPage::SelectMenuQuantity(int qty)
 {
 	CComboBox *p = (CComboBox *)GetDlgItem(IDC_MENU_CBO_ENTRIES);
@@ -114,13 +121,10 @@ BOOL RACustomMenuPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	SelectMenuQuantity(m_iMenuQty);
-	LoadMenuEntrySelections(m_iMenuQty);
+	UpdateDisplay();
 	EnableWindows(m_fEnable);
-	LoadCurrentFunction();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// EXCEPTION: OCX Property Pages should return FALSE
+	return TRUE;
 }
 
 void RACustomMenuPage::OnBnClickedMenuBtnReset()
@@ -133,13 +137,15 @@ void RACustomMenuPage::OnBnClickedMenuBtnReset()
 		return;
 	}
 	TRACE("Reset menu\n");
-	// TODO set the defaults here
+	m_iMenuQty = MENU_DEFAULT;
+	a_Controller.Menu.LoadInitialMenu();
+	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
+	UpdateDisplay();
 	UpdateData(FALSE);
 }
 
 void RACustomMenuPage::OnBnClickedMenuBtnLoad()
 {
-	// TODO load simple menu button
 	int iRet = AfxMessageBox(_T("This will replace your menu with the simple menu.\n\nAre you sure?"),
 		MB_ICONQUESTION|MB_YESNO);
 	if ( iRet == IDNO )
@@ -147,7 +153,12 @@ void RACustomMenuPage::OnBnClickedMenuBtnLoad()
 		TRACE("Load cancelled\n");
 		return;
 	}
-	TRACE("Load simple menu\n");
+	// TODO change quantity based on the features enabled
+	m_iMenuQty = 8;
+	a_Controller.Menu.LoadSimpleMenu();
+	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
+	UpdateDisplay();
+	UpdateData(FALSE);
 }
 
 void RACustomMenuPage::OnBnClickedMenuBtnClear()
@@ -174,6 +185,7 @@ void RACustomMenuPage::OnCbnSelchangeMenuCboEntries()
 	m_iMenuQty = p->GetCurSel() + 1;
 	TRACE("Changed to %d entries\n", m_iMenuQty);
 	// TODO save current function
+	SaveCurrentFunction();
 	a_Controller.Features.iCustomMenuEntries = m_iMenuQty;
 	LoadMenuEntrySelections(m_iMenuQty);
 }

@@ -8,14 +8,7 @@ CCustomMenu::CCustomMenu(void)
 {
 	m_Labels.SetSize(MENU_MAX);
 	m_Functions.SetSize(MENU_MAX);
-	CString s;
-	for ( int i = 0; i < MENU_MAX; i++ )
-	{
-		s.Format(_T("ReefAngel.DisplayMenuEntry(\"Item %d\");\r\n"), i+1);
-		m_Functions.SetAt(i, s);
-		s.Format(_T("Item %d"), i+1);
-		m_Labels.SetAt(i, s);
-	}
+	LoadInitialMenu();
 	TRACE("INIT\n");
 }
 
@@ -81,4 +74,40 @@ void CCustomMenu::SetMenuLabel(int index, CString label)
 void CCustomMenu::WriteMenuCode(CFile &f)
 {
 	// TODO write out the custom menu
+}
+
+void CCustomMenu::LoadInitialMenu()
+{
+	TRACE("Load Initial Menu\n");
+	CString s;
+	for ( int i = 0; i < MENU_MAX; i++ )
+	{
+		s.Format(_T("ReefAngel.DisplayMenuEntry(\"Item %d\");\r\n"), i+1);
+		m_Functions.SetAt(i, s);
+		s.Format(_T("Item %d"), i+1);
+		m_Labels.SetAt(i, s);
+	}
+}
+
+void CCustomMenu::LoadSimpleMenu()
+{
+	TRACE("Load Simple Menu\n");
+	LoadInitialMenu();
+	m_Labels.SetAt(0, _T("Feeding"));
+	m_Functions.SetAt(0, _T("ReefAngel.FeedingModeStart();"));
+	m_Labels.SetAt(1, _T("Water Change"));
+	m_Functions.SetAt(1, _T("ReefAngel.WaterChangeModeStart();"));
+	m_Labels.SetAt(2, _T("ATO Clear"));
+	m_Functions.SetAt(2, _T("ReefAngel.ATOClear();\r\nReefAngel.DisplayMenuEntry(\"Clear ATO Timeout\");"));
+	m_Labels.SetAt(3, _T("Overheat Clear"));
+	m_Functions.SetAt(3, _T("ReefAngel.OverheatClear();\r\nReefAngel.DisplayMenuEntry(\"Clear Overheat\");"));
+	m_Labels.SetAt(4, _T("PH Calibration"));
+	m_Functions.SetAt(4, _T("ReefAngel.SetupCalibratePH();"));
+	// next 3 are optional based on enabled features
+	m_Labels.SetAt(5, _T("Sal Calibration"));
+	m_Functions.SetAt(5, _T("ReefAngel.SetupCalibrateSalinity();"));
+	m_Labels.SetAt(6, _T("Date / Time"));
+	m_Functions.SetAt(6, _T("ReefAngel.SetupDateTime();"));
+	m_Labels.SetAt(7, _T("Version"));
+	m_Functions.SetAt(7, _T("ReefAngel.DisplayVersion();"));
 }

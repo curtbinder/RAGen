@@ -19,6 +19,8 @@ public:
 	void SetMenuLabel(int index, CString label);
 
 	void WriteMenuCode(CFile &f);
+	void LoadInitialMenu();
+	void LoadSimpleMenu();
 
 private:
 	CStringArray m_Functions;
