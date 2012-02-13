@@ -15,8 +15,6 @@ TODO File
 	- have "core" class of functions and a static/global reference to them
 	- have gui functions call global functions with proper parameters
 	
-** - Ability to change the quantity of custom menu entries
-** - add in custom menu tab
 - Add in 'custom code' tab [Custom Code]
 	- place custom code inside the setup() and loop() functions
 - Colors_PDE changed to CustomColors
@@ -40,8 +38,12 @@ TODO File
 - Add in ability to select what probe to use for Overheat [Controller]
 - Add in Intro tab that displays some tips for the app [Intro]
 - Add note on Wifi Authentication dialog about not working with the Portal or Apps
-
+- Save current function when leaving the tab, since when you change the function the function gets saved [Custom Menu]
+- Generate button location?
+	- Controller tab??
+	
 Bug
 ----
 - Features tab, open settings, change version (maybe), window closes, features reset
+- Features being reset when changing tabs?  Not sure how to reproduce it or if it really happened
 
