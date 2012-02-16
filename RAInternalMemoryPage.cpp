@@ -516,7 +516,8 @@ BOOL RAInternalMemoryPage::WriteValues()
 RA_NokiaLCD e;\r\n\
 \r\n\
 ");
-		} else
+		} 
+		else
 		{
 			s = _T("\r\n\r\n\
 #include <ReefAngel_Features.h>\r\n\
@@ -534,11 +535,22 @@ Phillips6610LCDInv e;\r\n\
 		f.Write(s, s.GetLength());
 		s = _T("\
 void setup()\r\n\
-{\r\n\
+{\r\n");
+		f.Write(s, s.GetLength());
+		if ( a_Controller.IsLatestDevVersion() )
+		{
+			s = _T("\
+    e.Init();\r\n\
+    e.Clear(COLOR_WHITE,0,0,132,132);\r\n\
+    e.BacklightOn();\r\n\r\n");
+		}
+		else
+		{
+			s = _T("\
     e.lcd_init();\r\n\
     e.lcd_clear(COLOR_WHITE,0,0,132,132);\r\n\
-    e.lcd_BacklightOn();\r\n\r\n\
-");
+    e.lcd_BacklightOn();\r\n\r\n");
+		}
 		f.Write(s, s.GetLength());
 		// write all the settings here
 		CDateTimeCtrl* p;
@@ -657,7 +669,22 @@ void setup()\r\n\
 }\r\n\
 \r\n\
 void loop()\r\n\
-{\r\n\
+{\r\n");
+		f.Write(s, s.GetLength());
+		if ( a_Controller.IsLatestDevVersion() )
+		{
+			s = _T("\
+    // display success screen\r\n\
+    e.DrawText(COLOR_BLACK, COLOR_WHITE, MENU_START_COL, MENU_START_ROW*2, \"Internal Memory Set\");\r\n\
+    e.DrawText(COLOR_BLACK, COLOR_WHITE, MENU_START_COL, MENU_START_ROW*4, \"Now load your\");\r\n\
+    e.DrawText(COLOR_BLACK, COLOR_WHITE, MENU_START_COL, MENU_START_ROW*5, \"   RA code file\");\r\n\
+    delay(5000);\r\n\
+}\r\n");
+			f.Write(s, s.GetLength());
+		}
+		else 
+		{
+			s = _T("\
     // display the values\r\n\
     char buf[128];\r\n\
     sprintf(buf, \"MH %2d:%02d-%2d:%02d,%d\", InternalMemory.MHOnHour_read(), InternalMemory.MHOnMinute_read(),\r\n\
@@ -707,7 +734,8 @@ void loop()\r\n\
     e.lcd_clear(COLOR_WHITE,0,0,132,132);\r\n\
 }\r\n\r\n\
 ");
-		f.Write(s, s.GetLength());
+			f.Write(s, s.GetLength());
+		}
 		f.Close();
 		bRet = TRUE;
 	}
