@@ -473,13 +473,15 @@ void CController::WriteSetup(CFile &f)
 \r\n\
 void setup()\r\n\
 {\r\n\
+    // This must be the first line\r\n\
     ReefAngel.Init();  //Initialize controller\r\n\
 ");
 	f.Write(s, s.GetLength());
 	// Add in Custom Menu if enabled
 	if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 	{
-		s = sTab + _T("ReefAngel.InitMenu(pgm_read_word(&(menu_items[0])),SIZE(menu_items));\r\n");
+		s = sTab + _T("// Initialize the custom menu\r\n") +
+			sTab + _T("ReefAngel.InitMenu(pgm_read_word(&(menu_items[0])),SIZE(menu_items));\r\n");
 		f.Write(s, s.GetLength());
 	}
 	// Set Celsius if needed
@@ -491,7 +493,10 @@ void setup()\r\n\
 	// Set password protection, if added
 	if ( IsPasswordProtected() )
 	{
-		s = sTab + GetWifiAuthenticationString();
+		// TODO Update Wifi Authentication message
+		s = sTab + _T("// This password protects your controller\r\n") +
+			sTab + _T("// Android app, iPhone/iPad app, Portal, Status app will not work if set\r\n") +
+			sTab + GetWifiAuthenticationString();
 		f.Write(s, s.GetLength());
 	}
 
@@ -618,7 +623,7 @@ void CController::WriteLoop(CFile &f)
 	s = _T("\r\n\
 void loop()\r\n\
 {\r\n\
-    // Specific functions\r\n\
+    // Specific functions that use Internal Memory values\r\n\
 ");
 	f.Write(s, s.GetLength());
 
@@ -645,32 +650,13 @@ void loop()\r\n\
 		f.Write(s1, s1.GetLength());
 	}
 
-	if ( m_fPortal )
-	{
-		// 0.9.X has a built-in timer with the function
-		CString sUser, sKey;
-		// TODO improve storing and retrieving portal info
-		LoadPortalInfo(sUser, sKey);
-		if ( !sUser.IsEmpty() )
-		{
-			if ( sKey.IsEmpty() )
-			{
-				s.Format(_T("    ReefAngel.Portal(\"%s\");\r\n"), sUser);
-			}
-			else
-			{
-				s.Format(_T("    ReefAngel.Portal(\"%s\", \"%s\");\r\n"), sUser, sKey);
-			}
-			f.Write(s, s.GetLength());
-		}
-	}
-
 	// add in pwmslope code here
 	if ( m_fAddPWMSlope )
 	{
 		if ( IsLatestDevVersion() )
 		{
 			s = _T("\r\n\
+    // PWMSlope based on Internal Memory values for Standard Lights\r\n\
     ReefAngel.PWM.ActinicPWMSlope();\r\n\
     ReefAngel.PWM.DaylightPWMSlope();\r\n");
 		}
@@ -700,9 +686,40 @@ void loop()\r\n\
 		}
 		f.Write(s, s.GetLength());
 	}
-	
+
+	// Custom code comment goes here
+	s = _T("\
+    ////// Place your custom code below here\r\n\
+    \r\n\r\n\
+    ////// Place your custom code above here\r\n");
+	f.Write(s, s.GetLength());
+
+	if ( m_fPortal )
+	{
+		// 0.9.X has a built-in timer with the function
+		CString sUser, sKey;
+		// TODO improve storing and retrieving portal info
+		LoadPortalInfo(sUser, sKey);
+		if ( !sUser.IsEmpty() )
+		{
+			s = sTab + _T("// This sends all the data to the portal\r\n") +
+				sTab + _T("// Do not add any custom code that changes any relay status after this line\r\n") +
+				sTab + _T("// The only code after this line should be the ShowInterface function\r\n");
+			f.Write(s, s.GetLength());
+			if ( sKey.IsEmpty() )
+			{
+				s.Format(_T("%sReefAngel.Portal(\"%s\");\r\n"), sTab, sUser);
+			}
+			else
+			{
+				s.Format(_T("%sReefAngel.Portal(\"%s\", \"%s\");\r\n"), sTab, sUser, sKey);
+			}
+			f.Write(s, s.GetLength());
+		}
+	}
 	// add showinterface to the end
 	s = _T("\r\n\
+    // This should always be the last line\r\n\
     ReefAngel.ShowInterface();\r\n\
 }\r\n\r\n");
 	f.Write(s, s.GetLength());
