@@ -523,7 +523,8 @@ void setup()\r\n\
 	// Toggle Ports, only write if they differ from defaults
 	if ( Relay.GetPortModes(Relay.Feeding) != DEFAULT_FEEDINGMODE )
 	{
-		s = sTab + _T("ReefAngel.FeedingModePorts = ");
+		s = sTab + _T("// Ports toggled in Feeding Mode\r\n") + 
+			sTab + _T("ReefAngel.FeedingModePorts = ");
 		f.Write(s, s.GetLength());
 		if ( IsLatestDevVersion() )
 		{
@@ -539,7 +540,8 @@ void setup()\r\n\
 	}
 	if ( Relay.GetPortModes(Relay.WaterChange) != DEFAULT_WATERCHANGEMODE )
 	{
-		s = sTab + _T("ReefAngel.WaterChangePorts = ");
+		s = sTab + _T("// Ports toggled in Water Change Mode\r\n") + 
+			sTab + _T("ReefAngel.WaterChangePorts = ");
 		f.Write(s, s.GetLength());
 		if ( IsLatestDevVersion() )
 		{
@@ -555,7 +557,8 @@ void setup()\r\n\
 	}
 	if ( Relay.GetPortModes(Relay.Overheat) != DEFAULT_OVERHEAT )
 	{
-		s = sTab + _T("ReefAngel.OverheatShutoffPorts = ");
+		s = sTab + _T("// Ports turned off when Overheat temperature exceeded\r\n") + 
+			sTab + _T("ReefAngel.OverheatShutoffPorts = ");
 		f.Write(s, s.GetLength());
 		if ( IsLatestDevVersion() )
 		{
@@ -571,7 +574,8 @@ void setup()\r\n\
 	}
 	if ( Relay.GetPortModes(Relay.LightsOn) != DEFAULT_LIGHTSON )
 	{
-		s = sTab + _T("ReefAngel.LightsOnPorts = ");
+		s = sTab + _T("// Ports toggled when Lights On / Off menu entry selected\r\n") + 
+			sTab + _T("ReefAngel.LightsOnPorts = ");
 		f.Write(s, s.GetLength());
 		if ( IsLatestDevVersion() )
 		{
