@@ -22,8 +22,6 @@ TODO File
 - PDE tab & saved features in registry, leave off...changed to Main Relay
 	- old settings are "lost" which just are the default ports
 - Colors_PDE changed to CustomColors
-- Folder updating
-	- Program Locations for x86 and x64 - look at RAGenDlg::GetFolders()
 - Add program license 
 - allow for multiple wavemakers & dosing pumps 
 - create a Load / Save file for an xml file that contains all settings
