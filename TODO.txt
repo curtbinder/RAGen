@@ -19,8 +19,6 @@ TODO File
 ** - Ability to change the quantity of custom menu entries
 ** - add in custom menu tab
 - Add in 'custom code' tab to place custom code inside the setup() and loop() functions
-- PDE tab & saved features in registry, leave off...changed to Main Relay
-	- old settings are "lost" which just are the default ports
 - Colors_PDE changed to CustomColors
 - Add program license 
 - allow for multiple wavemakers & dosing pumps 
