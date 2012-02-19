@@ -86,6 +86,7 @@
 #define IDS_FEATURES_AILED              237
 #define IDS_FEATURES_ORP                238
 #define IDS_FEATURES_IO                 239
+#define IDS_FEATURES_CUSTOMVARIABLES	240
 #define IDC_RELAY_CK_FEEDING_1          300
 #define IDC_RELAY_CK_FEEDING_2          301
 #define IDC_RELAY_CK_FEEDING_3          302

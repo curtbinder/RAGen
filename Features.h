@@ -53,6 +53,7 @@ public:
 		NUMBERS_8x16,
 		NUMBERS_12x16,
 		NUMBERS_16x16,
+		CUSTOM_VARIABLES,
 		// add other features here, above MAX_FEATURES
 		MAX_FEATURES  // ALWAYS the last entry
 	};

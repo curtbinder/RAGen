@@ -141,6 +141,8 @@ void RAFeaturesPage::InitTree()
 	hi = m_tree.InsertItem(_T("Numbers 16x16"), fonts);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.NUMBERS_16x16);
 
+	hi = m_tree.InsertItem(_T("Custom Variables"), root);
+	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.CUSTOM_VARIABLES);
 	hi = m_tree.InsertItem(_T("ATO Logging"), root);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.ATO_LOGGING);
 	hi = m_tree.InsertItem(_T("Exceed Flagging"), root);

@@ -1003,6 +1003,7 @@ BEGIN
     IDS_FEATURES_AILED      "This features the ability to control the Aqua Illumination LED's.\n\nApproximately 382 bytes to enable this feature"
     IDS_FEATURES_ORP        "ORP Expansion module\n\nEnable if you have the ORP module"
     IDS_FEATURES_IO         "IO Expansion hub\n\nEnable to use the Expansion hub."
+	IDS_FEATURES_CUSTOMVARIABLES	"Ability to have up to 8 custom variables sent to the Portal for monitoring and event triggering.  This will provide a way to enable people to see custom variables on the Portal, such as flow meters or sunset sunrise times or whatever they want to see.\n\nUsage:    ReefAngel.CustomVar[X]=VALUE;\nX can be from 0 to 7.  VALUE can be from 0 - 255.\n\nThis can be used anywhere inside the loop to monitor a value on the portal.\n\nCheck out the Forum for more detailed usage information."
 END
 
 STRINGTABLE 

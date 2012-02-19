@@ -400,6 +400,7 @@ void CFeatures::InitFeatureData()
 	SetFeatureData(NUMBERS_8x16, IDS_FEATURES_NUMBERS_8X16, _T("NUMBERS_8x16"));
 	SetFeatureData(NUMBERS_12x16, IDS_FEATURES_NUMBERS_12X16, _T("NUMBERS_12x16"));
 	SetFeatureData(NUMBERS_16x16, IDS_FEATURES_NUMBERS_16X16, _T("NUMBERS_16x16"));
+	SetFeatureData(CUSTOM_VARIABLES, IDS_FEATURES_CUSTOMVARIABLES, _T("CUSTOM_VARIABLES"));
 }
 
 void CFeatures::SetFeatureData(int index, UINT stringID, CString sDefine, BOOL fValue /*= FALSE*/)
