@@ -147,3 +147,7 @@ v1.2.0
 v1.2.1
 ------
 - Fixed Internal Memory code file generation, was not generating properly for INO files
+
+v1.2.2
+------
+- Add in check for Custom Colors inclusion when generating Internal Memory file

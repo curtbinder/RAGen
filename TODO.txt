@@ -29,3 +29,11 @@ TODO File
 - create a Load / Save file for an xml file that contains all settings
 - Add PWM tab that allows for selection of what PWM slope function to use
 - Test saving all values - controller tab (portal, expansion relays, temperature, pwmslope)
+- Add in saving of features when on features tab and clicking on Internal Memory menu (or any other menu)
+- Add in comment placeholders for user adding code
+
+
+Bug
+----
+- Features tab, open settings, change version (maybe), window closes, features reset
+

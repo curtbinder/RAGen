@@ -500,10 +500,17 @@ BOOL RAInternalMemoryPage::WriteValues()
 					t.Format(_T("%m/%d/%Y %H:%M")),
 					sFilename, sFileExtension);
 		f.Write(sAutoGenHeader, sAutoGenHeader.GetLength());
+		s = _T("\r\n\r\n#include <ReefAngel_Features.h>\r\n");
 		if ( a_Controller.IsLatestDevVersion() )
 		{
-			s = _T("\r\n\r\n\
-#include <ReefAngel_Features.h>\r\n\
+			if ( a_Controller.Features.GetFeatureValue(a_Controller.Features.CUSTOM_COLORS) )
+			{
+				// if the colors PDE is enabled, add these in
+				s += _T("\
+#include <RA_Colors.h>\r\n\
+#include <RA_CustomColors.h>\r\n");
+			}
+			s += _T("\
 #include <Globals.h>\r\n\
 #include <Time.h>\r\n\
 #include <OneWire.h>\r\n\
@@ -519,8 +526,7 @@ RA_NokiaLCD e;\r\n\
 		} 
 		else
 		{
-			s = _T("\r\n\r\n\
-#include <ReefAngel_Features.h>\r\n\
+			s += _T("\
 #include <ReefAngel_Globals.h>\r\n\
 #include <Time.h>\r\n\
 #include <OneWire.h>\r\n\
