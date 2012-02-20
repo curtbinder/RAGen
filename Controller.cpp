@@ -363,42 +363,18 @@ void CController::WriteIncludes(CFile &f)
 	}
 	s += _T("#include <ReefAngel.h>\r\n\r\n");
 	f.Write(s, s.GetLength());
+
+	// Custom code comment goes here
+	s = _T("\
+    ////// Place global variable code below here\r\n\
+    \r\n\r\n\
+    ////// Place global variable code above here\r\n\r\n");
+	f.Write(s, s.GetLength());
 }
 
 void CController::WriteCustomMenu(CFile &f)
 {
 	CString s;
-	/*
-	if ( IsLatestDevVersion() )
-	{
-		if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
-		{
-			// Custom Menu requires avr/pgmspace.h
-			s = _T("#include <avr/pgmspace.h>\r\n");
-			f.Write(s, s.GetLength());
-		}
-	}
-	else
-	{
-		// web banner is only with 0.8.5.x code
-		if ( m_fBanner || Features.GetFeatureValue(Features.CUSTOM_MENU) )
-		{
-			// Banner & Custom Menu require avr/pgmspace.h
-			s = _T("#include <avr/pgmspace.h>\r\n");
-			f.Write(s, s.GetLength());
-		}
-		if ( m_fBanner )
-		{
-			WebBannerInfo wi;
-			LoadWebBannerInfoDefaults(wi);
-			s.Format(_T("\
-// Labels for the web banner\r\n\
-%s\r\n\
-"), GetWebBannerInfoString(wi));
-			f.Write(s, s.GetLength());
-		}
-	}
-	*/
 
 	if ( Features.GetFeatureValue(Features.CUSTOM_MENU) )
 	{
@@ -499,21 +475,6 @@ void setup()\r\n\
 			sTab + GetWifiAuthenticationString();
 		f.Write(s, s.GetLength());
 	}
-
-	// web banner timer
-	/*
-	if ( m_fBanner && !IsLatestDevVersion() )
-	{
-		WebBannerInfo wi;
-		LoadWebBannerInfoDefaults(wi);
-		s.Format(_T("\
-    // Initialize and start the web banner timer\r\n\
-    ReefAngel.LoadWebBanner(pgm_read_word(&(webbanner_items[0])), SIZE(webbanner_items));\r\n\
-    ReefAngel.Timer[4].SetInterval(%d);  // set interval to %d seconds\r\n\
-    ReefAngel.Timer[4].Start();\r\n"), wi.nInterval, wi.nInterval);
-		f.Write(s, s.GetLength());
-	}
-	*/
 
 	// add in an extra line to separate first part between the modes
 	s = _T("\r\n");
