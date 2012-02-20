@@ -366,9 +366,9 @@ void CController::WriteIncludes(CFile &f)
 
 	// Custom code comment goes here
 	s = _T("\
-    ////// Place global variable code below here\r\n\
-    \r\n\r\n\
-    ////// Place global variable code above here\r\n\r\n");
+////// Place global variable code below here\r\n\
+\r\n\r\n\
+////// Place global variable code above here\r\n\r\n");
 	f.Write(s, s.GetLength());
 }
 
