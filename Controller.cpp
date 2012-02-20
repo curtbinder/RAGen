@@ -614,6 +614,13 @@ void setup()\r\n\
 		}
 	}
 
+	// Custom code comment goes here
+	s = _T("\
+    ////// Place additional initialization code below here\r\n\
+    \r\n\r\n\
+    ////// Place additional initialization code above here\r\n");
+	f.Write(s, s.GetLength());
+
 	s = _T("\
 }\
 \r\n");
