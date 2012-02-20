@@ -1,6 +1,5 @@
 TODO File
 ---------
-- Create Colors Page
 - Add hyperlinks to about page
 - Have colored text to say if arduino.exe was found in arduino folder on Settings Dialog
 - Switch most of the _T("") (hard coded strings) to be LoadString for single location changing
@@ -18,15 +17,29 @@ TODO File
 	
 ** - Ability to change the quantity of custom menu entries
 ** - add in custom menu tab
-- Add in 'custom code' tab to place custom code inside the setup() and loop() functions
+- Add in 'custom code' tab [Custom Code]
+	- place custom code inside the setup() and loop() functions
 - Colors_PDE changed to CustomColors
-- Add program license 
-- allow for multiple wavemakers & dosing pumps 
+- Add program license [About]
 - create a Load / Save file for an xml file that contains all settings
-- Add PWM tab that allows for selection of what PWM slope function to use
+- Add PWM tab [PWM]
+	- allows for selection of what PWM slope function to use
+	- PWMSlope, PWMParabola, MoonlightPWM, MoonPhase
 - Test saving all values - controller tab (portal, expansion relays, temperature, pwmslope)
 - Add in saving of features when on features tab and clicking on Internal Memory menu (or any other menu)
-
+- Change Internal Memory page to be smaller and contain a drop down list of the fields / locations
+	- Have different controls used to set the values for each location
+- Change Devices list on Relay pages [Main Relay]
+	- Have listbox of devices
+	- Use selection / deselection for appropriate devices
+	- Add in hard coded options
+		- StdLights, MHLights, Heater, Fan, ATO, SingleATO, DP, DP Repeat, WM, WM Random
+	- Add in StdLights Offset
+	- Add in MoonLights device (works opposite of StdLights)
+- Add in ability to select what probe to use for Heater/Fan (tank monitoring) [Controller]
+- Add in ability to select what probe to use for Overheat [Controller]
+- Add in Intro tab that displays some tips for the app [Intro]
+- Add note on Wifi Authentication dialog about not working with the Portal or Apps
 
 Bug
 ----
