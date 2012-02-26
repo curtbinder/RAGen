@@ -76,6 +76,7 @@ void RACustomMenuPage::EnableWindows(BOOL fEnable)
 	GetDlgItem(IDC_MENU_BTN_RESET)->EnableWindow(fEnable);
 	GetDlgItem(IDC_MENU_FUNCTION_LABEL)->EnableWindow(fEnable);
 	GetDlgItem(IDC_MENU_BTN_CLEAR)->EnableWindow(fEnable);
+	GetDlgItem(IDC_MENU_BTN_PREDEFINED)->EnableWindow(fEnable);
 }
 
 void RACustomMenuPage::LoadCurrentFunction()
@@ -112,6 +113,8 @@ BEGIN_MESSAGE_MAP(RACustomMenuPage, CDialog)
 	ON_CBN_SELCHANGE(IDC_MENU_CBO_MENU, &RACustomMenuPage::OnCbnSelchangeMenuCboMenu)
 	ON_CBN_SELCHANGE(IDC_MENU_CBO_ENTRIES, &RACustomMenuPage::OnCbnSelchangeMenuCboEntries)
 	ON_BN_CLICKED(IDC_MENU_CK_ENABLE, &RACustomMenuPage::OnBnClickedMenuCkEnable)
+	ON_BN_CLICKED(IDC_MENU_BTN_PREDEFINED, &RACustomMenuPage::OnBnClickedMenuBtnPredefined)
+	ON_COMMAND_RANGE(ID_CODE_DISPLAY_VERSION, ID_CODE_WATCHDOG, &RACustomMenuPage::OnMenuFunctionSelected)
 END_MESSAGE_MAP()
 
 
@@ -120,6 +123,7 @@ BOOL RACustomMenuPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	m_mFunctions.LoadMenu(IDR_MENU_CODE);
 	UpdateDisplay();
 	EnableWindows(m_fEnable);
 
@@ -196,4 +200,22 @@ void RACustomMenuPage::OnBnClickedMenuCkEnable()
 	// Update SimpleMenu feature to be opposite of enabled
 	a_Controller.Features.SetFeatureValue(a_Controller.Features.CUSTOM_MENU, m_fEnable);
 	a_Controller.Features.SetFeatureValue(a_Controller.Features.SIMPLE_MENU, !m_fEnable);
+}
+
+void RACustomMenuPage::OnBnClickedMenuBtnPredefined()
+{
+	CMenu *p = m_mFunctions.GetSubMenu(0);
+	CRect r;
+	GetDlgItem(IDC_MENU_BTN_PREDEFINED)->GetWindowRect(&r);
+	//TRACE("Pre Button click:  %d %d\n", r.left, r.bottom);
+	p->TrackPopupMenu(TPM_LEFTALIGN|TPM_LEFTBUTTON, r.left, r.bottom, this);
+}
+
+void RACustomMenuPage::OnMenuFunctionSelected(UINT nID)
+{
+	UpdateData();
+	TRACE("ID Clicked:  %d\n", nID);
+	CString s;
+	s.Format(_T("You clicked:  %d"), nID);
+	AfxMessageBox(s);
 }

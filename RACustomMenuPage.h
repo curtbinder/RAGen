@@ -30,6 +30,7 @@ protected:
 	BOOL m_fEnable;
 	int m_iMenuQty;
 	int m_iCurrent;
+	CMenu m_mFunctions;
 
 public:
 	virtual BOOL OnInitDialog();
@@ -40,4 +41,6 @@ public:
 	afx_msg void OnCbnSelchangeMenuCboEntries();
 	afx_msg void OnBnClickedMenuCkEnable();
 	// TODO add in buttons to insert a function/action for the current menu item
+	afx_msg void OnBnClickedMenuBtnPredefined();
+	afx_msg void OnMenuFunctionSelected(UINT nID);
 };

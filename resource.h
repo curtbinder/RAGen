@@ -279,6 +279,8 @@
 #define IDC_MENU_BTN_RESET              805
 #define IDC_MENU_FUNCTION_LABEL         806
 #define IDC_MENU_BTN_CLEAR              807
+#define IDR_MENU_CODE                   808
+#define IDC_MENU_BTN_PREDEFINED         809
 #define IDC_ABOUT_TEXT_VERSION          1000
 #define IDC_ABOUT_REEFANGEL_LOGO        1001
 #define IDC_ABOUT_CURTBINDER_LOGO       1002
@@ -346,13 +348,25 @@
 #define ID_CONTROLLER_SHOWUNKNOWNFEATURES 32792
 #define ID_CONTROLLER_INTERNALMEMORY    32793
 #define ID_CONTROLLER_SHOWLIBRARYVERSION 32794
+#define ID_CODE_DISPLAY_VERSION         32795
+#define ID_CODE_FEEDING_MODE            32796
+#define ID_CODE_WATER_CHANGE_MODE       32797
+#define ID_CODE_ATO_CLEAR               32798
+#define ID_CODE_OVERHEAT_CLEAR          32799
+#define ID_CODE_DISPLAY_ENTRY           32800
+#define ID_CODE_CALIBRATE_PH            32801
+#define ID_CODE_CALIBRATE_SALINITY      32802
+#define ID_CODE_DATE_TIME               32803
+#define ID_CODE_LIGHTS_ON               32804
+#define ID_CODE_LIGHTS_OFF              32805
+#define ID_CODE_WATCHDOG                32806
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        850
-#define _APS_NEXT_COMMAND_VALUE         32795
+#define _APS_NEXT_RESOURCE_VALUE        852
+#define _APS_NEXT_COMMAND_VALUE         32796
 #define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           116
 #endif

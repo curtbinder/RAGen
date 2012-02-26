@@ -351,6 +351,7 @@ BEGIN
         VERTGUIDE, 112
         VERTGUIDE, 118
         VERTGUIDE, 132
+        VERTGUIDE, 194
         VERTGUIDE, 274
         VERTGUIDE, 280
         TOPMARGIN, 7
@@ -361,6 +362,8 @@ BEGIN
         HORZGUIDE, 45
         HORZGUIDE, 59
         HORZGUIDE, 65
+        HORZGUIDE, 79
+        HORZGUIDE, 85
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -431,6 +434,37 @@ BEGIN
         MENUITEM "Water Change Mode",           ID_RESET_WATERCHANGEMODE
         MENUITEM "Overheat",                    ID_RESET_OVERHEAT
         MENUITEM "Lights On",                   ID_RESET_LIGHTSON
+    END
+END
+
+IDR_MENU_CODE MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        POPUP "Start"
+        BEGIN
+            MENUITEM "Feeding Mode",                ID_CODE_FEEDING_MODE
+            MENUITEM "Water Change",                ID_CODE_WATER_CHANGE_MODE
+        END
+        POPUP "Clear"
+        BEGIN
+            MENUITEM "ATO",                         ID_CODE_ATO_CLEAR
+            MENUITEM "Overheat",                    ID_CODE_OVERHEAT_CLEAR
+        END
+        POPUP "Calibrate"
+        BEGIN
+            MENUITEM "PH",                          ID_CODE_CALIBRATE_PH
+            MENUITEM "Salinity",                    ID_CODE_CALIBRATE_SALINITY
+        END
+        POPUP "Lights"
+        BEGIN
+            MENUITEM "Turn On",                     ID_CODE_LIGHTS_ON
+            MENUITEM "Turn Off",                    ID_CODE_LIGHTS_OFF
+        END
+        MENUITEM "Set Date / Time",					ID_CODE_DATE_TIME
+        MENUITEM "Display Text Entry",              ID_CODE_DISPLAY_ENTRY
+        MENUITEM "Display Version",					ID_CODE_DISPLAY_VERSION
+        MENUITEM "Reset Watchdog",					ID_CODE_WATCHDOG
     END
 END
 
@@ -878,10 +912,12 @@ BEGIN
     LTEXT           "Menu Label:",IDC_STATIC,7,47,50,8
     EDITTEXT        IDC_MENU_FUNCTION_LABEL,63,45,69,14,ES_AUTOHSCROLL
     LTEXT           "(Max of 20 characters for label)",IDC_STATIC,138,47,136,8
-    EDITTEXT        IDC_MENU_FUNCTION_TEXT,7,65,353,122,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "Enter menu code below:",IDC_STATIC,7,71,105,8
+    PUSHBUTTON      "&Predefined Functions",IDC_MENU_BTN_PREDEFINED,194,65,80,14
+    PUSHBUTTON      "Clear Function",IDC_MENU_BTN_CLEAR,280,65,80,14
+    EDITTEXT        IDC_MENU_FUNCTION_TEXT,7,85,353,102,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
     PUSHBUTTON      "Reset Menu",IDC_MENU_BTN_RESET,194,7,80,14
     PUSHBUTTON      "Load Simple Menu",IDC_MENU_BTN_LOAD,280,7,80,14
-    PUSHBUTTON      "Clear Function",IDC_MENU_BTN_CLEAR,280,45,80,14
 END
 
 
