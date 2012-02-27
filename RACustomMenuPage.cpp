@@ -216,6 +216,9 @@ void RACustomMenuPage::OnMenuFunctionSelected(UINT nID)
 	UpdateData();
 	TRACE("ID Clicked:  %d\n", nID);
 	CString s;
-	s.Format(_T("You clicked:  %d"), nID);
-	AfxMessageBox(s);
+	a_Controller.Menu.GetPresetFunctionCode(nID, s);
+	CString code;
+	GetDlgItemText(IDC_MENU_FUNCTION_TEXT, code);
+	code += s;
+	SetDlgItemText(IDC_MENU_FUNCTION_TEXT, code);
 }
