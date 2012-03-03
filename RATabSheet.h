@@ -42,6 +42,7 @@ protected:
 	BOOL m_fDevMode;
 
 	enum Tabs {
+		Info,
 		Controller,
 		Features,
 		MainRelay,

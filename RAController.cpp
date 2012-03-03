@@ -54,10 +54,6 @@ BOOL RAController::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	CString s;
-	s.LoadStringA(IDS_CONTROLLER_TIPS);
-	SetDlgItemText(IDC_CONTROLLER_TITLE, s);
-
 	UpdateValues();
 
 	return TRUE;

@@ -431,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RAInfoPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RAInternalMemoryPage.cpp"
 				>
 			</File>
@@ -582,6 +586,10 @@
 			</File>
 			<File
 				RelativePath=".\RAGenDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RAInfoPage.h"
 				>
 			</File>
 			<File

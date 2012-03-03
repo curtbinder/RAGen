@@ -18,6 +18,10 @@
 #define IDD_RACONTROLLER                113
 #define IDD_RACUSTOMMENU                114
 #define IDD_RACUSTOMMAIN                115
+#define IDD_RAINFOPAGE                  116
+#define IDD_COM_LIST                    117
+#define IDD_PORTAL                      118
+#define IDD_WEB_BANNER                  119
 #define IDB_CB_BANNER                   120
 #define IDB_REEFANGEL_LOGO              121
 #define IDR_ICON_MAIN                   128
@@ -54,7 +58,8 @@
 #define IDS_PORTAL                      161
 #define IDS_WAVEMAKER_PORTS             162
 #define IDS_CUSTOM_MENU_TAB             163
-#define IDC_CONTROLLER_TITLE            201
+#define IDS_INFO_TAB					164
+#define IDC_INFO_TITLE                  201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
 #define IDS_FEATURES_OVERHEATSETUP      206
@@ -87,7 +92,7 @@
 #define IDS_FEATURES_AILED              237
 #define IDS_FEATURES_ORP                238
 #define IDS_FEATURES_IO                 239
-#define IDS_FEATURES_CUSTOMVARIABLES	240
+#define IDS_FEATURES_CUSTOMVARIABLES    240
 #define IDC_RELAY_CK_FEEDING_1          300
 #define IDC_RELAY_CK_FEEDING_2          301
 #define IDC_RELAY_CK_FEEDING_3          302
@@ -253,9 +258,6 @@
 #define IDC_STD_GROUP_LOGGING           643
 #define IDC_STD_CK_WEB                  644
 #define IDC_TESTING_STATUS              700
-#define IDD_COM_LIST                    701
-#define IDD_PORTAL                      702
-#define IDD_WEB_BANNER                  750
 #define IDC_WEB_ID                      751
 #define IDC_WEB_T1                      752
 #define IDC_WEB_T2                      753

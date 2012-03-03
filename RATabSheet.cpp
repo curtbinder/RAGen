@@ -11,6 +11,7 @@
 #include "RAStdPage.h"  // Standard screen, not part of tabs
 #include "Controller.h"
 #include "RACustomMenuPage.h"
+#include "RAInfoPage.h"
 
 
 // RATabSheet
@@ -32,17 +33,20 @@ RATabSheet::~RATabSheet()
 
 void RATabSheet::Init()
 {
+	m_pTabs[Info] = new RAInfoPage;
 	m_pTabs[Controller] = new RAController;
 	m_pTabs[Features] = new RAFeaturesPage;
 	m_pTabs[MainRelay] = new RARelayPage;
 	m_pTabs[CustomMenu] = new RACustomMenuPage;
 	m_pTabs[Standard] = new RAStdPage;
-	m_iNumTabs = 5;
+	m_iNumTabs = 6;
 
 	CString s;
 	UINT menuID = IDR_MENU_RESET;
 	if ( m_fDevMode )
 	{
+		s.LoadStringA(IDS_INFO_TAB);
+		InsertItem(Info, s);
 		s.LoadStringA(IDS_CONTROLLER_TAB);
 		InsertItem(Controller, s);
 		s.LoadStringA(IDS_FEATURES_TAB);
@@ -55,6 +59,7 @@ void RATabSheet::Init()
 		//InsertItem(Colors, _T("Colors"));
 
 		m_iCurrentTab = 0;
+		m_pTabs[Info]->Create(IDD_RAINFOPAGE, this);
 		m_pTabs[Controller]->Create(IDD_RACONTROLLER, this);
 		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
 		m_pTabs[MainRelay]->Create(IDD_RARELAYPAGE, this);
@@ -502,6 +507,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			nShow = SW_HIDE;
 			menuID = IDR_MENU_CONTROLLER_RESET;
 			break;
+		case Info:
 		case CustomMenu:
 			nShow = SW_HIDE;
 			// TODO hide Reset menu for Custom Menu
