@@ -22,6 +22,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	CTreeCtrl m_tree;
+	int m_iExpRelayQty;
 
 	void ClearDescription();
 	void SetDescription(UINT id);
@@ -31,6 +32,8 @@ protected:
 	void ClearFeatures();
 	// initialize the feature tree list
 	void InitTree();
+	void EnableExpRelayControls(BOOL fEnable);
+	void CheckEnableExpansionRelay();
 
 public:
 	void LoadDefaults();
@@ -49,6 +52,7 @@ public:
 	void ShowUnknownFeatures();
 
 	afx_msg void OnTvnSelchangedFeaturesTree(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnCbnSelchangeCboExpRelayQty();
 	void OnResetAll();
 	void OnResetSaved();
 	virtual BOOL OnInitDialog();

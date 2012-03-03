@@ -58,7 +58,7 @@
 #define IDS_PORTAL                      161
 #define IDS_WAVEMAKER_PORTS             162
 #define IDS_CUSTOM_MENU_TAB             163
-#define IDS_INFO_TAB					164
+#define IDS_INFO_TAB                    164
 #define IDC_INFO_TITLE                  201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
@@ -316,6 +316,7 @@
 #define IDC_CONTROLLER_TEMP_1           1030
 #define IDC_CBO_WIFI                    1032
 #define IDC_BTN_PORTAL                  1033
+#define IDC_TEXT_EXP_RELAY_QTY          1034
 #define IDC_CBO_EXP_RELAY_QTY           1035
 #define IDC_CBO_PWMSLOPE                1036
 #define IDC_CBO_PORTAL                  1037
@@ -367,7 +368,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        852
+#define _APS_NEXT_RESOURCE_VALUE        853
 #define _APS_NEXT_COMMAND_VALUE         32795
 #define _APS_NEXT_CONTROL_VALUE         1043
 #define _APS_NEXT_SYMED_VALUE           116

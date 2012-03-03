@@ -17,6 +17,7 @@ IMPLEMENT_DYNAMIC(RAFeaturesPage, CDialog)
 
 RAFeaturesPage::RAFeaturesPage(CWnd* pParent /*=NULL*/)
 	: CDialog(RAFeaturesPage::IDD, pParent)
+	, m_iExpRelayQty(0)
 {
 }
 
@@ -28,12 +29,15 @@ void RAFeaturesPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_FEATURES_TREE, m_tree);
+	DDX_CBIndex(pDX, IDC_CBO_EXP_RELAY_QTY, m_iExpRelayQty);
+	DDV_MinMaxInt(pDX, m_iExpRelayQty, 0, MAX_PORTS);
 }
 
 
 BEGIN_MESSAGE_MAP(RAFeaturesPage, CDialog)
 	//}}AFX_MSG_MAP
 	ON_NOTIFY(TVN_SELCHANGED, IDC_FEATURES_TREE, &RAFeaturesPage::OnTvnSelchangedFeaturesTree)
+	ON_CBN_SELCHANGE(IDC_CBO_EXP_RELAY_QTY, &RAFeaturesPage::OnCbnSelchangeCboExpRelayQty)
 END_MESSAGE_MAP()
 
 
@@ -198,6 +202,12 @@ void RAFeaturesPage::LoadFeatures()
 		a_Controller.Features.SetFeatureValue(i, AfxGetApp()->GetProfileInt(s, a_Controller.Features.GetFeatureDefine(i), fDefault));
 	}
 	a_Controller.Features.iCustomMenuEntries = AfxGetApp()->GetProfileInt(s, _T("CustomMenuEntries"), MENU_DEFAULT);
+	// TODO add in extra checks for saving relay quantity
+	// TODO enabling is overridden by features file value
+	a_Controller.Features.iInstalledExpansionModules  = AfxGetApp()->GetProfileInt(s, _T("ExpRelayQty"), 0);
+	m_iExpRelayQty = a_Controller.Features.iInstalledExpansionModules;
+	CheckEnableExpansionRelay();
+	UpdateData(FALSE);
 	UpdateDisplay();
 }
 
@@ -211,6 +221,7 @@ void RAFeaturesPage::SaveFeatures(/*Features fs*/)
 		AfxGetApp()->WriteProfileInt(s, a_Controller.Features.GetFeatureDefine(i), a_Controller.Features.GetFeatureValue(i));
 	}
 	AfxGetApp()->WriteProfileInt(s, _T("CustomMenuEntries"), a_Controller.Features.iCustomMenuEntries);
+	AfxGetApp()->WriteProfileInt(s, _T("ExpRelayQty"), a_Controller.Features.iInstalledExpansionModules);
 }
 
 void RAFeaturesPage::LoadDefaults()
@@ -302,6 +313,7 @@ void RAFeaturesPage::OnTvnSelchangedFeaturesTree(NMHDR * /*pNMHDR*/, LRESULT *pR
 	HTREEITEM i = m_tree.GetSelectedItem();
 	DWORD index = (DWORD)m_tree.GetItemData(i);
 	TRACE("Desc:  %s, %d\n", a_Controller.Features.GetFeatureDefine(index), a_Controller.Features.GetFeatureStringID(index));
+	
 	if ( a_Controller.Features.GetFeatureStringID(index) == 0 )
 	{
 		ClearDescription();
@@ -310,6 +322,46 @@ void RAFeaturesPage::OnTvnSelchangedFeaturesTree(NMHDR * /*pNMHDR*/, LRESULT *pR
 	{
 		SetDescription(a_Controller.Features.GetFeatureStringID(index));
 	}
+	
+	BOOL fShowExpRelay = (index == a_Controller.Features.EXPANSION_MODULE) ? TRUE : FALSE;
+	EnableExpRelayControls(fShowExpRelay);
+	
+	// TODO toggle enabling/disabling combo box based on checkbox selection
+	// TODO need to toggle window in UpdateDisplay
+	/*
+	if ( fShowExpRelay )
+	{
+		BOOL fEnable = a_Controller.Features.GetFeatureValue(index);
+		GetDlgItem(IDC_CBO_EXP_RELAY_QTY)->EnableWindow(fEnable);
+		UpdateDisplay();
+	}
+	*/	
 
 	*pResult = 0;
+}
+
+void RAFeaturesPage::OnCbnSelchangeCboExpRelayQty()
+{
+	UpdateData();
+	TRACE("Exp Qty:  %d\n", m_iExpRelayQty);
+	CheckEnableExpansionRelay();
+	a_Controller.Features.iInstalledExpansionModules = m_iExpRelayQty;
+	UpdateDisplay();
+}
+
+void RAFeaturesPage::CheckEnableExpansionRelay()
+{
+	BOOL fEnable = FALSE;
+	if ( m_iExpRelayQty > 0 ) 
+	{
+		fEnable = TRUE;
+	}
+	a_Controller.Features.SetFeatureValue(a_Controller.Features.EXPANSION_MODULE, fEnable);
+}
+
+void RAFeaturesPage::EnableExpRelayControls(BOOL fEnable)
+{
+	int nShow = (fEnable) ? SW_SHOW : SW_HIDE;
+	GetDlgItem(IDC_TEXT_EXP_RELAY_QTY)->ShowWindow(nShow);
+	GetDlgItem(IDC_CBO_EXP_RELAY_QTY)->ShowWindow(nShow);
 }

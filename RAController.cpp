@@ -14,7 +14,6 @@ IMPLEMENT_DYNAMIC(RAController, CDialog)
 RAController::RAController(CWnd* pParent /*=NULL*/)
 	: CDialog(RAController::IDD, pParent)
 	, m_fWifi(0)
-	, m_iExpRelayQty(0)
 	, m_fAddPWM(0)
 	, m_fPortal(0)
 {
@@ -30,8 +29,6 @@ void RAController::DoDataExchange(CDataExchange* pDX)
 	CDialog::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_CONTROLLER_TEMP_0, m_fTemp);
 	DDX_CBIndex(pDX, IDC_CBO_WIFI, m_fWifi);
-	DDX_CBIndex(pDX, IDC_CBO_EXP_RELAY_QTY, m_iExpRelayQty);
-	DDV_MinMaxInt(pDX, m_iExpRelayQty, 0, MAX_PORTS);
 	DDX_CBIndex(pDX, IDC_CBO_PWMSLOPE, m_fAddPWM);
 	DDX_CBIndex(pDX, IDC_CBO_PORTAL, m_fPortal);
 }
@@ -40,7 +37,6 @@ void RAController::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(RAController, CDialog)
 	ON_BN_CLICKED(IDC_BTN_PORTAL, &RAController::OnBnClickedBtnPortal)
 	ON_CBN_SELCHANGE(IDC_CBO_WIFI, &RAController::OnCbnSelchangeCboWifi)
-	ON_CBN_SELCHANGE(IDC_CBO_EXP_RELAY_QTY, &RAController::OnCbnSelchangeCboExpRelayQty)
 	ON_CBN_SELCHANGE(IDC_CBO_PWMSLOPE, &RAController::OnCbnSelchangeCboPwmslope)
 	ON_CBN_SELCHANGE(IDC_CBO_PORTAL, &RAController::OnCbnSelchangeCboPortal)
 	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_0, &RAController::OnBnClickedControllerTemp0)
@@ -61,16 +57,7 @@ BOOL RAController::OnInitDialog()
 
 void RAController::UpdateValues()
 {
-	//a_Controller.Features.GetFeatureValue(a_Controller.Features.
 	m_fWifi = a_Controller.Features.GetFeatureValue(a_Controller.Features.WIFI);
-	if ( a_Controller.Features.GetFeatureValue(a_Controller.Features.EXPANSION_MODULE) )
-	{
-		m_iExpRelayQty = a_Controller.Features.iInstalledExpansionModules;
-	}
-	else
-	{
-		m_iExpRelayQty = 0;
-	}
 	m_fPortal = a_Controller.IsPortalEnabled();
 	if ( m_fPortal && !m_fWifi)
 	{
@@ -99,19 +86,6 @@ void RAController::OnCbnSelchangeCboWifi()
 	UpdateData();
 	TRACE("Wifi:  %d\n", m_fWifi);
 	a_Controller.Features.SetFeatureValue(a_Controller.Features.WIFI, m_fWifi);
-}
-
-void RAController::OnCbnSelchangeCboExpRelayQty()
-{
-	UpdateData();
-	TRACE("Exp Qty:  %d\n", m_iExpRelayQty);
-	BOOL fEnable = FALSE;
-	if ( m_iExpRelayQty > 0 ) 
-	{
-		fEnable = TRUE;
-	}
-	a_Controller.Features.SetFeatureValue(a_Controller.Features.EXPANSION_MODULE, fEnable);
-	a_Controller.Features.iInstalledExpansionModules = m_iExpRelayQty;
 }
 
 void RAController::OnCbnSelchangeCboPwmslope()

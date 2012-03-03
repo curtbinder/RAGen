@@ -20,7 +20,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	int m_fWifi;
-	int m_iExpRelayQty;
 	int m_fAddPWM;
 	int m_fPortal;
 	BOOL m_fTemp;
@@ -30,7 +29,6 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedBtnPortal();
 	afx_msg void OnCbnSelchangeCboWifi();
-	afx_msg void OnCbnSelchangeCboExpRelayQty();
 	afx_msg void OnCbnSelchangeCboPwmslope();
 	afx_msg void OnCbnSelchangeCboPortal();
 	afx_msg void OnBnClickedControllerTemp0();
