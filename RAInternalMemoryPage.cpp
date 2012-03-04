@@ -32,6 +32,7 @@ RAInternalMemoryPage::RAInternalMemoryPage(CWnd* pParent /*=NULL*/)
 void RAInternalMemoryPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	/*
 	DDX_Text(pDX, IDC_MEMORY_EDIT_MH_DELAY, m_iMHDelay);
 	DDV_MinMaxInt(pDX, m_iMHDelay, BYTE_MIN, BYTE_MAX);
 	DDX_Text(pDX, IDC_MEMORY_EDIT_WM1_INTERVAL, m_iWM1Interval);
@@ -62,17 +63,20 @@ void RAInternalMemoryPage::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxInt(pDX, m_iATOLowInterval, HR_MIN, HR_MAX);
 	DDX_Text(pDX, IDC_MEMORY_EDIT_ATO_HIGH_INTERVAL, m_iATOHighInterval);
 	DDV_MinMaxInt(pDX, m_iATOHighInterval, HR_MIN, HR_MAX);
+	*/
 }
 
 BEGIN_MESSAGE_MAP(RAInternalMemoryPage, CDialog)
 	//}}AFX_MSG_MAP
+	/*
 	ON_BN_CLICKED(IDC_MEMORY_CK_ATO_LOW_INTERVAL, &RAInternalMemoryPage::OnBnClickedCkAtoLowInterval)
 	ON_BN_CLICKED(IDC_MEMORY_CK_ATO_HIGH_INTERVAL, &RAInternalMemoryPage::OnBnClickedCkAtoHighInterval)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM1_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm1AlwaysOn)
 	ON_BN_CLICKED(IDC_MEMORY_CK_WM2_ALWAYS_ON, &RAInternalMemoryPage::OnBnClickedCkWm2AlwaysOn)
+	*/
 	ON_BN_CLICKED(IDC_MEMORY_BTN_GENERATE, &RAInternalMemoryPage::OnBnClickedBtnGenerate)
 	ON_BN_CLICKED(IDC_MEMORY_BTN_LAUNCH, &RAInternalMemoryPage::OnBnClickedBtnLaunch)
-	ON_BN_CLICKED(IDC_MEMORY_BTN_ENABLE_ADVANCED, &RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced)
+	//ON_BN_CLICKED(IDC_MEMORY_BTN_ENABLE_ADVANCED, &RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced)
 END_MESSAGE_MAP()
 
 
@@ -84,13 +88,16 @@ BOOL RAInternalMemoryPage::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	InitSpinners();
-	InitTimeBoxes();
-	InitTempBoxes();
+	CString s;
+	s.LoadString(IDS_MEMORY_TITLE);
+	SetDlgItemText(IDC_MEMORY_TITLE, s);
+	//InitSpinners();
+	//InitTimeBoxes();
+	//InitTempBoxes();
 	LoadValues();
-	UpdateCheckBoxes();
+	//UpdateCheckBoxes();
 	// Disable the Timeouts & PH stuff by default
-	EnableTimeoutsPH(FALSE);
+	//EnableTimeoutsPH(FALSE);
 	// Hide launch button
 	GetDlgItem(IDC_MEMORY_BTN_LAUNCH)->ShowWindow(SW_HIDE);
 	SetStatus("");
@@ -99,6 +106,7 @@ BOOL RAInternalMemoryPage::OnInitDialog()
 	return TRUE;
 }
 
+/*
 void RAInternalMemoryPage::InitSpinners()
 {
 	// Set the Buddy Controls for the spinners
@@ -149,7 +157,8 @@ void RAInternalMemoryPage::InitSpinners()
 	pSpin->SetBuddy(GetDlgItem(IDC_MEMORY_EDIT_PH10));
 	pSpin->SetRange32(PH_MIN, PH_MAX);
 }
-
+*/
+/*
 void RAInternalMemoryPage::InitTimeBoxes()
 {
 	// Set the time format
@@ -176,7 +185,8 @@ void RAInternalMemoryPage::InitTimeBoxes()
 	pTime = (CDateTimeCtrl*) GetDlgItem(IDC_MEMORY_TIME_DP2_ON);
 	pTime->SetFormat(sTimeFormat);
 }
-
+*/
+/*
 void RAInternalMemoryPage::InitTempBoxes()
 {
 	CString s;
@@ -218,6 +228,7 @@ void RAInternalMemoryPage::InitTempBoxes()
 		pOverheat->AddString(s);
 	}
 }
+*/
 
 void RAInternalMemoryPage::LoadDefaults()
 {
@@ -238,6 +249,7 @@ void RAInternalMemoryPage::LoadDefaults()
 	m_iATOLowInterval = DEFAULT_ATO_LOW_INTERVAL;
 	m_iATOHighInterval = DEFAULT_ATO_HIGH_INTERVAL;
 	
+	/*
 	CDateTimeCtrl* pTime = NULL;
 	CTime t(2010, 1, 1, DEFAULT_MH_ON_HOUR, DEFAULT_MH_ON_MINUTE, 0);
 	pTime = (CDateTimeCtrl*) GetDlgItem(IDC_MEMORY_TIME_MH_ON);
@@ -286,8 +298,9 @@ void RAInternalMemoryPage::LoadDefaults()
 	pCOff->SetCurSel(cOff);
 	CComboBox* pOverheat = (CComboBox*)GetDlgItem(IDC_MEMORY_CB_OVERHEAT);
 	pOverheat->SetCurSel(o);
+	*/
 }
-
+/*
 void RAInternalMemoryPage::OnBnClickedCkAtoLowInterval()
 {
 	UpdateData();
@@ -393,7 +406,7 @@ void RAInternalMemoryPage::OnBnClickedCkWm2AlwaysOn()
 	}
 	UpdateData(FALSE);
 }
-
+*/
 void RAInternalMemoryPage::OnBnClickedBtnGenerate()
 {
 	// Generate to local directory initially
@@ -439,12 +452,13 @@ void RAInternalMemoryPage::OnBnClickedBtnLaunch()
 	}
 	LaunchArduino(sFilename);
 }
-
+/*
 void RAInternalMemoryPage::OnBnClickedBtnEnableAdvanced()
 {
 	EnableTimeoutsPH(TRUE);
 	GetDlgItem(IDC_MEMORY_BTN_ENABLE_ADVANCED)->EnableWindow(FALSE);
 }
+*/
 
 BOOL RAInternalMemoryPage::WriteValues()
 {
@@ -559,6 +573,7 @@ void setup()\r\n\
 		}
 		f.Write(s, s.GetLength());
 		// write all the settings here
+		/*
 		CDateTimeCtrl* p;
 		p = (CDateTimeCtrl*)GetDlgItem(IDC_MEMORY_TIME_MH_ON);
 		p->GetTime(t);
@@ -586,6 +601,7 @@ void setup()\r\n\
 		p->GetTime(t);
 		s.Format(_T("    InternalMemory.DP2OnHour_write(%d);\r\n    InternalMemory.DP2OnMinute_write(%d);\r\n"), t.GetHour(), t.GetMinute());
 		f.Write(s, s.GetLength());
+		*/
 		s.Format(_T("    InternalMemory.DP1Timer_write(%d);\r\n"), m_iDP1RunTime);
 		f.Write(s, s.GetLength());
 		s.Format(_T("    InternalMemory.DP2Timer_write(%d);\r\n"), m_iDP2RunTime);
@@ -615,6 +631,7 @@ void setup()\r\n\
 		s.Format(_T("    InternalMemory.WM2Timer_write(%d);\r\n"), m_iWM2Interval);
 		f.Write(s, s.GetLength());
 		
+		/*
 		int offset;
 		if ( fDegF )
 		{
@@ -647,6 +664,7 @@ void setup()\r\n\
 		pC = (CComboBox*)GetDlgItem(IDC_MEMORY_CB_OVERHEAT);
 		s.Format(_T("    InternalMemory.OverheatTemp_write(%d);\r\n"), pC->GetCurSel()+offset);
 		f.Write(s, s.GetLength());
+		*/
 		
 		s.Format(_T("    InternalMemory.PHMax_write(%d);\r\n"), m_iPH10);
 		f.Write(s, s.GetLength());
@@ -764,9 +782,11 @@ void RAInternalMemoryPage::SaveValues()
 {
 	UpdateData();
 	CString s;
+	/*
 	CComboBox* pC;
 	CTime t;
 	CDateTimeCtrl* p;
+	*/
 	s.LoadString(IDS_MEMORY_TAB);
 	AfxGetApp()->WriteProfileInt(s, _T("MHDelay"), m_iMHDelay);
 	AfxGetApp()->WriteProfileInt(s, _T("WM1Interval"), m_iWM1Interval);
@@ -783,6 +803,7 @@ void RAInternalMemoryPage::SaveValues()
 	AfxGetApp()->WriteProfileInt(s, _T("ATOHighTimeout"), m_iATOHighTimeout);
 	AfxGetApp()->WriteProfileInt(s, _T("ATOLowInterval"), m_iATOLowInterval);
 	AfxGetApp()->WriteProfileInt(s, _T("ATOHighInterval"), m_iATOHighInterval);
+	/*
 	p = (CDateTimeCtrl*)GetDlgItem(IDC_MEMORY_TIME_MH_ON);
 	p->GetTime(t);
 	AfxGetApp()->WriteProfileInt(s, _T("MHOnHour"), t.GetHour());
@@ -817,15 +838,18 @@ void RAInternalMemoryPage::SaveValues()
 	AfxGetApp()->WriteProfileInt(s, _T("ChillerOffTemp"), pC->GetCurSel());
 	pC = (CComboBox*)GetDlgItem(IDC_MEMORY_CB_OVERHEAT);
 	AfxGetApp()->WriteProfileInt(s, _T("OverheatTemp"), pC->GetCurSel());
+	*/
 }
 
 void RAInternalMemoryPage::LoadValues()
 {
 	CString s;
+	/*
 	CComboBox* pC;
 	CTime t;
 	CDateTimeCtrl* p;
 	int h, m;
+	*/
 	s.LoadString(IDS_MEMORY_TAB);
 	m_iMHDelay = AfxGetApp()->GetProfileInt(s, _T("MHDelay"), DEFAULT_MH_DELAY);
 	m_iWM1Interval = AfxGetApp()->GetProfileInt(s, _T("WM1Interval"), DEFAULT_WM1_INTERVAL);
@@ -842,7 +866,7 @@ void RAInternalMemoryPage::LoadValues()
 	m_iATOHighTimeout = AfxGetApp()->GetProfileInt(s, _T("ATOHighTimeout"), DEFAULT_ATO_HIGH_TIMEOUT);
 	m_iATOLowInterval = AfxGetApp()->GetProfileInt(s, _T("ATOLowInterval"), DEFAULT_ATO_LOW_INTERVAL);
 	m_iATOHighInterval = AfxGetApp()->GetProfileInt(s, _T("ATOHighInterval"), DEFAULT_ATO_HIGH_INTERVAL);
-	
+	/*
 	p = (CDateTimeCtrl*)GetDlgItem(IDC_MEMORY_TIME_MH_ON);
 	h = AfxGetApp()->GetProfileInt(s, _T("MHOnHour"), DEFAULT_MH_ON_HOUR);
 	m = AfxGetApp()->GetProfileInt(s, _T("MHOnMinute"), DEFAULT_MH_ON_MINUTE);
@@ -906,8 +930,9 @@ void RAInternalMemoryPage::LoadValues()
 	pC->SetCurSel(AfxGetApp()->GetProfileInt(s, _T("ChillerOffTemp"), cOff));
 	pC = (CComboBox*)GetDlgItem(IDC_MEMORY_CB_OVERHEAT);
 	pC->SetCurSel(AfxGetApp()->GetProfileInt(s, _T("OverheatTemp"), o));
+	*/
 }
-
+/*
 void RAInternalMemoryPage::EnableTimeoutsPH(BOOL bEnable)
 {
 	GetDlgItem(IDC_MEMORY_EDIT_FEEDING)->EnableWindow(bEnable);
@@ -978,7 +1003,7 @@ void RAInternalMemoryPage::UpdateCheckBoxes()
 	}
 	GetDlgItem(IDC_MEMORY_EDIT_WM2_INTERVAL)->EnableWindow(bEnable);
 }
-
+*/
 void RAInternalMemoryPage::SetStatus(UINT id)
 {
 	CString s;
@@ -992,7 +1017,7 @@ void RAInternalMemoryPage::SetStatus(LPCSTR s)
 {
 	SetDlgItemText(IDC_MEMORY_STATUS, s);
 }
-
+/*
 void RAInternalMemoryPage::OnResetAll()
 {
 	LoadDefaults();
@@ -1006,3 +1031,4 @@ void RAInternalMemoryPage::OnResetSaved()
 	UpdateCheckBoxes();
 	UpdateData(FALSE);
 }
+*/

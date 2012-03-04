@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,3,166
- PRODUCTVERSION 1,2,3,166
+ FILEVERSION 1,2,3,169
+ PRODUCTVERSION 1,2,3,169
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 3, 166"
+            VALUE "FileVersion", "1, 2, 3, 169"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 3, 166"
+            VALUE "ProductVersion", "1, 2, 3, 169"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -295,25 +295,15 @@ BEGIN
     IDD_MEMORY, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 360
-        VERTGUIDE, 13
+        RIGHTMARGIN, 212
         VERTGUIDE, 57
         VERTGUIDE, 63
-        VERTGUIDE, 203
-        VERTGUIDE, 209
-        VERTGUIDE, 215
-        VERTGUIDE, 221
-        VERTGUIDE, 304
-        VERTGUIDE, 310
+        VERTGUIDE, 88
         TOPMARGIN, 7
-        BOTTOMMARGIN, 245
+        BOTTOMMARGIN, 160
         HORZGUIDE, 13
-        HORZGUIDE, 187
-        HORZGUIDE, 193
-        HORZGUIDE, 211
-        HORZGUIDE, 217
-        HORZGUIDE, 226
-        HORZGUIDE, 231
+        HORZGUIDE, 54
+        HORZGUIDE, 60
     END
 
     IDD_RACONTROLLER, DIALOG
@@ -784,97 +774,23 @@ BEGIN
     LTEXT           "NOTE: This does not work with the Portal or wifi apps.",IDC_STATIC,7,106,99,17
 END
 
-IDD_MEMORY DIALOGEX 0, 0, 367, 252
+IDD_MEMORY DIALOGEX 0, 0, 219, 167
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Internal Memory Values"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    LTEXT           "This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE / INO file.  Upload this file first, then upload your PDE / INO file.",IDC_STATIC,7,7,353,18
-    GROUPBOX        "Lights",IDC_MEMORY_GROUP_LIGHTS,7,31,202,71
-    LTEXT           "Metal Halides:",IDC_STATIC,13,50,46,8
-    LTEXT           "On",IDC_STATIC,83,39,10,8
-    LTEXT           "Off",IDC_STATIC,133,39,12,8
-    LTEXT           "Delay (m)",IDC_STATIC,173,39,32,8
-    CONTROL         "",IDC_MEMORY_TIME_MH_ON,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,69,48,47,12
-    CONTROL         "",IDC_MEMORY_TIME_MH_OFF,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,120,48,47,12
-    EDITTEXT        IDC_MEMORY_EDIT_MH_DELAY,171,48,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_MH_DELAY,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,183,48,10,14
-    LTEXT           "Standard Lights:",IDC_STATIC,13,67,54,8
-    CONTROL         "",IDC_MEMORY_TIME_STD_ON,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,69,65,47,12
-    CONTROL         "",IDC_MEMORY_TIME_STD_OFF,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,120,65,47,12
-    LTEXT           "Actinic %:",IDC_STATIC,13,86,34,8
-    EDITTEXT        IDC_MEMORY_EDIT_ACTINIC,51,84,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_ACTINIC,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,68,80,11,14
-    LTEXT           "Daylight %:",IDC_STATIC,91,86,39,8
-    EDITTEXT        IDC_MEMORY_EDIT_DAYLIGHT,135,84,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_DAYLIGHT,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,151,80,11,14
-    GROUPBOX        "Wavemakers",IDC_MEMORY_GROUP_WAVEMAKERS,215,31,145,58
-    LTEXT           "WM1:",IDC_STATIC,226,50,20,8
-    LTEXT           "Interval (s)",IDC_STATIC,265,39,37,8
-    LTEXT           "Always On",IDC_STATIC,317,39,35,8
-    EDITTEXT        IDC_MEMORY_EDIT_WM1_INTERVAL,261,48,40,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_WM1_INTERVAL,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,295,48,11,14
-    CONTROL         "",IDC_MEMORY_CK_WM1_ALWAYS_ON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,329,51,8,10
-    LTEXT           "WM2:",IDC_STATIC,226,69,20,8
-    EDITTEXT        IDC_MEMORY_EDIT_WM2_INTERVAL,261,67,40,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_WM2_INTERVAL,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,295,67,11,14
-    CONTROL         "",IDC_MEMORY_CK_WM2_ALWAYS_ON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,329,70,8,10
-    GROUPBOX        "ATO",IDC_MEMORY_GROUP_ATO,7,104,202,52
-    LTEXT           "Low / Dual Switch:",IDC_STATIC,13,122,60,8
-    LTEXT           "Timeout (s)",IDC_STATIC,79,111,37,8
-    LTEXT           "Interval (h)",IDC_STATIC,137,111,38,8
-    LTEXT           "Disable",IDC_STATIC,179,111,24,8
-    EDITTEXT        IDC_MEMORY_EDIT_ATO_LOW_TIMEOUT,80,120,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_ATO_LOW_TIMEOUT,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,103,121,11,12
-    EDITTEXT        IDC_MEMORY_EDIT_ATO_LOW_INTERVAL,138,120,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_ATO_LOW_INTERVAL,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,162,121,11,12
-    CONTROL         "",IDC_MEMORY_CK_ATO_LOW_INTERVAL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,122,8,10
-    LTEXT           "High Switch:",IDC_STATIC,13,140,40,8
-    EDITTEXT        IDC_MEMORY_EDIT_ATO_HIGH_TIMEOUT,80,138,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_ATO_HIGH_TIMEOUT,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,104,139,11,12
-    EDITTEXT        IDC_MEMORY_EDIT_ATO_HIGH_INTERVAL,138,138,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_ATO_HIGH_INTERVAL,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,162,139,11,12
-    CONTROL         "",IDC_MEMORY_CK_ATO_HIGH_INTERVAL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,185,140,8,10
-    GROUPBOX        "Dosing Pumps",IDC_MEMORY_GROUP_DOSING_PUMPS,215,94,145,60
-    LTEXT           "DP1:",IDC_STATIC,221,113,16,8
-    LTEXT           "On",IDC_STATIC,264,102,10,8
-    LTEXT           "Run Time (s)",IDC_STATIC,309,102,41,8
-    CONTROL         "",IDC_MEMORY_TIME_DP1_ON,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,249,111,47,12
-    EDITTEXT        IDC_MEMORY_EDIT_DP1_RUNTIME,312,111,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_DP1_RUNTIME,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,345,111,10,14
-    LTEXT           "DP2:",IDC_STATIC,221,132,16,8
-    CONTROL         "",IDC_MEMORY_TIME_DP2_ON,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,249,130,47,12
-    EDITTEXT        IDC_MEMORY_EDIT_DP2_RUNTIME,312,130,32,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_DP2_RUNTIME,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,346,130,11,14
-    GROUPBOX        "Temperatures",IDC_MEMORY_GROUP_TEMPS,7,159,202,52
-    LTEXT           "Heater:",IDC_STATIC,13,178,26,8
-    LTEXT           "On",IDC_STATIC,58,167,10,8
-    LTEXT           "Off",IDC_STATIC,102,167,12,8
-    LTEXT           "Overheat",IDC_STATIC,154,167,35,8
-    COMBOBOX        IDC_MEMORY_CB_HEATER_ON,46,176,40,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_MEMORY_CB_HEATER_OFF,90,176,40,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_MEMORY_CB_OVERHEAT,150,176,45,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Chiller:",IDC_STATIC,13,196,23,8
-    COMBOBOX        IDC_MEMORY_CB_CHILLER_ON,46,194,40,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_MEMORY_CB_CHILLER_OFF,90,194,40,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    GROUPBOX        "Timeouts && PH",IDC_MEMORY_GROUP_TIMEOUTS,215,159,145,52
-    LTEXT           "Feeding:",IDC_MEMORY_STATIC_FEEDING,221,173,29,8
-    EDITTEXT        IDC_MEMORY_EDIT_FEEDING,255,171,35,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_FEEDING,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,271,168,11,14
-    LTEXT           "PH7:",IDC_MEMORY_STATIC_PH7,296,173,16,8
-    EDITTEXT        IDC_MEMORY_EDIT_PH7,319,171,35,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_PH7,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,324,168,11,14
-    LTEXT           "Screen:",IDC_MEMORY_STATIC_LCD,221,193,26,8
-    EDITTEXT        IDC_MEMORY_EDIT_LCD,255,191,35,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_LCD,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,272,194,11,14
-    LTEXT           "PH10:",IDC_MEMORY_STATIC_PH10,296,193,20,8
-    EDITTEXT        IDC_MEMORY_EDIT_PH10,319,191,35,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
-    CONTROL         "",IDC_MEMORY_SPIN_PH10,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,325,193,11,14
-    PUSHBUTTON      "&Generate",IDC_MEMORY_BTN_GENERATE,7,231,50,14
-    PUSHBUTTON      "&Launch",IDC_MEMORY_BTN_LAUNCH,63,231,50,14
-    PUSHBUTTON      "&Enable Timeouts && PH",IDC_MEMORY_BTN_ENABLE_ADVANCED,221,231,83,14
-    PUSHBUTTON      "&Close",IDCANCEL,310,231,50,14
-    LTEXT           "",IDC_MEMORY_STATUS,7,217,297,8
+    LTEXT           "Note",IDC_MEMORY_TITLE,7,7,205,47
+    LTEXT           "UPDOWN",IDC_MEMORY_TEXT_SPIN,7,84,56,8
+    EDITTEXT        IDC_MEMORY_EDIT_SPIN,88,82,45,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_MEMORY_SPIN_SPIN,"msctls_updown32",UDS_WRAP | UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,143,82,11,14
+    LTEXT           "TEMP",IDC_MEMORY_TEXT_LIST,7,103,56,8
+    COMBOBOX        IDC_MEMORY_CB_LIST,88,100,45,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Generate",IDC_MEMORY_BTN_GENERATE,7,145,50,15
+    PUSHBUTTON      "&Launch",IDC_MEMORY_BTN_LAUNCH,63,145,50,15
+    PUSHBUTTON      "&Close",IDCANCEL,162,145,50,15
+    LTEXT           "",IDC_MEMORY_STATUS,7,121,205,8
+    LTEXT           "Memory Locations:",IDC_STATIC,7,63,68,8
+    COMBOBOX        IDC_MEMORY_CB_LOCATIONS,88,60,124,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_RACONTROLLER DIALOGEX 0, 0, 367, 194
@@ -1052,6 +968,7 @@ END
 STRINGTABLE 
 BEGIN
     IDS_CONTROLLER_TIPS     "Some tips for configuring your controller and using this app.\n\n1. Controller Tab - Contains some general configuration choices about the controller.  The wifi feature can also be changed on the Features tab.  Your choices are saved once you make them on this screen.\n\n2. Features Tab - Contains all the features that can be enabled on the controller.  Read the descriptions carefully.  You can save your changes and have the Features file update immediately.  Otherwise, it gets saved and updated when the controller code is generated.\n\n3. Main Relay Tab - Configures the relay ports for the main relay.  Once configured, click the Generate button to create the code file to be uploaded to the controller.\n\n4. Custom Menu Tab - Allows you to create a custom menu for use on the controller.  You just need to type in the text box the code you want to execute when the menu item is selected or choose some predefined functions to insert."
+	IDS_MEMORY_TITLE		"This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE / INO file.  Upload this file first, then upload your PDE / INO file.  Select the memory location and change the value.  Once you have set the values you want, click GENERATE."
     IDS_PORTAL              "Portal"
     IDS_WAVEMAKER_PORTS     "Wavemakers are designed to be on Ports 5 or 6"
     IDS_CUSTOM_MENU_TAB     "Custom Menu"

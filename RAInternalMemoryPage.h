@@ -30,15 +30,15 @@ protected:
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
-	void InitSpinners();
-	void InitTimeBoxes();
-	void InitTempBoxes();
+	//void InitSpinners();
+	//void InitTimeBoxes();
+	//void InitTempBoxes();
 	void LoadDefaults();
 	BOOL WriteValues();
 	void LoadValues();
 	void SaveValues();
-	void EnableTimeoutsPH(BOOL bEnable);
-	void UpdateCheckBoxes();
+	//void EnableTimeoutsPH(BOOL bEnable);
+	//void UpdateCheckBoxes();
 	void SetStatus(UINT id);
 	void SetStatus(LPCSTR s);
 	
@@ -65,14 +65,14 @@ protected:
 	int m_iATOHighIntervalTemp;
 
 public:
-	afx_msg void OnBnClickedCkAtoLowInterval();
-	afx_msg void OnBnClickedCkAtoHighInterval();
-	afx_msg void OnBnClickedCkWm1AlwaysOn();
-	afx_msg void OnBnClickedCkWm2AlwaysOn();
-	afx_msg void OnBnClickedBtnEnableAdvanced();
+	//afx_msg void OnBnClickedCkAtoLowInterval();
+	//afx_msg void OnBnClickedCkAtoHighInterval();
+	//afx_msg void OnBnClickedCkWm1AlwaysOn();
+	//afx_msg void OnBnClickedCkWm2AlwaysOn();
+	//afx_msg void OnBnClickedBtnEnableAdvanced();
 	//void OnEditTimeoutsPH();
 	afx_msg void OnBnClickedBtnGenerate();
 	afx_msg void OnBnClickedBtnLaunch();
-	void OnResetAll();
-	void OnResetSaved();
+	//void OnResetAll();
+	//void OnResetSaved();
 };
