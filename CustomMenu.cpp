@@ -35,11 +35,11 @@ void CCustomMenu::FillFunctionCodes()
 	m_Codes[DISPLAY_ENTRY].id = ID_CODE_DISPLAY_ENTRY;
 	m_Codes[DISPLAY_ENTRY].sRAFunction = _T("ReefAngel.DisplayMenuEntry(\"TEXT\");\r\n");
 	m_Codes[CALIBRATE_PH].id = ID_CODE_CALIBRATE_PH;
-	m_Codes[CALIBRATE_PH].sRAFunction = _T("ReefAngel.SetupCalibratePH();\r\n");
+	m_Codes[CALIBRATE_PH].sRAFunction = _T("ReefAngel.SetupCalibratePH();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[CALIBRATE_SALINITY].id = ID_CODE_CALIBRATE_SALINITY;
-	m_Codes[CALIBRATE_SALINITY].sRAFunction = _T("ReefAngel.SetupCalibrateSalinity();\r\n");
+	m_Codes[CALIBRATE_SALINITY].sRAFunction = _T("ReefAngel.SetupCalibrateSalinity();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[DATE_TIME].id = ID_CODE_DATE_TIME;
-	m_Codes[DATE_TIME].sRAFunction = _T("ReefAngel.SetupDateTime();\r\n");
+	m_Codes[DATE_TIME].sRAFunction = _T("ReefAngel.SetupDateTime();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[LIGHTS_ON].id = ID_CODE_LIGHTS_ON;
 	m_Codes[LIGHTS_ON].sRAFunction = _T("\
 ReefAngel.Relay.RelayMaskOn = ReefAngel.LightsOnPorts;\r\n\
