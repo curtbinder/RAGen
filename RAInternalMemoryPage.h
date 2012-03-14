@@ -1,7 +1,6 @@
 
 #pragma once
 
-
 // RAInternalMemoryPage dialog
 class RAInternalMemoryPage : public CDialog
 {
@@ -26,6 +25,74 @@ protected:
 	BOOL fUse12Hour;
 	BOOL fDegF;
 
+	enum _Locations{
+		MHONHOUR,
+		MHONMINUTE,
+		MHOFFHOUR,
+		MHOFFMINUTE,
+		STDLIGHTSONHOUR,
+		STDLIGHTSONMINUTE,
+		STDLIGHTSOFFHOUR,
+		STDLIGHTSOFFMINUTE,
+		WM1TIMER,
+		WM2TIMER,
+		DP1TIMER,
+		DP2TIMER,
+		FEEDINGTIMER,
+		LCDTIMER,
+		OVERHEATTEMP,
+		LEDPWMDAYLIGHT,
+		LEDPWMACTINIC,
+		HEATERTEMPON,
+		HEATERTEMPOFF,
+		CHILLERTEMPON,
+		CHILLERTEMPOFF,
+		ATOTIMEOUT,
+		PHMAX,
+		PHMIN,
+		MHDELAY,
+		DP1ONHOUR,
+		DP1ONMINUTE,
+		DP2ONHOUR,
+		DP2ONMINUTE,
+		ATOHOURINTERVAL,
+		ATOHIGHHOURINTERVAL,
+		ATOHIGHTIMEOUT,
+		DP1REPEATINTERVAL,
+		DP2REPEATINTERVAL,
+		SALMAX,
+		PWMSLOPESTARTD,
+		PWMSLOPEENDD,
+		PWMSLOPEDURATIOND,
+		PWMSLOPESTARTA,
+		PWMSLOPEENDA,
+		PWMSLOPEDURATIONA,
+		RFMODE,
+		RFSPEED,
+		RFDURATION,
+		PWMSLOPESTART0,
+		PWMSLOPEEND0,
+		PWMSLOPEDURATION0,
+		PWMSLOPESTART1,
+		PWMSLOPEEND1,
+		PWMSLOPEDURATION1,
+		PWMSLOPESTART2,
+		PWMSLOPEEND2,
+		PWMSLOPEDURATION2,
+		PWMSLOPESTART3,
+		PWMSLOPEEND3,
+		PWMSLOPEDURATION3,
+		PWMSLOPESTART4,
+		PWMSLOPEEND4,
+		PWMSLOPEDURATION4,
+		PWMSLOPESTART5,
+		PWMSLOPEEND5,
+		PWMSLOPEDURATION5,
+		MAX_LOCATIONS
+	};
+
+	MemLocation m_Locations[MAX_LOCATIONS];
+
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
@@ -33,6 +100,9 @@ protected:
 	//void InitSpinners();
 	//void InitTimeBoxes();
 	//void InitTempBoxes();
+	void InitLocationBox();
+	void SetMemoryLocation(int iLocation, CString sLabel, int iValue, BOOL fCombo);
+	void SetMemoryValue(int iLocation, int iValue);
 	void LoadDefaults();
 	BOOL WriteValues();
 	void LoadValues();

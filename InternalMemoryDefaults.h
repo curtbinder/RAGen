@@ -44,6 +44,13 @@
 #define DEFAULT_CHILLER_OFF_TEMP_C		85  // offset
 #define DEFAULT_OVERHEAT_TEMP_C			700 // offset
 #define DEFAULT_DELAY_MINUTES			5
+#define DEFAULT_SAL_MAX					2550
+//#define DEFAULT_RF_MODE					"Constant"
+#define DEFAULT_RF_SPEED				140
+#define DEFAULT_RF_DURATION				8
+#define DEFAULT_PWM_START_PERCENT		15
+#define DEFAULT_PWM_END_PERCENT			100
+#define DEFAULT_PWM_DURATION			60
 
 // default temperature ranges
 #define DEG_F_LOW_TEMP					70.0

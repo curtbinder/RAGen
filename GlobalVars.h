@@ -33,6 +33,12 @@ typedef struct _device {
 	CString sRAFunction;  //!< Function name only, no ReefAngel or parentheses
 } device;
 
+typedef struct _memlocation {
+	CString sLabel;  //!< label of the location
+	int value;	//!< value of the location
+	BOOL fComboBox;		//!< does this location use the combo box or just the spinner box?
+} MemLocation;
+
 /*!
  * Maximum ports for the controller
  */

@@ -2,11 +2,11 @@
 //
 
 #include "stdafx.h"
+#include "GlobalVars.h"
 #include "RAGen.h"
 #include "RAInternalMemoryPage.h"
 #include "InternalMemoryDefaults.h"
 #include "cb_FileVersion.h"
-#include "GlobalVars.h"
 #include "Controller.h"
 
 #ifdef _DEBUG
@@ -94,7 +94,9 @@ BOOL RAInternalMemoryPage::OnInitDialog()
 	//InitSpinners();
 	//InitTimeBoxes();
 	//InitTempBoxes();
-	LoadValues();
+	LoadDefaults();
+	InitLocationBox();
+	//LoadValues();
 	//UpdateCheckBoxes();
 	// Disable the Timeouts & PH stuff by default
 	//EnableTimeoutsPH(FALSE);
@@ -230,9 +232,101 @@ void RAInternalMemoryPage::InitTempBoxes()
 }
 */
 
+void RAInternalMemoryPage::InitLocationBox()
+{
+	CComboBox* pLoc = (CComboBox*)GetDlgItem(IDC_MEMORY_CB_LOCATIONS);
+	for ( int i = 0; i < MAX_LOCATIONS; i++ )
+	{
+		pLoc->AddString(m_Locations[i].sLabel);
+	}
+	pLoc->SetCurSel(0);
+}
+
+void RAInternalMemoryPage::SetMemoryLocation(int iLocation, CString sLabel, int iValue, BOOL fCombo)
+{
+	m_Locations[iLocation].sLabel = sLabel;
+	m_Locations[iLocation].value = iValue;
+	m_Locations[iLocation].fComboBox = fCombo;
+}
+
+void RAInternalMemoryPage::SetMemoryValue(int iLocation, int iValue)
+{
+	m_Locations[iLocation].value = iValue;
+}
+
 void RAInternalMemoryPage::LoadDefaults()
 {
 	// set default values
+	SetMemoryLocation(MHONHOUR, _T("MH On Hour"), DEFAULT_MH_ON_HOUR, FALSE);
+	SetMemoryLocation(MHONMINUTE, _T("MH On Minute"), DEFAULT_MH_ON_MINUTE, FALSE);
+	SetMemoryLocation(MHOFFHOUR, _T("MH Off Hour"), DEFAULT_MH_OFF_HOUR, FALSE);
+	SetMemoryLocation(MHOFFMINUTE, _T("MH Off Minute"), DEFAULT_MH_OFF_MINUTE, FALSE);
+	SetMemoryLocation(STDLIGHTSONHOUR, _T("StdLights On Hour"), DEFAULT_STD_ON_HOUR, FALSE);
+	SetMemoryLocation(STDLIGHTSONMINUTE, _T("StdLights On Minute"), DEFAULT_STD_ON_MINUTE, FALSE);
+	SetMemoryLocation(STDLIGHTSOFFHOUR, _T("StdLights Off Hour"), DEFAULT_STD_OFF_HOUR, FALSE);
+	SetMemoryLocation(STDLIGHTSOFFMINUTE, _T("StdLights Off Minute"), DEFAULT_STD_OFF_MINUTE, FALSE);
+	SetMemoryLocation(WM1TIMER, _T("Wavemaker 1 Timer"), DEFAULT_WM1_INTERVAL, FALSE);
+	SetMemoryLocation(WM2TIMER, _T("Wavemaker 2 Timer"), DEFAULT_WM2_INTERVAL, FALSE);
+	SetMemoryLocation(DP1TIMER, _T("Dosing Pump 1 Timer"), DEFAULT_DP1_RUN_TIME, FALSE);
+	SetMemoryLocation(DP2TIMER, _T("Dosing Pump 2 Timer"), DEFAULT_DP2_RUN_TIME, FALSE);
+	SetMemoryLocation(FEEDINGTIMER, _T("Feeding Mode Timer"), DEFAULT_FEEDING_TIMER, FALSE);
+	SetMemoryLocation(LCDTIMER, _T("LCD Timeout"), DEFAULT_LCD_TIMER, FALSE);
+	SetMemoryLocation(OVERHEATTEMP, _T("Overheat Temp"), DEFAULT_OVERHEAT_TEMP_F, TRUE);  // FINISH hard coded for F but toggle for C
+	SetMemoryLocation(LEDPWMDAYLIGHT, _T("Daylight PWM Value"), DEFAULT_DAYLIGHT, FALSE);
+	SetMemoryLocation(LEDPWMACTINIC, _T("Actinic PWM Value"), DEFAULT_ACTINIC, FALSE);
+	SetMemoryLocation(HEATERTEMPON, _T("Heater On Temp"), DEFAULT_HEATER_ON_TEMP_F, TRUE);  // FINISH hard coded for F
+	SetMemoryLocation(HEATERTEMPOFF, _T("Heater Off Temp"), DEFAULT_HEATER_OFF_TEMP_F, TRUE);  // FINISH hard coded for F
+	SetMemoryLocation(CHILLERTEMPON, _T("Chiller On Temp"), DEFAULT_CHILLER_ON_TEMP_F, TRUE);  // FINISH hard coded for F
+	SetMemoryLocation(CHILLERTEMPOFF, _T("Chiller Off Temp"), DEFAULT_CHILLER_OFF_TEMP_F, TRUE);  // FINISH hard coded for F
+	SetMemoryLocation(ATOTIMEOUT, _T("ATO Timeout"), DEFAULT_ATO_LOW_TIMEOUT, FALSE);
+	SetMemoryLocation(PHMAX, _T("PH Max value (PH10)"), DEFAULT_PH10, FALSE);
+	SetMemoryLocation(PHMIN, _T("PH Min value (PH7)"), DEFAULT_PH7, FALSE);
+	SetMemoryLocation(MHDELAY, _T("MH Delay"), DEFAULT_MH_DELAY, FALSE);
+	SetMemoryLocation(DP1ONHOUR, _T("Dosing Pump 1 On Hour"), DEFAULT_DP1_ON_HOUR, FALSE);
+	SetMemoryLocation(DP1ONMINUTE, _T("Dosing Pump 1 On Minute"), DEFAULT_DP1_ON_MINUTE, FALSE);
+	SetMemoryLocation(DP2ONHOUR, _T("Dosing Pump 2 On Hour"), DEFAULT_DP2_ON_HOUR, FALSE);
+	SetMemoryLocation(DP2ONMINUTE, _T("Dosing Pump 2 On Minute"), DEFAULT_DP2_ON_MINUTE, FALSE);
+	SetMemoryLocation(ATOHOURINTERVAL, _T("ATO Hour Interval"), DEFAULT_ATO_LOW_INTERVAL, FALSE);
+	SetMemoryLocation(ATOHIGHHOURINTERVAL, _T("ATO High Hour Interval"), DEFAULT_ATO_HIGH_INTERVAL, FALSE);
+	SetMemoryLocation(ATOHIGHTIMEOUT, _T("ATO High Timeout"), DEFAULT_ATO_HIGH_TIMEOUT, FALSE);
+	SetMemoryLocation(DP1REPEATINTERVAL, _T("Dosing Pump 1 Repeat Interval"), 0, FALSE);
+	SetMemoryLocation(DP2REPEATINTERVAL, _T("Dosing Pump 2 Repeat Interval"), 0, FALSE);
+	SetMemoryLocation(SALMAX, _T("Salinity Max"), DEFAULT_SAL_MAX, FALSE);
+	SetMemoryLocation(PWMSLOPESTARTD, _T("PWM Slope Daylight Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEENDD, _T("PWM Slope Daylight End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATIOND, _T("PWM Slope Daylight Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTARTA, _T("PWM Slope Actinic Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEENDA, _T("PWM Slope Actinic End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATIONA, _T("PWM Slope Actinic Duration"), DEFAULT_PWM_DURATION, FALSE);
+	// TODO have rf modes in drop down list
+	/*
+	have modes in array
+	fill the array for drop list
+	store the value associated with the item selected
+	write out the "word" in the memory file
+	*/
+	SetMemoryLocation(RFMODE, _T("RF Mode"), 0, FALSE);  // CHECK possible drop down 
+	SetMemoryLocation(RFSPEED, _T("RF Speed"), DEFAULT_RF_SPEED, FALSE);  // CHECK possible drop down 
+	SetMemoryLocation(RFDURATION, _T("RF Duration"), DEFAULT_RF_DURATION, FALSE);  // CHECK possible drop down
+	SetMemoryLocation(PWMSLOPESTART0, _T("PWM Slope Exp Ch 0 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND0, _T("PWM Slope Exp Ch 0 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION0, _T("PWM Slope Exp Ch 0 Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTART1, _T("PWM Slope Exp Ch 1 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND1, _T("PWM Slope Exp Ch 1 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION1, _T("PWM Slope Exp Ch 1 Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTART2, _T("PWM Slope Exp Ch 2 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND2, _T("PWM Slope Exp Ch 2 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION2, _T("PWM Slope Exp Ch 2 Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTART3, _T("PWM Slope Exp Ch 3 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND3, _T("PWM Slope Exp Ch 3 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION3, _T("PWM Slope Exp Ch 3 Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTART4, _T("PWM Slope Exp Ch 4 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND4, _T("PWM Slope Exp Ch 4 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION4, _T("PWM Slope Exp Ch 4 Duration"), DEFAULT_PWM_DURATION, FALSE);
+	SetMemoryLocation(PWMSLOPESTART5, _T("PWM Slope Exp Ch 5 Start %"), DEFAULT_PWM_START_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEEND5, _T("PWM Slope Exp Ch 5 End %"), DEFAULT_PWM_END_PERCENT, FALSE);
+	SetMemoryLocation(PWMSLOPEDURATION5, _T("PWM Slope Exp Ch 5 Duration"), DEFAULT_PWM_DURATION, FALSE);
+/*
 	m_iMHDelay = DEFAULT_MH_DELAY;
 	m_iWM1Interval = DEFAULT_WM1_INTERVAL;
 	m_iWM2Interval = DEFAULT_WM2_INTERVAL;
@@ -248,7 +342,7 @@ void RAInternalMemoryPage::LoadDefaults()
 	m_iATOHighTimeout = DEFAULT_ATO_HIGH_TIMEOUT;
 	m_iATOLowInterval = DEFAULT_ATO_LOW_INTERVAL;
 	m_iATOHighInterval = DEFAULT_ATO_HIGH_INTERVAL;
-	
+*/	
 	/*
 	CDateTimeCtrl* pTime = NULL;
 	CTime t(2010, 1, 1, DEFAULT_MH_ON_HOUR, DEFAULT_MH_ON_MINUTE, 0);
