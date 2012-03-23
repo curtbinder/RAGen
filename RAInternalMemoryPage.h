@@ -16,14 +16,10 @@ public:
 	CString sFilename;  //!< Filename of the file generated
 	CString sFileExtension;
 
-	inline void Use12Hour(BOOL f = TRUE) { fUse12Hour = f; }
-	inline void UseDegreeF(BOOL f = TRUE) { fDegF = f; }
-
 	// Implementation
 protected:
 	HICON m_hIcon;
-	BOOL fUse12Hour;
-	BOOL fDegF;
+	int m_iLocationIndex;
 
 	enum _Locations{
 		MHONHOUR,
@@ -92,57 +88,34 @@ protected:
 	};
 
 	MemLocation m_Locations[MAX_LOCATIONS];
+	int m_Defaults[MAX_LOCATIONS];
 
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
-	//void InitSpinners();
-	//void InitTimeBoxes();
-	//void InitTempBoxes();
+	int GetMaxLocations();
+	void InitDefaultsArray();
 	void InitLocationBox();
-	void SetMemoryLocation(int iLocation, CString sLabel, int iValue, BOOL fCombo);
+	void EnableValueControls(int iLocation);
+	void UpdateValueControls(int iLocation);
+	void ChangeControlRanges(int iLocation);
+	void SetMemoryLocation(int iLocation, CString sLabel, CString sFunction, int iValue, BOOL fCombo);
 	void SetMemoryValue(int iLocation, int iValue);
 	void LoadDefaults();
+	void SaveCurrentValue();
 	BOOL WriteValues();
 	void LoadValues();
 	void SaveValues();
-	//void EnableTimeoutsPH(BOOL bEnable);
-	//void UpdateCheckBoxes();
 	void SetStatus(UINT id);
 	void SetStatus(LPCSTR s);
 	
 	DECLARE_MESSAGE_MAP()
 
-	int m_iMHDelay;
-	int m_iWM1Interval;
-	int m_iWM1IntervalTemp;
-	int m_iWM2Interval;
-	int m_iWM2IntervalTemp;
-	int m_iActinic;
-	int m_iDaylight;
-	int m_iDP1RunTime;
-	int m_iDP2RunTime;
-	int m_iFeeding;
-	int m_iLCD;
-	int m_iPH7;
-	int m_iPH10;
-	int m_iATOLowTimeout;
-	int m_iATOHighTimeout;
-	int m_iATOLowInterval;
-	int m_iATOLowIntervalTemp;
-	int m_iATOHighInterval;
-	int m_iATOHighIntervalTemp;
-
 public:
-	//afx_msg void OnBnClickedCkAtoLowInterval();
-	//afx_msg void OnBnClickedCkAtoHighInterval();
-	//afx_msg void OnBnClickedCkWm1AlwaysOn();
-	//afx_msg void OnBnClickedCkWm2AlwaysOn();
-	//afx_msg void OnBnClickedBtnEnableAdvanced();
-	//void OnEditTimeoutsPH();
 	afx_msg void OnBnClickedBtnGenerate();
 	afx_msg void OnBnClickedBtnLaunch();
+	afx_msg void OnCbnSelchangeMemoryCbLocations();
 	//void OnResetAll();
 	//void OnResetSaved();
 };

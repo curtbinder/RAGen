@@ -38,16 +38,16 @@
 #define DEFAULT_CHILLER_ON_TEMP_F		110 // offset, 81.0F
 #define DEFAULT_CHILLER_OFF_TEMP_F		85  // offset, 78.5F
 #define DEFAULT_OVERHEAT_TEMP_F			700 // offset, 150.0F
-#define DEFAULT_HEATER_ON_TEMP_C		80  // offset
-#define DEFAULT_HEATER_OFF_TEMP_C		91  // offset
-#define DEFAULT_CHILLER_ON_TEMP_C		110 // offset
-#define DEFAULT_CHILLER_OFF_TEMP_C		85  // offset
-#define DEFAULT_OVERHEAT_TEMP_C			700 // offset
+#define DEFAULT_HEATER_ON_TEMP_C		44  // offset, 25.5C
+#define DEFAULT_HEATER_OFF_TEMP_C		51  // offset, 26.2C
+#define DEFAULT_CHILLER_ON_TEMP_C		61  // offset, 27.2C
+#define DEFAULT_CHILLER_OFF_TEMP_C		47  // offset, 25.8C
+#define DEFAULT_OVERHEAT_TEMP_C			389 // offset, 65.5C
 #define DEFAULT_DELAY_MINUTES			5
 #define DEFAULT_SAL_MAX					2550
 //#define DEFAULT_RF_MODE					"Constant"
-#define DEFAULT_RF_SPEED				140
-#define DEFAULT_RF_DURATION				8
+#define DEFAULT_RF_SPEED				100
+#define DEFAULT_RF_DURATION				10
 #define DEFAULT_PWM_START_PERCENT		15
 #define DEFAULT_PWM_END_PERCENT			100
 #define DEFAULT_PWM_DURATION			60

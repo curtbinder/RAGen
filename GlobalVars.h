@@ -35,6 +35,7 @@ typedef struct _device {
 
 typedef struct _memlocation {
 	CString sLabel;  //!< label of the location
+	CString sFunction;  //!< internal memory function
 	int value;	//!< value of the location
 	BOOL fComboBox;		//!< does this location use the combo box or just the spinner box?
 } MemLocation;
