@@ -1,15 +1,15 @@
 #pragma once
 
 
-// RAController dialog
+// RAControllerPage dialog
 
-class RAController : public CDialog
+class RAControllerPage : public CDialog
 {
-	DECLARE_DYNAMIC(RAController)
+	DECLARE_DYNAMIC(RAControllerPage)
 
 public:
-	RAController(CWnd* pParent = NULL);   // standard constructor
-	virtual ~RAController();
+	RAControllerPage(CWnd* pParent = NULL);   // standard constructor
+	virtual ~RAControllerPage();
 
 // Dialog Data
 	enum { IDD = IDD_RACONTROLLER };

@@ -411,7 +411,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\RAController.cpp"
+				RelativePath=".\RAControllerPage.cpp"
 				>
 			</File>
 			<File
@@ -569,7 +569,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\RAController.h"
+				RelativePath=".\RAControllerPage.h"
 				>
 			</File>
 			<File

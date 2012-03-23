@@ -1,18 +1,18 @@
-// RAController.cpp : implementation file
+// RAControllerPage.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "RAGen.h"
-#include "RAController.h"
+#include "RAControllerPage.h"
 #include "Controller.h"
 
 
-// RAController dialog
+// RAControllerPage dialog
 
-IMPLEMENT_DYNAMIC(RAController, CDialog)
+IMPLEMENT_DYNAMIC(RAControllerPage, CDialog)
 
-RAController::RAController(CWnd* pParent /*=NULL*/)
-	: CDialog(RAController::IDD, pParent)
+RAControllerPage::RAControllerPage(CWnd* pParent /*=NULL*/)
+	: CDialog(RAControllerPage::IDD, pParent)
 	, m_fWifi(0)
 	, m_fAddPWM(0)
 	, m_fPortal(0)
@@ -20,11 +20,11 @@ RAController::RAController(CWnd* pParent /*=NULL*/)
 	m_fTemp = FALSE;
 }
 
-RAController::~RAController()
+RAControllerPage::~RAControllerPage()
 {
 }
 
-void RAController::DoDataExchange(CDataExchange* pDX)
+void RAControllerPage::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_CONTROLLER_TEMP_0, m_fTemp);
@@ -34,19 +34,19 @@ void RAController::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(RAController, CDialog)
-	ON_BN_CLICKED(IDC_BTN_PORTAL, &RAController::OnBnClickedBtnPortal)
-	ON_CBN_SELCHANGE(IDC_CBO_WIFI, &RAController::OnCbnSelchangeCboWifi)
-	ON_CBN_SELCHANGE(IDC_CBO_PWMSLOPE, &RAController::OnCbnSelchangeCboPwmslope)
-	ON_CBN_SELCHANGE(IDC_CBO_PORTAL, &RAController::OnCbnSelchangeCboPortal)
-	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_0, &RAController::OnBnClickedControllerTemp0)
-	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_1, &RAController::OnBnClickedControllerTemp1)
+BEGIN_MESSAGE_MAP(RAControllerPage, CDialog)
+	ON_BN_CLICKED(IDC_BTN_PORTAL, &RAControllerPage::OnBnClickedBtnPortal)
+	ON_CBN_SELCHANGE(IDC_CBO_WIFI, &RAControllerPage::OnCbnSelchangeCboWifi)
+	ON_CBN_SELCHANGE(IDC_CBO_PWMSLOPE, &RAControllerPage::OnCbnSelchangeCboPwmslope)
+	ON_CBN_SELCHANGE(IDC_CBO_PORTAL, &RAControllerPage::OnCbnSelchangeCboPortal)
+	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_0, &RAControllerPage::OnBnClickedControllerTemp0)
+	ON_BN_CLICKED(IDC_CONTROLLER_TEMP_1, &RAControllerPage::OnBnClickedControllerTemp1)
 END_MESSAGE_MAP()
 
 
-// RAController message handlers
+// RAControllerPage message handlers
 
-BOOL RAController::OnInitDialog()
+BOOL RAControllerPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -55,7 +55,7 @@ BOOL RAController::OnInitDialog()
 	return TRUE;
 }
 
-void RAController::UpdateValues()
+void RAControllerPage::UpdateValues()
 {
 	m_fWifi = a_Controller.Features.GetFeatureValue(a_Controller.Features.WIFI);
 	m_fPortal = a_Controller.IsPortalEnabled();
@@ -75,20 +75,20 @@ void RAController::UpdateValues()
 	UpdateData(FALSE);
 }
 
-void RAController::OnBnClickedBtnPortal()
+void RAControllerPage::OnBnClickedBtnPortal()
 {
 	// pass the request on to the main window
 	theApp.m_pMainWnd->SendMessageA(WM_COMMAND, MAKEWPARAM(ID_CONTROLLER_WEBBANNER, 0), 0);
 }
 
-void RAController::OnCbnSelchangeCboWifi()
+void RAControllerPage::OnCbnSelchangeCboWifi()
 {
 	UpdateData();
 	TRACE("Wifi:  %d\n", m_fWifi);
 	a_Controller.Features.SetFeatureValue(a_Controller.Features.WIFI, m_fWifi);
 }
 
-void RAController::OnCbnSelchangeCboPwmslope()
+void RAControllerPage::OnCbnSelchangeCboPwmslope()
 {
 	UpdateData();
 	TRACE("PWM:  %d\n", m_fAddPWM);
@@ -101,7 +101,7 @@ void RAController::OnCbnSelchangeCboPwmslope()
 	// do not disable led pwm if we remove pwmslope
 }
 
-void RAController::OnCbnSelchangeCboPortal()
+void RAControllerPage::OnCbnSelchangeCboPortal()
 {
 	UpdateData();
 	TRACE("Portal:  %d\n", m_fPortal);
@@ -115,25 +115,25 @@ void RAController::OnCbnSelchangeCboPortal()
 	}
 }
 
-void RAController::OnBnClickedControllerTemp0()
+void RAControllerPage::OnBnClickedControllerTemp0()
 {
 	UpdateData();
 	UpdateControllerTemperature();
 }
 
-void RAController::OnBnClickedControllerTemp1()
+void RAControllerPage::OnBnClickedControllerTemp1()
 {
 	UpdateData();
 	UpdateControllerTemperature();
 }
 
-void RAController::UpdateControllerTemperature()
+void RAControllerPage::UpdateControllerTemperature()
 {
 	TRACE("Temp:  %s\n", m_fTemp?"Celsius":"Fahrenheit");
 	a_Controller.SetTemperatureUnit(m_fTemp);
 }
 
-void RAController::OnResetTemperature()
+void RAControllerPage::OnResetTemperature()
 {
 	UpdateData();
 	m_fTemp = FALSE;
@@ -141,7 +141,7 @@ void RAController::OnResetTemperature()
 	UpdateControllerTemperature();
 }
 
-void RAController::OnResetLogging()
+void RAControllerPage::OnResetLogging()
 {
 	UpdateData();
 	m_fPortal = FALSE;
@@ -149,7 +149,7 @@ void RAController::OnResetLogging()
 	OnCbnSelchangeCboPortal();
 }
 
-void RAController::OnResetAll()
+void RAControllerPage::OnResetAll()
 {
 	OnResetLogging();
 	OnResetTemperature();
@@ -157,7 +157,7 @@ void RAController::OnResetAll()
 	UpdateData(FALSE);
 }
 
-void RAController::OnResetSaved()
+void RAControllerPage::OnResetSaved()
 {
 	// TODO Code in ResetSaved - save values on generate
 	UpdateData(FALSE);

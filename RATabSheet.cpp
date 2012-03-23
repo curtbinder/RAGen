@@ -7,7 +7,7 @@
 #include "RAFeaturesPage.h"
 #include "RARelayPage.h"
 //#include "RAColorsPage.h"
-#include "RAController.h"
+#include "RAControllerPage.h"
 #include "RAStdPage.h"  // Standard screen, not part of tabs
 #include "Controller.h"
 #include "RACustomMenuPage.h"
@@ -34,7 +34,7 @@ RATabSheet::~RATabSheet()
 void RATabSheet::Init()
 {
 	m_pTabs[Info] = new RAInfoPage;
-	m_pTabs[Controller] = new RAController;
+	m_pTabs[Controller] = new RAControllerPage;
 	m_pTabs[Features] = new RAFeaturesPage;
 	m_pTabs[MainRelay] = new RARelayPage;
 	m_pTabs[CustomMenu] = new RACustomMenuPage;
@@ -221,7 +221,7 @@ void RATabSheet::ResetAll()
 			break;
 		case Controller:
 			{
-			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			RAControllerPage* p = (RAControllerPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetAll();
 			}
 			break;
@@ -254,7 +254,7 @@ void RATabSheet::ResetSaved()
 			break;
 		case Controller:
 			{
-			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			RAControllerPage* p = (RAControllerPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetSaved();
 			}
 			break;
@@ -290,7 +290,7 @@ void RATabSheet::ResetTemp()
 	{
 		case Controller:
 			{
-			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			RAControllerPage* p = (RAControllerPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetTemperature();
 			}
 			break;
@@ -305,7 +305,7 @@ void RATabSheet::ResetLogging()
 	{
 		case Controller:
 			{
-			RAController* p = (RAController*)m_pTabs[m_iCurrentTab];
+			RAControllerPage* p = (RAControllerPage*)m_pTabs[m_iCurrentTab];
 			p->OnResetLogging();
 			}
 			break;
@@ -447,7 +447,7 @@ void RATabSheet::ShowUnknownFeatures()
 
 void RATabSheet::UpdateControllerTab()
 {
-	RAController* pc = (RAController*)m_pTabs[Controller];
+	RAControllerPage* pc = (RAControllerPage*)m_pTabs[Controller];
 	pc->UpdateValues();
 }
 
@@ -473,7 +473,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 		// update the features structure before we proceed
 		RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 		pf->UpdateFeatures();
-		RAController* pc = (RAController*)m_pTabs[Controller];
+		RAControllerPage* pc = (RAControllerPage*)m_pTabs[Controller];
 		pc->UpdateValues();
 		RACustomMenuPage* pm = (RACustomMenuPage*)m_pTabs[CustomMenu];
 		pm->UpdateValues();
