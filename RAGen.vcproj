@@ -664,6 +664,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\license.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\README.txt"
 			>
 		</File>
