@@ -73,8 +73,6 @@ void RATabSheet::Init()
 		}
 		// hide generate button
 		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->ShowWindow(SW_HIDE);
-		// Change to Save since the Features Tab is the first tab
-		GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 		// set the controller menu
 		menuID = IDR_MENU_CONTROLLER_RESET;
 	}
@@ -137,14 +135,14 @@ void RATabSheet::Generate()
 			pf->WriteFeatures();
 			break;
 		}
-		case MainRelay:
+		case Controller:
 			{
 			/*
 			Update PDE Features list
 			Write ReefAngel_Features.h file
 			Generate PDE file
 			*/
-			RARelayPage* p = (RARelayPage*)m_pTabs[m_iCurrentTab];
+			RARelayPage* p = (RARelayPage*)m_pTabs[MainRelay];
 			p->UpdatePDEFeatures();
 			RAFeaturesPage* pf = (RAFeaturesPage*)m_pTabs[Features];
 			pf->WriteFeatures();
@@ -393,7 +391,7 @@ void RATabSheet::UpdateSettingsForTabs()
 
 void RATabSheet::GetFilename(CString &s)
 {
-	if ( m_iCurrentTab == MainRelay )
+	if ( m_iCurrentTab == Controller )
 	{
 		s = a_Controller.GetFilename();
 	}
@@ -410,7 +408,7 @@ void RATabSheet::GetFilename(CString &s)
 
 void RATabSheet::GetFileExtension(CString &s)
 {
-	if ( m_iCurrentTab == MainRelay )
+	if ( m_iCurrentTab == Controller )
 	{
 		s = a_Controller.GetExtension();
 	}
@@ -497,15 +495,15 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 	{
 		case MainRelay:
 			menuID = IDR_MENU_RELAY_RESET;
-			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
+			nShow = SW_HIDE;
 			break;
 		case Features:
 			//nShow = SW_HIDE;
 			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Save"));
 			break;
 		case Controller:
-			nShow = SW_HIDE;
 			menuID = IDR_MENU_CONTROLLER_RESET;
+			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
 			break;
 		case Info:
 		case CustomMenu:
