@@ -34,25 +34,25 @@ CCustomMenu::~CCustomMenu(void)
 void CCustomMenu::FillFunctionCodes()
 {
 	m_Codes[DISPLAY_VERSION].id = ID_CODE_DISPLAY_VERSION;
-	m_Codes[DISPLAY_VERSION].sRAFunction = _T("ReefAngel.DisplayVersion();\r\n");
+	m_Codes[DISPLAY_VERSION].sFunction = _T("ReefAngel.DisplayVersion();\r\n");
 	m_Codes[FEEDING_MODE].id = ID_CODE_FEEDING_MODE;
-	m_Codes[FEEDING_MODE].sRAFunction = _T("ReefAngel.FeedingModeStart();\r\n");
+	m_Codes[FEEDING_MODE].sFunction = _T("ReefAngel.FeedingModeStart();\r\n");
 	m_Codes[WATER_CHANGE_MODE].id = ID_CODE_WATER_CHANGE_MODE;
-	m_Codes[WATER_CHANGE_MODE].sRAFunction = _T("ReefAngel.WaterChangeModeStart();\r\n");
+	m_Codes[WATER_CHANGE_MODE].sFunction = _T("ReefAngel.WaterChangeModeStart();\r\n");
 	m_Codes[ATO_CLEAR].id = ID_CODE_ATO_CLEAR;
-	m_Codes[ATO_CLEAR].sRAFunction = _T("ReefAngel.ATOClear();\r\n");
+	m_Codes[ATO_CLEAR].sFunction = _T("ReefAngel.ATOClear();\r\n");
 	m_Codes[OVERHEAT_CLEAR].id = ID_CODE_OVERHEAT_CLEAR;
-	m_Codes[OVERHEAT_CLEAR].sRAFunction = _T("ReefAngel.OverheatClear();\r\n");
+	m_Codes[OVERHEAT_CLEAR].sFunction = _T("ReefAngel.OverheatClear();\r\n");
 	m_Codes[DISPLAY_ENTRY].id = ID_CODE_DISPLAY_ENTRY;
-	m_Codes[DISPLAY_ENTRY].sRAFunction = _T("ReefAngel.DisplayMenuEntry(\"TEXT\");\r\n");
+	m_Codes[DISPLAY_ENTRY].sFunction = _T("ReefAngel.DisplayMenuEntry(\"TEXT\");\r\n");
 	m_Codes[CALIBRATE_PH].id = ID_CODE_CALIBRATE_PH;
-	m_Codes[CALIBRATE_PH].sRAFunction = _T("ReefAngel.SetupCalibratePH();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
+	m_Codes[CALIBRATE_PH].sFunction = _T("ReefAngel.SetupCalibratePH();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[CALIBRATE_SALINITY].id = ID_CODE_CALIBRATE_SALINITY;
-	m_Codes[CALIBRATE_SALINITY].sRAFunction = _T("ReefAngel.SetupCalibrateSalinity();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
+	m_Codes[CALIBRATE_SALINITY].sFunction = _T("ReefAngel.SetupCalibrateSalinity();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[DATE_TIME].id = ID_CODE_DATE_TIME;
-	m_Codes[DATE_TIME].sRAFunction = _T("ReefAngel.SetupDateTime();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
+	m_Codes[DATE_TIME].sFunction = _T("ReefAngel.SetupDateTime();\r\nReefAngel.DisplayedMenu = ALT_SCREEN_MODE;\r\n");
 	m_Codes[LIGHTS_ON].id = ID_CODE_LIGHTS_ON;
-	m_Codes[LIGHTS_ON].sRAFunction = _T("\
+	m_Codes[LIGHTS_ON].sFunction = _T("\
 ReefAngel.Relay.RelayMaskOn = ReefAngel.LightsOnPorts;\r\n\
 #ifdef RelayExp\r\n\
 for ( byte i = 0; i < MAX_RELAY_EXPANSION_MODULES; i++ )\r\n\
@@ -63,7 +63,7 @@ for ( byte i = 0; i < MAX_RELAY_EXPANSION_MODULES; i++ )\r\n\
 ReefAngel.Relay.Write();\r\n\
 ");
 	m_Codes[LIGHTS_OFF].id = ID_CODE_LIGHTS_OFF;
-	m_Codes[LIGHTS_OFF].sRAFunction = _T("\
+	m_Codes[LIGHTS_OFF].sFunction = _T("\
 ReefAngel.Relay.RelayMaskOn = 0;\r\n\
 #ifdef RelayExp\r\n\
 for ( byte i = 0; i < MAX_RELAY_EXPANSION_MODULES; i++ )\r\n\
@@ -74,7 +74,7 @@ for ( byte i = 0; i < MAX_RELAY_EXPANSION_MODULES; i++ )\r\n\
 ReefAngel.Relay.Write();\r\n\
 ");
 	m_Codes[WATCHDOG].id = ID_CODE_WATCHDOG;
-	m_Codes[WATCHDOG].sRAFunction = _T("wdt_reset();\r\n");
+	m_Codes[WATCHDOG].sFunction = _T("wdt_reset();\r\n");
 }
 
 void CCustomMenu::GetMenuFunction(int index, CString &fun)
@@ -190,49 +190,49 @@ void CCustomMenu::LoadSimpleMenu()
 void CCustomMenu::AddSalinityItem(int i)
 {
 	m_Labels.SetAt(i, _T("Sal Calibration"));
-	m_Functions.SetAt(i, m_Codes[CALIBRATE_SALINITY].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[CALIBRATE_SALINITY].sFunction);
 }
 
 void CCustomMenu::AddDateTimeItem(int i)
 {
 	m_Labels.SetAt(i, _T("Date / Time"));
-	m_Functions.SetAt(i, m_Codes[DATE_TIME].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[DATE_TIME].sFunction);
 }
 
 void CCustomMenu::AddVersionItem(int i)
 {
 	m_Labels.SetAt(i, _T("Version"));
-	m_Functions.SetAt(i, m_Codes[DISPLAY_VERSION].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[DISPLAY_VERSION].sFunction);
 }
 
 void CCustomMenu::AddPHCalibrationItem(int i)
 {
 	m_Labels.SetAt(i, _T("PH Calibration"));
-	m_Functions.SetAt(i, m_Codes[CALIBRATE_PH].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[CALIBRATE_PH].sFunction);
 }
 
 void CCustomMenu::AddFeedingModeItem(int i)
 {
 	m_Labels.SetAt(i, _T("Feeding"));
-	m_Functions.SetAt(i, m_Codes[FEEDING_MODE].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[FEEDING_MODE].sFunction);
 }
 
 void CCustomMenu::AddWaterChangeModeItem(int i)
 {
 	m_Labels.SetAt(i, _T("Water Change"));
-	m_Functions.SetAt(i, m_Codes[WATER_CHANGE_MODE].sRAFunction);
+	m_Functions.SetAt(i, m_Codes[WATER_CHANGE_MODE].sFunction);
 }
 
 void CCustomMenu::AddATOClearItem(int i)
 {
 	m_Labels.SetAt(i, _T("ATO Clear"));
-	m_Functions.SetAt(i, m_Codes[ATO_CLEAR].sRAFunction + _T("ReefAngel.DisplayMenuEntry(\"Clear ATO Timeout\");"));
+	m_Functions.SetAt(i, m_Codes[ATO_CLEAR].sFunction + _T("ReefAngel.DisplayMenuEntry(\"Clear ATO Timeout\");"));
 }
 
 void CCustomMenu::AddOverheatClearItem(int i)
 {
 	m_Labels.SetAt(i, _T("Overheat Clear"));
-	m_Functions.SetAt(i, m_Codes[OVERHEAT_CLEAR].sRAFunction + _T("ReefAngel.DisplayMenuEntry(\"Clear Overheat\");"));
+	m_Functions.SetAt(i, m_Codes[OVERHEAT_CLEAR].sFunction + _T("ReefAngel.DisplayMenuEntry(\"Clear Overheat\");"));
 }
 
 void CCustomMenu::GetPresetFunctionCode(int id, CString &fun)
@@ -242,7 +242,7 @@ void CCustomMenu::GetPresetFunctionCode(int id, CString &fun)
 	{
 		if ( m_Codes[i].id == id )
 		{
-			fun = m_Codes[i].sRAFunction;
+			fun = m_Codes[i].sFunction;
 			break;
 		}
 	}

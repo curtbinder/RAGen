@@ -66,7 +66,7 @@ private:
 		// TODO add new preset codes above this line
 		MAX_FUNCTIONS
 	};
-	device m_Codes[MAX_FUNCTIONS];
+	item m_Codes[MAX_FUNCTIONS];
 	void FillFunctionCodes();
 
 	void GetMenuFunction(int index, CString &fun);

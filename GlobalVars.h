@@ -40,6 +40,11 @@ typedef struct _device {
 	CString sRAFunction;  //!< Function name only, no ReefAngel or parentheses
 } device;
 
+typedef struct _item {
+	int id;
+	CString sFunction;
+} item;
+
 typedef struct _memlocation {
 	CString sLabel;  //!< label of the location
 	CString sFunction;  //!< internal memory function
