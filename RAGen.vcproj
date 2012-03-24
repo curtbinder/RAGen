@@ -439,6 +439,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RAPWMPage.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\RARelayPage.cpp"
 				>
 			</File>
@@ -594,6 +598,10 @@
 			</File>
 			<File
 				RelativePath=".\RAInternalMemoryPage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RAPWMPage.h"
 				>
 			</File>
 			<File

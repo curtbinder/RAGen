@@ -20,7 +20,7 @@
 #include "Controller.h"
 #include "RACustomMenuPage.h"
 #include "RAInfoPage.h"
-
+//#include "RAPWMPage.h"
 
 // RATabSheet
 
@@ -45,9 +45,10 @@ void RATabSheet::Init()
 	m_pTabs[Controller] = new RAControllerPage;
 	m_pTabs[Features] = new RAFeaturesPage;
 	m_pTabs[MainRelay] = new RARelayPage;
+	//m_pTabs[PWM] = new RAPWMPage;
 	m_pTabs[CustomMenu] = new RACustomMenuPage;
 	m_pTabs[Standard] = new RAStdPage;
-	m_iNumTabs = 6;
+	m_iNumTabs = MAX_TABS;
 
 	CString s;
 	UINT menuID = IDR_MENU_RESET;
@@ -61,6 +62,8 @@ void RATabSheet::Init()
 		InsertItem(Features, s);
 		s.LoadStringA(IDS_MAIN_RELAY_TAB);
 		InsertItem(MainRelay, s);
+		//s.LoadStringA(IDS_PWM_TAB);
+		//InsertItem(PWM, s);
 		s.LoadStringA(IDS_CUSTOM_MENU_TAB);
 		InsertItem(CustomMenu, s);
 		//s.LoadStringA(IDS_COLORS_TAB);
@@ -71,6 +74,7 @@ void RATabSheet::Init()
 		m_pTabs[Controller]->Create(IDD_RACONTROLLER, this);
 		m_pTabs[Features]->Create(IDD_RAFEATURESPAGE, this);
 		m_pTabs[MainRelay]->Create(IDD_RARELAYPAGE, this);
+		//m_pTabs[PWM]->Create(IDD_PWMPAGE, this);
 		m_pTabs[CustomMenu]->Create(IDD_RACUSTOMMENU, this);
 		//m_pTabs[Colors]->Create(IDD_RACOLORSPAGE, this);
 
@@ -513,6 +517,7 @@ void RATabSheet::OnTcnSelchange(NMHDR *, LRESULT *pResult)
 			menuID = IDR_MENU_CONTROLLER_RESET;
 			GetParent()->GetDlgItem(IDC_BTN_GENERATE)->SetWindowText(_T("Generate"));
 			break;
+		//case PWM:
 		case Info:
 		case CustomMenu:
 			nShow = SW_HIDE;

@@ -366,6 +366,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 187
     END
+
+	IDD_RAPWMPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 360
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 187
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -855,6 +863,12 @@ BEGIN
     LTEXT           "Text",IDC_INFO_TITLE,7,7,348,180
 END
 
+IDD_RAPWMPAGE DIALOGEX 0, 0, 367, 194
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_APPWINDOW
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+END
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -972,6 +986,7 @@ BEGIN
     IDS_WAVEMAKER_PORTS     "Wavemakers are designed to be on Ports 5 or 6"
     IDS_CUSTOM_MENU_TAB     "Custom Menu"
     IDS_INFO_TAB            "Info"
+	IDS_PWM_TAB				"PWM"
     IDS_MEMORY_TITLE        "This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE / INO file.  Upload this file first, then upload your PDE / INO file.  Select the memory location and change the value.  Once you have set the values you want, click GENERATE."
 END
 

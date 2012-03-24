@@ -49,19 +49,21 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	int m_iNumTabs;
 	int m_iCurrentTab;
-	CDialog* m_pTabs[5];
-	BOOL m_fDevMode;
-
+	
 	enum Tabs {
 		Info,
 		Controller,
 		Features,
 		MainRelay,
+		//PWM,
 		CustomMenu,
 		//Colors,
 		Standard,
+		MAX_TABS	// must be last item
 	};
 
+	CDialog* m_pTabs[MAX_TABS];
+	BOOL m_fDevMode;
 public:
 	afx_msg void OnTcnSelchange(NMHDR *pNMHDR, LRESULT *pResult);
 };

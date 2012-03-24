@@ -9,6 +9,7 @@
 #define IDD_RAFEATURESPAGE              103
 #define IDD_RARELAYPAGE                 104
 #define IDD_RACOLORSPAGE                105
+#define IDD_RAPWMPAGE					106
 #define IDD_ABOUT                       107
 #define IDD_SETTINGS                    108
 #define IDD_RASTDPAGE                   109
@@ -60,6 +61,7 @@
 #define IDS_CUSTOM_MENU_TAB             163
 #define IDS_INFO_TAB                    164
 #define IDS_MEMORY_TITLE				165
+#define IDS_PWM_TAB						166
 #define IDC_INFO_TITLE                  201
 #define IDS_FEATURES_DISPLAYIMAGES      202
 #define IDS_FEATURES_SETUPEXTRAS        203
