@@ -29,6 +29,13 @@ enum _DevLibVersion {
 	FORCE_09X,
 };
 
+enum _PWMFunction {
+	SLOPE,
+	PARABOLA,
+	MOONPHASE,
+	BUZZER,
+};
+
 /*! Reef Angel device structure
  *
  * Contains the device ID (ID of the checkbox) and the ReefAngel function name
@@ -44,6 +51,19 @@ typedef struct _item {
 	int id;
 	CString sFunction;
 } item;
+
+typedef struct _pwm_item {
+	bool fCustom;
+	int iPWMFunction;
+	int iOnHour;
+	int iOnMinute;
+	int iOffHour;
+	int iOffMinute;
+	int iStart;
+	int iEnd;
+	int iDuration;
+	int iEndValue;
+} pwm_item;
 
 typedef struct _memlocation {
 	CString sLabel;  //!< label of the location
