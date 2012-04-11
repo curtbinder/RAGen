@@ -79,8 +79,8 @@ IDR_ICON_MAIN           ICON                    "res\\RAGen.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,2,171
- PRODUCTVERSION 1,2,2,171
+ FILEVERSION 1,2,3,172
+ PRODUCTVERSION 1,2,3,172
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -97,12 +97,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Generates settings and information for use with the ReefAngel controller."
             VALUE "FileDescription", "ReefAngel Generator Application"
-            VALUE "FileVersion", "1, 2, 2, 171"
+            VALUE "FileVersion", "1, 2, 3, 172"
             VALUE "InternalName", "RAGen.exe"
             VALUE "LegalCopyright", "(c) 2010-12 Curt Binder.  All rights reserved."
             VALUE "OriginalFilename", "RAGen.exe"
             VALUE "ProductName", "ReefAngel Generator"
-            VALUE "ProductVersion", "1, 2, 2, 171"
+            VALUE "ProductVersion", "1, 2, 3, 172"
             VALUE "SpecialBuild", "Static build"
         END
     END
@@ -367,7 +367,7 @@ BEGIN
         BOTTOMMARGIN, 187
     END
 
-	IDD_RAPWMPAGE, DIALOG
+    IDD_RAPWMPAGE, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 360
@@ -870,6 +870,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
 END
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog Info
@@ -986,8 +987,8 @@ BEGIN
     IDS_WAVEMAKER_PORTS     "Wavemakers are designed to be on Ports 5 or 6"
     IDS_CUSTOM_MENU_TAB     "Custom Menu"
     IDS_INFO_TAB            "Info"
-	IDS_PWM_TAB				"PWM"
     IDS_MEMORY_TITLE        "This screen allows you to set the Internal Memory values. You must generate and upload this file separately from your PDE / INO file.  Upload this file first, then upload your PDE / INO file.  Select the memory location and change the value.  Once you have set the values you want, click GENERATE."
+    IDS_PWM_TAB             "PWM"
 END
 
 STRINGTABLE 

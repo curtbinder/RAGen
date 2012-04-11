@@ -277,6 +277,8 @@ void RAInternalMemoryPage::ChangeControlRanges(int iLocation)
 			min = 0;
 			max = 9;
 			break;
+		case ATOTIMEOUT:
+		case ATOHIGHTIMEOUT:
 		case DP1REPEATINTERVAL:
 		case DP2REPEATINTERVAL:
 		case SALMAX:
