@@ -153,8 +153,9 @@ v1.2.2
 - Add in check for Custom Colors inclusion when generating Internal Memory file
 - Moved Portal() function to be last function above ShowInterface()
 - Added additional comments to generated code file
+- Ability to change the quantity of custom menu entries
+- Add in custom menu tab
 
 1.2.3
 -----
-- Ability to change the quantity of custom menu entries
-- Add in custom menu tab
+- Added in ATO Extended timeout memory locations
