@@ -170,6 +170,8 @@ void RAInternalMemoryPage::InitDefaultsArray()
 	m_Defaults[PWMSLOPESTART5] = DEFAULT_PWM_START_PERCENT;
 	m_Defaults[PWMSLOPEEND5] = DEFAULT_PWM_END_PERCENT;
 	m_Defaults[PWMSLOPEDURATION5] = DEFAULT_PWM_DURATION;
+	m_Defaults[ATOEXTENDEDTIMEOUT] = DEFAULT_ATO_LOW_TIMEOUT;
+	m_Defaults[ATOHIGHEXTENDEDTIMEOUT] = DEFAULT_ATO_HIGH_TIMEOUT;
 }
 
 void RAInternalMemoryPage::InitLocationBox()
@@ -277,8 +279,8 @@ void RAInternalMemoryPage::ChangeControlRanges(int iLocation)
 			min = 0;
 			max = 9;
 			break;
-		case ATOTIMEOUT:
-		case ATOHIGHTIMEOUT:
+		case ATOEXTENDEDTIMEOUT:
+		case ATOHIGHEXTENDEDTIMEOUT:
 		case DP1REPEATINTERVAL:
 		case DP2REPEATINTERVAL:
 		case SALMAX:
@@ -422,6 +424,8 @@ void RAInternalMemoryPage::LoadDefaults()
 	SetMemoryLocation(PWMSLOPESTART5, _T("PWM Slope Exp Ch 5 Start %"), _T("PWMSlopeStart5_write"), m_Defaults[PWMSLOPESTART5], FALSE);
 	SetMemoryLocation(PWMSLOPEEND5, _T("PWM Slope Exp Ch 5 End %"), _T("PWMSlopeEnd5_write"), m_Defaults[PWMSLOPEEND5], FALSE);
 	SetMemoryLocation(PWMSLOPEDURATION5, _T("PWM Slope Exp Ch 5 Duration"), _T("PWMSlopeDuration5_write"), m_Defaults[PWMSLOPEDURATION5], FALSE);
+	SetMemoryLocation(ATOEXTENDEDTIMEOUT, _T("ATO Extended Timeout"), _T("ATOExtendedTimeout_write"), m_Defaults[ATOEXTENDEDTIMEOUT], FALSE);
+	SetMemoryLocation(ATOHIGHEXTENDEDTIMEOUT, _T("ATO High Extended Timeout"), _T("ATOHighExtendedTimeout_write"), m_Defaults[ATOHIGHEXTENDEDTIMEOUT], FALSE);
 }
 
 void RAInternalMemoryPage::OnBnClickedBtnGenerate()
