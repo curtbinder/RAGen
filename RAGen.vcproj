@@ -395,6 +395,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Device.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DlgStatusBar.cpp"
 				>
 			</File>
@@ -550,6 +554,10 @@
 			</File>
 			<File
 				RelativePath=".\CustomMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Device.h"
 				>
 			</File>
 			<File

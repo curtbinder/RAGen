@@ -108,7 +108,7 @@ void RAFeaturesPage::InitTree()
 	m_tree.SetItemData(exp, (DWORD)a_Controller.Features.NONE);
 	hi = m_tree.InsertItem(_T("Expansion Relays"), exp);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.EXPANSION_MODULE);
-	hi = m_tree.InsertItem(_T("PWM"), exp);
+	hi = m_tree.InsertItem(_T("Dimming"), exp);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.PWM_EXPANSION);
 	hi = m_tree.InsertItem(_T("Salinity"), exp);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.SALINITY);
@@ -129,7 +129,7 @@ void RAFeaturesPage::InitTree()
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.DISPLAY_IMAGES);
 	hi = m_tree.InsertItem(_T("Version Menu"), screen);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.VERSION_MENU);
-	hi = m_tree.InsertItem(_T("Display LED PWM"), screen);
+	hi = m_tree.InsertItem(_T("Dimming Signal"), screen);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.DISPLAY_LED_PWM);
 	hi = m_tree.InsertItem(_T("Remove All Lights"), screen);
 	m_tree.SetItemData(hi, (DWORD)a_Controller.Features.REMOVE_ALL_LIGHTS);
